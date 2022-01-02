@@ -33,7 +33,8 @@ media
 
 # Distribution / packaging
 .Python
-build/
+
+pacoplays1190!
 develop-eggs/
 dist/
 downloads/
