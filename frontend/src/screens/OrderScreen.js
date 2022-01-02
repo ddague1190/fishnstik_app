@@ -71,7 +71,7 @@ function OrderScreen() {
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
                             <h2>Contact info</h2>
-                            <span><strong>Email:</strong><a href={`mailto:${order.user.email}`}>{ order.user.email}</a></span>
+                            <span><strong>Email:</strong><a>{order.user.email}</a></span>
                             <br/>
                             <span><strong>Phone</strong> { order.shippingAddress.phone}</span>
                             <br/>

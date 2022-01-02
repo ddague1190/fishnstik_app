@@ -10,6 +10,7 @@ from collections import OrderedDict
 import json
 from rest_framework import generics
 from rest_framework.views import APIView
+from pprint import pprint
  
 
 class OrderItemView(generics.CreateAPIView):
@@ -46,6 +47,7 @@ def getMyOrders(request):
 @permission_classes([IsAuthenticated])
 def getOrderById(request, pk):
     user = request.user
+    print(request.user)
 
     try: 
         order = Order.objects.get(_id=pk)
