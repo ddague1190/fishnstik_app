@@ -244,4 +244,4 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 
 if os.getcwd() == '/app':
-    DEBUG = True
+    DEBUG = False
