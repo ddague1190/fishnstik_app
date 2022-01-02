@@ -74,9 +74,6 @@ class ReviewView(generics.CreateAPIView):
             raise serializers.ValidationError({'detail': "Review cannot be 0."})
 
         serializer.save(user=request.user, product=Product.objects.get(_id=pk) )  
-        
-        product.rating = product.reviews.all().aggregate(Avg('rating'))['rating__avg']
-        product.save()
 
         return Response(status=status.HTTP_201_CREATED)
 

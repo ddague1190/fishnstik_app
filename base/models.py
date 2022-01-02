@@ -89,6 +89,7 @@ class Review(models.Model):
     def save(self, *args, **kwargs):
         super(Review, self).save(*args, **kwargs)
         product = Product.objects.get(pk = self.product.pk)
+        product.rating = product.reviews.all().aggregate(Avg('rating'))['rating__avg']
         product.numReviews = product.reviews.count()
         product.save()
 
