@@ -3,7 +3,7 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 
 
-const baseURL = 'http://127.0.0.1:3000'
+const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:3000"
 
 
 
