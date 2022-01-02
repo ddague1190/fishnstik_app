@@ -38,7 +38,9 @@ ALLOWED_HOSTS = [
     # 'https://b4fb-2601-587-400-a400-7dd5-45b3-7a78-f3d2.ngrok.io',
     '127.0.0.1',
     'localhost',
-    'https://fishnstik.herokuapp.com'
+    'https://fishnstik.herokuapp.com',
+    'fishnstik.herokuapp.com'
+
 ]
 
 
@@ -242,4 +244,4 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 
 if os.getcwd() == '/app':
-    DEBUG = False
+    DEBUG = True
