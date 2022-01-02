@@ -66,11 +66,17 @@ class ReviewView(generics.CreateAPIView):
             raise serializers.ValidationError({'detail': "You must be a verfied buyer to leave a review."})
         if self.already_exists(user, product):
             raise serializers.ValidationError({"detail": "Product already reviewed."})
+        
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         
         if serializer.validated_data['rating'] == 0:
             raise serializers.ValidationError({'detail': "Review cannot be 0."})
+
         serializer.save(user=request.user, product=Product.objects.get(_id=pk) )  
+        
+        product.rating = product.reviews.all().aggregate(Avg('rating'))['rating__avg']
+        product.save()
+
         return Response(status=status.HTTP_201_CREATED)
 

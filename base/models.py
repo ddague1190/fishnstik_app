@@ -50,7 +50,6 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.rating = self.reviews.all().aggregate(Avg('rating'))['rating__avg']
         self.numVariants = self.variants.all().count()    
         super(Product, self).save(*args, **kwargs)
 
@@ -88,11 +87,10 @@ class Review(models.Model):
         return str(self.rating)
     
     def save(self, *args, **kwargs):
-        product = Product.objects.get(pk = self.product.pk)
-        product.numReviews = product.reviews.all().count() + 1
-        product.rating = product.reviews.all().aggregate(Avg('rating'))['rating__avg']
-        product.save()
         super(Review, self).save(*args, **kwargs)
+        product = Product.objects.get(pk = self.product.pk)
+        product.numReviews = product.reviews.count()
+        product.save()
 
 class OrderManager(models.Manager):
     def create(self, **obj_data):        
