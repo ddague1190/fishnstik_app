@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-from dotenv import dotenv_values
 
-#Environmental variables
-config = dotenv_values(".env")
+if not os.environ.get("PRODUCTION"):
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config['SECRET_KEY']
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,7 +79,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': config['SIGNING_KEY'],
+    'SIGNING_KEY': os.getenv('SIGNING_KEY'),
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
@@ -151,8 +154,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'fishnstik',
         'USER': 'fns_admin',
-        'PASSWORD': config['POSTGRES_PASS'],
-        'HOST': config['DATABASE_ENDPOINT'],
+        'PASSWORD': os.getenv('POSTGRES_PASS'),
+        'HOST': os.getenv('DATABASE_ENDPOINT'),
         'PORT': '5432'
     }   
 }
@@ -221,9 +224,9 @@ CACHES = {
     }
 }
 
-PAYPAL_CLIENT_ID = config["PAYPAL_CLIENT_ID"]
-PAYPAL_CLIENT_SECRET = config["PAYPAL_CLIENT_SECRET"]
-PAYPAL_WEBHOOK_ID = config["PAYPAL_WEBHOOK_ID"]
+PAYPAL_CLIENT_ID = os.getenv("PAYPAL_CLIENT_ID")
+PAYPAL_CLIENT_SECRET = os.getenv("PAYPAL_CLIENT_SECRET")
+PAYPAL_WEBHOOK_ID = os.getenv("PAYPAL_WEBHOOK_ID")
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -232,9 +235,9 @@ AWS_QUERYSTRING_AUTH=False
 
 AWS_STORAGE_BUCKET_NAME='fishnstik-pictures'
 
-AWS_ACCESS_KEY_ID = config['AWS_ACCESS_KEY_ID']
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 
-AWS_SECRET_ACCESS_KEY = config['AWS_SECRET_ACCESS_KEY']
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 
 

@@ -4,8 +4,10 @@ from django.db.models import Avg
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from base.utils.sendOrderEmail import sendOrderEmail
-from dotenv import dotenv_values
-config = dotenv_values(".env")
+from dotenv import load_dotenv
+import os
+if not os.environ.get("PRODUCTION"):
+    load_dotenv()
 
 DISCOUNT_TIERS = (
     ('regular', 'Regular'),
@@ -132,7 +134,7 @@ class Order(models.Model):
     def save(self, *args, **kwargs): 
         super(Order, self).save(*args, **kwargs)
         if self.paymentVerified:
-            sendOrderEmail(self.user.email, config['MAIN_EMAIL'], self._id)
+            sendOrderEmail(self.user.email, os.getenv('MAIN_EMAIL'), self._id)
 
 
 class OrderItem(models.Model):
