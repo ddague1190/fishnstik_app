@@ -220,7 +220,7 @@ function ProductScreen() {
                                                     <Image onClick={()=> handleShowVariants(index)} className='thumbsize zindex' src={variant.image} alt={variant.name} thumbnail></Image>
                                                     <Modal show={showModalVariants[index]} onHide={handleCloseVariants}>
                                                         <Modal.Body>
-                                                            <Image src={product.image} alt={product.name} fluid className='modalImage fullsize'>
+                                                            <Image src={variant.image} alt={variant.description} fluid className='modalImage fullsize'>
                                                             </Image>                                
                                                         </Modal.Body>
                                                         <Modal.Footer>
