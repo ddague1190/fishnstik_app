@@ -20,6 +20,7 @@ class ExtraUserInfo(models.Model):
     isAuthenticated = models.BooleanField(default = False)
     OTP = models.IntegerField(null=True, blank=True)
     OTP_createdAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    taxExempt = models.BooleanField(default = False)
 
     def __str__(self):
         return self.user.username
@@ -185,6 +186,7 @@ def returnToStock(sender, instance, **kwargs):
 class ShippingAddress(models.Model):
     order = models.OneToOneField(
         Order, on_delete=models.CASCADE, null=True, blank=True, related_name='shippingAddress')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     name= models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     apartment = models.CharField(max_length=200, null=True, blank=True)

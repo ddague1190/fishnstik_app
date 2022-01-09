@@ -18,7 +18,6 @@ class OTPTokenObtainSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
 
-        # data['username'] = self.user.username
         if self.user.extra.OTP == int(attrs['OTP']):
             self.user.extra.isAuthenticated = True
             self.user.save()
@@ -35,7 +34,6 @@ class MyTokenObtainSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         # refresh = self.get_token(self.user)
-        # data['username'] = self.user.username
         if not self.user.extra.isAuthenticated:
             self.email_validation()
             raise serializers.ValidationError({'detail': 'We were not able to verify your email. When you registered. We sent another OTP to your email, please enter it below...'})

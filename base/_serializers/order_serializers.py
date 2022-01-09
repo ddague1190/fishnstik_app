@@ -90,12 +90,14 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         # Calculate pricing
         new_order.itemsPrice = new_order.orderItems.all().aggregate(Sum('subTotal'))['subTotal__sum']
         new_order.taxPrice = int(new_order.itemsPrice) * 0.06
+        if user.extra.taxExempt:
+            new_order.taxPrice = 0
         new_order.shippingPrice = 0 if new_order.itemsPrice > 100 else 10
         new_order.totalPrice = float(new_order.itemsPrice) + float(new_order.taxPrice) + float(new_order.shippingPrice)
         new_order.save()
         
         # Create shipping address
-        ShippingAddress.objects.create(order=new_order, **temp_shippingAddress)
+        ShippingAddress.objects.create(order=new_order, user=user, **temp_shippingAddress)
 
 
         return new_order            
