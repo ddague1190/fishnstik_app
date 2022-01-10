@@ -151,4 +151,39 @@ h3 {
   display: flex;
   gap: 3px;
   justify-content: center;
+  align-items: center;
+}
+
+.gap3 {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.address-box {
+  list-style: none;
+  width: max-content;
+  border: 1px solid rgba(51, 51, 51, 0.107);
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.address-box-index {
+  position: absolute;
+  left: -30px;
+  top: 50%;
+}
+
+.address-box-highlight {
+  background-color: #efefff;
+  border: 5px solid black;
+}
+
+.extrabox {
+  cursor: pointer;
+  width: max-content;
+  background-color: #efefff;
+  text-align: center;
 }

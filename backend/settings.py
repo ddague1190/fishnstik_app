@@ -40,7 +40,6 @@ ALLOWED_HOSTS = [
     'localhost',
     'https://fishnstik.herokuapp.com',
     'fishnstik.herokuapp.com'
-
 ]
 
 
@@ -212,14 +211,13 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = BASE_DIR / 'static/images'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
+    'https://www.fishnstik.herokuapp.com',
     'https://fishnstik.herokuapp.com',
-    'http://127.0.0.1:8000',
-    'http://127.0.0.1:3000'
-
+    'http://127.0.0.1',
 ]
+
 
 CACHES = {
     'default': {

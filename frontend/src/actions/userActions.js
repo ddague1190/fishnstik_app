@@ -21,6 +21,10 @@ import {
     USER_UPDATE_PROFILE_REQUEST,
     USER_UPDATE_PROFILE_SUCCESS,
     USER_UPDATE_PROFILE_FAIL,
+
+    GET_USER_ADDRESSES_REQUEST,
+    GET_USER_ADDRESSES_SUCCESS,
+    GET_USER_ADDRESSES_FAIL,
  } from '../constants/userConstants'
  import { ORDER_LIST_MY_RESET, ORDER_DETAILS_RESET, ORDER_CREATE_RESET } from '../constants/orderConstants'
 
@@ -256,6 +260,34 @@ export const loginWithOTP = (OTP, username, password) => async (dispatch) => {
     } catch (error) {
        dispatch({
            type: USER_LOGIN_FAIL,
+           payload: error.response && error.response.data.detail 
+           ? error.response.data.detail
+           : error.message,
+       })
+    };
+}
+
+export const getSavedAddresses = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: GET_USER_ADDRESSES_REQUEST
+         }
+         )
+       const config = {
+           headers: {
+               'Content-type': 'application/json'
+           }
+       }
+       const {data} = await axiosInstance.get('/api/users/address/');
+
+        dispatch({
+               type: GET_USER_ADDRESSES_SUCCESS,
+               payload: data
+           })
+
+    } catch (error) {
+       dispatch({
+           type: GET_USER_ADDRESSES_FAIL,
            payload: error.response && error.response.data.detail 
            ? error.response.data.detail
            : error.message,

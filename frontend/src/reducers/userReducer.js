@@ -23,6 +23,9 @@ import {
     USER_UPDATE_PROFILE_FAIL,
     USER_UPDATE_PROFILE_RESET,
 
+    GET_USER_ADDRESSES_REQUEST,
+    GET_USER_ADDRESSES_SUCCESS,
+    GET_USER_ADDRESSES_FAIL
 
  } from '../constants/userConstants'
 
@@ -106,6 +109,25 @@ export const userUpdateProfileReducer = (state = { }, action) => {
         case USER_UPDATE_PROFILE_RESET:
             return {}
 
+        default:
+            return state
+    }
+}
+
+const parseAddress = addresses => {
+    return (
+        JSON.parse(addresses).map(el=>el.fields)
+    )
+}
+
+export const getSavedAddressesReducer = (state = [], action) => {
+    switch(action.type) {
+        case GET_USER_ADDRESSES_REQUEST:
+            return {loading: true}
+        case GET_USER_ADDRESSES_SUCCESS:
+            return {loading: false, success: true, addresses: parseAddress(action.payload)}
+        case GET_USER_ADDRESSES_FAIL:
+            return {loading: false, error: action.payload}
         default:
             return state
     }

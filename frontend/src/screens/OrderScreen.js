@@ -71,20 +71,20 @@ function OrderScreen() {
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
                             <h2>Contact info</h2>
-                            <span><strong>Email:</strong><a>{order.user.email}</a></span>
+                            <span><strong>Email:</strong><a>{order?.user.email}</a></span>
                             <br/>
-                            <span><strong>Phone</strong> { order.shippingAddress.phone}</span>
+                            <span><strong>Phone</strong> { order?.shippingAddress.phone}</span>
                             <br/>
                             <br/>
                             <p><strong>Shipping address for this order:</strong></p>
                             <ul className='list'>
-                                <li>{ order.shippingAddress.name}</li>
-                                <li>{order.shippingAddress.address}</li>
-                                {order.shippingAddress.apartment ? <li>{order.shippingAddress.apartment}</li> : ''} 
-                                <li>{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}</li>
+                                <li>{ order?.shippingAddress.name}</li>
+                                <li>{order?.shippingAddress.address}</li>
+                                {order?.shippingAddress.apartment ? <li>{order?.shippingAddress.apartment}</li> : ''} 
+                                <li>{order?.shippingAddress.city}, {order?.shippingAddress.state} {order?.shippingAddress.postalCode}</li>
                             </ul>
 
-                            {order.isDelivered ? (
+                            {order?.isDelivered ? (
                                 <Message variant='success'>Delivered on {order.deliveredAt}</Message>
                             ) : order.trackingNumber ? (
                                 <Message variant='info'>{order.shippingService} {order.trackingNumber}</Message>

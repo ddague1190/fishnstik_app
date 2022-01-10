@@ -102,6 +102,4 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
         return new_order            
         
-
-    
  

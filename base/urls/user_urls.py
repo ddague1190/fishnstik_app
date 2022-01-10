@@ -10,4 +10,5 @@ urlpatterns = [
     path('profile/', views.getUserProfile, name='users-profile'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('profile/update/', views.ChangePasswordView.as_view(), name='user-profile-update'),
+    path('address/', views.getShippingAddress, name='users-address')
 ]

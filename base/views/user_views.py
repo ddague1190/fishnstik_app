@@ -2,9 +2,9 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
-from base.models import Product, ExtraUserInfo
+from base.models import Product, ExtraUserInfo, ShippingAddress
 from django.contrib.auth.models import User
-from base._serializers import product_serializers, user_serializers
+from base._serializers import product_serializers, user_serializers, order_serializers
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -15,6 +15,8 @@ from django.utils.decorators import method_decorator
 from ratelimit.decorators import ratelimit
 from base.utils.sendEmail import sendOTP
 from datetime import datetime
+from pprint import pprint
+from django.core import serializers
 
 class WithOTPTokenObtainPairView(TokenObtainPairView):
     serializer_class = user_serializers.OTPTokenObtainSerializer
@@ -124,6 +126,15 @@ def getUserProfile(request):
     serializer = user_serializers.UserSerializer(user, many=False)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getShippingAddress(request):
+    user = request.user
+    qs = ShippingAddress.objects.filter(user=user)
+    if len(qs) == 0:
+        return Response({'detail': 'No addresses on file'}, status=status.HTTP_400_BAD_REQUEST)
+    data = serializers.serialize('json', qs, fields=('name', 'address','apartment', 'city', 'postalCode', 'state', 'phone'))
+    return Response(data)
 
 class ChangePasswordView(generics.UpdateAPIView):
     queryset = User.objects.all()
