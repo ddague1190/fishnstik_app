@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
     #  'b4fb-2601-587-400-a400-7dd5-45b3-7a78-f3d2.ngrok.io',
     # 'https://b4fb-2601-587-400-a400-7dd5-45b3-7a78-f3d2.ngrok.io',
     '127.0.0.1',
+    'http://127.0.0.1',
     'localhost',
     'https://fishnstik.herokuapp.com',
     'fishnstik.herokuapp.com'
@@ -210,7 +211,6 @@ STATICFILES_DIRS = [
 # Upload images here
 MEDIA_ROOT = BASE_DIR / 'static/images'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 
 CORS_ALLOWED_ORIGINS = [
     'https://www.fishnstik.herokuapp.com',

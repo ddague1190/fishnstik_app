@@ -1,19 +1,20 @@
-import { Container } from 'react-bootstrap'
-import { HashRouter as Router, Route, Routes} from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import HomeScreen from './screens/HomeScreen'
-import ProductScreen from './screens/ProductScreen'
-import CartScreen from './screens/CartScreen'
-import LoginScreen from './screens/LoginScreen'
-import RegisterScreen from './screens/RegisterScreen'
-import ProfileScreen from './screens/ProfileScreen'
-import ShippingScreen from './screens/ShippingScreen'
-import PaymentScreen from './screens/PaymentScreen'
-import PlaceOrderScreen from './screens/PlaceOrderScreen'
-import OrderScreen from './screens/OrderScreen'
-import AboutUsScreen from './screens/AboutUsScreen'
-
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import Logo from './components/logo/logo.component';
+import Header from './components/header/header.component';
+import Footer from './components/footer/footer.component';
+import HomeScreen from './screens/homescreen/homescreen.component';
+import ProductScreen from './screens/productscreen/productscreen.component';
+import CartScreen from './screens/cartscreen/cartscreen.component';
+import LoginScreen from './screens/loginscreen/loginscreen.component';
+import RegisterScreen from './screens/registerscreen/registerscreen.component';
+import ProfileScreen from './screens/profilescreen/profilescreen.component';
+import ShippingScreen from './screens/shippingscreen/shippingscreen.component';
+import PaymentScreen from './screens/paymentscreen/paymentscreen.component';
+import PlaceOrderScreen from './screens/placeorderscreen/placeorderscreen.component';
+import OrderScreen from './screens/orderscreen/orderscreen.component';
+import AboutUsScreen from './screens/aboutusscreen/aboutusscreen.component';
+import ProductList from './components/productlist/productlist.component';
+import OtherPage from './components/otherpage/otherpage.component';
 
 
 
@@ -22,14 +23,14 @@ import AboutUsScreen from './screens/AboutUsScreen'
 function App() {
 
   
-
   return (
-    <Router>
+    <BrowserRouter basename='/'>
       <Header />
-      <main className="py-1 width">
-        <Container>
+        <main className='main'>
           <Routes>
-            <Route path='/' element={<HomeScreen />} />
+            <Route exact path='/' element={<HomeScreen/>} />
+            <Route path='/products' element={<ProductList />} />
+            <Route path='/other' element={<OtherPage />} />
             <Route path='/aboutus' element={<AboutUsScreen />} />
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
@@ -41,13 +42,10 @@ function App() {
             <Route path='/product/:id' element={<ProductScreen />} />
             <Route path='/cart/:id' element={<CartScreen />} />
             <Route path='/cart/' element={<CartScreen />} />
-
-
           </Routes>
-        </Container>
-      </main>
+        </main>
       <Footer />
-    </Router>
+    </BrowserRouter>
   );
 }
 

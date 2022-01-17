@@ -1,0 +1,14 @@
+.searchbox {
+  display: inline-flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem;
+  &__input {
+  }
+  &__button {
+    padding: 1rem;
+    border: none;
+    background-color: #e5e5e5;
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  }
+}

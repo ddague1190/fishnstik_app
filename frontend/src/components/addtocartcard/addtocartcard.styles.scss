@@ -1,0 +1,14 @@
+.addtocartcard {
+  margin: 1rem;
+  background-color: blue;
+
+  &__price,
+  &__status,
+  &__form {
+    & span {
+      width: 10rem;
+    }
+    padding: 1rem;
+    display: flex;
+  }
+}

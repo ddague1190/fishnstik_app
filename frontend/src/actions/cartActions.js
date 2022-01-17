@@ -7,20 +7,12 @@ import {
 } from '../constants/cartConstants'
 
 
-
-
-
 export const addToCart = (id, variantId, qty) => async (dispatch, getState) => {
-
     const {data} = await axios.get(`/api/products/${id}`);
-    
- 
-    // Find index of correct variant within product.variants list
 
+    //
     let index = data.variants.findIndex( el => el['_id'] === variantId)
     
-
-
     dispatch({
         type: CART_ADD_ITEM,
         payload: {

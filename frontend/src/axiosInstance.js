@@ -3,8 +3,8 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 
 
-let baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:3000"
-
+let baseURL = process.env.REACT_APP_BASE_URL 
+// baseURL = "http://localhost:3000"
 
 const axiosInstance = axios.create({
     baseURL,

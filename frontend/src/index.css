@@ -1,189 +1,31 @@
+* {
+  box-sizing: border-box;
+  font-family: "Nunito Sans";
+}
+
 main {
   min-height: 80vh;
+  width: 100vw;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 html {
   width: 100%;
 }
-.product-links {
+
+body {
+}
+
+input {
+  padding: 0.8rem;
+  margin: 10px 0;
+  border: 0;
+  border-bottom: 1px solid #333;
+  border-radius: 1px;
+}
+
+a {
   text-decoration: none;
-}
-
-.rating span {
-  margin: 0.1rem;
-}
-
-h1 {
-  font-size: 1.8rem;
-  padding: 1rem 0;
-}
-
-h2 {
-  font-size: 1.4rem;
-  padding: 0.5rem 0;
-}
-
-h3 {
-  padding: 1rem 0;
-}
-
-.thumbsize {
-  width: 100px;
-  height: 100px;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.light {
-  color: lighten(10%);
-  font-size: 0.8rem;
-}
-
-.productImage {
-  width: 200px;
-  height: 200px;
-}
-
-.flex {
-  display: flex;
-}
-
-.wrap {
-  flex-wrap: wrap;
-}
-
-.list {
-  list-style-type: none;
-}
-
-.width {
-  width: 100vw;
-}
-
-.hidden {
-  overflow: hidden;
-}
-
-.margin {
-  margin: 0;
-  padding: 0;
-}
-
-.gap {
-  gap: 3rem;
-}
-
-.fullsize {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  display: block;
-}
-
-.objectfit {
-  width: 180px;
-  height: 180px;
-  overflow: hidden;
-  /* display: flex; */
-}
-
-.objectfitsmall {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  display: flex;
-}
-
-.max-content {
-  max-width: max-content;
-}
-
-.align {
-  align-items: center;
-}
-
-.center {
-  text-align: center;
-  margin-left: 5rem;
-  justify-content: center;
-}
-
-.italic {
-  display: flex;
-  font-weight: 100;
-  color: #333;
-}
-
-.modalImage {
-  width: 70%;
-  object-fit: cover;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-}
-
-.zindex {
-  z-index: 100;
-}
-
-.left {
-  margin-left: 1.5rem;
-}
-
-.right {
-  text-align: right;
-  margin-right: 1.5rem;
-}
-
-.marked {
-  color: #e5e5e5;
-  background-color: #333;
-}
-
-.green {
-  color: rgb(161, 233, 103);
-}
-
-.gap2 {
-  display: flex;
-  gap: 3px;
-  justify-content: center;
-  align-items: center;
-}
-
-.gap3 {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-}
-
-.address-box {
-  list-style: none;
-  width: max-content;
-  border: 1px solid rgba(51, 51, 51, 0.107);
-  padding: 1rem;
-  cursor: pointer;
-  position: relative;
-}
-
-.address-box-index {
-  position: absolute;
-  left: -30px;
-  top: 50%;
-}
-
-.address-box-highlight {
-  background-color: #efefff;
-  border: 5px solid black;
-}
-
-.extrabox {
-  cursor: pointer;
-  width: max-content;
-  background-color: #efefff;
-  text-align: center;
+  color: black;
 }

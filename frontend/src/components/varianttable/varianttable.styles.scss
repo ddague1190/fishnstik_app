@@ -1,0 +1,13 @@
+.varianttable {
+  margin: 1rem;
+  width: 90%;
+  overflow: hidden;
+  &__header {
+    font-size: 3rem;
+  }
+}
+
+.marked {
+  color: white;
+  background-color: grey;
+}

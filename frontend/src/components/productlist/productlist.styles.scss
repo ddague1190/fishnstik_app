@@ -1,0 +1,13 @@
+.productlist {
+  position: relative;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 1rem;
+
+  &__cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

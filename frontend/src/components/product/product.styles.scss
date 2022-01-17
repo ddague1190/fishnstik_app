@@ -1,0 +1,27 @@
+.productcard {
+  display: block;
+  height: 270px;
+  width: 200px;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 4px;
+  color: black;
+  transition: 1s all;
+
+  &__name {
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+svg {
+  width: 100%;
+}
