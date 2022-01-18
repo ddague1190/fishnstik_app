@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Modal, Image, Button, Card} from 'react-bootstrap';
+import {Modal, Image, Button} from 'react-bootstrap';
 import './figure.styles.scss';
 
 

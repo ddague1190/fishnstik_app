@@ -4,7 +4,7 @@ const Logo = () => (
      
 <div className='logopanel'>
     <div className='logopanel--logo'>
-        <img src={require('../../images/descriptlogo.png')} />
+        <img src='' />
     </div>
     <div className='logopanel--description'>
         <p>wholesale tackle</p>

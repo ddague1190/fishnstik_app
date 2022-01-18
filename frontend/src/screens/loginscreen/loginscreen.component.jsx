@@ -59,7 +59,6 @@ function LoginScreen() {
 {!needOTP ? (
         <FormContainer>
             <h1>Sign In</h1>
-            {error && <Message variant='danger'>{error}</Message>}
 
    
             <Form onSubmit={submitHandler}>

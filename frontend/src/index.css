@@ -5,16 +5,16 @@
 
 main {
   min-height: 80vh;
-  width: 100vw;
   max-width: 1300px;
   margin: 0 auto;
 }
 
 html {
-  width: 100%;
+  /* background-color: red; */
 }
 
 body {
+  padding: 0;
 }
 
 input {

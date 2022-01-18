@@ -5,8 +5,9 @@ import { logout } from '../../actions/userActions';
 import SearchBox from '../searchBox/searchBox.component';
 import { useNavigate } from 'react-router-dom';
 import './header.styles.scss';
-import { NavBarElement, LinkElement } from '../navBarElement/navBarElement.component';
-import OtherPage from '../otherpage/otherpage.component';
+import { NavBarElement, LinkElement, NavBarElement2 } from '../navBarElement/navBarElement.component';
+import CategoriesList from '../otherpage/otherpage.component';
+import OtherProducts from '../otherproducts/otherproducts.component';
 
 
 const Header = () => {
@@ -17,7 +18,7 @@ const Header = () => {
             'title': 'Snaps'
         },
         {
-            'keyword': 'Swivel',
+            'keyword': 'swivel',
             'title': 'Swivels'
         },
         {
@@ -36,18 +37,17 @@ const Header = () => {
 
     let navigate = useNavigate();
     let {search} = useLocation();
-    const [showOtherProductsNav, setShowOtherProductsNav] = useState(false)
+
     const [hideSearchBox, setHideSearchBox] = useState(true);
+    const [keyword, setKeyword] = useState('');
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
+
+    const onNavClick = (keyword) => {
+        setKeyword(keyword);
+        navigate(`products/?keyword=${keyword}`)
+    }
     
-    useEffect(()=> {
-        if(showOtherProductsNav) {
-            setTimeout(()=>setShowOtherProductsNav(false), 8000);
-        }
-    }, [showOtherProductsNav])
-
-
     const dispatch = useDispatch();
 
     const logoutHandler = () => {
@@ -57,48 +57,46 @@ const Header = () => {
 
     return (
         <header className='header'>
-                <div className='header__promo'>
-                        Experts available by phone | Enjoy Free Expedited Shipping On All Orders Over $100
-                </div>
 
 
                 <div className='header__userpanel'>
-                            <NavBarElement to='/'>
-                                Home
-                            </NavBarElement>
+                    <img onClick={()=>navigate('/')} className='header__userpanel--logo' src={'https://fishnstik-pictures.s3.amazonaws.com/FishNStik.png'} alt='company_logo' />
+
                     {userInfo ? (
                         <div className='header__userpanel--1'>
-                            <NavBarElement to='/profile'>
+                            <NavBarElement2 to='/profile'>
                                 Profile
-                            </NavBarElement>
-                            <LinkElement  to='/' onClick={logoutHandler}>
-                                Logout
-                            </LinkElement>
+                            </NavBarElement2>
+                            <div  className='navBarElement2' to='/' onClick={logoutHandler}>
+                            <i class="fas fa-sign-out-alt"></i>
+                            </div>
                         </div>) : (
-                            <NavBarElement className='header__userpane--2' to='/login'>
-                                <i className="fas fa-user"></i>Login
-                            </NavBarElement>)
+                        <div className='header__userpanel--2' >
+                            <NavBarElement2 to='/login'>
+                                <i className="fas fa-user"></i>
+                            </NavBarElement2>
+                        </div>)
                     }
             </div>
             <nav className='header__nav'>
-                <LinkElement to='products/' >All</LinkElement>
+                <LinkElement to='products/'>All</LinkElement>
 
                 {categories.map(({keyword, title}, index) => (
-                    <LinkElement
-                        to={`products/?keyword=${keyword}`} 
-                        key={keyword}
+                    <div
+                        className={`navBarElement ${search.includes(keyword) ? 'active' : ''}`}
+                        onClick={()=>onNavClick(keyword)}
                     >
                         {title}
-                    </LinkElement>
+                    </div>
                 ))}
-                <button onClick={()=>setShowOtherProductsNav(!showOtherProductsNav)} className={`header__nav--otherproducts ${showOtherProductsNav ? 'active' : ''}`}>Other Products</button>
+                    <OtherProducts />
 
-                <div className='header__nav--search'>
-                    <i onClick={() => setHideSearchBox(!hideSearchBox)} className="fas fa-search"></i> 
-                    {!hideSearchBox && <SearchBox/>}
-                </div>
+                    <div className='header__nav--search'>
+                        <i onClick={() => setHideSearchBox(!hideSearchBox)} className="fas fa-search"></i> 
+                        {!hideSearchBox && <SearchBox/>}
+                    </div>
 
-                {showOtherProductsNav && <OtherPage />}
+                {keyword && <CategoriesList category={keyword} /> }
             </nav>
 
 

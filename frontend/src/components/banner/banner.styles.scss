@@ -1,83 +1,172 @@
 .banner {
   position: relative;
+  overflow: hidden;
 
-  &__brands {
-    margin: 2rem;
-    background-image: url("../../images/fish.jpg");
+  &__hero {
+    display: block;
+    width: 100%;
+    background: url(https://fishnstik-pictures.s3.amazonaws.com/fish.jpg);
+    background-attachment: fixed;
     background-position: 18% 55%;
     background-size: 200vw;
     height: 30vw;
     min-height: 300px;
     position: relative;
+    overflow: hidden;
 
-    &--catchphrase {
-      font-family: "Rubik Mono One";
-      font-size: 1.1rem;
-      text-align: center;
-      width: 100%;
+    & > header {
       position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      mix-blend-mode: difference;
-    }
-    &--blackbox {
-      background: linear-gradient(0deg, black, black 50%, white);
+      bottom: 0;
+      left: 0;
       width: 100%;
-      display: flex;
-      height: 30px;
-      justify-content: right;
+      padding: 20px 10px;
+      background: inherit;
+      background-attachment: fixed;
+      overflow: hidden;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.25);
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -20px;
+        left: 0%;
+        background: inherit;
+        background-attachment: fixed;
+        -webkit-filter: blur(4px);
+        filter: blur(4px);
+        overflow: hidden;
+      }
+      & > h1 {
+        margin: 0;
+        text-transform: none;
+        padding: 1rem;
+        // font-family: "Rubik Mono One";
+        color: white;
+        position: relative;
+        z-index: 1;
+      }
     }
   }
 
   &__companylogos {
+    background: url(https://fishnstik-pictures.s3.amazonaws.com/fish.jpg);
+    background-size: 100%;
+    background-position: 20%, 20%;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-    position: absolute;
-    top: 29vw;
-    border-radius: 10px;
-    left: 50%;
-    background-color: white;
-    transform: translateX(-50%);
-    & img {
-      display: inline-block;
-      width: 100px;
-    }
-  }
-
-  &__advise,
-  &__manufacturing {
-    display: flex;
-    justify-content: center;
-    height: 400px;
-    flex-direction: column;
+    gap: 4rem;
     align-items: center;
-  }
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    position: relative;
+    z-index: -3;
+    padding: 2rem;
+    width: 70%;
 
-  &__manufacturing {
-    background-image: url("../../images/outside.png");
-    background-repeat: no-repeat;
-    border-radius: 5px;
-    margin: 1rem;
-    background-position: 50% 50%;
-    object-fit: cover;
-
-    &--worldclass {
-      text-align: center;
-      color: black;
+    &::after {
+      content: "";
+      background: inherit;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.55);
+      top: 50%;
+      left: 50%;
       display: block;
-      font-family: "Rubik Mono One";
-      font-size: 1.5rem;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      transform: translate(-50%, -50%);
+    }
+    &::before {
+      content: "";
+      background: inherit;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: 100%;
+      height: 100%;
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+      z-index: -2;
+      transform: translate(-25%, -50%);
     }
 
-    &--flag {
+    &--images {
+      display: flex;
+      flex-wrap: wrap;
+      width: 220px;
+      position: relative;
+
       & img {
         display: block;
+        width: 100px;
+        z-index: 10;
+      }
+    }
+    &--description > h1,
+    h4 {
+      text-align: center;
+      width: 300px;
+      // color: rgb(63, 111, 216);
+      color: white;
+    }
+  }
+  &__cards {
+    margin-top: 4rem;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &--advise,
+    &--manufacturing {
+      margin: 1rem;
+      border: 5px;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      gap: 2rem;
+      position: relative;
+      background: transparent;
+
+      &::after {
+        content: "";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) skew(20deg);
+        position: absolute;
         width: 100%;
         height: 100%;
+        background-color: rgba(63, 111, 216, 0.1);
+        z-index: -5;
       }
+      & img {
+        display: block;
+        width: 300px;
+        box-shadow: 1px 0 20px 1px rgba(black, 0.3);
+      }
+
+      & h3 {
+        width: 25rem;
+        color: white;
+      }
+    }
+    &--manufacturing {
+      align-self: flex-end;
     }
   }
 }

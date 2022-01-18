@@ -12,8 +12,14 @@ export const NavBarElement = ({to, ...props}) => {
 export const LinkElement = ({to, ...props}) => {
 
     const {search} = useLocation();
-    const isMatch = search.includes('?') && to.includes(search);
+    const isMatch = search.includes('?') && to.includes(search)
     return (
     <Link key={to} to={to} className={`navBarElement ${isMatch ? 'active' : ''} `}>{props.children}</Link>
     )
 };
+
+export const NavBarElement2 = ({to, ...props}) => {
+    return (
+        <NavLink key={to} to={to} className='navBarElement2'>{props.children}</NavLink>
+    )
+}

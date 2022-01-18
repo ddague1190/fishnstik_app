@@ -1,38 +1,37 @@
 .header {
   text-align: center;
   position: relative;
-  margin-bottom: 2rem;
-  width: 100%;
-  padding: 0;
-
-  &__promo {
-    background-color: black;
-    text-align: center;
-    padding: 1rem;
-    gap: 1rem;
-    color: rgb(216, 225, 253);
-  }
+  width: 100vw;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
   &__userpanel {
-    margin: 10px;
+    height: 5rem;
     display: flex;
-    gap: 10px;
+    gap: 1rem;
     justify-content: center;
-
-    background-color: white;
+    align-items: center;
+    &--logo {
+      display: block;
+      height: 40px;
+      cursor: pointer;
+    }
     &--1 {
+      margin-left: auto;
       display: flex;
-      gap: 8px;
+      align-items: center;
+      gap: 1rem;
     }
     &--2 {
-      width: 5rem;
+      display: flex;
+      margin-left: auto;
     }
   }
 
   &__nav {
-    gap: 10px;
+    gap: 0.1rem;
     margin: 5px;
     display: flex;
-    width: 100vw;
+    width: 100%;
     font-size: 1.2rem;
     justify-content: center;
     align-items: center;
@@ -57,11 +56,15 @@
       padding: 5px 10px;
       border-radius: 1px;
       line-height: 1.5rem;
-      margin-left: -1px;
       &:hover {
         background-color: rgb(218, 218, 250);
         transform: scale(1.05);
       }
+    }
+  }
+  @media only screen and (max-width: 740px) {
+    &__nav {
+      width: 400px;
     }
   }
 }
@@ -70,23 +73,3 @@
   font-size: 1.5rem;
   cursor: pointer;
 }
-
-// .logoutlink {
-//   display: inline-block;
-//   text-transform: uppercase;
-//   font-size: 0.9rem;
-//   border: none;
-//   text-decoration: none;
-//   background-color: rgb(75, 74, 74);
-//   letter-spacing: 0px;
-//   color: white;
-//   min-width: max-content;
-//   padding: 5px 10px;
-//   border-radius: 1px;
-//   line-height: 1.5rem;
-//   margin-left: 8px;
-//   &:hover {
-//     background-color: rgb(218, 218, 250);
-//     transform: scale(1.05);
-//   }
-// }

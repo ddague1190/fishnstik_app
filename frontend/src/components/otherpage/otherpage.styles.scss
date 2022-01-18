@@ -1,7 +1,20 @@
 .otherpage {
   display: flex;
+  margin: 0.5rem;
   width: 100%;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
+  &__link {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: "Rubik";
+    font-size: 0.9rem;
+    &:hover {
+      cursor: pointer;
+    }
+    &.active {
+      border-bottom: 2px solid rgb(63, 111, 216);
+    }
+  }
 }
