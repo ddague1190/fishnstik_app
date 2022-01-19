@@ -29,7 +29,9 @@ function App() {
         <main className='main'>
           <Routes>
             <Route exact path='/' element={<HomeScreen/>} />
-            <Route path='/products' element={<ProductList />} />
+            <Route path='/products/:url_cat/:url_subcat' element={<ProductList />} />
+            <Route path='/products/:url_cat/' element={<ProductList />} />
+            <Route path='/products/' element={<ProductList />} />
             <Route path='/other' element={<OtherPage />} />
             <Route path='/aboutus' element={<AboutUsScreen />} />
             <Route path='/login' element={<LoginScreen />} />

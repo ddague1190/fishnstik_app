@@ -10,14 +10,22 @@ from rest_framework import generics
 from django.contrib.auth.models import User
 from base._serializers import product_serializers
 from rest_framework import serializers
-
+from pprint import pprint
 
 @api_view(['GET'])
-def getProducts(request):
+def getProducts(request, category='', subcategory=''):
     query = request.query_params.get('keyword')
     if query == None:
         query = ''
     products = Product.objects.filter(name__icontains=query)
+    
+    if category:
+        products = Product.objects.filter(category=category)
+        if category =='all':
+            products = Product.objects.all()
+
+    if subcategory:
+        products = Product.objects.filter(subcategory=subcategory)
 
     page = request.query_params.get('page')
     paginator = Paginator(products, 10)

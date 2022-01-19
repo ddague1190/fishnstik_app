@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import { 
     PRODUCT_LIST_REQUEST, 
     PRODUCT_LIST_SUCCESS, 
@@ -10,16 +10,35 @@ import {
     PRODUCT_CREATE_REVIEW_SUCCESS,
     PRODUCT_CREATE_REVIEW_FAIL,
     PRODUCT_CREATE_REVIEW_RESET
-} from '../constants/productConstants'
+} from '../constants/productConstants';
 
-import axiosInstance from '../axiosInstance'
+import axiosInstance from '../axiosInstance';
 
 
 export const listProducts = (keyword='') => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_LIST_REQUEST})
         const {data} = await axios.get(`/api/products/${keyword}`);
- 
+
+        dispatch({
+            type: PRODUCT_LIST_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_LIST_FAIL,
+            payload: error.response && error.response.data.detail 
+            ? error.response.data.detail
+            : error.message,
+        })
+    } 
+}
+
+export const listCategorizedProducts = (category, subcategory='') => async (dispatch) => {
+    try {
+        dispatch({type: PRODUCT_LIST_REQUEST})
+        const {data} = await axios.get(`/api/products/${category}/${subcategory}`);
+
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
             payload: data

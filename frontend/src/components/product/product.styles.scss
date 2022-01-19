@@ -1,28 +1,182 @@
-.productcard {
-  display: block;
-  height: 270px;
-  width: 200px;
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 4px;
-  color: black;
-  transition: 1s all;
-  text-decoration: none;
+// .product_card {
+//   width: 200px;
+//   height: 300px;
+//   position: relative;
+//   border-radius: 10px;
+//   // border: 1rem solid black;
+//   background-color: red;
 
-  &__name {
-    height: 30px;
-    text-align: center;
-    text-decoration: none;
-  }
+//   // &__image {
+//   //   width: 180px;
+//   //   height: 180px;
+//   //   overflow: hidden;
+//   //   object-fit: cover;
+//   //   & > img {
+//   //     width: 50%;
+//   //   }
+//   // }
+
+//   &__details {
+//     width: 200px;
+//     height: 50px;
+//     // position: absolute;
+//     background-color: rgb(58, 57, 57);
+//     text-transform: uppercase;
+//     font-family: "Rubik";
+//     color: white;
+//     text-align: center;
+//     transform: rotate;
+//     bottom: 0;
+//   }
+// }
+
+// #inner {
+//   width: 100px;
+//   height: 10rem;
+//   background-color: blue;
+//   position: relative;
+//   overflow: hidden;
+// }
+// span {
+//   width: 100%;
+//   height: 50px;
+//   bottom: -20px;
+//   left: 0;
+//   background-color: red;
+//   position: absolute;
+//   &:hover {
+//     bottom: 0px;
+//   }
+// }
+
+.productcard {
+  width: 150px;
+  height: 200px;
+  border: 1px solid rgba(63, 111, 216, 0.2);
+  position: relative;
+  border-radius: 3px;
+  clip-path: polygon(18.4% 0%, 100% 0, 100% 100%, 0 100%, 0% 13.5%);
 
   &:hover {
-    transform: scale(1.1);
+    // transform: scale(1.4);
   }
-}
 
-svg {
-  width: 100%;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 50px;
+    top: -10px;
+    left: 10px;
+    background-color: rgba(63, 111, 216, 0.2);
+    transform: rotateZ(45deg);
+  }
+
+  &:hover::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(63, 111, 216, 0.2);
+  }
+  &:hover::before {
+    display: none;
+  }
+  &:hover &__details {
+    opacity: 1;
+    bottom: 0;
+  }
+
+  &__image {
+    object-fit: contain;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 150px;
+    height: 180px;
+    z-index: -5;
+    display: flex;
+    justify-content: center;
+    & > img {
+      display: block;
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  &__details {
+    position: absolute;
+    height: 150px;
+    width: 100%;
+    bottom: -120px;
+    left: 0;
+    color: white;
+    background-color: rgba(black, 0.2);
+
+    &--name {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      font-family: "Rubik";
+      padding: 5px;
+      background-color: rgba(black, 0.6);
+      text-align: center;
+      z-index: 5;
+    }
+
+    &--panel {
+      position: absolute;
+      width: 100%;
+      top: 34px;
+      left: 0;
+      padding: 8px 0;
+      z-index: 5;
+      color: white;
+      font-family: "Rubik Mono One";
+      display: grid;
+      grid-template-columns: 40px 94px;
+      grid-template-rows: auto;
+      background-color: rgba(black, 0.1);
+      align-items: center;
+
+      & .catchphrase {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: min-content;
+        text-align: center;
+        font-size: 1.5rem;
+      }
+
+      & .leftpanel {
+        grid-column: 1 / span 1;
+        color: red;
+      }
+      & .rightpanel {
+        grid-column: 2 / span 1;
+
+        &.brand {
+          grid-row: 2 / span 1;
+        }
+        &.description {
+          grid-row: 3 / span 1;
+        }
+      }
+    }
+
+    // &::after {
+    //   content: "";
+    //   display: block;
+    //   width: 100%;
+    //   height: 100%;
+    //   top: 0;
+    //   left: 0;
+    //   background-color: rgba(black, 0.2);
+    //   z-index: -1;
+    // }
+  }
 }

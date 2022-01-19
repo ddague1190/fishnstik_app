@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import Product from '../../components/product/product.component';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../../actions/productActions';
+import { listProducts, listCategorizedProducts } from '../../actions/productActions';
 import Loader from '../../components/loader/loader.component';
 import Message from '../../components/message/message.component';
 import Paginate from '../../components/paginate/paginate.component';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { updateKeyword } from '../../actions/routeAction';
 import './productlist.styles.scss';
 
@@ -18,12 +18,19 @@ const ProductList = ({target, ...otherProps}) => {
 
     let location = useLocation();
     let keyword = target ? target : location.search;
+    let { url_cat, url_subcat } = useParams();
 
 
     useEffect(() => {
-        dispatch(updateKeyword(keyword))
-        dispatch(listProducts(keyword))
-    }, [dispatch, keyword])
+        if(keyword) {
+            dispatch(updateKeyword(keyword))
+            dispatch(listProducts(keyword))
+        }
+        if(!keyword && url_cat) {
+            dispatch(listCategorizedProducts(url_cat, url_subcat))
+        }
+    }, [dispatch, keyword, url_cat, url_subcat])
+
 
     return (
         <div className='productlist'>
@@ -35,12 +42,16 @@ const ProductList = ({target, ...otherProps}) => {
                         return (
                             <Product key={product._id} product={product} keyword={keyword}/>
                         );
+                        })
                     }
-                    )}
                 </div>
             }
             
-            <Paginate className='productlist__paginator' page={page} pages={pages} keyword={keyword}/>
+            <Paginate 
+                className='productlist__paginator' 
+                page={page} 
+                pages={pages} 
+            />
 
         </div>
     )

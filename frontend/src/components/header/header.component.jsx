@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Link, useLocation} from 'react-router-dom';
 import { logout } from '../../actions/userActions';
 import SearchBox from '../searchBox/searchBox.component';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './header.styles.scss';
 import { NavBarElement, LinkElement, NavBarElement2 } from '../navBarElement/navBarElement.component';
-import CategoriesList from '../otherpage/otherpage.component';
+import SubcategoriesList from '../otherpage/otherpage.component';
 import OtherProducts from '../otherproducts/otherproducts.component';
 
 
@@ -14,45 +14,68 @@ const Header = () => {
 
     const categories = [
         {
-            'keyword': 'snap',
+            'category': 'snaps',
             'title': 'Snaps'
         },
         {
-            'keyword': 'swivel',
+            'category': 'swivels',
             'title': 'Swivels'
         },
         {
-            'keyword': 'line',
+            'category': 'fishingline',
             'title': 'Fishing line'
         },
         {
-            'keyword': 'hook',
+            'category': 'hooks',
             'title': 'Hooks'
         },
         {
-            'keyword': 'lure',
+            'category': 'lures',
             'title': 'Lures'
         },
     ];
 
     let navigate = useNavigate();
     let {search} = useLocation();
-
     const [hideSearchBox, setHideSearchBox] = useState(true);
-    const [keyword, setKeyword] = useState('');
+    const [currentCategory, setCurrentCategory] = useState('');
+    const [seeingAll, setSeeingAll] = useState(false);
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
-
-    const onNavClick = (keyword) => {
-        setKeyword(keyword);
-        navigate(`products/?keyword=${keyword}`)
-    }
-    
     const dispatch = useDispatch();
 
-    const logoutHandler = () => {
-        dispatch(logout())
-        navigate('/')
+
+    const onNavClick = (category) => {
+        setCurrentCategory(category);
+        setSeeingAll(false);
+        setHideSearchBox(true);
+        navigate(`products/${category}`)
+    }
+
+    const onSearchBoxClick = () => {
+        setHideSearchBox(!hideSearchBox);
+        setCurrentCategory('');
+        setSeeingAll(false);
+    }
+
+    const onLogoClick = () => {
+        setCurrentCategory('');
+        setSeeingAll(false);
+        setHideSearchBox(true);
+        navigate('/');
+    };
+    
+    const onLogoutClick = () => {
+        dispatch(logout());
+        navigate('/');
+    };
+
+    const onSeeAllProductsClick = () => {
+        setSeeingAll(!seeingAll);
+        setHideSearchBox(true);
+        setCurrentCategory(false);
+        navigate('products/all');
+
     };
 
     return (
@@ -60,14 +83,14 @@ const Header = () => {
 
 
                 <div className='header__userpanel'>
-                    <img onClick={()=>navigate('/')} className='header__userpanel--logo' src={'https://fishnstik-pictures.s3.amazonaws.com/FishNStik.png'} alt='company_logo' />
+                    <img onClick={onLogoClick} className='header__userpanel--logo' src={'https://fishnstik-pictures.s3.amazonaws.com/FishNStik.png'} alt='company_logo' />
 
                     {userInfo ? (
                         <div className='header__userpanel--1'>
                             <NavBarElement2 to='/profile'>
                                 Profile
                             </NavBarElement2>
-                            <div  className='navBarElement2' to='/' onClick={logoutHandler}>
+                            <div  className='navBarElement2' to='/' onClick={onLogoutClick}>
                             <i class="fas fa-sign-out-alt"></i>
                             </div>
                         </div>) : (
@@ -79,26 +102,32 @@ const Header = () => {
                     }
             </div>
             <nav className='header__nav'>
-                <LinkElement to='products/'>All</LinkElement>
-
-                {categories.map(({keyword, title}, index) => (
                     <div
-                        className={`navBarElement ${search.includes(keyword) ? 'active' : ''}`}
-                        onClick={()=>onNavClick(keyword)}
+                        className={`navBarElement ${seeingAll ? 'active' : ''}`}
+                        onClick={onSeeAllProductsClick}
+                    >
+                        All
+                    </div>
+
+                {categories.map(({category, title}, index) => (
+                    <div
+                        className={`navBarElement ${currentCategory===category ? 'active' : ''}`}
+                        onClick={()=>onNavClick(category)}
                     >
                         {title}
                     </div>
                 ))}
-                    <OtherProducts />
+                
+                    <OtherProducts setSeeingAll={setSeeingAll} setCurrentCategory={setCurrentCategory} />
 
                     <div className='header__nav--search'>
-                        <i onClick={() => setHideSearchBox(!hideSearchBox)} className="fas fa-search"></i> 
-                        {!hideSearchBox && <SearchBox/>}
+                        <i onClick={onSearchBoxClick} className="fas fa-search"></i> 
                     </div>
 
-                {keyword && <CategoriesList category={keyword} /> }
+                {currentCategory && <SubcategoriesList category={currentCategory} /> }
             </nav>
 
+            {!hideSearchBox && <SearchBox/>}
 
             
 

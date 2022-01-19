@@ -3,131 +3,80 @@ import { Link } from 'react-router-dom';
 import './otherpage.styles.scss'
 
 const categories = {
-    'snap': [    
+    'snaps': [    
         {
-            'keyword': 'sleeve',
-            'title': 'FishNStik Snaps',
-            'description': '',
-            'image': ''
+            'subcategory': 'fishnstik',
+            'title': 'FishNStik Snaps'
         },
         {
-            'keyword': 'collet',
-            'title': 'FishNStik Bucks',
-            'description': '',
-            'image': ''
+            'subcategory': 'coastlock',
+            'title': 'CoastLock'
         },
-        {
-            'keyword': 'CoastLock',
-            'title': 'CoastLock',
-            'description': '',
-            'image': ''
-        },
-        {
-            'keyword': 'rod',
-            'title': 'Rosco Oh-Snap',
-            'description': '',
-            'image': ''
-        }
     ],
 
-    'swivel': [    
+    'swivels': [    
         {
-            'keyword': 'sleeve',
-            'title': 'Barrel',
-            'description': '',
-            'image': ''
+            'subcategory': 'barrel',
+            'title': 'Barrel'
         },
         {
-            'keyword': 'collet',
-            'title': 'Bearing',
-            'description': '',
-            'image': ''
+            'subcategory': 'bearing',
+            'title': 'Bearing'
         },
-        {
-            'keyword': 'Glove',
-            'title': 'Top shelf',
-            'description': '',
-            'image': ''
-        },
-
     ],
 
-    'line': [    
+    'fishingline': [    
         {
-            'keyword': 'sleeve',
-            'title': 'Sleeves',
-            'description': '',
-            'image': ''
+            'subcategory': 'sleeves',
+            'title': 'Sleeves'
         },
         {
-            'keyword': 'collet',
-            'title': 'Collets',
-            'description': '',
-            'image': ''
+            'subcategory': 'collet',
+            'title': 'Collets'
         },
         {
-            'keyword': 'Glove',
-            'title': 'Gloves',
-            'description': '',
-            'image': ''
+            'subcategory': 'Glove',
+            'title': 'Gloves'
         },
         {
-            'keyword': 'rod',
-            'title': 'Rods',
-            'description': '',
-            'image': ''
+            'subcategory': 'rod',
+            'title': 'Rods'
         }
     ],
-    'hook': [    
+    'hooks': [    
         {
-            'keyword': 'sleeve',
-            'title': 'Mudstad',
-            'description': '',
-            'image': ''
+            'subcategory': 'mudstad',
+            'title': 'Mudstad'
         },
         {
-            'keyword': 'collet',
-            'title': 'Collets',
-            'description': '',
-            'image': ''
+            'subcategory': 'collet',
+            'title': 'Collets'
         },
         {
-            'keyword': 'Glove',
-            'title': 'Gloves',
-            'description': '',
-            'image': ''
+            'subcategory': 'Glove',
+            'title': 'Gloves'
         },
         {
-            'keyword': 'rod',
-            'title': 'Rods',
-            'description': '',
-            'image': ''
+            'subcategory': 'rod',
+            'title': 'Rods'
         }
     ],
-        'lure': [    
+        'lures': [    
         {
-            'keyword': 'sleeve',
-            'title': 'Sleeves',
-            'description': '',
-            'image': ''
+            'subcategory': 'sleeves',
+            'title': 'Sleeves'
         },
         {
-            'keyword': 'collet',
-            'title': 'Collets',
-            'description': '',
-            'image': ''
+            'subcategory': 'collet',
+            'title': 'Collets'
         },
         {
-            'keyword': 'Glove',
-            'title': 'Gloves',
-            'description': '',
-            'image': ''
+            'subcategory': 'Glove',
+            'title': 'Gloves'
         },
         {
-            'keyword': 'rod',
-            'title': 'Rods',
-            'description': '',
-            'image': ''
+            'subcategory': 'rod',
+            'title': 'Rods'
         }
     ]
 }
@@ -136,7 +85,7 @@ const categories = {
 
 
 
-const CategoriesList = ({category}) => {
+const SubcategoriesList = ({category}) => {
     const [activeIndex, setActiveIndex] = useState(NaN);
     useEffect(()=>{
         setActiveIndex(NaN)
@@ -144,11 +93,12 @@ const CategoriesList = ({category}) => {
     return (
     <div className='otherpage'>
     {  
-        categories[category].map(({keyword, title}, index) => (
+        categories[category].map(({subcategory, title}, index) => (
             <Link 
+                key={index}
                 onClick={()=> setActiveIndex(index)}
                 className={`otherpage__link ${index===activeIndex ? 'active' : ''}`}
-                to={`/products/?keyword=${keyword}`}
+                to={`/products/${category}/${subcategory}`}
             >
                 {title}
             </Link>
@@ -158,4 +108,4 @@ const CategoriesList = ({category}) => {
     )
 };
 
-export default CategoriesList;
+export default SubcategoriesList;

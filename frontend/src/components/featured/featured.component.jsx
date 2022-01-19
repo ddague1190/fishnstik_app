@@ -1,9 +1,9 @@
 import './featured.styles.scss';
 
 const Featured = () => (
-    <feature class='featured'>
+    <div className='featured'>
         <h1>Available Now!</h1>
         <span>insert info here</span>
-    </feature>
+    </div>
 );
 export default Featured;

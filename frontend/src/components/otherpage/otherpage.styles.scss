@@ -1,10 +1,14 @@
 .otherpage {
   display: flex;
-  margin: 0.5rem;
-  width: 100%;
+  width: 90vw;
+  position: absolute;
+  bottom: -3rem;
   justify-content: center;
   align-items: center;
+  margin: 0.5rem;
   gap: 1rem;
+  animation-name: slidein;
+  animation-duration: 1s;
   &__link {
     text-decoration: none;
     text-transform: uppercase;
@@ -16,5 +20,14 @@
     &.active {
       border-bottom: 2px solid rgb(63, 111, 216);
     }
+  }
+}
+
+@keyframes slidein {
+  from {
+    margin-right: -50%;
+  }
+  to {
+    margin: 0.5rem;
   }
 }
