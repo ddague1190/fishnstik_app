@@ -4,6 +4,12 @@
   margin: 1rem;
   &__details {
     min-width: 200px;
+    &--tables {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
   }
   &__showreviews,
   &__createreview {

@@ -29,3 +29,14 @@ a {
   text-decoration: none;
   color: black;
 }
+
+a.animated-button:link:hover,
+a.animated-button:visited:hover {
+}
+
+button.animated-button:link:hover:after,
+button.animated-button:visited:hover:after {
+}
+
+button.animated-button.calltoaction {
+}

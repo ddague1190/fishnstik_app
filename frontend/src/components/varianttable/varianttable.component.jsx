@@ -18,7 +18,7 @@ const VariantTable = ({product, selectionVariantTable, checkedState}) => {
         {product.variants.map((variant, index) => (
             <tr 
             onClick={()=> selectionVariantTable(index)} 
-            className={checkedState[index] ? 'marked' : ''} 
+            className={`varianttable__data ${checkedState[index] ? 'marked' : ''}`}
             key={variant._id}
             >
                 <td>

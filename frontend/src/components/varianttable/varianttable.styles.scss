@@ -2,8 +2,15 @@
   margin: 1rem;
   width: 90%;
   overflow: hidden;
-  &__header {
-    font-size: 3rem;
+  &__header > th {
+    font-size: 1rem;
+  }
+  &__data {
+    & > td {
+      padding: 1rem 0;
+      margin: 0;
+      overflow: hidden;
+    }
   }
 }
 

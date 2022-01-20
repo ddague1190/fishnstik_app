@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import {useState} from 'react';
 import './addtocartcard.styles.scss';
+import { useEffect } from 'react';
 
 const AddToCartCard = ({product, checkedBoxIndex}) => {
 
@@ -15,8 +16,12 @@ const AddToCartCard = ({product, checkedBoxIndex}) => {
         navigate(`/cart/${productId.id}?qty=${qty}&variant=${variantId}`)
     }
 
+    useEffect(()=>{
+        setQty(1);
+    }, [checkedBoxIndex])
+
     return (
-        <card className='addtocartcard'>
+        <div className='addtocartcard'>
             <div className='addtocartcard__price'>
                 <span>Price / total:</span>
                 <div>
@@ -38,7 +43,7 @@ const AddToCartCard = ({product, checkedBoxIndex}) => {
             <div className='addtocartcard__form'>  
                 <span>Quantity:</span>
                 <form value={qty} onChange={(e) => setQty(e.target.value)}>
-                    <select>
+                    <select value={qty}>
                     {                           
                         [...Array(product.variants[checkedBoxIndex].countInStock).keys()].map((x) => (
                             <option key={x+1} value={x+1}>
@@ -53,15 +58,15 @@ const AddToCartCard = ({product, checkedBoxIndex}) => {
 
             <button 
                 onClick={()=> addToCartHandler(product.variants[checkedBoxIndex]._id)}
-                className='addtocartcard__form--button' 
+                className='addtocartcard__form--button animated-button calltoaction' 
                 disabled={product.variants[checkedBoxIndex].countInStock === 0} 
                 type='button'
             >
                 Add to Cart
             </button>   
                     
-        )}
-        </card>
+    
+        </div>
     )
 }
 

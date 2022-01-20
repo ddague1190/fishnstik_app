@@ -58,7 +58,7 @@ const ProductScreen = ()  => {
                     {product.numVariants === 1 && <AddToCartCard product={product} /> } 
 
                     {product.numVariants > 1 && ( 
-                        <div>  
+                        <div className='productscreen__details--tables'>  
                             <VariantTable 
                                 product={product} 
                                 selectionVariantTable={selectionVariantTable} 
@@ -89,7 +89,7 @@ const ProductScreen = ()  => {
                     </div>    
                 ))}
             </div>
-
+                <br />
 
             <div className='productscreen__createreview'>
                 <h4>Write a review</h4>
