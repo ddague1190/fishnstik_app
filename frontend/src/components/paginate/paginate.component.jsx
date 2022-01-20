@@ -2,6 +2,7 @@ import React from 'react';
 import {useLocation} from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import './paginate.styles.scss';
 
 function Paginate({pages, page}) {
 
@@ -11,6 +12,7 @@ function Paginate({pages, page}) {
     const route = search ? `/products/${search}` : pathname;
 
     return ( pages>1 && (
+        <div className='pagination'>
             <Pagination>
                 {[...Array(pages).keys()].map((x)=> (
                     <LinkContainer 
@@ -25,6 +27,7 @@ function Paginate({pages, page}) {
                     </LinkContainer>
                 ))}
             </Pagination>
+        </div>
         )
     )
 }

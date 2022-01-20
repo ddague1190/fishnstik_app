@@ -48,7 +48,6 @@ const ProductList = ({target, ...otherProps}) => {
             }
             
             <Paginate 
-                className='productlist__paginator' 
                 page={page} 
                 pages={pages} 
             />

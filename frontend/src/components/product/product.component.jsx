@@ -13,15 +13,16 @@ function Product({ product }) {
                     <img src={product.image} alt={product.name} />
                 </div>
                 <div className='productcard__details'>
-                    <span className='productcard__details--name'>{product.name.slice(0,15)}</span>
+                    <span className='productcard__details--name'>{product.name.slice(0,30)}</span>
                     <div className='productcard__details--panel'>
                         <span className='catchphrase'>{product.catchPhrase}</span>
-                        <span className='leftpanel'>MFG</span>
-                        <span className='leftpanel'>INFO</span>
-                        <span className='rightpanel brand'>{product.brand}</span>
-                        <span className='rightpanel description'>{product.description}</span>
+                        <div className='brand'>
+                            <div>Made by</div> 
+                            <div>{product.brand}</div>
+                        </div>
                     </div>
                 </div>
+                <a href={`/product/${product._id}`} className='productcard__button'>More info</a>
             </div>
 
         // <div classname='product_card'>

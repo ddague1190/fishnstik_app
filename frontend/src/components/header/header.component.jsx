@@ -80,8 +80,7 @@ const Header = () => {
 
     return (
         <header className='header'>
-
-
+            
                 <div className='header__userpanel'>
                     <img onClick={onLogoClick} className='header__userpanel--logo' src={'https://fishnstik-pictures.s3.amazonaws.com/FishNStik.png'} alt='company_logo' />
 

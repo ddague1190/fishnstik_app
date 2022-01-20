@@ -1,54 +1,3 @@
-// .product_card {
-//   width: 200px;
-//   height: 300px;
-//   position: relative;
-//   border-radius: 10px;
-//   // border: 1rem solid black;
-//   background-color: red;
-
-//   // &__image {
-//   //   width: 180px;
-//   //   height: 180px;
-//   //   overflow: hidden;
-//   //   object-fit: cover;
-//   //   & > img {
-//   //     width: 50%;
-//   //   }
-//   // }
-
-//   &__details {
-//     width: 200px;
-//     height: 50px;
-//     // position: absolute;
-//     background-color: rgb(58, 57, 57);
-//     text-transform: uppercase;
-//     font-family: "Rubik";
-//     color: white;
-//     text-align: center;
-//     transform: rotate;
-//     bottom: 0;
-//   }
-// }
-
-// #inner {
-//   width: 100px;
-//   height: 10rem;
-//   background-color: blue;
-//   position: relative;
-//   overflow: hidden;
-// }
-// span {
-//   width: 100%;
-//   height: 50px;
-//   bottom: -20px;
-//   left: 0;
-//   background-color: red;
-//   position: absolute;
-//   &:hover {
-//     bottom: 0px;
-//   }
-// }
-
 .productcard {
   width: 150px;
   height: 200px;
@@ -56,6 +5,7 @@
   position: relative;
   border-radius: 3px;
   clip-path: polygon(18.4% 0%, 100% 0, 100% 100%, 0 100%, 0% 13.5%);
+  transition: all 0.2s;
 
   &:hover {
     // transform: scale(1.4);
@@ -88,7 +38,10 @@
   }
   &:hover &__details {
     opacity: 1;
-    bottom: 0;
+    bottom: -30px;
+  }
+  &:hover &__button {
+    display: block;
   }
 
   &__image {
@@ -110,9 +63,9 @@
 
   &__details {
     position: absolute;
-    height: 150px;
+    height: 200px;
     width: 100%;
-    bottom: -120px;
+    bottom: -170px;
     left: 0;
     color: white;
     background-color: rgba(black, 0.2);
@@ -126,57 +79,77 @@
       padding: 5px;
       background-color: rgba(black, 0.6);
       text-align: center;
-      z-index: 5;
+      z-index: 100;
     }
 
     &--panel {
       position: absolute;
       width: 100%;
-      top: 34px;
+      height: 250px;
+      top: 0px;
       left: 0;
       padding: 8px 0;
       z-index: 5;
       color: white;
       font-family: "Rubik Mono One";
-      display: grid;
-      grid-template-columns: 40px 94px;
-      grid-template-rows: auto;
-      background-color: rgba(black, 0.1);
-      align-items: center;
+      background-color: rgba(black, 0.3);
+      text-align: center;
 
       & .catchphrase {
-        grid-column: 1 / -1;
-        justify-self: center;
-        width: min-content;
+        position: absolute;
+        top: 35px;
+        left: 0;
+        height: 50px;
+        margin-bottom: 30px;
+        background: rgba(216, 51, 51, 0.795);
         text-align: center;
-        font-size: 1.5rem;
+        font-size: 1rem;
       }
 
-      & .leftpanel {
-        grid-column: 1 / span 1;
-        color: red;
-      }
-      & .rightpanel {
-        grid-column: 2 / span 1;
+      & .brand {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        height: 30px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
 
-        &.brand {
-          grid-row: 2 / span 1;
-        }
-        &.description {
-          grid-row: 3 / span 1;
+        & div:first-child {
+          width: min-content;
+          line-height: 0.8;
+          margin-left: 10px;
+          font-size: 0.8rem;
+          color: whitesmoke;
         }
       }
     }
+  }
 
-    // &::after {
-    //   content: "";
-    //   display: block;
-    //   width: 100%;
-    //   height: 100%;
-    //   top: 0;
-    //   left: 0;
-    //   background-color: rgba(black, 0.2);
-    //   z-index: -1;
-    // }
+  &__button,
+  &__button:link,
+  &__button:visited {
+    position: absolute;
+    text-decoration: none;
+    bottom: 5px;
+    left: 15px;
+    display: none;
+    border: none;
+    background-color: white;
+    padding: 5px 20px;
+    font-family: "Rubik";
+    color: black;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+  &__button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 2px rgba(black, 0.4);
+  }
+  &__button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 1px 1px rgba(black, 0.4);
   }
 }

@@ -1,4 +1,13 @@
 .productscreen {
   overflow: hidden;
   width: 100vw;
+  margin: 1rem;
+  &__details {
+    min-width: 200px;
+  }
+  &__showreviews,
+  &__createreview {
+    margin: 0 auto;
+    width: 80%;
+  }
 }

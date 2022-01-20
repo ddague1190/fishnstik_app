@@ -260,9 +260,7 @@ export const loginWithOTP = (OTP, username, password) => async (dispatch) => {
     } catch (error) {
        dispatch({
            type: USER_LOGIN_FAIL,
-           payload: error.response && error.response.data.detail 
-           ? error.response.data.detail
-           : error.message,
+           payload: {'details': 'Not able to verify that OTP. Please try again'}
        })
     };
 }

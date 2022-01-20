@@ -8,6 +8,7 @@ import FormContainer from '../../components/formcontainer/formcontainer.componen
 import { register, sendOTP } from '../../actions/userActions';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from '../../utils/useForm';
+import './registerscreen.styles.scss';
 
 function RegisterScreen() {
 
@@ -40,7 +41,7 @@ function RegisterScreen() {
         if (userInfo) {
             navigate(redirect)
         }
-    }, [navigate, userInfo, redirect]
+    }, [navigate, userInfo, redirect, error]
     );
 
     const submitHandler = (e) => {
@@ -69,6 +70,7 @@ function RegisterScreen() {
  {!OTPready ? (
 
      <FormContainer>
+         <br/>
             <h1>Register</h1>
 
             <Form onSubmit={submitHandler}>
@@ -79,48 +81,51 @@ function RegisterScreen() {
                         required
                         name='userName'
                         placeholder='Please pick a username'
-                        value={formData.userName}
+                        value={userName}
                         onChange={setFormData}
                     >
                     </Form.Control>
                 </Form.Group>
-
+                <br/>
                 <Form.Group controlId='email'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control
                         required
                         type='email'
+                        name='email'
                         placeholder='Your email address'
-                        value={formData.email}
+                        value={email}
                         onChange={setFormData}
                     >
                     </Form.Control>
                 </Form.Group>
-
+                <br/>
                 <Form.Group controlId='password'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         required
                         type='password'
+                        name='password'
                         placeholder='Enter password'
                         value={formData.password}
                         onChange={setFormData}
                     >
                     </Form.Control>
                 </Form.Group>
-
+                <br/>
                 <Form.Group controlId='passwordConfirm'>
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control
                         required
                         type='password'
+                        name='confirmPassword'
                         placeholder='Please confirm your password'
                         value={formData.confirmPassword}
                         onChange={setFormData}
                     >
                     </Form.Control>
                 </Form.Group>
-
+                <br/>
                 <Button type='submit' variant='primary'>
                     Register
                 </Button>
@@ -138,7 +143,8 @@ function RegisterScreen() {
         <FormContainer>
             <h1>Validate Email</h1>
             <br />
-            <h5>An OTP was sent to your email ({email}) for validation. Please enter it here to complete registration.</h5>
+            <h5>An OTP was sent to your email.</h5>
+            <h5>Please enter it here to complete registration</h5>
             <br />
     
             <Form onSubmit={submitOTP}>
@@ -147,12 +153,14 @@ function RegisterScreen() {
                     <Form.Control
                         required
                         type='name'
+                        name='OTP'
                         placeholder='OTP from your email'
-                        value={OTP}
+                        value={formData.OTP}
                         onChange={setFormData}
                     >
                     </Form.Control>
                 </Form.Group>
+                <br/>
                 <Button type='submit' variant='primary'>
                     Submit
                 </Button>

@@ -9,6 +9,7 @@ import { listProductDetails } from '../../actions/productActions';
 import VariantTable from '../../components/varianttable/varianttable.component';
 import AddToCartCard from '../../components/addtocartcard/addtocartcard.component';
 import WriteReview from '../../components/writereview/writereview.component';
+import './productscreen.styles.scss';
 
 
 const ProductScreen = ()  => {
@@ -50,7 +51,7 @@ const ProductScreen = ()  => {
 
                 <Message variant='danger'>{error}</Message> : ( 
                 
-                <div>
+                <div className='productscreen__details'>
                     <ProductDetails product={product} height='200px' />
                     
                                 
@@ -90,7 +91,7 @@ const ProductScreen = ()  => {
             </div>
 
 
-            <div className='productscreen_createreview'>
+            <div className='productscreen__createreview'>
                 <h4>Write a review</h4>
             
             {userInfo ? 

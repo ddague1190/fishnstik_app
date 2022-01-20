@@ -75,6 +75,8 @@ function LoginScreen() {
                     </Form.Control>
                 </Form.Group>
 
+                <br/>
+
                 <Form.Group controlId='password'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
@@ -86,7 +88,7 @@ function LoginScreen() {
                     >
                     </Form.Control>
                 </Form.Group>
-
+                <br />
                 <Button type='submit' variant='primary'>
                     Sign In
                 </Button>

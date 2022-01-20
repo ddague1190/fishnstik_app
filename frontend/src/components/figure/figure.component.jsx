@@ -12,7 +12,7 @@ const Figure = ({height, image, alt, disable}) => {
     
 
     return (
-        <div onClick={toggleShow} style={{'height': height, 'width': height}} className='figure__component'>
+        <div onClick={toggleShow} style={{'width': height}} className='figure__component'>
             <img src={image}  alt={`image_of_${alt}`} />
             {!disable && (
                 <Modal show={showModal}>
