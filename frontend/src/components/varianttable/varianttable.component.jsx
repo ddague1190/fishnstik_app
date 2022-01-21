@@ -3,42 +3,31 @@ import {Table} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import './varianttable.styles.scss';
 
-const VariantTable = ({product, selectionVariantTable, checkedState}) => {
+const VariantCards = ({product, selectionVariantTable, checkedState}) => {
     return (
-        <Table hover className='varianttable'>
-            <thead>
-                <tr className='varianttable__header'>
-                    <th>Image</th>
-                    <th>Description</th>
-                    <th>Price / each</th>
-                </tr>
-            </thead>
+        
+        <div className='variantcards'>
 
-            <tbody>
         {product.variants.map((variant, index) => (
-            <tr 
+            <div
             onClick={()=> selectionVariantTable(index)} 
-            className={`varianttable__data ${checkedState[index] ? 'marked' : ''}`}
+            className={`variantcard ${checkedState[index] ? 'variantcard--active' : ''} ${variant.countInStock===0 ? 'variantcard--outofstock' : ''}`}
             key={variant._id}
             >
-                <td>
-                    <Figure image={variant.image} alt={variant.name} height='120px'/>
-                </td>
-                <td>
-                    {variant.description}
-                    <br />
+                <Figure image={variant.image} alt={variant.name} height='8rem'/>
+
+                <span className='variantcard__description'>{variant.description}</span>
+                        
                     {variant.relatedProductLink && (
-                    <Link to={`/product/${product._id}`} className='btn-sm small green'>Related product link</Link>
+                        <Link to={`/product/${product._id}`} className='variantcard__relatedproduct'>Related product link</Link>
                     )}
-                </td>
-                <td className='smallscreenRow'>
-                    {variant.price}
-                </td>
-            </tr>
+                <span className='variantcard__price'>${variant.price} ea</span>
+
+            
+            </div>
         ))}
-            </tbody>
-        </Table>
+        </div>
     )
 }
 
-export default VariantTable;
+export default VariantCards;

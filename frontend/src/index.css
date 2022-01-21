@@ -1,5 +1,5 @@
 * {
-  box-sizing: border-box;
+  box-sizing: inherit;
   font-family: "Nunito Sans";
 }
 
@@ -10,10 +10,11 @@ main {
 }
 
 html {
-  /* background-color: red; */
+  /* font-size: 67.5%; */
 }
 
 body {
+  box-sizing: border-box;
   padding: 0;
 }
 

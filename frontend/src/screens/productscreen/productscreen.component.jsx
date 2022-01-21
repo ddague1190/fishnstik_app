@@ -6,7 +6,7 @@ import Message from '../../components/message/message.component';
 import ProductDetails from '../../components/productdetails/productdetails.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProductDetails } from '../../actions/productActions';
-import VariantTable from '../../components/varianttable/varianttable.component';
+import VariantCards from '../../components/varianttable/varianttable.component';
 import AddToCartCard from '../../components/addtocartcard/addtocartcard.component';
 import WriteReview from '../../components/writereview/writereview.component';
 import './productscreen.styles.scss';
@@ -42,7 +42,7 @@ const ProductScreen = ()  => {
     return (
         <div className='productscreen'>
             
-            <Link to={keyword ? `/products/${keyword.keyword}` : '/asfd'} className='btn btn-light my-3'>Go back</Link>
+            <Link to={keyword ? `/products/${keyword.keyword}` : '/'} className='productscreen__goback'>Go back</Link>
             {loading ?
         
                 <Loader /> :
@@ -52,14 +52,13 @@ const ProductScreen = ()  => {
                 <Message variant='danger'>{error}</Message> : ( 
                 
                 <div className='productscreen__details'>
-                    <ProductDetails product={product} height='200px' />
-                    
+                    <ProductDetails product={product} height='13rem' />
                                 
-                    {product.numVariants === 1 && <AddToCartCard product={product} /> } 
+                    {product.numVariants === 1 && <AddToCartCard product={product} checkedBoxIndex={0}/> } 
 
                     {product.numVariants > 1 && ( 
-                        <div className='productscreen__details--tables'>  
-                            <VariantTable 
+                        <div className='productscreen__tables'>  
+                            <VariantCards
                                 product={product} 
                                 selectionVariantTable={selectionVariantTable} 
                                 checkedState={checkedState} 

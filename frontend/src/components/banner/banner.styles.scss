@@ -1,63 +1,63 @@
-.banner {
+.hero {
+  display: block;
+  width: 100%;
+  background: url(https://fishnstik-pictures.s3.amazonaws.com/fish.jpg);
+  background-attachment: fixed;
+  background-position: 18% 55%;
+  background-size: 200vw;
+  background-repeat: no-repeat;
+  height: 30vw;
+  min-height: 300px;
   position: relative;
   overflow: hidden;
 
-  &__hero {
-    display: block;
+  & > header {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    background: url(https://fishnstik-pictures.s3.amazonaws.com/fish.jpg);
+    padding: 20px 10px;
+    background: inherit;
     background-attachment: fixed;
-    background-position: 18% 55%;
-    background-size: 200vw;
-    background-repeat: no-repeat;
-    height: 30vw;
-    min-height: 300px;
-    position: relative;
     overflow: hidden;
 
-    & > header {
+    &::after {
+      content: "";
       position: absolute;
-      bottom: 0;
-      left: 0;
       width: 100%;
-      padding: 20px 10px;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.25);
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -20px;
+      left: 0%;
       background: inherit;
       background-attachment: fixed;
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
       overflow: hidden;
-
-      &::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.25);
-      }
-      &::before {
-        content: "";
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        top: -20px;
-        left: 0%;
-        background: inherit;
-        background-attachment: fixed;
-        -webkit-filter: blur(4px);
-        filter: blur(4px);
-        overflow: hidden;
-      }
-      & > h1 {
-        margin: 0;
-        text-transform: none;
-        padding: 1rem;
-        // font-family: "Rubik Mono One";
-        color: white;
-        position: relative;
-        z-index: 1;
-      }
+    }
+    & > h1 {
+      margin: 0;
+      text-transform: none;
+      padding: 1rem;
+      // font-family: "Rubik Mono One";
+      color: white;
+      position: relative;
+      z-index: 1;
     }
   }
+}
+
+.banner {
+  position: relative;
+  overflow: hidden;
 
   &__companylogos {
     background: url(https://fishnstik-pictures.s3.amazonaws.com/fish.jpg);

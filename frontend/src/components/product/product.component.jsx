@@ -1,12 +1,19 @@
 import React from 'react'
 import Rating from '../rating/rating.component.jsx';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Figure from '../figure/figure.component';
 import './product.styles.scss'
 
 
+
 function Product({ product }) { 
-    console.log(product)
+
+    const navigate = useNavigate();
+
+    const onProductCardClick = () => {
+        navigate(`/product/${product._id}`)
+    }
+
     return (
             <div className='productcard'>
                 <div className='productcard__image'>
@@ -22,7 +29,7 @@ function Product({ product }) {
                         </div>
                     </div>
                 </div>
-                <a href={`/product/${product._id}`} className='productcard__button'>More info</a>
+                <div onClick={onProductCardClick} className='productcard__button'>More info</div>
             </div>
 
         // <div classname='product_card'>

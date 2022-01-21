@@ -1,20 +1,88 @@
-.varianttable {
-  margin: 1rem;
-  width: 90%;
-  overflow: hidden;
-  &__header > th {
-    font-size: 1rem;
-  }
-  &__data {
-    & > td {
-      padding: 1rem 0;
-      margin: 0;
-      overflow: hidden;
-    }
-  }
+.variantcards {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 14.5rem);
+  grid-auto-rows: minmax(10rem, auto);
+  justify-items: center;
+  justify-content: center;
+  margin: 2rem 1rem;
 }
 
-.marked {
-  color: white;
-  background-color: grey;
+.variantcard {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 14rem;
+  height: 11rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    content: "";
+    right: 0;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    filter: blur(100px);
+  }
+
+  &--active::before {
+    display: none;
+  }
+
+  &__description {
+    text-transform: uppercase;
+  }
+
+  &--outofstock {
+    &::after {
+      position: absolute;
+      content: "Out of stock";
+      font-size: 1rem;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-family: "Rubik";
+      transform: translate(-50% -50%) scale(50);
+      color: red;
+      z-index: 5;
+    }
+  }
+
+  &__relatedproduct {
+  }
+
+  &__price {
+    position: absolute;
+    width: max-content;
+    height: 2rem;
+    padding: 5px;
+    top: 1rem;
+    left: 1rem;
+    color: white;
+    z-index: 5;
+    &::after {
+      position: absolute;
+      border-radius: 5px;
+      content: "";
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      background-color: rgba(63, 111, 216, 1);
+      z-index: -1;
+    }
+  }
+
+  &--active {
+    border: 5px solid black;
+    border-radius: 4px;
+  }
 }
