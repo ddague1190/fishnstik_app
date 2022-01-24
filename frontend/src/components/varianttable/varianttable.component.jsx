@@ -11,12 +11,13 @@ const VariantCards = ({product, selectionVariantTable, checkedState}) => {
         {product.variants.map((variant, index) => (
             <div
             onClick={()=> selectionVariantTable(index)} 
-            className={`variantcard ${checkedState[index] ? 'variantcard--active' : ''} ${variant.countInStock===0 ? 'variantcard--outofstock' : ''}`}
+            className={`variantcard u-center-text ${checkedState[index] ? 'variantcard--active' : ''} ${variant.countInStock===0 ? 'variantcard--outofstock' : ''}`}
             key={variant._id}
-            >
-                <Figure image={variant.image} alt={variant.name} height='8rem'/>
-
-                <span className='variantcard__description'>{variant.description}</span>
+            > 
+                <div className='variantcard__figurecontainer'>
+                    <Figure image={variant.image} description={variant.description} alt={variant.name} height='8rem'/>
+                </div>
+                <span className='variantcard__description'>{variant.identifier}</span>
                         
                     {variant.relatedProductLink && (
                         <Link to={`/product/${product._id}`} className='variantcard__relatedproduct'>Related product link</Link>

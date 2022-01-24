@@ -26,18 +26,18 @@ const SearchBox = () => {
                 name='q'
                 placeholder='search for products...'
                 onChange={(e) => setKeyword(e.target.value)}
-                className='searchbox__input'
+                className='input'
             >
             </input>
 
             <button
                 type='submit'
-                variant='outline-success'
-                className='searchbox__button'
+                className='btn--navbar'
             >
                 Go!
             </button>
         </form>
+        
     )
 }
 

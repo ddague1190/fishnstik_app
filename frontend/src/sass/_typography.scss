@@ -1,0 +1,14 @@
+body {
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1.6rem;
+}
+
+
+
+.paragraph {
+    // font-size: $default-fontsize;
+
+    &:not(:last-child) {
+        margin-bottom: 3rem;
+    }
+}

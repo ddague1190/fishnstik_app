@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
-import Logo from './components/logo/logo.component';
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component';
 import HomeScreen from './screens/homescreen/homescreen.component';
@@ -16,6 +15,7 @@ import AboutUsScreen from './screens/aboutusscreen/aboutusscreen.component';
 import ProductList from './components/productlist/productlist.component';
 import OtherPage from './components/otherpage/otherpage.component';
 
+import './sass/App.scss';
 
 
 

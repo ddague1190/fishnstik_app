@@ -76,22 +76,25 @@ const ProductScreen = ()  => {
                 </div>
             )}
             
-            <div className='productscreen__showreviews'>
-                <h4>Recent reviews</h4>  
+            <div className='showreviews u-margin-top-medium'>
+                <h3>Recent reviews</h3>  
                 {product.reviews.length === 0 && <Message variant='info'>No Reviews</Message>}
-                {product.reviews.map((review) => (
-                    <div key={review._id}>
-                        <p>{review.comment}</p>
-                        <strong>{review.name}</strong>
-                        <Rating value={review.rating} color='#f8e825' />
-                        <p style={{'marginRight': '1rem'}}>{review.createdAt.substring(0,10)}</p>
-                    </div>    
-                ))}
-            </div>
-                <br />
+                <div className='reviewcards'>
+                    {product.reviews.map((review) => (
+                        <div className='reviewcard' key={review._id}>
+                            <p className='reviewcard__comment'>{review.comment}</p>
+                            <strong className='reviewcard__name'>{review.name}</strong>
+                            <Rating value={review.rating} color='#f8e825' />
+                            <p className='reviewcard__date'>{review.createdAt.substring(0,10)}</p>
+                        </div>    
+                    ))}
+                </div>
 
-            <div className='productscreen__createreview'>
-                <h4>Write a review</h4>
+            </div>
+
+
+            <div className='createreview u-margin-top-medium'>
+                <h3>Write a review</h3>
             
             {userInfo ? 
                 <WriteReview /> : (

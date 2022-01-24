@@ -3,3 +3,15 @@
   text-align: center;
   transform: translateX(-25%);
 }
+
+.registerscreen {
+  @include flexCenter(column);
+}
+.registrationform {
+@include flexCenter(row);
+width: 60rem;
+flex-wrap: wrap;
+  &__alreadyhaveaccount {
+    
+  }
+}

@@ -12,7 +12,7 @@ function Paginate({pages, page}) {
     const route = search ? `/products/${search}` : pathname;
 
     return ( pages>1 && (
-        <div className='pagination'>
+        <div className='pagination u-margin-top-medium'>
             <Pagination>
                 {[...Array(pages).keys()].map((x)=> (
                     <LinkContainer 

@@ -2,81 +2,74 @@
   text-align: center;
   position: relative;
   width: 100vw;
-  margin-bottom: 2rem;
-  padding: 0 1rem;
-  &__userpanel {
-    height: 5rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    &--logo {
+  margin-bottom: 3.2rem;
+  padding: 0 1.6rem;
+}
+.headertop {
+    height: 8rem;
+    gap: 1.6rem;
+    @include flexCenter(row);
+    &__logo {
       display: block;
-      height: 40px;
+      height: 4rem;
       cursor: pointer;
     }
-    &--1 {
+    &__withuser {
       margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
     }
-    &--2 {
+    &__withoutuser {
       display: flex;
+      gap: 2rem;
       margin-left: auto;
     }
   }
 
-  &__nav {
-    gap: 0.1rem;
+.nav {
+    gap: 0.2rem;
     margin: 5px;
-    display: flex;
     width: 100%;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     position: relative;
-    &--search {
+    @include flexCenter(row);
+    &__search {
+      @include flexCenter(row);
       width: min-content;
       margin-left: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    &--otherproducts {
-      display: inline-block;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      border: none;
-      text-decoration: none;
-      background-color: rgb(75, 74, 74);
-      letter-spacing: 0px;
-      color: white;
-      min-width: max-content;
-      padding: 5px 10px;
-      border-radius: 1px;
-      line-height: 1.5rem;
-      &:hover {
-        background-color: rgb(218, 218, 250);
-        transform: scale(1.05);
-      }
-    }
-  }
-  @media only screen and (max-width: 740px) {
-    &__nav {
-      font-size: 1rem;
-      width: 400px;
-    }
-  }
-  @media only screen and (max-width: 440px) {
-    &__nav {
-      font-size: 0.8rem;
-      width: 320px;
-    }
-  }
+    // &--otherproducts {
+    //   display: inline-block;
+    //   text-transform: uppercase;
+    //   font-size: 0.9rem;
+    //   border: none;
+    //   text-decoration: none;
+    //   background-color: rgb(75, 74, 74);
+    //   letter-spacing: 0px;
+    //   color: white;
+    //   min-width: max-content;
+    //   padding: 5px 10px;
+    //   border-radius: 1px;
+    //   line-height: 1.5rem;
+    //   &:hover {
+    //     background-color: rgb(218, 218, 250);
+    //     transform: scale(1.05);
+    //   }
+    // }
 }
 
 .fa-search {
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 740px) {
+  .nav {
+    width: 40rem;
+  }
+}
+@media only screen and (max-width: 440px) {
+  .nav {
+    width: 32rem;
+  }
 }

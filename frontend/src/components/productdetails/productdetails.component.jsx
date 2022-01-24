@@ -4,16 +4,15 @@ import './productdetails.styles.scss';
 
 const ProductDetails = ({product, height}) => {
 
-
     return (
 
-    <div className='productdetails'>
+    <div className='productdetails u-margin-bottom-big'>
         <Figure image={product.image} height={height} alt={product.name} />
         <div className='productdetails__details'>
             <div className='productdetails__wedge'></div>
             <h3>{product.name}</h3>
             <Rating value={product.rating} text={`${product.numReviews} reviews`} color={'black'} />
-            <span className='productdetails__description'>{product.description}</span>
+            <span className='paragraph'>{product.description}</span>
         </div>
     </div>
 

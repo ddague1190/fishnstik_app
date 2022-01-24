@@ -1,0 +1,26 @@
+.addaddressform {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 10rem;
+
+    & #name {
+        background-color: red;
+    }
+
+    & #address {
+        background-color: red;
+    }
+
+    & #apartment {
+        background-color: red;
+    }
+
+    & #city {
+        background-color: red;
+    }
+    
+    & #state {
+        background-color: red;
+    }
+}

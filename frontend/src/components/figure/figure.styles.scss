@@ -1,4 +1,8 @@
-.figure__component {
+.figure {
+  &__modal {
+    width: 50vw;
+    min-width: 250px;
+  }
   & img {
     object-fit: contain;
     display: block;

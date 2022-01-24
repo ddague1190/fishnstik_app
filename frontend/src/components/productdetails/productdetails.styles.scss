@@ -1,15 +1,9 @@
 .productdetails {
-  display: flex;
+  @include flexCenter(row);
+  justify-content: flex-start;
   width: 100%;
-  flex-wrap: wrap;
-  align-items: center;
   margin: 2rem;
-
-  &__description {
-    display: block;
-    font-size: 1.2rem;
-    width: 100%;
-  }
+  flex-wrap: wrap;
 
   &__wedge {
     width: 5rem;
@@ -26,18 +20,12 @@
     height: 15rem;
     position: relative;
     margin-left: 2rem;
-    flex-direction: column;
     padding: 1rem;
 
     &::after {
-      position: absolute;
-      content: "";
-      top: 0;
-      left: 0;
-      background-color: rgba(63, 111, 216, 0.1);
+      @include psuedoElement(0, 0, 100%, 100%);
+      background-color: $color-primary-light;
       transform: skew(20deg);
-      width: 100%;
-      height: 100%;
       z-index: -1;
     }
   }

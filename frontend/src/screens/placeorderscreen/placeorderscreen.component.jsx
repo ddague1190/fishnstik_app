@@ -39,18 +39,18 @@ function PlaceOrderScreen() {
         if(cart.cartItems.length === 0) {
             navigate('/')
         }
-        if(!cart.shippingAddress.name) {
+        else if(!cart.shippingAddress.name) {
             navigate('/shipping/')
         }
-        if(!cart.paymentMethod) {
+        else if(!cart.paymentMethod) {
             navigate('/payment');
         }
-        if(success) {
+        else if(success) {
             navigate(`/order/${order._id}`)
             dispatch({ type: ORDER_CREATE_RESET })
         }
 
-        if (error?.includes('token not valid')) {
+        else if (error?.includes('token not valid')) {
             
             dispatch(logout())
             navigate('/login/')

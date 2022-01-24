@@ -42,14 +42,14 @@ const Banner = () => (
             </div>
         </div>
         <div className='banner__cards'>
-            <div className='banner__advise'>
-                <img src={'https://fishnstik-pictures.s3.amazonaws.com/expert.png'} alt='advise'/>
-                <h1>Contact us</h1>
-                <h3>(561) 686-7845</h3>
+            <div className='banner__title'>
+                <img className='banner__image' src={'https://fishnstik-pictures.s3.amazonaws.com/expert.png'} alt='call_for_advise'/>
+                <h1 className='banner__text'>Contact us</h1>
+                <h3 className='banner__text'>(561) 686-7845</h3>
             </div>
-            <div className='banner__manufacturing'>
-                <img src={'https://fishnstik-pictures.s3.amazonaws.com/USMADE.png'} alt='advise'/>
-                <h3>We make the world's best snaps right in house</h3>
+            <div className='banner__title'>
+                <img className='banner__image' src={'https://fishnstik-pictures.s3.amazonaws.com/USMADE.png'} alt='made_in_house'/>
+                <h3 className='banner__text'>We make the world's best snaps right in house</h3>
             </div>  
         </div>
 

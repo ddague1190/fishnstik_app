@@ -1,0 +1,37 @@
+.input-control {
+    margin: 3em;
+    position: relative;
+    width: 20rem;
+  
+    &__label {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+      transition: all 0.2s ease;
+    }
+  
+    &__input {
+      border: 2px solid black;
+      width: 100%;
+      border-radius: 4px;
+      padding: 1rem;
+  
+      &::placeholder {
+        opacity: 0;
+        transition: all 0.2s ease;
+      }
+  
+      &:focus::placeholder {
+        opacity: 1;
+      }
+    }
+  
+    &__input:focus + &__label,
+    &__input:not(:placeholder-shown) + &__label {
+      background-color: white;
+      top: 0;
+    }
+  }
+  

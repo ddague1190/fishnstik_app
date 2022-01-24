@@ -10,7 +10,7 @@ const OtherProducts = ({setSeeingAll, setCurrentCategory}) => {
             setCurrentCategory(false);
             setShowOtherProductsNav(!showOtherProductsNav)
         }}
-        className={`navBarElement ${showOtherProductsNav ? '' : ''}`}
+        className={`btn--navbar ${showOtherProductsNav ? '' : ''}`}
         >
             Other Products
         </div>

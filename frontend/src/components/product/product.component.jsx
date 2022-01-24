@@ -1,15 +1,12 @@
 import React from 'react'
-import Rating from '../rating/rating.component.jsx';
-import { Link, useNavigate } from 'react-router-dom'
-import Figure from '../figure/figure.component';
+import { useNavigate } from 'react-router-dom'
 import './product.styles.scss'
 
 
 
-function Product({ product }) { 
+const Product = ({ product }) => { 
 
     const navigate = useNavigate();
-
     const onProductCardClick = () => {
         navigate(`/product/${product._id}`)
     }
@@ -19,28 +16,18 @@ function Product({ product }) {
                 <div className='productcard__image'>
                     <img src={product.image} alt={product.name} />
                 </div>
-                <div className='productcard__details'>
-                    <span className='productcard__details--name'>{product.name.slice(0,30)}</span>
-                    <div className='productcard__details--panel'>
-                        <span className='catchphrase'>{product.catchPhrase}</span>
-                        <div className='brand'>
+                <div className='productcard__popup'>
+                    <span className='productcard__name'>{product.name.slice(0,30)}</span>
+                    <div className='productcard__details u-center-text'>
+                        <span className='productcard__catchphrase'>{product.catchPhrase}</span>
+                        <div className='productcard__brand u-center-text'>
                             <div>Made by</div> 
                             <div>{product.brand}</div>
                         </div>
                     </div>
                 </div>
-                <div onClick={onProductCardClick} className='productcard__button'>More info</div>
+                <div onClick={onProductCardClick} className='btn--primary u-display-none'>More info</div>
             </div>
-
-        // <div classname='product_card'>
-        //     <div className='product_card__image'>
-        //         {/* <img src={product.image} alt={product.name} /> */}
-        //     </div>
-        //     <div className='product_card__details'>
-        //         {/* <span className='product_card__details--name'>{product.name}</span>
-        //         <span className='product_card__details--catchphrase'>{product.catchphrase}</span> */}
-        //     </div>
-        // </div>
     )
 }
 

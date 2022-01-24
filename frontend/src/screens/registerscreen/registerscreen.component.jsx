@@ -10,7 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from '../../utils/useForm';
 import './registerscreen.styles.scss';
 
-function RegisterScreen() {
+const RegisterScreen = () => {
 
     const [formData, setFormData] = useForm({
         userName: '',
@@ -61,7 +61,7 @@ function RegisterScreen() {
 
     return (
 
-        <div>
+        <div className='registerscreen'>
 
         {error && <Message variant='danger'>{error}</Message>}
         {message && <Message variant='danger'>{message}</Message>}
@@ -69,108 +69,114 @@ function RegisterScreen() {
 
  {!OTPready ? (
 
-     <FormContainer>
-         <br/>
-            <h1>Register</h1>
+    <form className='registrationform' onSubmit={submitHandler}>
 
-            <Form onSubmit={submitHandler}>
+        <div class='input-control'>
+            <input 
+                class='input-control__input'
+                id='username'
+                required
+                name='userName'
+                placeholder='Please pick a username'
+                value={userName}
+                onChange={setFormData}
+            />
+            <label for='username' class='input-control__label'>
+                Username
+            </label>
+        </div>
 
-                <Form.Group controlId='username'>
-                    <Form.Label>User Name</Form.Label>
-                    <Form.Control
-                        required
-                        name='userName'
-                        placeholder='Please pick a username'
-                        value={userName}
-                        onChange={setFormData}
-                    >
-                    </Form.Control>
-                </Form.Group>
-                <br/>
-                <Form.Group controlId='email'>
-                    <Form.Label>Email Address</Form.Label>
-                    <Form.Control
-                        required
-                        type='email'
-                        name='email'
-                        placeholder='Your email address'
-                        value={email}
-                        onChange={setFormData}
-                    >
-                    </Form.Control>
-                </Form.Group>
-                <br/>
-                <Form.Group controlId='password'>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        required
-                        type='password'
-                        name='password'
-                        placeholder='Enter password'
-                        value={formData.password}
-                        onChange={setFormData}
-                    >
-                    </Form.Control>
-                </Form.Group>
-                <br/>
-                <Form.Group controlId='passwordConfirm'>
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control
-                        required
-                        type='password'
-                        name='confirmPassword'
-                        placeholder='Please confirm your password'
-                        value={formData.confirmPassword}
-                        onChange={setFormData}
-                    >
-                    </Form.Control>
-                </Form.Group>
-                <br/>
-                <Button type='submit' variant='primary'>
+        <div class='input-control'>
+            <input 
+                class='input-control__input'
+                id='email'
+                required
+                type='email'
+                name='email'
+                placeholder='Your email address'
+                value={email}
+                onChange={setFormData}
+            />
+            <label for='email' class='input-control__label'>
+                Email
+            </label>
+        </div>
+
+        <div class='input-control'>
+            <input 
+                class='input-control__input'
+                id='password'
+                required
+                type='password'
+                name='password'
+                placeholder='Enter password'
+                value={formData.password}
+                onChange={setFormData}
+            />
+            <label for='password' class='input-control__label'>
+                Password
+            </label>
+        </div>
+
+        <div class='input-control'>
+            <input 
+                class='input-control__input'
+                id='passwordconfirm'
+                required
+                type='password'
+                name='confirmPassword'
+                placeholder='Please confirm your password'
+                value={formData.confirmPassword}
+                onChange={setFormData}
+            />
+            <label for='passwordconfirm' class='input-control__label'>
+                Confirm Password
+            </label>
+        </div>
+
+
+        <button className='btn--main' type='submit' variant='primary'>
                     Register
-                </Button>
-            </Form>
+        </button>
 
-            <Row className='py-3'>
-                <Col>
-                    Already have an Account?
-                    <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}> Sign In</Link>
-                </Col>
-            </Row>
-        </FormContainer>
+        <div className='registrationform__alreadyhaveaccount'>
+            Already have an Account?
+            <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}> Sign In</Link>
+        </div>
+    </form>
+
+
+    
 ) :
 (
-        <FormContainer>
+        <div className='registerscreen__validateemail' >
             <h1>Validate Email</h1>
-            <br />
-            <h5>An OTP was sent to your email.</h5>
-            <h5>Please enter it here to complete registration</h5>
-            <br />
-    
-            <Form onSubmit={submitOTP}>
+            <form onSubmit={submitOTP}>
 
-                <Form.Group controlId='OTP'>
-                    <Form.Control
+                <div class='input-control'>
+                    <input 
+                        class='input-control__input'
+                        id='OTP'
                         required
                         type='name'
                         name='OTP'
                         placeholder='OTP from your email'
                         value={formData.OTP}
                         onChange={setFormData}
-                    >
-                    </Form.Control>
-                </Form.Group>
-                <br/>
-                <Button type='submit' variant='primary'>
+                    />
+                    <label for='OTP' class='input-control__label'>
+                        Enter OTP
+                    </label>
+                </div>
+                <button className='btn--main' type='submit' variant='primary'>
                     Submit
-                </Button>
-            </Form>
-
-        </FormContainer>
-)}
+                </button>
+            </form>
+        </div>
+    )}
         </div>
 
-       )
+    )
 };
 
 export default RegisterScreen;

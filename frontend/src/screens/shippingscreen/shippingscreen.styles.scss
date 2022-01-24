@@ -1,0 +1,11 @@
+.shippingscreen {
+    &__oldaddresses {
+        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 25rem);
+    }
+
+    & button {
+        background-color: blue;
+    }
+}

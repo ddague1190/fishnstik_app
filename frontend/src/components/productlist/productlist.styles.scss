@@ -1,16 +1,17 @@
 .productlist {
   position: relative;
-  justify-content: center;
-  margin-top: 1rem;
   padding: 1rem;
   perspective: 800px;
   transform-style: preserve-3d;
 
   &__cards {
-    display: flex;
-    flex-wrap: wrap;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 15rem);
+    grid-auto-rows: 20rem;
     justify-content: center;
     gap: 1rem;
     position: relative;
+    max-width: 100rem;
   }
 }

@@ -22,12 +22,40 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
+  }
+}
+
+.reviewcards {
+  border-top: 1px solid black;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 20rem);
+  grid-auto-rows: 10rem;
+  gap: 10px;
+  padding-top: 1rem;
+  justify-items:left;
+}
+
+.reviewcard {
+  @include flexCenter(column);
+  background-color: whitesmoke;
+  width: 20rem;
+  &__comment {
+
   }
 
-  &__showreviews,
-  &__createreview {
-    margin: 0 auto;
-    width: 80%;
+  &__name {
+
   }
+
+  &__date {
+    font-size: 1rem;
+  }
+}
+
+.showreviews {
+  margin: 0 auto;
+  width: 80%;
+}
+.createreview {
+  width: 50%;
 }

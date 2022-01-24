@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Form, Button, Row, Col, Table, ListGroup} from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/loader/loader.component'
@@ -8,9 +8,10 @@ import { getUserDetails, updateUserProfile } from '../../actions/userActions'
 import { useNavigate } from 'react-router-dom'
 import { USER_LOGOUT, USER_UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 import { listMyOrders } from '../../actions/orderActions'
+import './profilescreen.styles.scss';
 
 
-function ProfileScreen() {
+const ProfileScreen = () => {
     const [showResetPassword, setShowResetPassword] = useState(false)
     const [oldPassword, setOldPassword] = useState('')
     const [password, setPassword] = useState('')
@@ -67,78 +68,89 @@ function ProfileScreen() {
 
 
     return (
-        <Row>
-            <Col>
-                <h2>User Profile</h2>
+        <div className='profilescreen u-margin-top-medium'>
+            <div className='profilescreen__profilesection u-margin-bottom-medium'>
+                <h2 className='profilescreen__title'>User Profile</h2>
+                <span className='profilescreen__resetpasswordbutton' onClick={()=>setShowResetPassword(!showResetPassword)}>Reset password</span>
                 {message && <Message variant='danger'>{message}</Message>}
-                {errorUpdatePassword && <Message variant='danger'>{errorUpdatePassword}</Message>}
-                {success && <Message variant='success'>Password updated</Message>}
-                {error && <Message variant='danger'>{error}</Message>}
-                {loading && <Loader />}
-                    <ListGroup variant='flush'>
-                        <ListGroup.Item className='flex gap'>
-                            <span><strong>Username:</strong>{user && user.username}</span>
-                            <span className='left'><strong>Email:</strong>{user && user.email}</span>
-                        </ListGroup.Item>
 
-                        <ListGroup.Item>
-                            <Button onClick={()=>setShowResetPassword(!showResetPassword)}>Reset Password</Button>
-                        </ListGroup.Item>
-                    </ListGroup>
+                {errorUpdatePassword && <Message variant='danger'>{errorUpdatePassword}</Message>}
+
+                {success && <Message variant='success'>Password updated</Message>}
+
+                {error && <Message variant='danger'>{error}</Message>}
+
+                {(loading || loadingOrders) && <Loader /> }
+
+                <div className='profilescreen__userinfo u-margin-top-small'>
+                    <span className='profilescreen__label'>Username:</span>
+                    <span>{user && user.username}</span>
+                    <span className='profilescreen__label'>Email:</span>
+                    <span>{user && user.email}</span>
+                </div>
 
                 {showResetPassword &&
-                <ListGroup variant='flush'>
-                    <Form onSubmit={submitHandler}>
-                        <Form.Group controlId='oldpassword'>
-                            <Form.Label>Old Password</Form.Label>
-                            <Form.Control
+                <div className='profilescreen__resetpassword'>
+                    <h3>Reset password</h3>
+                    <form  onSubmit={submitHandler}>
+                        <div class='input-control'>
+                            <input 
+                                id='oldpassword'
                                 required
                                 type='password'
+                                class='input-control__input'
                                 placeholder='Please enter your old password'
                                 value={oldPassword}
                                 onChange={(e) => setOldPassword(e.target.value)}
-                            >
-                            </Form.Control>
-                        </Form.Group>
+                            />
+                            <label for='oldpassword' class='input-control__label'>
+                                Old password
+                            </label>
+                        </div>
 
-                        <Form.Group controlId='password'>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
+                        <div class='input-control'>
+                            <input 
+                                id='newpassword'
+                                class='input-control__input'
                                 required
                                 type='password'
-                                placeholder='Enter Password'
+                                placeholder='Please enter a new password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                            >
-                            </Form.Control>
+                            />
+                            <label for='newpassword' class='input-control__label'>
+                               New password
+                            </label>
+                        </div>
 
-                        </Form.Group>
-                        <Form.Group controlId='password2'>
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control
+                        <div class='input-control'>
+                            <input 
+                                id='newpassword2'
                                 required
+                                class='input-control__input'
                                 type='password'
-                                placeholder='Confirm Password'
+                                placeholder='Please enter a new password'
                                 value={password2}
                                 onChange={(e) => setPassword2(e.target.value)}
-                            >
-                            </Form.Control>
-                        </Form.Group>
-                        <Button type='submit' variant='primary'>
+                            />
+                            <label for='newpassword2' class='input-control__label'>
+                                Confirm new password
+                            </label>
+                        </div>
+                        
+                        <button className='btn--navbar' type='submit' variant='primary'>
                             Update
-                        </Button>
-                    </Form> 
-                </ListGroup>
-}
-            </Col>
-
-            <Col md={9}>
+                        </button>
+                    </form>
+                    <span onClick={()=>setShowResetPassword(!showResetPassword)}>Close</span>
+                    </div>
+                }
+            </div>
+            <div className='profilescreen__orders'>
                 <h2>My Orders</h2>
-                {loadingOrders ? (
-                    <Loader />
-                ) : errorOrders ? (
+                {errorOrders ? (
                     <Message variant='danger'>{error}</Message>
-                ) : (
+                ) : ( 
                     <Table striped responsive className='table-sm'>
                         <thead>
                             <tr>
@@ -150,7 +162,7 @@ function ProfileScreen() {
                             </tr>
                         </thead>
                         <tbody>
-                    {orders.map(order => (
+                    {orders?.map(order => (
                             <tr key={order._id}>
                                 <td>{order._id}</td>
                                 <td>{order.createdAt.substring(0,10)}</td>
@@ -168,8 +180,8 @@ function ProfileScreen() {
                         </tbody>
                     </Table>
                 )}
-            </Col>  
-        </Row>
+            </div>  
+        </div>
     )
 }
 

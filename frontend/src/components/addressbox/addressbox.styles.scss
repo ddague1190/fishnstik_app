@@ -1,0 +1,11 @@
+.addressbox {
+    list-style-type: none;
+    @include flexCenter(column);
+    width: max-content;
+    padding: 1rem;
+    font-size: 1.2rem;
+    &--highlighted {
+        border: 2px solid black;
+        border-radius: 4px;
+    }
+}

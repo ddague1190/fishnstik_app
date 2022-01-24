@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/loader/loader.component'
 import Message from '../../components/message/message.component'
-import FormContainer from '../../components/formcontainer/formcontainer.component'
 import { login, loginWithOTP } from '../../actions/userActions'
 import { useNavigate, useLocation } from 'react-router-dom'
+import './loginscreen.styles.scss';
 
-
-function LoginScreen() {
+const LoginScreen = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [needOTP, setNeedOTP] = useState(false)
@@ -51,82 +49,84 @@ function LoginScreen() {
 
     return (
         
-        <div>
-{error && <Message variant='danger'>{error}</Message>}
+        <div className='loginscreen'>
+            
+            {error && <Message variant='danger'>{error}</Message>}
 
-{loading && <Loader />}
+            {loading && <Loader />}
 
-{!needOTP ? (
-        <FormContainer>
-            <h1>Sign In</h1>
-
+            {!needOTP ? (
+                
+            <div className='loginscreen__signin'>
    
-            <Form onSubmit={submitHandler}>
+                <form className='u-center-text' onSubmit={submitHandler}>
+                    <div class='input-control'>
+                        <input 
+                            class='input-control__input'
+                            id='username'
+                            required
+                            type='username'
+                            placeholder='Create username'
+                            value={username}
+                            onChange={(e)=>setUsername(e.target.value)}
+                        />
+                        <label for='username' class='input-control__label'>
+                            Username
+                        </label>
+                    </div>
 
-                <Form.Group controlId='username'>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        required
-                        type='Username'
-                        placeholder='Your username'
-                        value={username}
-                        onChange={(e)=>setUsername(e.target.value)}
-                    >
-                    </Form.Control>
-                </Form.Group>
+                    <div class='input-control'>
+                        <input 
+                            class='input-control__input'
+                            id='password'
+                            required
+                            type='password'
+                            placeholder='Enter password'
+                            value={password}
+                            onChange={(e)=>setPassword(e.target.value)}
+                        />
+                        <label for='password' class='input-control__label'>
+                            Password
+                        </label>
+                    </div>
 
-                <br/>
+                    <button className='btn--main' type='submit' variant='primary'>
+                        Sign In
+                    </button>
+                </form>
 
-                <Form.Group controlId='password'>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        required
-                        type='password'
-                        placeholder='Enter password'
-                        value={password}
-                        onChange={(e)=>setPassword(e.target.value)}
-                    >
-                    </Form.Control>
-                </Form.Group>
-                <br />
-                <Button type='submit' variant='primary'>
-                    Sign In
-                </Button>
-
-            </Form>
-
-            <Row className='py-3'>
-                <Col>
+                <div className='u-margin-top-small'>
                     New to our site? 
                     <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link>
-                </Col>
-            </Row>
-        </FormContainer>
+                </div>
+            </div>
 ) :
 (
-        <FormContainer>
+        <div className='loginscreen__validateeamil'>
             <h1>Validate Email</h1>
-            <br />
             <h5>An OTP was sent to email associated with your account. Please enter it here to complete registration.</h5>
-            <br />
     
-            <Form onSubmit={submitOTP}>
+            <form onSubmit={submitOTP}>
 
-                <Form.Group controlId='OTP'>
-                    <Form.Control
+                <div class='input-control'>
+                    <input 
+                        class='input-control__input'
+                        id='password'
                         required
                         type='name'
                         placeholder='OTP from your email'
                         value={OTP}
                         onChange={(e)=>setOTP(e.target.value)}
-                    >
-                    </Form.Control>
-                </Form.Group>
-                <Button type='submit' variant='primary'>
+                    />
+                    <label for='password' class='input-control__label'>
+                        Password
+                    </label>
+                </div>
+                <button className='btn--main' type='submit' variant='primary'>
                     Submit
-                </Button>
-            </Form>
-        </FormContainer>
+                </button>
+            </form>
+        </div>
 )}
         </div>
     )

@@ -97,7 +97,7 @@ const SubcategoriesList = ({category}) => {
             <Link 
                 key={index}
                 onClick={()=> setActiveIndex(index)}
-                className={`otherpage__link ${index===activeIndex ? 'active' : ''}`}
+                className={`otherpage__link ${index===activeIndex ? 'otherpage__link--active' : ''}`}
                 to={`/products/${category}/${subcategory}`}
             >
                 {title}

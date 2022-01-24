@@ -1,155 +1,115 @@
+.btn--primary{
+  display: none;
+}
+
 .productcard {
-  width: 150px;
-  height: 200px;
-  border: 1px solid rgba(63, 111, 216, 0.2);
+  display: flex; 
+  justify-content: center;
+  width: 15rem;
+  height: 20rem;
+  border: 1px solid $color-primary-light;
   position: relative;
   border-radius: 3px;
   clip-path: polygon(18.4% 0%, 100% 0, 100% 100%, 0 100%, 0% 13.5%);
   transition: all 0.2s;
 
-  &:hover {
-    // transform: scale(1.4);
-  }
-
   &::before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 1px;
-    height: 50px;
-    top: -10px;
-    left: 10px;
-    background-color: rgba(63, 111, 216, 0.2);
+    @include psuedoElement(-1rem, 1rem, 1px, 5rem);
+    background-color: $color-primary-light;
     transform: rotateZ(45deg);
   }
 
   &:hover::after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba(63, 111, 216, 0.2);
+    @include psuedoElement(0, 0, 100%, 100%);
+    background-color: $color-primary-light;
   }
   &:hover::before {
     display: none;
   }
-  &:hover &__details {
+
+  &:hover &__popup {
     opacity: 1;
-    bottom: -30px;
+    bottom: -3rem;
   }
-  &:hover &__button {
+  
+
+  &:hover .btn--primary {
     display: block;
   }
 
   &__image {
     object-fit: contain;
     position: absolute;
-    top: 10px;
+    top: 1rem;
     left: 0;
-    width: 150px;
-    height: 180px;
+    width: 15rem;
+    height: 18rem;
     z-index: -5;
     display: flex;
     justify-content: center;
     & > img {
+      object-fit: contain;
       display: block;
       height: 100%;
       width: auto;
     }
   }
 
-  &__details {
+  &__popup {
     position: absolute;
-    height: 200px;
+    height: 20rem;
     width: 100%;
-    bottom: -170px;
+    bottom: -16.3rem;
     left: 0;
     color: white;
     background-color: rgba(black, 0.2);
+  }
 
-    &--name {
-      position: absolute;
-      width: 100%;
-      top: 0;
-      left: 0;
-      font-family: "Rubik";
-      padding: 5px;
-      background-color: rgba(black, 0.6);
-      text-align: center;
-      z-index: 100;
-    }
+  &__name {
+    @include psuedoElement(0, 0, 100%, 4rem);
+    line-height: 1.6rem;
+    font-family: $font-family-3;
+    padding: 2px;
+    background-color: rgba(black, 0.6);
+    text-align: center;
+    z-index: 100;
+  }
 
-    &--panel {
-      position: absolute;
-      width: 100%;
-      height: 250px;
-      top: 0px;
-      left: 0;
-      padding: 8px 0;
+
+    &__details {
+      @include psuedoElement(0px, 0, 100%, 25rem);
+      padding: .8rem 0;
       z-index: 5;
       color: white;
-      font-family: "Rubik Mono One";
-      background-color: rgba(black, 0.3);
-      text-align: center;
+      font-family: $font-family-2;
+      background-color: $color-tertiary-light;
+    }
 
-      & .catchphrase {
+      &__catchphrase {
         position: absolute;
-        top: 35px;
+        top: 4rem;
         left: 0;
-        height: 50px;
+        height: 5rem;
         margin-bottom: 30px;
-        background: rgba(216, 51, 51, 0.795);
+        background: $color-secondary-dark;
         text-align: center;
         font-size: 1rem;
       }
 
-      & .brand {
+      &__brand {
         position: absolute;
-        top: 90px;
+        top: 9rem;
         left: 0;
-        height: 30px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        justify-content: center;
+        height: 3rem;
+        gap: 1rem;
+        @include flexCenter(row);
 
         & div:first-child {
           width: min-content;
           line-height: 0.8;
-          margin-left: 10px;
-          font-size: 0.8rem;
-          color: whitesmoke;
+          font-size: 1rem;
+          margin-left: 1rem;
+          color: $color-tint-1;
         }
       }
-    }
-  }
-
-  &__button,
-  &__button:link,
-  &__button:visited {
-    position: absolute;
-    text-decoration: none;
-    bottom: 5px;
-    left: 15px;
-    display: none;
-    border: none;
-    background-color: white;
-    padding: 5px 20px;
-    font-family: "Rubik";
-    color: black;
-    transition: all 0.2s;
-    z-index: 10;
-  }
-  &__button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 3px 2px rgba(black, 0.4);
-  }
-  &__button:active {
-    transform: translateY(-1px);
-    box-shadow: 0 1px 1px rgba(black, 0.4);
-  }
 }

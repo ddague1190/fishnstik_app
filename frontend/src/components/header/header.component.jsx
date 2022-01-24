@@ -81,28 +81,34 @@ const Header = () => {
     return (
         <header className='header'>
             
-                <div className='header__userpanel'>
-                    <img onClick={onLogoClick} className='header__userpanel--logo' src={'https://fishnstik-pictures.s3.amazonaws.com/FishNStik.png'} alt='company_logo' />
+                <div className='headertop'>
+                    <img onClick={onLogoClick} className='headertop__logo' src={'https://fishnstik-pictures.s3.amazonaws.com/FishNStik.png'} alt='company_logo' />
 
                     {userInfo ? (
-                        <div className='header__userpanel--1'>
+                        <div className='headertop__withuser'>
                             <NavBarElement2 to='/profile'>
                                 Profile
                             </NavBarElement2>
-                            <div  className='navBarElement2' to='/' onClick={onLogoutClick}>
-                            <i class="fas fa-sign-out-alt"></i>
+                            <NavBarElement2 to='/cart'>
+                                <i class="fas fa-shopping-cart"></i>
+                            </NavBarElement2>
+                            <div  className='btn--navbar2' to='/' onClick={onLogoutClick}>
+                                <i class="fas fa-sign-out-alt"></i>
                             </div>
                         </div>) : (
-                        <div className='header__userpanel--2' >
+                        <div className='headertop__withoutuser' >
+                            <NavBarElement2 to='/cart'>
+                                <i class="fas fa-shopping-cart"></i>
+                            </NavBarElement2>
                             <NavBarElement2 to='/login'>
                                 <i className="fas fa-user"></i>
                             </NavBarElement2>
                         </div>)
                     }
-            </div>
-            <nav className='header__nav'>
+                </div>
+            <nav className='nav'>
                     <div
-                        className={`navBarElement ${seeingAll ? 'active' : ''}`}
+                        className={`btn--navbar ${seeingAll ? 'active' : ''}`}
                         onClick={onSeeAllProductsClick}
                     >
                         All
@@ -110,7 +116,7 @@ const Header = () => {
 
                 {categories.map(({category, title}, index) => (
                     <div
-                        className={`navBarElement ${currentCategory===category ? 'active' : ''}`}
+                        className={`btn--navbar ${currentCategory===category ? 'btn--navbar--active' : ''}`}
                         onClick={()=>onNavClick(category)}
                     >
                         {title}
@@ -119,7 +125,7 @@ const Header = () => {
                 
                     <OtherProducts setSeeingAll={setSeeingAll} setCurrentCategory={setCurrentCategory} />
 
-                    <div className='header__nav--search'>
+                    <div className='nav__search'>
                         <i onClick={onSearchBoxClick} className="fas fa-search"></i> 
                     </div>
 

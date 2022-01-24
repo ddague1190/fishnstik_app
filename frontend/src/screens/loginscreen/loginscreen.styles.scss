@@ -1,0 +1,13 @@
+.loginscreen {
+    @include flexCenter(column);
+
+
+    &__signin {
+        @include flexCenter(column);
+        justify-content: center;
+    }
+
+    &__validateemail {
+
+    }
+}

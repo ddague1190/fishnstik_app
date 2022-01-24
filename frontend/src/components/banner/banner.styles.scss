@@ -60,43 +60,30 @@
   overflow: hidden;
 
   &__companylogos {
-    background: url(https://fishnstik-pictures.s3.amazonaws.com/fish.jpg);
     background-size: 100%;
     background-position: 20%, 20%;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
+    background-attachment: fixed;    
     gap: 4rem;
-    align-items: center;
-    flex-wrap: wrap;
     margin: 2rem 0;
     position: relative;
     z-index: -3;
     padding: 2rem;
     width: 70%;
+    @include flexCenter(row);
 
     &::after {
       content: "";
       background: inherit;
-      position: absolute;
-      background: rgba(0, 0, 0, 0.55);
-      top: 50%;
-      left: 50%;
+      background: rgba(0, 0, 0, 0.55);    
       display: block;
-      width: 100%;
-      height: 100%;
       z-index: -1;
-      transform: translate(-50%, -50%);
+      @include absCenter(null);
     }
     &::before {
       content: "";
       background: inherit;
-      position: absolute;
-      top: 50%;
-      left: 50%;
       display: block;
-      width: 100%;
-      height: 100%;
+      @include absCenter(full);
       -webkit-filter: blur(4px);
       filter: blur(4px);
       z-index: -2;
@@ -126,48 +113,45 @@
   &__cards {
     margin-top: 4rem;
     gap: 2rem;
+    @include flexCenter(column);
+  }
+
+  &__title {
+    margin: 1rem;
+    border: 5px;
+    align-self: flex-start;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: 2rem;
+    position: relative;
+    background: transparent;
 
-    &--advise,
-    &--manufacturing {
-      margin: 1rem;
-      border: 5px;
-      align-self: flex-start;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      gap: 2rem;
-      position: relative;
-      background: transparent;
-
-      &::after {
-        content: "";
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) skew(20deg);
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(63, 111, 216, 0.1);
-        z-index: -5;
-      }
-      & img {
-        display: block;
-        width: 300px;
-        box-shadow: 1px 0 20px 1px rgba(black, 0.3);
-      }
-
-      & h3 {
-        width: 25rem;
-        color: white;
-      }
+    &::after {
+      content: "";
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) skew(20deg);
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(63, 111, 216, 0.1);
+      z-index: -5;
     }
-    &--manufacturing {
-      align-self: flex-end;
+    & img {
+      display: block;
+      width: 300px;
+      box-shadow: 1px 0 20px 1px rgba(black, 0.3);
     }
+
+    & h3 {
+      width: 25rem;
+      color: white;
+    }
+  }
+  &--manufacturing {
+    align-self: flex-end;
   }
 }
