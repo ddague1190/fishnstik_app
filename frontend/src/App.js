@@ -14,14 +14,18 @@ import OrderScreen from './screens/orderscreen/orderscreen.component';
 import AboutUsScreen from './screens/aboutusscreen/aboutusscreen.component';
 import ProductList from './components/productlist/productlist.component';
 import OtherPage from './components/otherpage/otherpage.component';
-
 import './sass/App.scss';
 
 
 
 
-function App() {
-
+const App = () => {
+  
+  const Page404 = () => {
+    return (
+      <h3>404 - Not found</h3>
+    );
+  };
   
   return (
     <BrowserRouter basename='/'>
@@ -44,6 +48,7 @@ function App() {
             <Route path='/product/:id' element={<ProductScreen />} />
             <Route path='/cart/:id' element={<CartScreen />} />
             <Route path='/cart/' element={<CartScreen />} />
+            <Route element={<Page404 />} />
           </Routes>
         </main>
       <Footer />
