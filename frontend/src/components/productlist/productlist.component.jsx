@@ -38,11 +38,13 @@ const ProductList = ({target, ...otherProps}) => {
                 : error ? <Message variant='danger'>{error}</Message>
                 :     
                 <div className='productlist__cards'>     
-                    {products.map((product, index) => {
+                    {products ? (
+                        products.map((product, index) => {
                         return (
                             <Product key={product._id} product={product} keyword={keyword}/>
                         );
                         })
+                    ) : (<h2>No products found</h2>)
                     }
                 </div>
             }
