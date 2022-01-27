@@ -15,7 +15,7 @@ const VariantCards = ({product, selectionVariantTable, checkedState}) => {
             key={variant._id}
             > 
                 <div className='variantcard__figurecontainer'>
-                    <Figure image={variant.image} description={variant.description} alt={variant.name} height='8rem'/>
+                    <Figure image={variant.image} description={variant.description} alt={variant.name} height='5rem'/>
                 </div>
                 <span className='variantcard__description'>{variant.identifier}</span>
                         

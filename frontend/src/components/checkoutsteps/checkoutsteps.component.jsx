@@ -1,57 +1,30 @@
-import React from 'react'
-import { Nav } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import React from 'react';
+import './checkoutsteps.styles.scss';
 
-function CheckoutSteps({ step1, step2, step3, step4 }) {
+const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
+    let value = -140;
+    if(step2) value += 25;
+    if(step3) value += 20;
+    if(step4) value += 23;
+
+    console.log(value)
+
     return (
-        <Nav className='justify-content-center mb-1'>
-            <Nav.Item>
-                {step1 ? (
-                <LinkContainer to='/login'>
-                    <Nav.Link>Login</Nav.Link>
-                </LinkContainer>
-                ): (
-                    <Nav.Link disabled>Login</Nav.Link>
-                )}
+        <div className='progress-bar__container u-margin-bottom-medium'>
+                <span className='u-font-weight-light'>Login</span>
+                <span className='u-font-weight-light'>Shipping</span>
+                <span className='u-font-weight-light'>Options</span>
+                <span className='u-font-weight-light'>PlaceOrder</span>
+            <div 
+            style={{
+                'left': `${value}%` 
+            }}
+            className='progress-bar'
+            >
+            </div>
+        </div>
 
-            </Nav.Item>
-
-            <Nav.Item>
-                {step2 ? (
-                <LinkContainer to='/shipping'>
-                    <Nav.Link>Shipping</Nav.Link>
-                </LinkContainer>
-                ): (
-                    <Nav.Link disabled>Shipping</Nav.Link>
-                )}
-
-            </Nav.Item>
-
-            <Nav.Item>
-                {step3 ? (
-                <LinkContainer to='/payment'>
-                    <Nav.Link>Options</Nav.Link>
-                </LinkContainer>
-                ): (
-                    <Nav.Link disabled>Options</Nav.Link>
-                )}
-
-            </Nav.Item>
-
-            <Nav.Item>
-                {step4 ? (
-                <LinkContainer to='/placeorder'>
-                    <Nav.Link>Place Order</Nav.Link>
-                </LinkContainer>
-                ): (
-                    <Nav.Link disabled>Place Order</Nav.Link>
-                )}
-
-            </Nav.Item>
-
-
-        </Nav>
     )
-}
+};
 
-export default CheckoutSteps
+export default CheckoutSteps;

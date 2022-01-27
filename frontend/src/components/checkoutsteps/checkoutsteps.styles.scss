@@ -1,0 +1,28 @@
+.progress-bar__container {
+    margin: 0 auto;
+    width: 80%;
+    height: 2rem;
+    border-radius: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s;
+    will-change: transform;
+    box-shadow: 0 0 5px $color-background-shade-1;
+    @include flexCenter(row);
+    justify-content: space-evenly;
+  }
+  
+  .progress-bar {
+    position: absolute;
+    height: 100%;
+    width: 140%;
+    background-color: $color-background-shade-2;
+    top:0;
+    bottom: 0;
+    border-radius: inherit;
+    z-index: -1
+  }
+  
+  .progress-bar__text {
+  }
+  

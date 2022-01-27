@@ -6,7 +6,6 @@ const OtherProducts = ({setSeeingAll, setCurrentCategory}) => {
     return (
         <div 
         onClick={()=>{
-            setSeeingAll(false);
             setCurrentCategory(false);
             setShowOtherProductsNav(!showOtherProductsNav)
         }}

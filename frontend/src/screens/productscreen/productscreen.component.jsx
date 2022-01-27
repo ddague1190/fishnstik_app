@@ -6,10 +6,10 @@ import Message from '../../components/message/message.component';
 import ProductDetails from '../../components/productdetails/productdetails.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProductDetails } from '../../actions/productActions';
-import VariantCards from '../../components/varianttable/varianttable.component';
 import AddToCartCard from '../../components/addtocartcard/addtocartcard.component';
 import WriteReview from '../../components/writereview/writereview.component';
 import './productscreen.styles.scss';
+import Figure from '../../components/figure/figure.component';
 
 
 const ProductScreen = ()  => {
@@ -19,7 +19,7 @@ const ProductScreen = ()  => {
     );
     const [checkedBoxIndex, setCheckedBoxIndex] = useState(null);
 
-    const selectionVariantTable = (position) => {
+    const selectionFromVariantList = (position) => {
         const updatedCheckedState = checkedState.map((item, index) => index === position ? true : false);
         setCheckedState(updatedCheckedState);
         setCheckedBoxIndex(position);
@@ -51,32 +51,67 @@ const ProductScreen = ()  => {
 
                 <Message variant='danger'>{error}</Message> : ( 
                 
-                <div className='productscreen__details'>
-                    <ProductDetails product={product} height='13rem' />
+                <div className='productscreen__details u-box-shadow'>
+                    <ProductDetails product={product} height='15rem' />
+
+
                                 
                     {product.numVariants === 1 && <AddToCartCard product={product} checkedBoxIndex={0}/> } 
 
                     {product.numVariants > 1 && ( 
-                        <div className='productscreen__tables'>  
-                            <VariantCards
-                                product={product} 
-                                selectionVariantTable={selectionVariantTable} 
-                                checkedState={checkedState} 
-                            />
-                        
-                            {product.variants[checkedBoxIndex] && ( 
+                        <div className='varianttable'>  
+                            <div className='varianttable__select u-center-text'>
+                                {checkedBoxIndex === null ? 
+                                    <h4 className='u-accent-color-pulsing'>please select an option...</h4>
+                                   :
+                                   <h3>options</h3> 
+                                }
+                                <select className='cartform__select u-center-text' onChange={(e)=>selectionFromVariantList(e.target.value)}>
+                                    {checkedBoxIndex === null && <option >Select from list...</option>}
+                                    {           
+                                        product.variants.map((variant, index) => (
+                                            <option                                         
+                                                key={index} 
+                                                value={index}
+                                            >
+                                                {variant.identifier}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                <i class="fas fa-caret-down"></i>
 
-                                <AddToCartCard
-                                    product={product} 
-                                    checkedBoxIndex={checkedBoxIndex} 
-                                />                           
-                            )} 
+                            </div>
+                        <div className='varianttable__tables'>
+                        {checkedBoxIndex !=null && (
+                            <div className='varianttable__details'> 
+                                <Figure 
+                                    image={product.variants[checkedBoxIndex].image} 
+                                    description={product.variants[checkedBoxIndex].description} 
+                                    alt={product.variants[checkedBoxIndex].identifier} 
+                                    height='20rem'
+                                />
+
+                                <h4>{product.variants[checkedBoxIndex].identifier}</h4>
+                                <span className='u-font-style-italic'>{product.variants[checkedBoxIndex].description}</span>
+                            </div>
+                        ) 
+                        }
+
+                                {product.variants[checkedBoxIndex] && 
+                                
+                                    <AddToCartCard
+                                        product={product} 
+                                        checkedBoxIndex={checkedBoxIndex} 
+                                    />                           
+                                } 
+                            </div>
                         </div>
                     )}
                 </div>
             )}
             
-            <div className='showreviews u-margin-top-medium'>
+            <div className='showreviews u-margin-top-huge'>
                 <h3>Recent reviews</h3>  
                 {product.reviews.length === 0 && <Message variant='info'>No Reviews</Message>}
                 <div className='reviewcards'>
@@ -93,12 +128,15 @@ const ProductScreen = ()  => {
             </div>
 
 
-            <div className='createreview u-margin-top-medium'>
+            <div className='createreview u-margin-top-small u-margin-bottom-medium '>
                 <h3>Write a review</h3>
             
             {userInfo ? 
                 <WriteReview /> : (
+                <>
+                <br/>
                 <Message variant='info'>Please <Link to='/login'>login</Link> to write a review</Message>
+                </>
                 )
             }
             </div>

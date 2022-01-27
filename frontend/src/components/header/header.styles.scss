@@ -1,18 +1,25 @@
 .header {
   text-align: center;
-  position: relative;
+  position: sticky;
+  top: 0;
   width: 100vw;
   margin-bottom: 3.2rem;
   padding: 0 1.6rem;
+  height: 10rem;
+  z-index: 10;
+  background: white;
+  
 }
 .headertop {
     height: 8rem;
     gap: 1.6rem;
     @include flexCenter(row);
+
     &__logo {
       display: block;
       height: 4rem;
       cursor: pointer;
+      width: 9rem;
     }
     &__withuser {
       margin-left: auto;
@@ -28,34 +35,17 @@
   }
 
 .nav {
+    // @include absCenter(null);
     gap: 0.2rem;
     margin: 5px;
     width: 100%;
-    position: relative;
     @include flexCenter(row);
+    flex-wrap: wrap;
     &__search {
       @include flexCenter(row);
       width: min-content;
       margin-left: 1.2rem;
     }
-    // &--otherproducts {
-    //   display: inline-block;
-    //   text-transform: uppercase;
-    //   font-size: 0.9rem;
-    //   border: none;
-    //   text-decoration: none;
-    //   background-color: rgb(75, 74, 74);
-    //   letter-spacing: 0px;
-    //   color: white;
-    //   min-width: max-content;
-    //   padding: 5px 10px;
-    //   border-radius: 1px;
-    //   line-height: 1.5rem;
-    //   &:hover {
-    //     background-color: rgb(218, 218, 250);
-    //     transform: scale(1.05);
-    //   }
-    // }
 }
 
 .fa-search {
@@ -63,13 +53,8 @@
   cursor: pointer;
 }
 
-@media only screen and (max-width: 740px) {
+@media only screen and (max-width: 50rem) {
   .nav {
     width: 40rem;
-  }
-}
-@media only screen and (max-width: 440px) {
-  .nav {
-    width: 32rem;
   }
 }

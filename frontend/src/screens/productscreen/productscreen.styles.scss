@@ -13,11 +13,14 @@
   }
 
   &__details {
+    margin: 0 auto;
+    max-width: max-content;
     min-width: 300px;
     justify-content: center;
   }
 
-  &__tables {
+  &__table {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,19 +29,18 @@
 }
 
 .reviewcards {
-  border-top: 1px solid black;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 20rem);
+  grid-template-columns: repeat(auto-fit, 10rem);
+  text-overflow: ellipsis;
   grid-auto-rows: 10rem;
-  gap: 10px;
+  gap: 5px;
   padding-top: 1rem;
   justify-items:left;
 }
 
 .reviewcard {
   @include flexCenter(column);
-  background-color: whitesmoke;
-  width: 20rem;
+  width: 10rem;
   &__comment {
 
   }
@@ -52,10 +54,47 @@
   }
 }
 
-.showreviews {
+.showreviews, .createreview {
   margin: 0 auto;
   width: 80%;
 }
-.createreview {
-  width: 50%;
+
+
+
+.varianttable {
+  margin: 0 auto;
+  @include flexCenter(column);
+  padding: 2rem;
+  padding-top: 0;
+  min-width: 30rem;
+  max-width: max-content;
+  position: relative; 
+
+    &::before {
+    position: absolute;
+
+  }
+
+  &__select {
+    width: 100%;
+
+
+    @include flexCenter(row);
+    & select {
+      margin: 1rem;
+      width: 20rem;
+    }
+  }
+  &__details {
+    max-width: 30rem;
+    @include flexCenter(column);
+  }
+  &__tables {
+    background-color: white;
+    padding: 1rem;
+    @include flexCenter(row);
+    flex-wrap: wrap;
+    border-radius: 5px;
+
+  }
 }

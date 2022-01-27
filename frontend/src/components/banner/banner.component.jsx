@@ -1,6 +1,5 @@
 import './banner.styles.scss';
 import Featured from '../featured/featured.component';
-import Figure from '../figure/figure.component';
 
 const companies = [
     {
@@ -30,7 +29,7 @@ const Banner = () => (
 
         <Featured />
 
-        <div className='companylogos'>
+        {/* <div className='companylogos'>
             <div className='companylogos__images'>
                 {companies.map(({company, image}, index) => (
                     <img key={index} src={image} alt={company} />
@@ -51,7 +50,7 @@ const Banner = () => (
                 <img className='banner__image' src={'https://fishnstik-pictures.s3.amazonaws.com/USMADE.png'} alt='made_in_house'/>
                 <h3 className='banner__text'>We make the world's best snaps right in house</h3>
             </div>  
-        </div>
+        </div> */}
 
  
     </div>

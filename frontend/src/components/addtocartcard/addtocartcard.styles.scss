@@ -2,37 +2,16 @@
   @include flexCenter(column);
 }
 
-.btn--primary {
-  display: block;
-}
 .cartform {
   display: grid;
   position: relative;
-  width: 50vw;
-  min-width: 250px;
+  min-width: 25rem;
   grid-template-columns: 16rem 1fr;
-  grid-template-rows: repeat(3, 1fr);
   row-gap: 2rem;
-  background-color: whitesmoke;
   border-radius: 5px;
   color: black;
   padding: 2rem;
   align-items: center;
-  align-content: center;
-
-  &__status {
-    grid-column: 1 / -1;
-  }
-
-  &__quantity,
-  &__pricelabel {
-    grid-column: 1 / span 1;
-  }
-
-  &__select,
-  &__price {
-    grid-column: 2 / span 1;
-  }
 
   &__select {
     margin: 0 auto;
@@ -46,8 +25,8 @@
     color: white;
     border-radius: 5px;
     width: max-content;
-    padding: 2px;
-    height: 3.2rem;
+    padding: 10px;
+    height: 5rem;
     overflow: hidden;
     position: relative;
     &::after {
@@ -60,6 +39,14 @@
       padding: 1.6rem;
       background-color: black;
       z-index: 5;
+
+      // & i {
+      //   background-color: red;
+      //   position: absolute; 
+      //   right: 0;
+      //   top: 10rem  ;
+      //   z-index: 10;
+      // }
     }
   }
 }

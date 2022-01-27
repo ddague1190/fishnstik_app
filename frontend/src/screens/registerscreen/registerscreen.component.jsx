@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../components/loader/loader.component';
 import Message from '../../components/message/message.component';
-import FormContainer from '../../components/formcontainer/formcontainer.component';
 import { register, sendOTP } from '../../actions/userActions';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from '../../utils/useForm';
@@ -75,6 +73,7 @@ const RegisterScreen = () => {
             <input 
                 class='input-control__input'
                 id='username'
+                type='text'
                 required
                 name='userName'
                 placeholder='Please pick a username'
@@ -135,11 +134,11 @@ const RegisterScreen = () => {
         </div>
 
 
-        <button className='btn--main' type='submit' variant='primary'>
+        <button className='btn--main u-margin-top-small' type='submit' variant='primary'>
                     Register
         </button>
 
-        <div className='registrationform__alreadyhaveaccount'>
+        <div className='registrationform__alreadyhaveaccount u-center-text u-margin-top-small'>
             Already have an Account?
             <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}> Sign In</Link>
         </div>

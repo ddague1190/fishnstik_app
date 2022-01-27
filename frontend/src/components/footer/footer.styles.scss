@@ -1,7 +1,33 @@
 .footer {
-  margin-bottom: 1rem;
+  height: 20rem;
+  background-color: #333;
+  color: white;
   @include flexCenter(row);
   width: 100%;
-  gap: 10px;
+  gap: 2rem;
+  padding-right: 2rem;
+
+  &__logo {
+    margin: 2rem;
+    margin-right: auto;
+    display: block;
+    object-fit: contain;
+    height: 18rem;
+    width: 18rem;
+    z-index: 1000;
+  }
+
+  &__info {
+    gap: 5px;
+    @include flexCenter(column);
+    & a {
+      color: white;
+    }
+  }
+
+  &__contactinfo {
+    display: grid;
+    grid-template-columns: 10rem 20rem;
+  }
 
 }

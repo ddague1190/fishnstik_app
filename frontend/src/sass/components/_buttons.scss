@@ -1,19 +1,15 @@
 .btn--navbar {
   background: transparent;
+  cursor: pointer;
   @include flexCenter(row);
   text-transform: uppercase;
   border: none;
   text-decoration: none;
   letter-spacing: 0px;
   color: white;
-  padding: 10px;
-  font-family: $font-family-2;
+  padding: 5px 10px;
   width: max-content;
   position: relative;
-
-  &--small {
-    font-size: 1rem;
-  }
 
   &:after {
     position: absolute;
@@ -23,7 +19,7 @@
     bottom: 0;
     width: 100%;
     content: "";
-    background-color: rgb(63, 111, 216);
+    background-color: $color-primary;
     transform: skew(20deg);
     z-index: -1;
   }
@@ -57,6 +53,7 @@
     background: transparent;
     @include flexCenter(row);
     text-transform: uppercase;
+    cursor: pointer;
     border: none;
     text-decoration: none;
     letter-spacing: 0px;
@@ -80,12 +77,12 @@
   .btn--primary:visited {
     position: absolute;
     text-decoration: none;
+    cursor: pointer;
     bottom: .5rem;
     left: 1.5rem;
     border: none;
     background-color: white;
     padding: .5rem 2rem;
-    font-family: "Rubik";
     color: black;
     transition: all 0.2s;
     z-index: 10;
@@ -110,11 +107,11 @@
 
 
   .btn--main {
+
     margin: 0 auto;
+    font-weight: 200;
     z-index: 5;
     justify-self: center;
-    font-family: $font-family-2;
-    font-weight: bold;
     font-size: 1em;
     letter-spacing: 0.1em;
     text-decoration: none;
@@ -122,10 +119,10 @@
     display: inline-block;
     padding: 1rem 2rem 1rem 2rem;
     position: relative;
-    border: 4px solid $color-button;
+    border: 1px solid $color-button;
     border-radius: 20px;
     &::before {
-      background: $color-button-2 url(http://www.graphicartsunit.com/images/noise2.png);
+      background: $color-button url(http://www.graphicartsunit.com/images/noise2.png);
       position: absolute;
       content: '';
       width: 100%;
@@ -133,6 +130,6 @@
       border-radius: 20px;
       left: 0px;
       top: 0px;
-      z-index: -1;
+      z-index: -2
     }
   }

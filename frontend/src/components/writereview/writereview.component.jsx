@@ -4,9 +4,9 @@ import Message from '../../components/message/message.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../../constants/productConstants';
 import { createProductReview } from '../../actions/productActions';
-import { Button, Form } from 'react-bootstrap';
 import { logout } from '../../actions/userActions';
 import { useParams } from 'react-router-dom';
+import './writereview.styles.scss';
 
 
 
@@ -22,6 +22,7 @@ const WriteReview = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
+        console.log('hireview')
         dispatch(createProductReview(productId.id, {rating, comment}));
     }
     
@@ -39,49 +40,39 @@ const WriteReview = () => {
 
 
     return(
-        <div>
+        <>
         {loadingProductReview && <Loader />}
         {successProductReview && <Message variant='success'>Review Submitted</Message>}
         {errorProductReview && <Message variant='danger'>{errorProductReview}</Message>}
     
-    
-        <Form onSubmit={submitHandler}>
-            <Form.Group controlId='rating'>
-                <Form.Label>Rating</Form.Label>
-                <Form.Control 
-                    as='select'
-                    value={rating}
-                    onChange={(e)=> setRating(e.target.value)}
-                >
-                    <option value=''>Select...</option>
-                    <option value='1'>1 - Poor</option>
-                    <option value='2'>2 - Fair</option>
-                    <option value='3'>3 - Good</option>
-                    <option value='4'>4 - Very Good</option>
-                    <option value='5'>5 - Excellent</option>
-                </Form.Control>
-            </Form.Group>
-                                        
-            <Form.Group controlId='comment'>
-                <Form.Label>Review</Form.Label>
-                <Form.Control
-                    as='textarea'
-                    rows='5'
+            <form className='writereview' onSubmit={submitHandler}>
+                    <span className='u-font-weight-light'>Select a rating</span>
+                    <select 
+                        className='cartform__select' 
+                        value={rating} onChange={(e)=> setRating(e.target.value)}
+                    >
+                        <option value=''>Select Rating...</option>
+                        <option value='1'>1 - Poor</option>
+                        <option value='2'>2 - Fair</option>
+                        <option value='3'>3 - Good</option>
+                        <option value='4'>4 - Very Good</option>
+                        <option value='5'>5 - Excellent</option>
+                    </select>
+                    <span className='u-font-weight-light'>Add a comment</span>
+                    <textarea
+                    className='writereview__textarea'
                     value={comment}
                     onChange={(e)=> setComment(e.target.value)}
-                >
-                </Form.Control>
-            </Form.Group>
-
-            <Button
-                disabled={loadingProductReview}
-                type='submit'
-                variant='primary'
-            >
-                Submit
-            </Button>
-        </Form> 
-    </div>
+                    />    
+                    <button
+                        disabled={loadingProductReview}
+                        type='submit'
+                        className='btn--main'
+                    >
+                        Submit
+                    </button>
+            </form> 
+        </>
     )
 };
 

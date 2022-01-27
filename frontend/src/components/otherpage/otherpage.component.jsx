@@ -89,6 +89,7 @@ const SubcategoriesList = ({category}) => {
     const [activeIndex, setActiveIndex] = useState(NaN);
     useEffect(()=>{
         setActiveIndex(NaN)
+        return ()=>setActiveIndex(NaN)
     }, [category])
     return (
     <div className='otherpage'>

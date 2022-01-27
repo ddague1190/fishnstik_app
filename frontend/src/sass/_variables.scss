@@ -24,11 +24,18 @@ $color-button-2: #0073f7;
 $color-button-3: #1900ff;
 
 
+$color-background: white;
+
+// Utility class colors
+$color-background-shade-1: #00f0a8;
+$color-background-shade-2: #51e7c265;
+$color-background-shade-3: rgba(50, 146, 255, 0.137);
 // FONT
 $default-fontsize: 1.6rem;
 
 $font-family-1: 'Rubik Mono One';
 $font-family-2: 'Rubik';
 
-// Product names on product card
-$font-family-3: 'Rubik';
+$font-family-3: "Nunito Sans";
+
+$font-family-producttitle: 'Pacifico';

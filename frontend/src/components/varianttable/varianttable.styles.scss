@@ -1,8 +1,8 @@
 .variantcards {
-  padding: 2rem;
+  padding: 1rem;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 16rem);
+  grid-template-columns: repeat(auto-fit, 11rem);
   gap: 1rem;
   grid-auto-rows: minmax(16rem, auto);
   justify-items: center;
@@ -13,8 +13,8 @@
 .variantcard {
   cursor: pointer;
   @include flexCenter(column);
-  width: 16rem;
-  height: 16rem;
+  width: 10rem;
+  height: 10rem;
   position: relative;
   border-radius: 5px;
   background-color: rgba(rgb(241, 241, 241), 0.5);
@@ -44,7 +44,7 @@
       line-height: 1.2rem;
       z-index: 4;
       color: white;
-      background: black;
+      background: red;
       font-family: $font-family-2;
   }
 

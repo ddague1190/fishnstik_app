@@ -77,8 +77,8 @@ export const listProductDetails = (id) => async (dispatch) => {
 export const createProductReview = (productId, review) => async (dispatch, getState) => {
     try {
         dispatch({type: PRODUCT_CREATE_REVIEW_REQUEST})
-
-
+        console.log('productid')
+        console.log(productId, review)
         const {data} = await axiosInstance.post(`/api/products/${productId}/reviews/`,
             review
         );

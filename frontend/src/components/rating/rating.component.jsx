@@ -2,7 +2,7 @@ import React from 'react'
 
 function Rating( {value, text, color} ) {
     return (
-        <div className="rating">
+        <div className="rating" style={{'fontSize': '1.2rem', 'display': 'flex'}}>
             <span>
                 <i style={{color}} className={
                     value >= 1
@@ -63,7 +63,7 @@ function Rating( {value, text, color} ) {
                 </i>
             </span>
             
-            <p className='light'> {text && text}</p>
+            <p className='u-font-weight-light'>     ({text && text})</p>
         </div>
     )
 }

@@ -39,7 +39,6 @@ const Header = () => {
     let {search} = useLocation();
     const [hideSearchBox, setHideSearchBox] = useState(true);
     const [currentCategory, setCurrentCategory] = useState('');
-    const [seeingAll, setSeeingAll] = useState(false);
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
     const dispatch = useDispatch();
@@ -47,7 +46,6 @@ const Header = () => {
 
     const onNavClick = (category) => {
         setCurrentCategory(category);
-        setSeeingAll(false);
         setHideSearchBox(true);
         navigate(`products/${category}`)
     }
@@ -55,12 +53,10 @@ const Header = () => {
     const onSearchBoxClick = () => {
         setHideSearchBox(!hideSearchBox);
         setCurrentCategory('');
-        setSeeingAll(false);
     }
 
     const onLogoClick = () => {
         setCurrentCategory('');
-        setSeeingAll(false);
         setHideSearchBox(true);
         navigate('/');
     };
@@ -71,7 +67,6 @@ const Header = () => {
     };
 
     const onSeeAllProductsClick = () => {
-        setSeeingAll(!seeingAll);
         setHideSearchBox(true);
         setCurrentCategory(false);
         navigate('products/all');
@@ -79,10 +74,32 @@ const Header = () => {
     };
 
     return (
+        <>
+
         <header className='header'>
             
                 <div className='headertop'>
-                    <img onClick={onLogoClick} className='headertop__logo' src={'https://fishnstik-pictures.s3.amazonaws.com/FishNStik.png'} alt='company_logo' />
+
+                    <nav className='nav'>
+
+{categories.map(({category, title}, index) => (
+    <div
+        className={`btn--navbar ${currentCategory===category ? 'btn--navbar--active' : ''}`}
+        onClick={()=>onNavClick(category)}
+    >
+        {title}
+    </div>
+))}
+
+    <OtherProducts setCurrentCategory={setCurrentCategory} />
+
+    <div className='nav__search'>
+        <i onClick={onSearchBoxClick} className="fas fa-search"></i> 
+    </div>
+
+{currentCategory && <SubcategoriesList category={currentCategory} /> }
+</nav>
+
 
                     {userInfo ? (
                         <div className='headertop__withuser'>
@@ -106,37 +123,14 @@ const Header = () => {
                         </div>)
                     }
                 </div>
-            <nav className='nav'>
-                    <div
-                        className={`btn--navbar ${seeingAll ? 'active' : ''}`}
-                        onClick={onSeeAllProductsClick}
-                    >
-                        All
-                    </div>
 
-                {categories.map(({category, title}, index) => (
-                    <div
-                        className={`btn--navbar ${currentCategory===category ? 'btn--navbar--active' : ''}`}
-                        onClick={()=>onNavClick(category)}
-                    >
-                        {title}
-                    </div>
-                ))}
-                
-                    <OtherProducts setSeeingAll={setSeeingAll} setCurrentCategory={setCurrentCategory} />
-
-                    <div className='nav__search'>
-                        <i onClick={onSearchBoxClick} className="fas fa-search"></i> 
-                    </div>
-
-                {currentCategory && <SubcategoriesList category={currentCategory} /> }
-            </nav>
 
             {!hideSearchBox && <SearchBox/>}
 
             
 
         </header>
+        </>
     )
 };
 

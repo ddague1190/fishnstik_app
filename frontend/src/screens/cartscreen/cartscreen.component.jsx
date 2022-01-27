@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import { Link, useParams, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap';
 import Message from '../../components/message/message.component';
 import { addToCart } from '../../actions/cartActions';
 import CartItem from '../../components/cartitem/cartitem.component';
@@ -32,24 +31,24 @@ const CartScreen = () => {
     }
 
     return (
-        <div className='cartscreen u-margin-top-medium'>
-            <h1 className='u-center-text'>Shopping Cart</h1>
+        <div className='cartscreen u-margin-top-medium u-box-shadow'>
+            <h2 className='u-center-text u-margin-bottom-medium'>Shopping Cart</h2>
             {cartItems.length === 0 ? (
                    <Message variant='info'>
                        Your cart is empty <Link to='/'>Go Back</Link>
                    </Message>
                ) : (
 
-                   <div className='cartitems'>
-                        <span className='cartitems__header cartitems__header--image'>Image</span>
-                        <span className='cartitems__header cartitems__header--product'>Product</span>
-                        <span className='cartitems__header cartitems__header--changeqty'>Qty</span>
+                   <table className='cartitems'>
+                        <th className='cartitems__header cartitems__header--image'>Image</th>
+                        <th className='cartitems__header cartitems__header--product'>Product</th>
+                        <th className='cartitems__header cartitems__header--changeqty'>Qty</th>
 
                         {cartItems.map((item, index) => (
                             <CartItem key={index} item={item} />
                             
                         ))}
-                    </div>
+                    </table>
                 )}
             <div className='cartitems__subtotal u-margin-top-big'>
                 <h4 className='heading--secondary'>

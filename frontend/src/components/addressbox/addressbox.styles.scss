@@ -1,6 +1,7 @@
 .addressbox {
     list-style-type: none;
     @include flexCenter(column);
+    margin: 0 auto;
     width: max-content;
     padding: 1rem;
     font-size: 1.2rem;

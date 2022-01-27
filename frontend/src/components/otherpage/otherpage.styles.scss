@@ -2,11 +2,11 @@
   @include flexCenter(row);
   width: 90vw;
   position: absolute;
-  bottom: -4.8rem;
+  bottom: 0;
   margin: 0.8rem;
   gap: 1rem;
   animation-name: slidein;
-  animation-duration: 0.3s;
+  animation-duration: 1s;
   &__link {
     text-decoration: none;
     text-transform: uppercase;

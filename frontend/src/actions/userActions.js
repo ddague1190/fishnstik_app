@@ -277,7 +277,6 @@ export const getSavedAddresses = () => async (dispatch) => {
            }
        }
        const {data} = await axiosInstance.get('/api/users/address/');
-
         dispatch({
                type: GET_USER_ADDRESSES_SUCCESS,
                payload: data

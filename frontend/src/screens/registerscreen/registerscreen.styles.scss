@@ -9,9 +9,9 @@
 }
 .registrationform {
 @include flexCenter(row);
-width: 60rem;
+max-width: 50rem;
 flex-wrap: wrap;
   &__alreadyhaveaccount {
-    
+    width: 100%; 
   }
 }

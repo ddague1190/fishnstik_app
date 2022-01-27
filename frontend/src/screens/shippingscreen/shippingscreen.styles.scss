@@ -1,8 +1,24 @@
 .shippingscreen {
+    
+    &__oldaddressform {
+        @include flexCenter(column);
+        align-items: stretch;
+    }
     &__oldaddresses {
-        justify-content: center;
+        max-width: 80rem;
+        margin: 0 auto;
         display: grid;
+        justify-content: center;
         grid-template-columns: repeat(auto-fit, 25rem);
+    }
+
+    &__buttonwrapper {
+        text-align: center;
+        vertical-align: center;
+        & button {
+            margin-right: 2rem;
+        }
+
     }
 
     & button {

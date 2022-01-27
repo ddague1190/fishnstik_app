@@ -54,6 +54,18 @@
 
     &__profilesection {
         width: 70%;
-        min-width: 300px;
+        min-width: 30rem;
+    }
+
+    &__table {
+        display: grid;
+        justify-items: center;
+        grid-template-columns: 
+            minmax(3rem, 1fr)
+            minmax(5rem, 1fr)
+            minmax(5rem, 1fr)
+            minmax(2rem, 1fr)
+            minmax(5rem, 1fr);
+
     }
 }

@@ -9,6 +9,7 @@ import Loader from '../../components/loader/loader.component';
 import Message from '../../components/message/message.component'
 import './shippingscreen.styles.scss';
 import AddressForm from '../../components/addressform/addressform.component';
+import { Button } from '../../components/button/button.component';
 
 function ShippingScreen() {
 
@@ -30,7 +31,6 @@ function ShippingScreen() {
         postalCode: '',
         phone: ''
     });
-    console.log(formData)
 
     useEffect(()=> {
         dispatch(getSavedAddresses())
@@ -76,24 +76,28 @@ function ShippingScreen() {
             {message && <Message variant='danger'>{message}</Message>}
             {loading && <Loader />}
             <CheckoutSteps step1 step2 />
-            <h1>Shipping</h1>
+            <h2 className='u-center-text '>Shipping</h2>
+            
             {addresses ? (
                 !addNewAddress ?  
                     (
-                        <div className='shippingscreen__oldaddressform'> 
+                        <div className='shippingscreen__addressform'> 
                             <div className='shippingscreen__oldaddresses'>
                                 {oldAddresses}       
-                            </div>           
-                            <button className='btn--main' onClick={submitHandler} variant='primary'>
-                                Continue
-                            </button>
-                            <span onClick={toggleAddressForm} className='shippingscreen__optionbutton'>
-                                Send to a different address
-                            </span>
+                            </div>    
+                            <div className='shippingscreen__buttonwrapper u-margin-top-medium'>       
+                                <button className='btn--main' onClick={submitHandler} variant='primary'>
+                                    Continue
+                                </button>
+                                <span onClick={toggleAddressForm} className='shippingscreen__optionbutton'>
+                                    Send to a different address
+                                </span>
+                            </div>
                         </div>
                     ) : <AddressForm toggleAddressForm={toggleAddressForm} />
                 ) : <AddressForm />
             }
+
         </div>
     )
 }

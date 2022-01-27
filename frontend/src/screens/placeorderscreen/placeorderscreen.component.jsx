@@ -1,25 +1,25 @@
-import React, {useState, useEffect} from 'react'
-import { Button, Row, Col, ListGroup, Image, Card, Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import Message from '../../components/message/message.component'
-import CheckoutSteps from '../../components/checkoutsteps/checkoutsteps.component'
-import { logout } from '../../actions/userActions'
-import { useNavigate } from 'react-router-dom'
-import { createOrder } from '../../actions/orderActions'
-import { ORDER_CREATE_RESET } from '../../constants/orderConstants'
-
+import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Message from '../../components/message/message.component';
+import CheckoutSteps from '../../components/checkoutsteps/checkoutsteps.component';
+import { logout } from '../../actions/userActions';
+import { useNavigate } from 'react-router-dom';
+import { createOrder } from '../../actions/orderActions';
+import { ORDER_CREATE_RESET } from '../../constants/orderConstants';
+import AddressBox from '../../components/addressbox/addressbox.component';
+import CartItem from '../../components/cartitem/cartitem.component';
+import './placeorderscreen.styles.scss';
 
 
 function PlaceOrderScreen() {
 
-    const orderCreate = useSelector(state => state.orderCreate)
-    let {order, error, success} = orderCreate
-    const [instructions, setInstructions] = useState('')
+    const orderCreate = useSelector(state => state.orderCreate);
+    let {order, error, success} = orderCreate;
+    const [instructions, setInstructions] = useState('');
     const dispatch = useDispatch();
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
-    const cart = useSelector(state => state.cart)
+    const cart = useSelector(state => state.cart);
 
 
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0).toFixed(2);
@@ -60,146 +60,105 @@ function PlaceOrderScreen() {
 
 
     const placeOrder = () => {
-        
         dispatch(createOrder({
             orderItems: cart.cartItems,
             shippingAddress: cart.shippingAddress,
             paymentMethod: cart.paymentMethod,
             instructions: instructions
         }))
-    }
+    };
     return (
-        <div>
-            <CheckoutSteps step1 step2 step3 step4 />
-            <Row>
-                <Col md={8}>
+        <div className='placeorderscreen__container'>
 
-         
-                    <ListGroup variant='flush'>
-                        <ListGroup.Item>
-                            <h2>Shipping</h2>
-                            <ul className='list'>
-                                <li className='light my-2'>Shipping Address:</li>
-                                <li>{cart.shippingAddress.name}</li>  
-                                <li>{cart.shippingAddress.address}</li>
-                                {cart.shippingAddress.apartment ? <li>Apt/Ste: {cart.shippingAddress.apartment}</li> : ''} 
-                                <li>{cart.shippingAddress.city}, {cart.shippingAddress.state} {cart.shippingAddress.postalCode}</li>
-                                <li>{cart.shippingAddress.phone}</li>
-                            </ul>
-                        </ListGroup.Item>
-    
-                        <ListGroup.Item>
-                            <h2>Payment Method</h2>
+            <CheckoutSteps step1 step2 step3 step4 />
+
+            <div className='placeorderscreen'>
+                <table className='placeorderscreen__paramspanel'>
+                    <tbody className='u-center-text'>
+                        <tr>
+                            <h3>Shipping to:</h3>
+                            
+                            <AddressBox input={cart.shippingAddress} />
+                        </tr>
+                        <tr>
+                            <h3>Payment Method</h3>
                             <p>
-                                <strong>Method:</strong>
                                 {cart.paymentMethod}
                             </p>
-                        </ListGroup.Item>
-
-                        <ListGroup.Item>
-                            <h4 className='green'>Instructions</h4>
-                            <Form.Control
-                                type='text'
-                                placeholder='Any special instructions for this order?'
-                                value={instructions ? instructions : ''}
-                                onChange={(e)=>setInstructions(e.target.value)}
-                            >
-                            </Form.Control>
-                        </ListGroup.Item>
-
-                        <ListGroup.Item>
-                            <h2>Order Items</h2>
-                            {cart.cartItems.length === 0 ? 
+                        </tr>
+                        <tr>
+                            <h3>Instructions</h3>
+                            <div class='input-control'>
+                                <input 
+                                    class='input-control__input'
+                                    id='instructions'
+                                    type='text'
+                                    required
+                                    placeholder="e.g. Need it yesterday"
+                                    value={instructions}
+                                    onChange={(e)=>setInstructions(e.target.value)}
+                                />
+                                <label for='instructions' class='input-control__label'>
+                                    Instructions(optional)
+                                </label>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+                <div className='placeorderscreen__cartitemspanel'>
+                    <h2 className='u-center-text u-margin-top-medium u-margin-bottom-small'>Order Items</h2>
+                {cart.cartItems.length === 0 ? 
                             <Message variant='info'>Your cart is empty</Message> :
-                            (   
-                                <ListGroup variant='flush'>
+                                (   
+                            <table className='cartitems'>
+                                <th className='cartitems__header cartitems__header--image'>Image</th>
+                                <th className='cartitems__header cartitems__header--product'>Product</th>
+                                <th className='cartitems__header cartitems__header--changeqty'>Qty</th>
 
-                                    {cart.cartItems.map((item, index) => (
-                                        <ListGroup.Item key={index}>
-                                            <Row>
-                                                <Col md={2}>
-                                                    <Image className='thumbsize'src={item.image} alt={item.name} fluid rounded></Image>
-                                                </Col>
+                                {cart.cartItems.map((item, index) => (
+                                    <CartItem key={index} item={item} />
+                                
+                                ))}
+                            </table>
+                )}
+                </div>
+                <div className='placeorderscreen__ordersummarypanel'>
+                    <h2 className='u-retro-font--2'>Order Summary</h2>
+                    <table className='ordersummarytable'>
+                        <tbody>
+                            <tr>
+                                <td className='u-font-weight-light'>Items price</td>
+                                <td >${cart.itemsPrice}</td>
+                            </tr>
+                            <tr>
+                                <td className='u-font-weight-light'>Shipping price</td>
+                                <td>${cart.itemsPrice}</td>
+                            </tr>
+                            <tr>
+                                <td className='u-font-weight-light'>Tax price</td>
+                                <td>${cart.taxPrice}</td>
+                            </tr>
+                            <tr>
+                                <td className='u-font-weight-light'>Total price</td>
+                                <td className='u-background-shade-1'>${cart.totalPrice}</td>
+                            </tr>
+                        </tbody>       
+                    </table>
 
-                                                <Col >
-                                                <Link 
-                                                className="product-links" 
-                                                to={`/product/${item.productId}`}
-                                                >
-                                                    <strong className='bold'>{item.name}</strong> <p className='light'>({item.variantDescription})</p>
-                                                </Link>
+                    <div className='ordersummary__error'>
+                        {error && <Message variant='danger'>{error}</Message>}
+                    </div>
 
-
-                                                </Col>
-
-                                                <Col md={4}>
-                                                    {item.qty} x ${item.price} = ${(item.qty * item.price).toFixed(2)}
-                                                </Col>
-                                            </Row>
-                                        </ListGroup.Item>
-
-                                    )) 
-                                    }
-
-                                </ListGroup>
-
-                            )
-                            }
-                        </ListGroup.Item>
-                        
-                    </ListGroup>
-                </Col>
-                <Col md={4}>
-                    <Card>
-                        <ListGroup variant='flush'>
-                            <ListGroup.Item>
-                                <h2>Order Summary</h2>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <Row>
-                                    <Col>Items:</Col>
-                                    <Col>${cart.itemsPrice}</Col>
-                                </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <Row>
-                                    <Col>Shipping:</Col>
-                                    <Col>${cart.shippingPrice}</Col>
-                                </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <Row>
-                                    <Col>Tax:</Col>
-                                    <Col>${cart.taxPrice}</Col>
-                                </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <Row>
-                                    <Col>Total:</Col>
-                                    <Col>${cart.totalPrice}</Col>
-                                </Row>
-                            </ListGroup.Item>
- 
-                            <ListGroup.Item>
-                                {error && <Message variant='danger'>{error}</Message>}
-                            </ListGroup.Item>
-
-                            <ListGroup.Item>
-                                <Button 
-                                    type='button'
-                                    className='btn-block'
-                                    disable={cart.cartItems.length === 0 ? true : undefined}
-                                    onClick={placeOrder}
-                                >
-                                    Place order
-                                </Button>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Card>
-                </Col>
-
-            </Row>
+                    <button 
+                        className={`btn--main ${cart.cartItems.length === 0 ? 'btn--main--disable' : ''}`}
+                        onClick={placeOrder}
+                    >
+                        Place order
+                    </button>
+                </div>
+            </div>
         </div>
+            
     )
 }
 

@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
-import { Form, Button, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import FormContainer from '../../components/formcontainer/formcontainer.component'
 import CheckoutSteps from '../../components/checkoutsteps/checkoutsteps.component'
 import { useNavigate } from 'react-router-dom'
 import { savePaymentMethod } from '../../actions/cartActions'
+import './paymentscreen.styles.scss';
 
 function PaymentScreen() {
 
@@ -31,25 +30,23 @@ function PaymentScreen() {
     }
 
     return (
-        <FormContainer>
+        <div className='paymentscreen'>
             <CheckoutSteps step1 step2 step3 />
 
-            <Form onSubmit={submitHandler}>
-                <Form.Group>
-                    <Form.Label as='legend'>
-                        Select Method
-                    </Form.Label>
-                    <Col>
-                        <Form.Check type='radio' label='PayPal or Credit Card' id='paypal' name='paymentMethod' checked onChange={(e) => setPaymentMethod(e.target.value)}>
-                        
-                        </Form.Check>
-                    </Col>
-                </Form.Group>
-                <Button type='submit' variant='primary'>
+            <form className='productscreen__form' onSubmit={submitHandler}>
+                <input 
+                    className='paymentscreen__input'
+                    type="checkbox" 
+                    id="paypal" 
+                    name="paypal"
+                    
+                />
+                <label className='paymentscreen__label' for="paypal">PayPal or Credit Card</label>
+                <button className='btn--main' type='submit' variant='primary'>
                     Continue
-                </Button>
-            </Form>
-        </FormContainer>
+                </button>
+            </form>
+        </div>
     )
 }
 

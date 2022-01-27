@@ -87,6 +87,7 @@
 
       &__catchphrase {
         position: absolute;
+        width: 100%;
         top: 4rem;
         left: 0;
         height: 5rem;
@@ -94,6 +95,7 @@
         background: $color-secondary-dark;
         text-align: center;
         font-size: 1rem;
+        margin: 0 auto;
       }
 
       &__brand {

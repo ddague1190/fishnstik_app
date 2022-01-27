@@ -151,7 +151,7 @@ const ProfileScreen = () => {
                 {errorOrders ? (
                     <Message variant='danger'>{error}</Message>
                 ) : ( 
-                    <Table striped responsive className='table-sm'>
+                    <table className='profilescreen__table u-margin-top-medium'>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -178,7 +178,7 @@ const ProfileScreen = () => {
                             </tr>
                     ))}
                         </tbody>
-                    </Table>
+                    </table>
                 )}
             </div>  
         </div>

@@ -1,32 +1,14 @@
 .productdetails {
-  @include flexCenter(row);
-  justify-content: flex-start;
-  width: 100%;
-  margin: 2rem;
-  flex-wrap: wrap;
-
-  &__wedge {
-    width: 5rem;
-    height: 100%;
-    display: inline;
-    clip-path: polygon(0 0, 0% 100%, 100% 100%);
-    shape-outside: polygon(0 0, 0% 100%, 100% 100%);
-    float: left;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 30rem);
+  justify-content: center;
 
   &__details {
-    min-width: 300px;
-    width: 50%;
-    height: 15rem;
-    position: relative;
-    margin-left: 2rem;
     padding: 1rem;
+  }
 
-    &::after {
-      @include psuedoElement(0, 0, 100%, 100%);
-      background-color: $color-primary-light;
-      transform: skew(20deg);
-      z-index: -1;
-    }
+  &__name {
+    font-family: $font-family-producttitle;
+    font-size: 3rem;
   }
 }

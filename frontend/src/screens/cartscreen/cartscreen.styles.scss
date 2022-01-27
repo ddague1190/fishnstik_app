@@ -1,10 +1,5 @@
 .cartscreen {
     padding: 1rem;
-    position: relative;
-    &::before {
-        @include psuedoElement(0, 0, 100%, 10%);
-        background:url(http://www.graphicartsunit.com/images/noise.png);;
-    }
 }
 .cartitems {
     display: grid;
@@ -12,7 +7,6 @@
     width: 70%;
     grid-template-columns: minmax(10rem, 3fr) minmax(20rem, 3fr) minmax(6rem, 1fr) minmax(3rem, 1fr);
     gap: 5px;
-    grid-auto-rows: 10rem;
     text-align: center;
 
     &__header {
@@ -33,7 +27,6 @@
     &__subtotal {
         @include flexCenter(column);
         padding: 2rem;
-        background-color: whitesmoke;
         border-radius: 5px;
         gap: 1rem;
 
