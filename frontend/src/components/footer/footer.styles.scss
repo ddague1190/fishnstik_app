@@ -6,7 +6,9 @@
   width: 100%;
   gap: 2rem;
   padding-right: 2rem;
-
+  margin: 0;
+  align-items: center;
+  
   &__logo {
     margin: 2rem;
     margin-right: auto;
@@ -20,6 +22,7 @@
   &__info {
     gap: 5px;
     @include flexCenter(column);
+    align-self: center;
     & a {
       color: white;
     }

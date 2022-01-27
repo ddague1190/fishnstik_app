@@ -170,8 +170,8 @@ export const Button = ({to, content}) => {
             onClick={console.log('hi')}
             className='waterbutton'
         >
-            <canvas ref={canvas} class="waterbutton__canvas"></canvas>
-            <span class="waterbutton__text">{content}</span>
+            <canvas ref={canvas} className="waterbutton__canvas"></canvas>
+            <span className="waterbutton__text">{content}</span>
         </a>
   )
 };

@@ -9,7 +9,6 @@ import Loader from '../../components/loader/loader.component';
 import Message from '../../components/message/message.component'
 import './shippingscreen.styles.scss';
 import AddressForm from '../../components/addressform/addressform.component';
-import { Button } from '../../components/button/button.component';
 
 function ShippingScreen() {
 
