@@ -20,6 +20,8 @@ const ProductList = ({target, ...otherProps}) => {
     let keyword = target ? target : location.search;
     let { url_cat, url_subcat } = useParams();
 
+    console.log(products)
+    console.log(url_cat, url_subcat)
 
     useEffect(() => {
         if(keyword) {
@@ -29,16 +31,17 @@ const ProductList = ({target, ...otherProps}) => {
         if(!keyword && url_cat) {
             dispatch(listCategorizedProducts(url_cat, url_subcat))
         }
-    }, [dispatch, keyword, url_cat, url_subcat])
+    }, [url_cat, url_subcat])
 
 
     return (
         <div className='productlist'>
             {loading ? <Loader />
                 : error ? <Message variant='danger'>{error}</Message>
-                :     
+                : 
+            products &&  (   
                 <div className='productlist__cards'>     
-                    {products ? (
+                    {products.length > 0 ? (
                         products.map((product, index) => {
                         return (
                             <Product key={product._id} product={product} keyword={keyword}/>
@@ -47,6 +50,7 @@ const ProductList = ({target, ...otherProps}) => {
                     ) : (<h2>No products found</h2>)
                     }
                 </div>
+            )
             }
             
             <Paginate 

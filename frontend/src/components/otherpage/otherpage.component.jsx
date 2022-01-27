@@ -6,11 +6,15 @@ const categories = {
     'snaps': [    
         {
             'subcategory': 'fishnstik',
-            'title': 'FishNStik Snaps'
+            'title': 'FishNStik'
         },
         {
             'subcategory': 'coastlock',
             'title': 'CoastLock'
+        },
+        {
+            'subcategory': 'rosco',
+            'title': 'Rosco'
         },
     ],
 

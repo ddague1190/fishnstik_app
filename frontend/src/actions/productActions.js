@@ -37,7 +37,7 @@ export const listProducts = (keyword='') => async (dispatch) => {
 export const listCategorizedProducts = (category, subcategory='') => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_LIST_REQUEST})
-        const {data} = await axios.get(`/api/products/${category}/${subcategory}`);
+        const {data} = await axios.get(`/api/products/${category}/${subcategory}${subcategory && '/'}`);
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,

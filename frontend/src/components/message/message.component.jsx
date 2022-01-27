@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './message.styles.scss'
 
 const Message = ({children, variant}) => {
-    console.log(variant)
     const [showMessage, setShowMessage] = useState(true);
     let type = 'info'
     switch (variant) {
