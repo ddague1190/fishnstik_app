@@ -122,7 +122,7 @@
     border: 1px solid $color-button;
     border-radius: 20px;
     &::before {
-      background: $color-button url(http://www.graphicartsunit.com/images/noise2.png);
+      background: $color-button;
       position: absolute;
       content: '';
       width: 100%;
