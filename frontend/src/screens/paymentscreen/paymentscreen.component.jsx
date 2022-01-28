@@ -42,7 +42,7 @@ function PaymentScreen() {
                     
                 />
                 <label className='paymentscreen__label' for="paypal">PayPal or Credit Card</label>
-                <button className='btn--main' type='submit' variant='primary'>
+                <button className='btn--main u-margin-top-small' type='submit' variant='primary'>
                     Continue
                 </button>
             </form>

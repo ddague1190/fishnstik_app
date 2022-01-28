@@ -59,7 +59,7 @@ const ProductScreen = ()  => {
                     {product.numVariants === 1 && <AddToCartCard product={product} checkedBoxIndex={0}/> } 
 
                     {product.numVariants > 1 && ( 
-                        <div className='varianttable'>  
+                        <div className='varianttable u-margin-top-medium'>  
                             <div className='varianttable__select u-center-text'>
                                 {checkedBoxIndex === null ? 
                                     <h4 className='u-accent-color-pulsing'>please select an option...</h4>

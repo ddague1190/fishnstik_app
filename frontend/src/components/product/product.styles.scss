@@ -1,117 +1,88 @@
-.btn--primary{
-  display: none;
-}
-
 .productcard {
-  display: flex; 
-  justify-content: center;
-  width: 15rem;
-  height: 20rem;
-  border: 1px solid $color-primary-light;
+  width: 18rem;
+  height: 25rem;
   position: relative;
   border-radius: 3px;
-  clip-path: polygon(18.4% 0%, 100% 0, 100% 100%, 0 100%, 0% 13.5%);
-  transition: all 0.2s;
+  transition: all 5s;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
 
-  &::before {
-    @include psuedoElement(-1rem, 1rem, 1px, 5rem);
-    background-color: $color-primary-light;
-    transform: rotateZ(45deg);
-  }
-
-  &:hover::after {
-    @include psuedoElement(0, 0, 100%, 100%);
-    background-color: $color-primary-light;
-  }
-  &:hover::before {
-    display: none;
-  }
-
-  &:hover &__popup {
-    opacity: 1;
-    bottom: -3rem;
-  }
-  
-
-  &:hover .btn--primary {
+  &:hover &__button {
     display: block;
+    animation: grow 1s normal;
+    &::after {
+      animation: radiate 1s normal;
+    }
   }
 
   &__image {
-    object-fit: contain;
+    display: block;
     position: absolute;
-    top: 1rem;
-    left: 0;
-    width: 15rem;
-    height: 18rem;
-    z-index: -5;
-    display: flex;
-    justify-content: center;
-    & > img {
-      object-fit: contain;
-      display: block;
-      height: 100%;
-      width: auto;
-    }
-  }
-
-  &__popup {
-    position: absolute;
-    height: 20rem;
-    width: 100%;
-    bottom: -16.3rem;
-    left: 0;
-    color: white;
-    background-color: rgba(black, 0.2);
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    object-fit: cover;
+    height: 21rem;
   }
 
   &__name {
-    @include psuedoElement(0, 0, 100%, 4rem);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include flexCenter(row);
     line-height: 1.6rem;
-    font-family: $font-family-3;
-    padding: 2px;
-    background-color: rgba(black, 0.6);
-    text-align: center;
+    width: 100%;
+    height: 4rem;
+    background-color: rgba(black, 1);
+    color: white;
+    text-align: center;  
     z-index: 100;
   }
 
-
-    &__details {
-      @include psuedoElement(0px, 0, 100%, 25rem);
-      padding: .8rem 0;
-      z-index: 5;
-      color: white;
-      font-family: $font-family-2;
-      background-color: $color-tertiary-light;
+  &__button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    font-size: 3rem;
+    z-index: 2;
+    transition: all 4s;
+    &::after {
+      @include psuedoElement(50%, 50%, 100%, 100%);
+      content: '';
+      transform: translate(-50%, -50%); 
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid #aaa;
+      z-index: 1;
     }
+  }
+}
 
-      &__catchphrase {
-        position: absolute;
-        width: 100%;
-        top: 4rem;
-        left: 0;
-        height: 5rem;
-        margin-bottom: 30px;
-        background: $color-secondary-dark;
-        text-align: center;
-        font-size: 1rem;
-        margin: 0 auto;
-      }
 
-      &__brand {
-        position: absolute;
-        top: 9rem;
-        left: 0;
-        height: 3rem;
-        gap: 1rem;
-        @include flexCenter(row);
+@keyframes radiate {
+  from {
 
-        & div:first-child {
-          width: min-content;
-          line-height: 0.8;
-          font-size: 1rem;
-          margin-left: 1rem;
-          color: $color-tint-1;
-        }
-      }
+  }
+
+  to {
+    width: 100rem;
+    height: 100rem;
+  }
+}
+
+
+
+@keyframes grow {
+  from { 
+
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1.03); 
+
+  }
 }

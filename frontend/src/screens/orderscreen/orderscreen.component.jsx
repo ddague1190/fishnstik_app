@@ -70,7 +70,7 @@ const OrderScreen = () => {
                 <tbody classname='u-center-text'>
                 <tr>
                     <h4>Contact info</h4>
-                    <span>
+                    <span className='u-center-text'>
                             <div>{order?.user.email}</div>
                             <div>{ order?.shippingAddress.phone}</div>
                     </span>

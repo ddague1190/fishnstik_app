@@ -1,7 +1,8 @@
 .footer {
   height: 20rem;
-  background-color: #333;
-  color: white;
+  border-top: 1px solid black;
+  background-color: white;
+  color: black;
   @include flexCenter(row);
   width: 100%;
   gap: 2rem;
@@ -23,14 +24,12 @@
     gap: 5px;
     @include flexCenter(column);
     align-self: center;
-    & a {
-      color: white;
-    }
   }
 
   &__contactinfo {
     display: grid;
     grid-template-columns: 10rem 20rem;
+    min-width: 45rem;
   }
 
 }

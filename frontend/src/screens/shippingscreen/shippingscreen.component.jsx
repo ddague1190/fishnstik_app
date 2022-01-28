@@ -75,7 +75,7 @@ function ShippingScreen() {
             {message && <Message variant='danger'>{message}</Message>}
             {loading && <Loader />}
             <CheckoutSteps step1 step2 />
-            <h2 className='u-center-text '>Shipping</h2>
+            <h2 className='u-center-text u-margin-bottom-medium'>Shipping</h2>
             
             {addresses ? (
                 !addNewAddress ?  

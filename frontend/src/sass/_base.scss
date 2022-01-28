@@ -30,6 +30,8 @@ html {
 }
 
 body {
+    min-height: 60vh;
+    width: 100vw;
     box-sizing: border-box;
     background-color: $color-background;
     // @include respond(tab-port) {
@@ -42,6 +44,7 @@ main {
     max-width: 1300px;
     margin: 0 auto;
     padding: 1rem;
+    width: 100vw;
 }
 
 

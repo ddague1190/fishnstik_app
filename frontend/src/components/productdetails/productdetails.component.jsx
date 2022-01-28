@@ -3,7 +3,7 @@ import './productdetails.styles.scss';
 
 const ProductDetails = ({product, height}) => {
 
-    return (
+    return ( 
 
     <div className='productdetails u-margin-bottom-small'>
         <Figure image={product.image} height='30rem' alt={product.name} />

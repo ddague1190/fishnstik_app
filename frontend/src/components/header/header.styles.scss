@@ -1,12 +1,10 @@
 .header {
   text-align: center;
-  position: sticky;
-  top: 0;
   width: 100vw;
   margin-bottom: 3.2rem;
   padding: 0 1.6rem;
   height: 10rem;
-  z-index: 10;  
+  position: relative;
 }
 .headertop {
     height: 8rem;

@@ -12,21 +12,10 @@ const Product = ({ product }) => {
     }
 
     return (
-            <div className='productcard'>
-                <div className='productcard__image'>
-                    <img src={product.image} alt={product.name} />
-                </div>
-                <div className='productcard__popup'>
-                    <span className='productcard__name'>{product.name.slice(0,30)}</span>
-                    <div className='productcard__details u-center-text'>
-                        <span className='productcard__catchphrase'>{product.catchPhrase}</span>
-                        <div className='productcard__brand u-center-text'>
-                            <div>Made by</div> 
-                            <div>{product.brand}</div>
-                        </div>
-                    </div>
-                </div>
-                <div onClick={onProductCardClick} className='btn--primary u-display-none'>More info</div>
+            <div className='productcard u-box-shadow'>
+                <img className='productcard__image' src={product.image} alt={product.name} />
+                <div className='productcard__name u-retro-font--2'>{product.name.slice(0,30)}</div>
+                <span onClick={onProductCardClick} className='productcard__button'><i class="fas fa-plus-circle"></i></span>
             </div>
     )
 }

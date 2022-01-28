@@ -44,7 +44,7 @@ const AddToCartCard = ({product, checkedBoxIndex}) => {
                     </span> 
                 </tr>
                 <tr>
-                    <div 
+                    <button 
                     className='btn--main'
                     style={{
                         'margin': '0 auto', 
@@ -56,7 +56,7 @@ const AddToCartCard = ({product, checkedBoxIndex}) => {
                     type='button'
                     >
                         Add to Cart
-                    </div> 
+                    </button> 
                 </tr>
             </table>  
         </div>
