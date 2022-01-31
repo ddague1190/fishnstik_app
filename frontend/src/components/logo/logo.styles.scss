@@ -1,0 +1,17 @@
+.logo {
+    grid-area: logo;
+    position: relative;
+    & img {
+        width: 15rem;
+    }
+
+    &__established {
+        position: absolute;
+
+    }
+
+    &__name {
+        position: absolute;
+
+    }
+}

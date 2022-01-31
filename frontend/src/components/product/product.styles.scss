@@ -3,16 +3,32 @@
   height: 25rem;
   position: relative;
   border-radius: 3px;
-  transition: all 5s;
+  transition: radiate 5s;
   padding: 0;
   overflow: hidden;
   cursor: pointer;
+  z-index: 100;
+
+
+
 
   &:hover &__button {
     display: block;
+    border-radius: 50%;
     animation: grow 1s normal;
     &::after {
+      display: block;
       animation: radiate 1s normal;
+    }
+    &::before {
+      @include psuedoElement(50%, 50%, 100%, 100%);
+      transform: translate(-50%, -50%);
+      content: '';
+      background-color: rgb(255, 208, 0);
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      z-index: -2;
     }
   }
 
@@ -37,23 +53,22 @@
     background-color: rgba(black, 1);
     color: white;
     text-align: center;  
-    z-index: 100;
-  }
+    }
 
   &__button {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: none;
     font-size: 3rem;
-    z-index: 2;
+    z-index: 3;
     transition: all 4s;
     &::after {
       @include psuedoElement(50%, 50%, 100%, 100%);
       content: '';
       transform: translate(-50%, -50%); 
       border-radius: 50%;
+          display: none;
       width: 2rem;
       height: 2rem;
       border: 1px solid #aaa;

@@ -2,7 +2,6 @@
   display: block;
   width: 100%;
   background: url(https://fishnstik-pictures.s3.amazonaws.com/fish.jpg);
-  background-attachment: fixed;
   background-position: 18% 55%;
   background-size: 200vw;
   background-repeat: no-repeat;
@@ -17,7 +16,6 @@
     left: 0;
     width: 100%;
     padding: 20px 10px;
-    background: inherit;
     background-attachment: fixed;
     overflow: hidden;
 
@@ -73,7 +71,6 @@
 
     &::after {
       content: "";
-      background: inherit;
       background: rgba(0, 0, 0, 0.55);    
       display: block;
       z-index: -1;

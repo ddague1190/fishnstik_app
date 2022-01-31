@@ -1,0 +1,65 @@
+.desktop-nav {
+    grid-area: desktop-nav;
+    font-size: 2rem;
+    z-index: 10;
+    text-transform: uppercase;
+
+
+    & a {
+        color: white;
+    }
+    
+}
+
+.desktop-nav-list {
+    @include flexCenter(row);
+    gap: 2px;
+    position: relative;
+}
+
+.desktop-nav-item {
+    position: relative;
+
+    &__link {
+        display: block;
+        font-weight: 700;
+        @include flexCenter(row);
+        justify-content: flex-start;
+        border-radius: 4px;
+
+
+    }
+    &:hover .desktop-nav-submenu {
+        display: block;
+    }
+}
+
+.desktop-nav-submenu {
+    display: none;
+    position: absolute;
+    line-height: 3rem;
+    background: white;
+    text-align: center;
+    padding: 1rem;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: none;
+    width: 20rem;
+    &__triangle {
+        position: absolute;
+        z-index: 5;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-18rem);
+
+    }
+}
+.desktop-nav-submenu-item { 
+    cursor: pointer;
+
+    & a {
+        color: black;
+    }
+    
+}

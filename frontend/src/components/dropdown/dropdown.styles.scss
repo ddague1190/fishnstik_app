@@ -1,0 +1,80 @@
+.nav {
+    background-color: white;
+    font-size: 2rem;
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    text-transform: uppercase;
+
+
+    & a {
+        color: black;
+    }
+    
+}
+
+.nav-list {
+    margin: 1rem;
+}
+
+.nav-item {
+
+    &__link {
+        display: block;
+        padding: 5px;
+        font-weight: 700;
+        @include flexCenter(row);
+        justify-content: flex-start;
+        margin-left: 3rem;
+        border-radius: 4px;
+
+        &--expanded {
+            border-bottom: 1px solid black;
+
+        }
+
+        &--notaproduct {
+        }
+
+    }
+
+    &__expand-button {
+        position: absolute;
+        cursor: pointer;
+        right: 0;
+       font-size: 2.5rem; 
+       padding: 1rem 2rem;
+       transition: all .2s;
+            margin-right: 2rem;
+
+       &--expanded {
+            transform: rotateZ(180deg);
+       }
+    }
+}
+
+.nav-submenu {
+    margin: 1rem;
+    display: block;
+    &--hidden {
+        display: none;
+    }
+
+}
+.nav-submenu-item { 
+    text-align: left;
+    cursor: pointer;
+    margin-left: 10rem;
+
+    &__link {
+        display: block;
+        width: 100vw;
+    }
+
+    & a {
+        color: black;
+    }
+    
+}

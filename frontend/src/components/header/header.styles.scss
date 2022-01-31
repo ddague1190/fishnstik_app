@@ -1,56 +1,43 @@
+
 .header {
   text-align: center;
   width: 100vw;
   margin-bottom: 3.2rem;
-  padding: 0 1.6rem;
-  height: 10rem;
   position: relative;
 }
-.headertop {
-    height: 8rem;
-    gap: 1.6rem;
+
+.mobile-navbar {
+  @include flexCenter(row);
+  height: 5rem;
+
+  &__button {
+    margin-left: auto;
     @include flexCenter(row);
-
-    &__logo {
-      display: block;
-      height: 4rem;
-      cursor: pointer;
-      width: 9rem;
-    }
-    &__withuser {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-    }
-    &__withoutuser {
-      display: flex;
-      gap: 2rem;
-      margin-left: auto;
-    }
-  }
-
-.nav {
-    // @include absCenter(null);
-    gap: 0.2rem;
-    margin: 5px;
-    width: 100%;
-    @include flexCenter(row);
-    flex-wrap: wrap;
-    &__search {
-      @include flexCenter(row);
-      width: min-content;
-      margin-left: 1.2rem;
-    }
-}
-
-.fa-search {
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 50rem) {
-  .nav {
-    width: 40rem;
+    padding: 1.2rem;
+    gap: 1rem;
   }
 }
+
+  .header__logo {
+    width: 20rem;
+    height: 20rem; 
+    display: block;
+    object-fit: contain;
+    }
+
+.desktop-navbar {
+  display: grid;
+  grid-template-columns: 1rem repeat(8, 1fr) 1rem;
+  grid-template-rows: 10rem auto;
+  grid-template-areas: 
+  '. logo logo logo . . facebook-icon searchbox searchbox .'
+  '. desktop-nav desktop-nav desktop-nav desktop-nav desktop-nav desktop-nav desktop-nav desktop-nav .'
+  ;
+  align-items: center;
+
+  &__sociallinks {
+    grid-area: facebook-icon;
+  }
+}
+
+

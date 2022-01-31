@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import './searchBox.styles.scss';
 
@@ -12,30 +12,37 @@ const SearchBox = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         if(keyword) {
-            navigate(`/products/?keyword=${keyword}`)
+            const timeoutId = setTimeout(()=>{
+                navigate(`/products/?keyword=${keyword}`)
+            }, 500)
         } else {
             navigate(location.pathname)
         }
+        return (timeoutId)=> clearTimeout(timeoutId)
     }
+
+    useEffect(()=> {
+        const timeoutId = setTimeout(()=>{
+              console.log('timeouttest')
+          if(keyword) navigate(`/products/?keyword=${keyword}`)
+        }, 500)
+
+        return (timeoutId)=> clearTimeout(timeoutId)
+    }, [keyword])
+
+
     return (
 
-        <form onSubmit={submitHandler} className='searchbox' >
+        <form className='searchbox' >
             <input
                 size="sm"
                 type='text'
                 name='q'
                 placeholder='search for products...'
                 onChange={(e) => setKeyword(e.target.value)}
-                className='input'
+                className='searchbox__input'
             >
             </input>
-
-            <button
-                type='submit'
-                className='btn--navbar'
-            >
-                Go!
-            </button>
         </form>
         
     )

@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component';
 import HomeScreen from './screens/homescreen/homescreen.component';
@@ -15,12 +17,21 @@ import AboutUsScreen from './screens/aboutusscreen/aboutusscreen.component';
 import ProductList from './components/productlist/productlist.component';
 import OtherPage from './components/otherpage/otherpage.component';
 import './sass/App.scss';
-
+import { updateViewportDimensions } from './actions/responsiveActions';
+import useViewport from './utils/useViewport';
 
 
 
 const App = () => {
   
+  const dispatch = useDispatch();
+  const {width, height} = useViewport();
+
+  useEffect(()=>{
+    dispatch(updateViewportDimensions(width, height))
+  }, [width, height])
+
+
   const Page404 = () => {
     return (
       <h3>404 - Not found</h3>
@@ -30,7 +41,7 @@ const App = () => {
   return (
     <BrowserRouter basename='/'>
       <Header />
-        <main className='main'>
+        <main className='main' onClick={(e)=>console.log(e.target)}>
           <Routes>
             <Route exact path='/' element={<HomeScreen/>} />
             <Route path='/products/:url_cat/:url_subcat/' element={<ProductList />} />

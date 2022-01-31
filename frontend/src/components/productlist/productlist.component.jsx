@@ -6,7 +6,7 @@ import Loader from '../../components/loader/loader.component';
 import Message from '../../components/message/message.component';
 import Paginate from '../../components/paginate/paginate.component';
 import { useLocation, useParams } from 'react-router-dom';
-import { updateKeyword } from '../../actions/routeAction';
+import { updateKeyword } from '../../actions/routeActions';
 import './productlist.styles.scss';
 
 
@@ -20,8 +20,6 @@ const ProductList = ({target, ...otherProps}) => {
     let keyword = target ? target : location.search;
     let { url_cat, url_subcat } = useParams();
 
-    console.log(products)
-    console.log(url_cat, url_subcat)
 
     useEffect(() => {
         if(keyword) {
@@ -31,7 +29,7 @@ const ProductList = ({target, ...otherProps}) => {
         if(!keyword && url_cat) {
             dispatch(listCategorizedProducts(url_cat, url_subcat))
         }
-    }, [url_cat, url_subcat])
+    }, [keyword, url_cat, url_subcat])
 
 
     return (
@@ -47,7 +45,7 @@ const ProductList = ({target, ...otherProps}) => {
                             <Product key={product._id} product={product} keyword={keyword}/>
                         );
                         })
-                    ) : (<h2>No products found</h2>)
+                    ) : (<h3>No products found</h3>)
                     }
                 </div>
             )
