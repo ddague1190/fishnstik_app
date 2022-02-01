@@ -1,0 +1,32 @@
+.subcategory-section {
+}
+
+
+.subcategory-list {
+
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    gap: 2rem;
+
+}
+
+.subcategory-item {
+    display: block;
+    &__image {
+        border: 3px solid $color4;
+        border-radius: 4px;
+        object-fit: contain;
+        height: 15rem;
+        width: 15rem;
+        display: block;
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+}

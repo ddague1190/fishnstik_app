@@ -59,17 +59,19 @@ const Header = () => {
             </header>
 
         ) : (
-            <header className='header'>    
+            <header className='header'>  
+            
                 <div className='userpanel'>
+                    <SearchBox />
+                    <div className='desktop-navbar__sociallinks'>
+                        <a href='https://www.facebook.com/fish.n.stik'><i className="fab fa-facebook"></i></a>
+                    </div>
                     <UserPanel />
                 </div>
 
                 <div className='desktop-navbar'>
                     <Logo />
-                    <div className='desktop-navbar__sociallinks'>
-                        <a href='https://www.facebook.com/fish.n.stik'><i class="fab fa-facebook"></i></a>
-                    </div>
-                    <SearchBox />
+ 
                     <NavBar />
                 </div>
 

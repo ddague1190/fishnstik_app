@@ -1,28 +1,30 @@
 .btn--navbar {
   background: transparent;
   cursor: pointer;
+  font-family: 'Nunito Sans';
   @include flexCenter(row);
   text-transform: uppercase;
-  border: none;
   text-decoration: none;
   letter-spacing: 0px;
-  color: white;
   padding: 7px 15px;
   width: max-content;
   position: relative;
+  background-color: $color2;
+  // border: 2px solid $color-primary;
+  border-radius: 2px;
+  color: $color3 !important;
 
-  &:after {
-    position: absolute;
-    display: block;
-    height: 100%;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    content: "";
-    background-color: $color-primary;
-    transform: skew(20deg);
-    z-index: -1;
-  }
+
+  // &:after {
+  //   position: absolute;
+  //   display: block;
+  //   height: 100%;
+  //   top: 0;
+  //   bottom: 0;
+  //   width: 100%;
+  //   content: "";
+  //   z-index: -1;
+  // }
 
 
 
@@ -33,19 +35,8 @@
 
   &:hover,
   &--active {
-    background-color: rgb(0, 0, 0);
-    color: white;
-    transform: skew(20deg) scale(1.05);
-  }
-  &.markwithborder::after {
-    content: "";
-    display: block;
-    bottom: 0;
-    left: 0;
-    width: 10rem;
-    height: 2px;
-    position: absolute;
-    background-color: black;
+    color: black;
+    transform: scale(1.05);
   }
 }
 
@@ -57,7 +48,7 @@
     border: none;
     text-decoration: none;
     letter-spacing: 0px;
-    color: black;
+    color: white;
     padding: 10px;
     font-family: $font-family-2;
     width: max-content;
@@ -66,8 +57,8 @@
   
     &:hover,
     &--active {
-      background-color: rgb(0, 0, 0);
-      color: white;
+      background-color: white;
+      color: $color3;
       transform: scale(1.05);
     }
   }
@@ -81,7 +72,7 @@
     bottom: .5rem;
     left: 1.5rem;
     border: none;
-    background-color: white;
+    background-color: black;
     padding: .5rem 2rem;
     color: black;
     transition: all 0.2s;

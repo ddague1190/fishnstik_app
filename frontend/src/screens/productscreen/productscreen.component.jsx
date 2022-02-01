@@ -14,6 +14,8 @@ import Figure from '../../components/figure/figure.component';
 
 const ProductScreen = ()  => {
 
+    const [whichContent, setWhichContent] = useState('overview');
+
     const [checkedState, setCheckedState] = useState(
         new Array(15).fill(false)
     );
@@ -41,8 +43,33 @@ const ProductScreen = ()  => {
 
     return (
         <div className='productscreen'>
-            
-            <Link to={keyword ? `/products/${keyword.keyword}` : '/'} className='productscreen__goback'>Go back</Link>
+            <div className='path-group'>
+                <Link to='/'>Home</Link> 
+                <span> > </span>
+                <Link to='/'>{product.category}</Link>
+                <span> > </span>
+                <Link to='/'>{product.subcategory}</Link>
+            </div>
+
+            <ul className='tab-group'>
+                    <li className={`tab-group__tab ${whichContent==='overview' && 'tab-group__tab--active'}`} onClick={()=>setWhichContent('overview')}>
+                        <span>Overview</span>    
+                    </li>
+    
+                    <li className={`tab-group__tab ${whichContent==='photos' && 'tab-group__tab--active'}`} onClick={()=>setWhichContent('photos')}>
+                        <span>#fishnstik</span>    
+                    </li>
+                    <li className={`tab-group__tab ${whichContent==='reviews' && 'tab-group__tab--active'}`} onClick={()=>setWhichContent('reviews')}>
+                        <span>Reviews</span>    
+                    </li>
+                </ul>
+            <div className='productscreen__content'>
+
+        {
+            {
+            'overview':
+            <div className='productscreen-details'>
+
             {loading ?
         
                 <Loader /> :
@@ -50,16 +77,18 @@ const ProductScreen = ()  => {
              error ? 
 
                 <Message variant='danger'>{error}</Message> : ( 
-                
-                <div className='productscreen__details u-box-shadow'>
-                    <ProductDetails product={product} height='15rem' />
 
+                
+
+                    <>
+
+                        <ProductDetails product={product} height='8rem' />
+                        {product.numVariants === 1 && <AddToCartCard product={product} checkedBoxIndex={0}/> } 
 
                                 
-                    {product.numVariants === 1 && <AddToCartCard product={product} checkedBoxIndex={0}/> } 
 
                     {product.numVariants > 1 && ( 
-                        <div className='varianttable u-margin-top-medium'>  
+                        <div className='varianttable'>  
                             <div className='varianttable__select u-center-text'>
                                 {checkedBoxIndex === null ? 
                                     <h4 className='u-accent-color-pulsing'>please select an option...</h4>
@@ -108,10 +137,12 @@ const ProductScreen = ()  => {
                             </div>
                         </div>
                     )}
-                </div>
+                    </>
             )}
-            
-            <div className='showreviews u-margin-top-huge'>
+            </div>,
+            'reviews':
+            <div className='productscreen-reviews'>
+            <div className='showreviews'>
                 <h3>Recent reviews</h3>  
                 {product.reviews.length === 0 && <Message variant='info'>No Reviews</Message>}
                 <div className='reviewcards'>
@@ -128,7 +159,7 @@ const ProductScreen = ()  => {
             </div>
 
 
-            <div className='createreview u-margin-top-small u-margin-bottom-medium '>
+            <div className='createreview'>
                 <h3>Write a review</h3>
             
             {userInfo ? 
@@ -140,7 +171,16 @@ const ProductScreen = ()  => {
                 )
             }
             </div>
+            </div>
+
+        }[whichContent]
+        }
+    
+                  
+
         
+    
+            </div>
         </div>
     )
 }

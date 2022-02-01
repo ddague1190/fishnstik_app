@@ -1,17 +1,31 @@
 .logo {
     grid-area: logo;
     position: relative;
-    & img {
-        width: 15rem;
+    @include flexCenter(row);
+    font-family: 'Fisherman';
+    margin-top: 2rem;
+    color: black;
+    gap: 0;
+
+    &__group {
+        @include flexCenter(column);
     }
 
     &__established {
-        position: absolute;
-
+        @included flexCenter(row);
     }
+&__svg {
+    position: absolute;
+    left: 50%;
+    top: -2rem;
+    transform: translateX(-120%);
+
+}
 
     &__name {
-        position: absolute;
+        font-family: 'Fisherman';
+        color:$color2;
+        font-size: 6rem;
 
     }
 }

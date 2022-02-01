@@ -1,6 +1,6 @@
 .userpanel {
     height: 5rem;
-    background-color: #e5e5e580;
+    background-color: $color3;
     gap: 1.6rem;
     @include flexCenter(row);
 

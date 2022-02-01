@@ -1,3 +1,28 @@
+.tab-group {
+  width: 100%;
+  @include flexCenter(row);
+  &__tab {
+    cursor: pointer;
+    height: 5rem;
+    width: 20rem;
+    background-color: $color3;
+    @include flexCenter(column);
+    color: white;
+    &:first-child{
+      border-top-left-radius: 4px;
+
+    }
+    &:last-child{
+      border-top-right-radius: 4px;
+    }
+    &--active {
+      color: $color3;
+      background-color: white;
+        border: 1px solid $color3;
+    }
+  }
+}
+
 .productscreen {
   overflow: hidden;
   width: 100vw;
@@ -5,6 +30,9 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  &__content {
+  }
 
   &__goback {
     margin-left: 2rem;

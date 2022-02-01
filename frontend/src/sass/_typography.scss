@@ -3,6 +3,16 @@
 
 @import 'variables';
 
+@font-face {
+    font-family: Fisherman;
+    src: url("../staticfiles/fonts/Fisherman-Rough.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Otter;
+    src: url("../staticfiles/fonts/Otter-Regular.otf") format("opentype");
+}
+
 body {
     font-family: $font-family-3;
     font-size: 1.6rem;
@@ -23,5 +33,11 @@ h2, h3, h4{
 }
 
 button {
+
+}
+
+.heading--secondary {
+    font-weight: 700;
+    text-transform: none !important;
 
 }
