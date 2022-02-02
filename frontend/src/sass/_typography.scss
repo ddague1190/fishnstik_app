@@ -41,3 +41,26 @@ button {
     text-transform: none !important;
 
 }
+
+.path-group {
+    grid-area: path-group;
+    text-transform: uppercase;
+    padding: .5rem 2rem;
+    width: max-content;
+    
+    &:last-child {
+        position: relative;
+
+        &::after {
+            position: absolute;
+            border-bottom: 1px solid black;
+
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: $color3;
+            bottom: 0;
+            left: 0;
+        }
+    }
+}

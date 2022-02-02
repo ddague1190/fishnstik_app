@@ -1,21 +1,26 @@
 import {useState, useEffect} from 'react';
+import { useDispatch } from 'react-redux';
+import { updateViewportDimensions } from '../actions/responsiveActions';
+
 
 
 const useViewport = () => {
-    const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
+
+  const dispatch = useDispatch();
   
     useEffect(() => {
       const handleWindowResize = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
+        dispatch(updateViewportDimensions(window.innerWidth, window.innerHeight))
       }
   
       window.addEventListener("resize", handleWindowResize);
+    
+      dispatch(updateViewportDimensions(window.innerWidth, window.innerHeight))
+
       return () => window.removeEventListener("resize", handleWindowResize);
     }, []);
   
-    return { width, height };
+    return;
   }
 
   export default useViewport;

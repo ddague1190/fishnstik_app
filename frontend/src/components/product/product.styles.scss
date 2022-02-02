@@ -24,7 +24,6 @@
       @include psuedoElement(50%, 50%, 100%, 100%);
       transform: translate(-50%, -50%);
       content: '';
-      background-color: $color1;
       border-radius: 50%;
       width: 2rem;
       height: 2rem;

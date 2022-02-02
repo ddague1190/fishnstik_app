@@ -23,7 +23,6 @@ const SearchBox = () => {
 
     useEffect(()=> {
         const timeoutId = setTimeout(()=>{
-              console.log('timeouttest')
           if(keyword) navigate(`/products/?keyword=${keyword}`)
         }, 500)
 

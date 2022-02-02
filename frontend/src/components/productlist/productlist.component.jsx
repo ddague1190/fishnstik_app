@@ -9,13 +9,13 @@ import { useLocation, useParams } from 'react-router-dom';
 import { updateKeyword } from '../../actions/routeActions';
 import './productlist.styles.scss';
 import SubcategoryList from '../subcategorylist/subcategorylist.component';
-
+import SubcategoryInfo from '../subcategorylist/subcategoryinfo.component';
 
 const ProductList = ({target, ...otherProps}) => {
 
-    const dispatch = useDispatch()
-    const productList = useSelector(state => state.productList)
-    const {error, loading, products, page, pages} = productList
+    const dispatch = useDispatch();
+    const productList = useSelector(state => state.productList);
+    const {error, loading, products, page, pages} = productList;
 
     let location = useLocation();
     let keyword = target ? target : location.search;
@@ -30,11 +30,10 @@ const ProductList = ({target, ...otherProps}) => {
         if(!keyword && url_cat) {
             dispatch(listCategorizedProducts(url_cat, url_subcat))
         }
-    }, [keyword, url_cat, url_subcat])
+    }, [keyword, url_cat, url_subcat]);
 
 
 
-        console.log(url_subcat);
     return (
         <div className='productlist'>
             {loading ? <Loader />
@@ -44,7 +43,7 @@ const ProductList = ({target, ...otherProps}) => {
                 <>
 
                 {!url_subcat && <SubcategoryList category={url_cat}/>}
-
+                {url_subcat && <SubcategoryInfo category={url_cat} subcategory={url_subcat}/>}
                 <div className='productlist__cards'>     
                     {products.length > 0 ? (
                         products.map((product, index) => {

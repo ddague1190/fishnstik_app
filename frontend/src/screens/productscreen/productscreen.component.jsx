@@ -10,6 +10,8 @@ import AddToCartCard from '../../components/addtocartcard/addtocartcard.componen
 import WriteReview from '../../components/writereview/writereview.component';
 import './productscreen.styles.scss';
 import Figure from '../../components/figure/figure.component';
+import Recommended from '../../components/recommended/recommended.component';
+import Variants from '../../components/variants/variants.component';
 
 
 const ProductScreen = ()  => {
@@ -46,12 +48,16 @@ const ProductScreen = ()  => {
             <div className='path-group'>
                 <Link to='/'>Home</Link> 
                 <span> > </span>
-                <Link to='/'>{product.category}</Link>
+                <Link to={`/products/${product.category}/`}>{product.category}</Link>
                 <span> > </span>
-                <Link to='/'>{product.subcategory}</Link>
+                <Link to={`/products/${product.category}/${product.subcategory}/`}>{product.subcategory}</Link>
             </div>
 
-            <ul className='tab-group'>
+
+
+
+            <div className='productscreen__content'>
+                <ul className='tab-group'>
                     <li className={`tab-group__tab ${whichContent==='overview' && 'tab-group__tab--active'}`} onClick={()=>setWhichContent('overview')}>
                         <span>Overview</span>    
                     </li>
@@ -63,8 +69,6 @@ const ProductScreen = ()  => {
                         <span>Reviews</span>    
                     </li>
                 </ul>
-            <div className='productscreen__content'>
-
         {
             {
             'overview':
@@ -77,69 +81,12 @@ const ProductScreen = ()  => {
              error ? 
 
                 <Message variant='danger'>{error}</Message> : ( 
-
-                
-
                     <>
-
                         <ProductDetails product={product} height='8rem' />
-                        {product.numVariants === 1 && <AddToCartCard product={product} checkedBoxIndex={0}/> } 
-
-                                
-
-                    {product.numVariants > 1 && ( 
-                        <div className='varianttable'>  
-                            <div className='varianttable__select u-center-text'>
-                                {checkedBoxIndex === null ? 
-                                    <h4 className='u-accent-color-pulsing'>please select an option...</h4>
-                                   :
-                                   <h3>options</h3> 
-                                }
-                                <select className='cartform__select u-center-text' onChange={(e)=>selectionFromVariantList(e.target.value)}>
-                                    {checkedBoxIndex === null && <option >Select from list...</option>}
-                                    {           
-                                        product.variants.map((variant, index) => (
-                                            <option                                         
-                                                key={index} 
-                                                value={index}
-                                            >
-                                                {variant.identifier}
-                                            </option>
-                                        ))
-                                    }
-                                </select>
-                                <i class="fas fa-caret-down"></i>
-
-                            </div>
-                        <div className='varianttable__tables'>
-                        {checkedBoxIndex !=null && (
-                            <div className='varianttable__details'> 
-                                <Figure 
-                                    image={product.variants[checkedBoxIndex].image} 
-                                    description={product.variants[checkedBoxIndex].description} 
-                                    alt={product.variants[checkedBoxIndex].identifier} 
-                                    height='20rem'
-                                />
-
-                                <h4>{product.variants[checkedBoxIndex].identifier}</h4>
-                                <span className='u-font-style-italic'>{product.variants[checkedBoxIndex].description}</span>
-                            </div>
-                        ) 
-                        }
-
-                                {product.variants[checkedBoxIndex] && 
-                                
-                                    <AddToCartCard
-                                        product={product} 
-                                        checkedBoxIndex={checkedBoxIndex} 
-                                    />                           
-                                } 
-                            </div>
-                        </div>
-                    )}
                     </>
             )}
             </div>,
+
             'reviews':
             <div className='productscreen-reviews'>
             <div className='showreviews'>
@@ -175,12 +122,17 @@ const ProductScreen = ()  => {
 
         }[whichContent]
         }
+            </div>
+
+        {product.numVariants === 1 && <AddToCartCard product={product} checkedBoxIndex={0}/> } 
+
     
-                  
+        <Recommended className='productscreen__recommended' />
 
         
-    
-            </div>
+        <Variants product={product} className='productscreen__variants' />
+
+
         </div>
     )
 }

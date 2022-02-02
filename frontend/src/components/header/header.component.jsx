@@ -9,6 +9,7 @@ import UserPanel from '../userpanel/userpanel.component';
 import { NavBarElement2 } from '../navBarElement/navBarElement.component';
 import Logo from '../logo/logo.component';
 import NavBar from '../navbar/navbar.component';
+import MobileLogo from '../logo/mobilelogo.component';
 
 
 const Header = () => {
@@ -40,11 +41,11 @@ const Header = () => {
                 <div className='userpanel userpanel--mobile'>
                     <SearchBox />     
                     <NavBarElement2 to='/cart'>
-                        <i class="fas fa-shopping-cart"></i>
+                        <i className="fas fa-shopping-cart"></i>
                     </NavBarElement2>  
                 </div>
                 <div className='mobile-navbar'>
-                    <Logo />
+                    <MobileLogo />
                     <div className='mobile-navbar__button btn--navbar2' onClick={()=>setShowMobileNav(!showMobileNav)}>
                         <span>MENU</span>
                         <svg className='svg' viewBox="0 0 20 20" width="20" height="20">

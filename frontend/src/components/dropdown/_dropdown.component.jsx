@@ -121,7 +121,7 @@ function DropdownMenu() {
         key={category.category}
         in={activeMenu === category.category}
         timeout={500}
-        classNames="menu-secondary"
+        className="menu-secondary"
         unmountOnExit
         onEnter={calcHeight}>
         <div className="menu">

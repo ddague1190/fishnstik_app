@@ -20,7 +20,7 @@ const Banner = () => (
     <div className='banner'>
         
 
-
+    
         <svg  viewBox="0 0 450 600" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_13_55906)">
 <path d="M433 17H17V583H433V17Z" fill="#8ADCE2"/>

@@ -3,16 +3,16 @@
   &__input{
     display: block;
   width: 25rem;
-  border:2px solid rgba(170, 170, 170, 0.438);
+  border:1px solid rgba(170, 170, 170, 0.438);
   border-radius:4px;
-  margin:8px 1rem;
+  margin:3px 1rem;
   outline:none;
   padding:8px;
   box-sizing:border-box;
   transition:.3s;
   &:focus{
       border-color:rgb(95, 153, 211);
-      box-shadow:0 0 8px 0 rgb(106, 155, 204);
+      box-shadow:0 0 3px 0 $color1;
     }
 }
 }
