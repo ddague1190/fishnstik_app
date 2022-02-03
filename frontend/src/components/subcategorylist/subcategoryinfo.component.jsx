@@ -3,7 +3,7 @@ import { subcategories } from './subcategories';
 import { Link } from 'react-router-dom';
 
 const SubcategoryInfo = ({category, subcategory}) => {
-    const {name, description} = subcategories[category][subcategory]
+    const {name, description, media} = subcategories[category][subcategory]
   return ( 
 
     <>
@@ -21,6 +21,8 @@ const SubcategoryInfo = ({category, subcategory}) => {
 
     <div className='subcategory-info'>
         <span className='subcategory-info__description'>{description}</span>
+
+
     </div>
     </>
   );

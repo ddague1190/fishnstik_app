@@ -10,6 +10,7 @@ const NavItem = ({category, setShowMobileNav}) => {
     const [hidden, setHidden] = useState(true);
 
     const onNavItemClick = (e) => {
+        // console.log(ref.current.contains(e.target))
         e.preventDefault();
         setHidden(!hidden);
     }
@@ -17,14 +18,15 @@ const NavItem = ({category, setShowMobileNav}) => {
 
 
     return (
-        <li className='nav-item'> 
+        <li  className='nav-item'> 
 
-            <Link className={`nav-item__link ${!hidden && 'nav-item__link--expanded'}`} to={`products/${category.category}/`} onClick={()=>setShowMobileNav(false)}>
-                {category.title}
+            <div className={`nav-item__link ${!hidden && 'nav-item__link--expanded'}`}  >
+                <Link to={`products/${category.category}/`} onClick={()=>setShowMobileNav(false)}>{category.title}</Link> 
+                <span className='nav-item__link--icon'>{category.icon}</span>
+
                 <div className={`nav-item__expand-button ${!hidden && 'nav-item__expand-button--expanded'} fas fa-caret-down`} onClick={onNavItemClick}></div>
-            </Link>
+            </div>
             <ul className={`nav-submenu ${hidden && 'nav-submenu--hidden'}`}>
-                {/* <ul className='nav-submenu-list'> */}
 
                     {subcategories[category.category].map((subcategory) => 
                     <li className='nav-submenu-item' key={subcategory.subcategory}>
@@ -33,7 +35,6 @@ const NavItem = ({category, setShowMobileNav}) => {
                         </Link>
                     </li>
                     )}
-                {/* </ul> */}
             </ul>
         </li>
     )
@@ -48,23 +49,39 @@ const Dropdown = ({setShowMobileNav}) => {
         dispatch(logout());
         navigate('/');
     };
+    
+    const ref = useRef()
+
+    useEffect(()=>{
+        const onBodyClick = (e)=>{
+            if(ref.current.contains(e.target)) return;  
+            setShowMobileNav(false);
+        };
+ 
+        document.body.addEventListener('click', onBodyClick, { capture: true })
+        return ()=>document.body.removeEventListener('click', onBodyClick, { capture: true });
+    }, []);
+
     return (
-        <nav className='nav'>
+        <nav ref={ref} className='nav'>
+
             <ul className='nav-list'>
             {categories.map((category) => 
 
                 <NavItem category={category} setShowMobileNav={setShowMobileNav} key={category.category} /> 
             )}
-            </ul>
-            <Link className='btn--navbar2 nav-item__link nav-item__link--notaproduct' to='/profile'>
+            
+            <Link className='nav-item__link' to='/profile'>
                     Profile
             </Link>
-            <div  className=' nav-item__link nav-item__link--notaproduct' to='/' onClick={onLogoutClick}>
+
+            <div  className='nav-item__link' to='/' onClick={onLogoutClick}>
                 <span>Logout</span>
                 <i class="fas fa-sign-out-alt"></i>
             </div>
-        </nav>
+            </ul>
 
+        </nav>
     )
 }
 

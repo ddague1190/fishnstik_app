@@ -38,6 +38,7 @@ class Product(models.Model):
     catchPhrase = models.CharField(max_length=200, null=True, blank=True)
     numVariants = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=200, null=True, blank=True)
+    pulltest = models.CharField(max_length=200, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     brand = models.CharField(max_length=200, null=True, blank=True)
     category = models.CharField(max_length=200, null=True, blank=True)

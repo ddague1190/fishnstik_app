@@ -14,7 +14,7 @@
       6rem
       minmax(5rem, 2.5fr)
       minmax(5rem, 1fr)
-      10rem
+      5rem
     ;
 
     & th {
@@ -31,5 +31,84 @@
         height: 100%;
         width: 100%;
         object-fit: cover;
+    }
+
+    &__addtocart {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 2rem;
+
+        &:disabled {
+            cursor: not-allowed;
+
+        }
+    }
+}
+
+.mobile-variants {
+    display: grid;
+    box-shadow: 0 1px 1px black;
+    padding: 1rem;
+    border-collapse: collapse;
+    min-width: 100%;
+    row-gap: 2rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 
+      10rem
+      minmax(20rem, 3fr)
+      minmax(10rem, 1fr)
+      5rem
+    ;
+
+    & th {
+        display:block;
+        color: $color4;
+        font-family: 'Fisherman';
+        padding: 1rem;
+        font-size: 2rem;
+    }
+
+    &__image {
+        grid-column: 1 / span 1;
+        display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    &__details {
+        &--description {
+            font-style: italic;
+        }
+    }
+
+    &__addtocart {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 3rem;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+
+        &--alreadyincart {
+            position: relative;
+
+            &::after {
+                position: absolute;
+                content: 'Already in cart!';
+                top: -95%;
+                width: min-content;
+                left: -25%;
+                color: $color5;
+                font-size: 1.5rem;
+                font-weight: bold;
+
+            }
+        }
     }
 }

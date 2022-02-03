@@ -7,6 +7,7 @@
     left: 0;
     z-index: 10;
     text-transform: uppercase;
+    box-shadow: 0 1px 1px black;
 
 
     & a {
@@ -28,10 +29,11 @@
         @include flexCenter(row);
         justify-content: flex-start;
         margin-left: 3rem;
+        line-height: 3.5rem;
         border-radius: 4px;
 
         &--expanded {
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid rgba(black, .2);
 
         }
 
@@ -45,9 +47,10 @@
         cursor: pointer;
         right: 0;
        font-size: 2.5rem; 
-       padding: 1rem 2rem;
+       padding: 2rem 2rem;
        transition: all .2s;
-            margin-right: 2rem;
+         margin-right: 2rem;
+         z-index: 10;
 
        &--expanded {
             transform: rotateZ(180deg);

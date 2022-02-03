@@ -5,7 +5,8 @@ export const subcategories = {
             'name': 'Fish\'N\'Stik',
             'path': 'fishnstik',
             'description': 'Our world-famous tournament snaps and bucks. Made and tested in house out of the best materials. Available in several sizes and configurations. Custom made to order',
-            'image': ''
+            'image': '',
+            'media': './media/fishnstik.svg'
         },
         'coastlock': {
             'name': 'Coastlock',

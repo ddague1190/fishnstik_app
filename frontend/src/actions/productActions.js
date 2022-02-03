@@ -53,6 +53,25 @@ export const listCategorizedProducts = (category, subcategory='') => async (disp
     } 
 }
 
+export const listProductsByBrand = (category, subcategory='') => async (dispatch) => {
+    try {
+        dispatch({type: PRODUCT_LIST_REQUEST})
+        const {data} = await axios.get(`/api/products/${category}/${subcategory}${subcategory && '/'}`);
+
+        dispatch({
+            type: PRODUCT_LIST_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_LIST_FAIL,
+            payload: error.response && error.response.data.detail 
+            ? error.response.data.detail
+            : error.message,
+        })
+    } 
+}
+
 export const listProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_DETAILS_REQUEST})
@@ -77,9 +96,8 @@ export const listProductDetails = (id) => async (dispatch) => {
 export const createProductReview = (productId, review) => async (dispatch, getState) => {
     try {
         dispatch({type: PRODUCT_CREATE_REVIEW_REQUEST})
-        console.log('productid')
-        console.log(productId, review)
-        const {data} = await axiosInstance.post(`/api/products/${productId}/reviews/`,
+
+        const {data} = await axiosInstance.post(`/api/products/${2}/reviews`,
             review
         );
 

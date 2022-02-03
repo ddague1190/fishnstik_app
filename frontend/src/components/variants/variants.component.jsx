@@ -19,14 +19,14 @@ const Variants = ({product, className}) => {
             <th>Price</th>
             <th>Description</th>
             <th>Quantity</th>
-            <th>Add to Cart</th>
+            <th>Add</th>
         </thead>
         <tbody>
             {product.variants.map((variant, index) => (
                 <tr key={index}>
                     <td className='variants__image'><Figure image={variant.image}/></td>
                     <td className='variants__name' >{variant.identifier}</td>
-                    <td className='variants__price'>{variant.price}</td>
+                    <td className='variants__price'>${variant.price} ea</td>
                     <td className='variants__description'>{variant.description}</td>
                     <td className='variants__quantity'>
                     <div>
@@ -45,8 +45,10 @@ const Variants = ({product, className}) => {
                         ) : <h4>Out of stock</h4> }
                     </div>
                     </td>
-                    <td className='variants__addtocart' onClick={()=>addToCartHandler(variant._id)}>
-                    <i class="fas fa-shopping-cart"></i>
+                    <td >
+                        <button className='variants__addtocart' onClick={()=>addToCartHandler(variant._id)} disabled={variant.countInStock===0}>
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
                     </td>
                 </tr>
             ))}

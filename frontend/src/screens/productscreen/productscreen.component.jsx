@@ -12,11 +12,13 @@ import './productscreen.styles.scss';
 import Figure from '../../components/figure/figure.component';
 import Recommended from '../../components/recommended/recommended.component';
 import Variants from '../../components/variants/variants.component';
+import MobileVariants from '../../components/variants/mobilevariants.component';
 
 
 const ProductScreen = ()  => {
-
+    
     const [whichContent, setWhichContent] = useState('overview');
+    const [writeReview, setWriteReview] = useState(false);
 
     const [checkedState, setCheckedState] = useState(
         new Array(15).fill(false)
@@ -30,7 +32,8 @@ const ProductScreen = ()  => {
     }
 
     const dispatch = useDispatch();
-    
+    const {width, height} = useSelector(state => state.dimensions)
+    const breakpoint = 800;
     const keyword = useSelector(state=>state.keyword);
 
     const {loading, error, product } = useSelector(state => state.productDetails);
@@ -72,7 +75,7 @@ const ProductScreen = ()  => {
         {
             {
             'overview':
-            <div className='productscreen-details'>
+            <div className='productscreen__details'>
 
             {loading ?
         
@@ -88,9 +91,11 @@ const ProductScreen = ()  => {
             </div>,
 
             'reviews':
-            <div className='productscreen-reviews'>
+            <div className='productscreen__reviews'>
+
+            {!writeReview ? (
             <div className='showreviews'>
-                <h3>Recent reviews</h3>  
+                <h3 className='u-center-text'>Recent reviews</h3>  
                 {product.reviews.length === 0 && <Message variant='info'>No Reviews</Message>}
                 <div className='reviewcards'>
                     {product.reviews.map((review) => (
@@ -102,15 +107,17 @@ const ProductScreen = ()  => {
                         </div>    
                     ))}
                 </div>
+                <span onClick={()=>setWriteReview(true)} className='showreviews__writebutton'>Write a review!</span>
 
             </div>
-
+            
+            ) : (
 
             <div className='createreview'>
                 <h3>Write a review</h3>
             
             {userInfo ? 
-                <WriteReview /> : (
+                <WriteReview setWriteReview={setWriteReview} /> : (
                 <>
                 <br/>
                 <Message variant='info'>Please <Link to='/login'>login</Link> to write a review</Message>
@@ -118,6 +125,7 @@ const ProductScreen = ()  => {
                 )
             }
             </div>
+            )}   
             </div>
 
         }[whichContent]
@@ -129,9 +137,11 @@ const ProductScreen = ()  => {
     
         <Recommended className='productscreen__recommended' />
 
-        
-        <Variants product={product} className='productscreen__variants' />
-
+        {width > breakpoint ? (
+            <Variants product={product} className='productscreen__variants' />  
+        ) : (
+            <MobileVariants product={product} className='productscreen__variants'/>
+        )}
 
         </div>
     )

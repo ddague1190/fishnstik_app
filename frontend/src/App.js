@@ -16,6 +16,7 @@ import OrderScreen from './screens/orderscreen/orderscreen.component';
 import AboutUsScreen from './screens/aboutusscreen/aboutusscreen.component';
 import ProductList from './components/productlist/productlist.component';
 import OtherPage from './components/otherpage/otherpage.component';
+import Brands from './components/brands/brands.component';
 import './sass/App.scss';
 import { updateViewportDimensions } from './actions/responsiveActions';
 import useViewport from './utils/useViewport';
@@ -45,6 +46,8 @@ const App = () => {
             <Route path='/products/:url_cat/' element={<ProductList />} />
             <Route path='/products/' element={<ProductList />} />
             <Route path='/other' element={<OtherPage />} />
+            <Route path='/brands' element={<Brands />} />
+            <Route path='/brands/:url_brand/' element={<ProductList />} />
             <Route path='/aboutus' element={<AboutUsScreen />} />
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />

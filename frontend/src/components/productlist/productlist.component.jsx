@@ -19,6 +19,7 @@ const ProductList = ({target, ...otherProps}) => {
 
     let location = useLocation();
     let keyword = target ? target : location.search;
+    console.log(useParams());
     let { url_cat, url_subcat } = useParams();
 
 

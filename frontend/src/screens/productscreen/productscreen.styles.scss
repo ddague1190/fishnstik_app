@@ -29,20 +29,22 @@
 }
 
 .productscreen {
+  max-width: 120rem;
   overflow: hidden;
   width: 100vw;
-  margin-top: 3rem;
+  margin: 3rem auto;
   display: grid;
+  // justify-items: center;
   grid-template-columns: 1fr repeat(8, 1fr) 1fr;
-    grid-auto-rows: minmax(100px, auto);
+    grid-auto-rows: minmax(75px, auto);
     justify-content: center;
     gap: 2rem;
   grid-template-areas: 
   '. path-group . . . . . . .  .'
   '. content content content content content rec rec rec . '
   '. var var var var var var var var  .'
-  
   ;
+
 
   &__content {
     grid-area: content;
@@ -68,12 +70,16 @@
 
   &__recommended {
     grid-area: rec;
-    border: 1px solid black;
+    max-width: 40rem;
   }
 
   &__variants {
     grid-area: var;
 
+  }
+
+  &__reviews {
+    padding: 1rem;
   }
 }
 
@@ -90,60 +96,41 @@
 .reviewcard {
   @include flexCenter(column);
   width: 10rem;
-  &__comment {
-
-  }
-
-  &__name {
-
-  }
-
   &__date {
     font-size: 1rem;
   }
 }
 
 .showreviews, .createreview {
+  
   margin: 0 auto;
   width: 80%;
 }
 
+.showreviews {
+
+  &__writebutton {
+    position: absolute;
+    bottom: 1rem;
+    right: 50%;
+    transform: translateX(50%);
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 2px solid $color3;
+    color: $color3;
+    text-transform: none;
+    font-size: 1.6rem;
+  }
+}
 
 
-// .varianttable {
-//   margin: 0 auto;
-//   @include flexCenter(column);
-//   padding: 2rem;
-//   padding-top: 0;
-//   min-width: 30rem;
-//   max-width: max-content;
-//   position: relative; 
-
-//     &::before {
-//     position: absolute;
-
-//   }
-
-//   &__select {
-//     width: 100%;
-
-
-//     @include flexCenter(row);
-//     & select {
-//       margin: 1rem;
-//       width: 20rem;
-//     }
-//   }
-//   &__details {
-//     max-width: 30rem;
-//     @include flexCenter(column);
-//   }
-//   &__tables {
-//     background-color: white;
-//     padding: 1rem;
-//     @include flexCenter(row);
-//     flex-wrap: wrap;
-//     border-radius: 5px;
-
-//   }
-// }
+@media only screen and (max-width: 600px) {
+  .productscreen {
+    grid-template-areas: 
+    '. path-group . . . . . . .  .'
+    '. content content content content content content content content . '
+    '. var var var var var var var var  .'
+    '. rec rec rec rec . . . . . '
+    ;
+    }
+}

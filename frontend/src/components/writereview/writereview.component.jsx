@@ -11,7 +11,7 @@ import './writereview.styles.scss';
 
 
 
-const WriteReview = () => {
+const WriteReview = ({setWriteReview}) => {
 
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
@@ -22,7 +22,6 @@ const WriteReview = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log('hireview')
         dispatch(createProductReview(productId.id, {rating, comment}));
     }
     
@@ -33,8 +32,10 @@ const WriteReview = () => {
         if(successProductReview) {
             setRating(0);
             setComment('');
+            setWriteReview(false);
             dispatch({type: PRODUCT_CREATE_REVIEW_RESET});
         }
+        return(()=>setWriteReview(false))
 
     }, [dispatch, successProductReview, errorProductReview]);
 

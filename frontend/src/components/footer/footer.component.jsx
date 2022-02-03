@@ -52,25 +52,25 @@ function Footer() {
                     <h4 class="footer-info__heading">Categories</h4>
                     <ul class="footer-info__list">
                             <li>
-                                <a href="https://alltackle.com/saltwater-tackle">Snaps</a>
+                                <Link to='/products/snaps/'>Snaps</Link>
                             </li>
                             <li>
-                                <a href="https://alltackle.com/freshwater-tackle/">Swivels</a>
+                                <Link to='/products/swivels/'>Swivels</Link>
                             </li>
                             <li>
-                                <a href="https://alltackle.com/terminal_tackle.htm">Hooks</a>
+                                <Link to='/products/hooks/'>Hooks</Link>
                             </li>
                             <li>
-                                <a href="https://alltackle.com/tackle_accessories.htm">Lures</a>
+                                <Link to='/products/lures/'>Lures</Link>
                             </li>
                             <li>
-                                <a href="https://alltackle.com/outriggers.htm">Fishing Line</a>
+                                <Link to='/products/fishingline/'>Fishing Line</Link>
                             </li>
                             <li>
-                                <a href="https://alltackle.com/tackle_packages.htm">Accessories</a>
+                                <Link to='/products/accessories/'>Accessories</Link>
                             </li>
                             <li>
-                                <a href="https://alltackle.com/fishing_clothing.htm">Apparel</a>
+                                <Link to='/products/apparel/'>Apparel</Link>
                             </li>
                     </ul>
                 </article>

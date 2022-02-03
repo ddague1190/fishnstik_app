@@ -31,6 +31,7 @@ const Header = () => {
 
     const breakpoint = 820;
 
+
     return (
 
         <>
@@ -56,7 +57,7 @@ const Header = () => {
                     </div>
                 </div>
 
-            {showMobileNav && <Dropdown showMobileNav={setShowMobileNav} />}
+            {showMobileNav && <Dropdown setShowMobileNav={setShowMobileNav} />}
             </header>
 
         ) : (
