@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Product from '../../components/product/product.component';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts, listCategorizedProducts } from '../../actions/productActions';
+import { listProducts, listCategorizedProducts, listProductsByBrand } from '../../actions/productActions';
 import Loader from '../../components/loader/loader.component';
 import Message from '../../components/message/message.component';
 import Paginate from '../../components/paginate/paginate.component';
@@ -10,6 +10,7 @@ import { updateKeyword } from '../../actions/routeActions';
 import './productlist.styles.scss';
 import SubcategoryList from '../subcategorylist/subcategorylist.component';
 import SubcategoryInfo from '../subcategorylist/subcategoryinfo.component';
+import BrandInfo from '../brandinfo/brandinfo.component';
 
 const ProductList = ({target, ...otherProps}) => {
 
@@ -19,9 +20,7 @@ const ProductList = ({target, ...otherProps}) => {
 
     let location = useLocation();
     let keyword = target ? target : location.search;
-    console.log(useParams());
-    let { url_cat, url_subcat } = useParams();
-
+    let { url_cat, url_subcat, url_brand } = useParams();
 
     useEffect(() => {
         if(keyword) {
@@ -31,8 +30,14 @@ const ProductList = ({target, ...otherProps}) => {
         if(!keyword && url_cat) {
             dispatch(listCategorizedProducts(url_cat, url_subcat))
         }
-    }, [keyword, url_cat, url_subcat]);
 
+        if(url_brand) {
+            dispatch(listProductsByBrand(url_brand))
+        }
+    }, [keyword, url_cat, url_subcat, url_brand]);
+
+
+    console.log(loading);
 
 
     return (
@@ -42,8 +47,11 @@ const ProductList = ({target, ...otherProps}) => {
                 : 
             products &&  (   
                 <>
+                
+                {url_brand && <BrandInfo brand={url_brand}/>}
 
-                {!url_subcat && <SubcategoryList category={url_cat}/>}
+                {(url_cat && !url_subcat) && <SubcategoryList category={url_cat}/>}
+                
                 {url_subcat && <SubcategoryInfo category={url_cat} subcategory={url_subcat}/>}
                 <div className='productlist__cards'>     
                     {products.length > 0 ? (

@@ -123,7 +123,7 @@ function PlaceOrderScreen() {
                 )}
                 </div>
                 <div className='placeorderscreen__ordersummarypanel'>
-                    <h2 className='u-retro-font--2'>Order Summary</h2>
+                    <h2 className='ordersummarytable__title'>Order Summary</h2>
                     <table className='ordersummarytable'>
                         <tbody>
                             <tr>

@@ -19,18 +19,25 @@ const SubcategoryList = ({category}) => {
         <h3 className='heading--secondary'>Subcategories</h3>
 
 
-
-        
-        <div className='subcategory-list'>
-      {Object.values(subcategories[category]).map((subcategory, index)=> (
-        <Link key={index} to={`/products/${category}/${subcategory.path}`} className='subcategory-item'>
-            <img className='subcategory-item__image' src={subcategory['image']} alt={`image_of_${subcategory['name']}`} />
-            <div className='subcategory-item__text'>
-              <h3>{subcategory['name']}</h3>
+        <div className='subcategory-list__container'>
+        <span className='subcategory-list--panleft'><i className="fas fa-chevron-left"></i></span>
+          <div className='subcategory-list__window'>
+            <div className='subcategory-list'>
+              {Object.values(subcategories[category]).map((subcategory, index)=> (
+                <Link key={index} to={`/products/${category}/${subcategory.path}`} className='subcategory-item'>
+                    <img className='subcategory-item__image' src={subcategory['image']} alt={`image_of_${subcategory['name']}`} />
+                    <div className='subcategory-item__text'>
+                      <h3>{subcategory['name']}</h3>
+                    </div>
+                </Link>
+              ))}
             </div>
-        </Link>
-      ))}
-      </div>
+          </div>
+
+          <span className='subcategory-list--panright'><i className="fas fa-chevron-right"></i></span>
+
+        </div>
+
 
       <h3 className='heading--secondary'>All {category}</h3>
     </div>

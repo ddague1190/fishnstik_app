@@ -1,9 +1,10 @@
 import React from 'react';
 import './logo.styles.scss';
+import { Link } from 'react-router-dom';
 
 const Logo = () => {
   return (
-    <div className='logo'>
+    <Link to='/' className='logo'>
     <div className='logo__group'>
       <div className='logo__group--established'>
         <span>Est.</span>
@@ -37,7 +38,7 @@ const Logo = () => {
     </div>
 
 
-    </div>
+    </Link>
  
     
   );

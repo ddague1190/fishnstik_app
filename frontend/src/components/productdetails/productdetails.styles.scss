@@ -5,15 +5,21 @@
     justify-content: stretch;
   text-align: center;
   align-items: center;
-  grid-template-columns: 15rem minmax(10rem, 1.5fr) minmax(10rem, 1fr);
+  grid-template-columns: 20rem minmax(15rem, 3fr) 10rem;
   align-content: center;
   grid-template-areas: 
 
-  'image  details details details g'
-  ' description description description description description ' 
-
-
+  'image  details g'
+  ' description  description description ' 
   ;
+
+  &--nogauge {
+    grid-template-columns: 20rem minmax(10rem, 3fr);
+    grid-template-areas: 
+    'image  details'
+    ' description  description' 
+    ;
+  }
 
   &__details {
     @include flexCenter(column);
@@ -31,8 +37,11 @@
 
 
   &__image {
+    box-shadow: 0 1px 1px rgba(black, .5);
+    display: block;
+    justify-self: start;
+    margin-left: 5px;
     grid-area: image;
-
   }
 
   &__name {
@@ -72,14 +81,31 @@
   }
 
   &__gauge {
+    margin: 0 auto;
     grid-area: g;
-    min-width: 10rem;
-
-
+    min-width: 8rem;
   }
 }
 
+@media only screen and (max-width: 500px) {
+  .productdetails {
+    grid-template-columns: 18rem minmax(10rem, 3fr);
+    grid-template-areas: 
 
+    'image  details'
+    ' g g' 
+    ' description  description '
+   
+    ;
+
+    &__gauge {
+      width: 38rem;
+    }
+
+    &--nogauge {
+    }
+  }
+}
 
 
 

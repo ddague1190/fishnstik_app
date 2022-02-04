@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {Link, useLocation} from 'react-router-dom';
 import SearchBox from '../searchBox/searchBox.component';
@@ -14,6 +14,7 @@ import MobileLogo from '../logo/mobilelogo.component';
 
 const Header = () => {
 
+    const menuButton = useRef();
     let navigate = useNavigate();
     let {search} = useLocation();
     const [showMobileNav, setShowMobileNav] = useState(false);
@@ -31,7 +32,6 @@ const Header = () => {
 
     const breakpoint = 820;
 
-
     return (
 
         <>
@@ -47,8 +47,8 @@ const Header = () => {
                 </div>
                 <div className='mobile-navbar'>
                     <MobileLogo />
-                    <div className='mobile-navbar__button btn--navbar2' onClick={()=>setShowMobileNav(!showMobileNav)}>
-                        <span>MENU</span>
+                    <div className='mobile-navbar__button btn--navbar2' ref={menuButton} onClick={()=>setShowMobileNav(!showMobileNav)}>
+                        <span>Menu</span>
                         <svg className='svg' viewBox="0 0 20 20" width="20" height="20">
                             <rect width="20" height="4" rx="5"></rect>
                             <rect y="6.3" width="20" height="4" rx="5"></rect>
@@ -57,7 +57,7 @@ const Header = () => {
                     </div>
                 </div>
 
-            {showMobileNav && <Dropdown setShowMobileNav={setShowMobileNav} />}
+            {showMobileNav && <Dropdown menuButtonRef={menuButton} setShowMobileNav={setShowMobileNav} />}
             </header>
 
         ) : (

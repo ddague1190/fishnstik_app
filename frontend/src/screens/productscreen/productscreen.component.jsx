@@ -13,6 +13,7 @@ import Figure from '../../components/figure/figure.component';
 import Recommended from '../../components/recommended/recommended.component';
 import Variants from '../../components/variants/variants.component';
 import MobileVariants from '../../components/variants/mobilevariants.component';
+import MinimizedVariants from '../../components/variants/minimizedvariants.component';
 
 
 const ProductScreen = ()  => {
@@ -34,6 +35,8 @@ const ProductScreen = ()  => {
     const dispatch = useDispatch();
     const {width, height} = useSelector(state => state.dimensions)
     const breakpoint = 800;
+    const breakpoint2 = 430;
+
     const keyword = useSelector(state=>state.keyword);
 
     const {loading, error, product } = useSelector(state => state.productDetails);
@@ -139,9 +142,17 @@ const ProductScreen = ()  => {
 
         {width > breakpoint ? (
             <Variants product={product} className='productscreen__variants' />  
-        ) : (
+        ) : 
+
+        (width > breakpoint2) ? (
+
             <MobileVariants product={product} className='productscreen__variants'/>
-        )}
+
+        ) : (
+
+            <MinimizedVariants product={product} className='productscreen__variants'/>
+        )
+        }
 
         </div>
     )

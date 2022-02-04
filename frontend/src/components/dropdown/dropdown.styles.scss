@@ -45,6 +45,7 @@
     &__expand-button {
         position: absolute;
         cursor: pointer;
+        user-select: none;
         right: 0;
        font-size: 2.5rem; 
        padding: 2rem 2rem;

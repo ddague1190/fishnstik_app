@@ -4,17 +4,19 @@
 .cartitems {
     display: grid;
     margin: 0 auto;
-    width: 70%;
-    grid-template-columns: minmax(10rem, 3fr) minmax(20rem, 3fr) minmax(6rem, 1fr) minmax(3rem, 1fr);
+    max-width: 100rem;
+    grid-template-columns: 3fr minmax(15rem, 3fr) minmax(6rem, 1fr) minmax(3rem, 1fr);
     gap: 5px;
     text-align: center;
 
     &__header {
         align-self: end;
-        padding: 5px 15px;
+        padding: 1rem;
         text-transform: uppercase;
         position: relative;
-        color: black;
+        color: $color4;
+        font-family: 'Fisherman';
+        font-size: 2rem;
         &::after {
             @include psuedoElement(0, 0, 100%, 100%);
             background-color: whitesmoke;

@@ -22,7 +22,7 @@ const NavItem = ({category, setShowMobileNav}) => {
             <Link className='desktop-nav-item__link btn--navbar' to={`products/${category.category}/`} onClick={()=>setShowMobileNav(false)}>
                 {category.title}
             </Link>
-            <ul className='desktop-nav-submenu u-box-shadow'>
+            <ul className='desktop-nav-submenu'>
                         <svg className='desktop-nav-submenu__triangle' height='10' width='200'>
                             <path fill='white' d='M150 0 L75 200 L225 200 Z' />
                         </svg>

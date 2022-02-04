@@ -53,10 +53,10 @@ export const listCategorizedProducts = (category, subcategory='') => async (disp
     } 
 }
 
-export const listProductsByBrand = (category, subcategory='') => async (dispatch) => {
+export const listProductsByBrand = (brand) => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_LIST_REQUEST})
-        const {data} = await axios.get(`/api/products/${category}/${subcategory}${subcategory && '/'}`);
+        const {data} = await axios.get(`/api/brands/${brand}/`);
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,

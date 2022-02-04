@@ -31,7 +31,7 @@ const CartItem = ({item}) => {
                 to={`/product/${item.productId}`}
             >
                 <p className='cartitem__name'>{item.name}</p>
-                <p className='cartitem__variantdescription'>{item.identifier}</p>
+                <p className='cartitem__variantdescription'>{item.variantIdentifier}</p>
             </Link>
 
             <form  className='u-center-text cartitem__select' value={item.qty} onChange={(e) => setQty(e.target.value)}>
@@ -46,7 +46,7 @@ const CartItem = ({item}) => {
                 </select>
             </form>
             <div
-                className='btn--navbar2 cartitem__delete'
+                className='cartitem__delete'
                 type='button'
                 variant='light'
                 onClick={() => removeFromCartHandler(item.productId, item.variantId)}

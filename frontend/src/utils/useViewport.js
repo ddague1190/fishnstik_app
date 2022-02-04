@@ -13,7 +13,7 @@ const useViewport = () => {
         dispatch(updateViewportDimensions(window.innerWidth, window.innerHeight))
       }
   
-      window.addEventListener("resize", handleWindowResize);
+      window.addEventListener("resize", handleWindowResize, {capture: true});
     
       dispatch(updateViewportDimensions(window.innerWidth, window.innerHeight))
 

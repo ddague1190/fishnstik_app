@@ -49,7 +49,32 @@ def getProducts(request, category='', subcategory=''):
         'page': page,
         'pages': paginator.num_pages
     })
+
+@api_view(['GET'])
+def getProductsByBrand(request, brand=''):
+    products = Product.objects.filter(brand__icontains=brand)
+    page = request.query_params.get('page')
+    paginator = Paginator(products, 10)
+
+    try: 
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    if page == None:
+        page = 1
     
+    page = int(page)
+
+   
+    serializer = product_serializers.ProductSerializer(products, many=True)
+    return Response({
+        'products': serializer.data,
+        'page': page,
+        'pages': paginator.num_pages
+    })
 
 @api_view(['GET'])
 def getProduct(request, pk):

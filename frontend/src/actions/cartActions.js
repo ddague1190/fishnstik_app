@@ -19,7 +19,7 @@ export const addToCart = (id, variantId, qty) => async (dispatch, getState) => {
             productId: data._id,
             variantId,
             name: data.name,
-            variantDescription: data.variants[index].description,
+            variantIdentifier: data.variants[index].identifier,
             image: data.variants[index].image,
             price: data.variants[index].price,
             countInStock: data.variants[index].countInStock,

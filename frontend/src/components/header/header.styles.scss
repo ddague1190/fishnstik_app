@@ -23,6 +23,7 @@
     @include flexCenter(row);
     padding: 1.2rem;
     gap: 1rem;
+    z-index: 10;
   }
 }
 
@@ -46,6 +47,11 @@
 
   &__sociallinks {
     grid-area: facebook-icon;
+    
+    & i {
+      font-size: 2rem;
+      color: white;
+    }
   }
 }
 

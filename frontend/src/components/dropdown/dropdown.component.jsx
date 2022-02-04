@@ -42,7 +42,7 @@ const NavItem = ({category, setShowMobileNav}) => {
 
 
 
-const Dropdown = ({setShowMobileNav}) => {
+const Dropdown = ({setShowMobileNav, menuButtonRef}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const onLogoutClick = () => {
@@ -54,7 +54,8 @@ const Dropdown = ({setShowMobileNav}) => {
 
     useEffect(()=>{
         const onBodyClick = (e)=>{
-            if(ref.current.contains(e.target)) return;  
+            if(ref.current.contains(e.target)) return; 
+            if(menuButtonRef.current.contains(e.target)) return;
             setShowMobileNav(false);
         };
  

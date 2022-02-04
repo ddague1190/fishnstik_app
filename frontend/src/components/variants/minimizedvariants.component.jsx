@@ -7,7 +7,7 @@ import { cartParser } from '../../utils/reduxSelectors';
 
 
 
-const MobileVariantsRow = ({product, variant, index}) => {
+const MinimizedVariantsRow = ({product, variant, index}) => {
     const [alreadyInCart, setAlreadyInCart] = useState(false);
     const [qty, setQty] = useState(1);
 
@@ -32,14 +32,19 @@ const MobileVariantsRow = ({product, variant, index}) => {
     }
     return (
         <tr>
-        <td className='mobile-variants__image'><Figure image={variant.image} /></td>
-        <td className='mobile-variants__details'>
-            <div>
-                <p className='mobile-variants__details--id'>{variant.identifier} (${variant.price} ea)</p>
-                <p className='mobile-variants__details--description'>{variant.description}</p>
+        <td className='minimized-variants__details'>
+            <div className='minimized-variants__topdetails'>
+                <Figure image={variant.image} height='8rem' />
+                <div >
+                    <p className='minimized-variants__details--id'>{variant.identifier}</p> 
+                    <p className='minimized-variants__details--price'>(${variant.price} ea)</p>
+                </div>
+            </div>
+            <div className='minimized-variants__bottomdetails'>
+                <p className='minimized-variants__details--description'>{variant.description}</p>
             </div>
         </td>
-        <td className='mobile-variants__quantity'>
+        <td className='minimized-variants__quantity'>
         <div>
             {variant.countInStock > 0 ? (
             <form  className='u-center-text'>
@@ -57,7 +62,7 @@ const MobileVariantsRow = ({product, variant, index}) => {
         </div>
         </td>
         <td >
-            <button className={`mobile-variants__addtocart ${alreadyInCart ? 'mobile-variants__addtocart--alreadyincart' : ''}`} onClick={()=>addToCartHandler(variant._id)} disabled={variant.countInStock===0}>
+            <button className={`minimized-variants__addtocart ${alreadyInCart ? 'minimized-variants__addtocart--alreadyincart' : ''}`} onClick={()=>addToCartHandler(variant._id)} disabled={variant.countInStock===0}>
                 <i class="fas fa-shopping-cart"></i>
             </button>
         </td>
@@ -65,19 +70,18 @@ const MobileVariantsRow = ({product, variant, index}) => {
     )
 }
 
-const MobileVariants = ({product, className}) => {
+const MinimizedVariants = ({product, className}) => {
 
   return (
-    <table className={`${className} mobile-variants`}>
+    <table className={`${className} minimized-variants`}>
         <thead>
-            <th>Image</th>
             <th>Details</th>
             <th>Quantity</th>
             <th>Add</th>
         </thead>
         <tbody>
             {product.variants.map((variant, index) => (
-                <MobileVariantsRow product={product} variant={variant} key={index} />
+                <MinimizedVariantsRow product={product} variant={variant} key={index} />
             ))}
         </tbody>
 
@@ -87,4 +91,4 @@ const MobileVariants = ({product, className}) => {
 };
 
 
-export default MobileVariants;
+export default MinimizedVariants;

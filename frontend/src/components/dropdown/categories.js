@@ -57,7 +57,7 @@ export const subcategories = {
     'snaps': [    
         {
             'subcategory': 'fishnstik',
-            'title': 'Fish N Stik'
+            'title': 'Fish\'N\'Stik Tournament '
         },
         {
             'subcategory': 'coastlock',
@@ -72,7 +72,7 @@ export const subcategories = {
     'swivels': [    
         {
             'subcategory': 'barrel',
-            'title': 'Barrel'
+            'title': 'Barrel and crane'
         },
         {
             'subcategory': 'bearing',
@@ -84,20 +84,12 @@ export const subcategories = {
         {
             'subcategory': 'sleeves',
             'title': 'Sleeves'
-        },
-        {
-            'subcategory': 'TODO',
-            'title': 'TODO'
         }
     ],
     'hooks': [    
         {
             'subcategory': 'mudstad',
             'title': 'Mudstad'
-        },
-        {
-            'subcategory': 'TODO',
-            'title': 'TODO'
         }
     ],
         'lures': [    

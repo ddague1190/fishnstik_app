@@ -27,8 +27,8 @@ $color-button-3: #1900ff;
 $color-background: white;
 
 // Utility class colors
-$color-background-shade-1: #00f0a8;
-$color-background-shade-2: #51e7c265;
+$color-background-shade-1: #059FFD;
+$color-background-shade-2: lighten(#059FFD, 45%);
 $color-background-shade-3: rgba(50, 146, 255, 0.137);
 // FONT
 $default-fontsize: 1.6rem;

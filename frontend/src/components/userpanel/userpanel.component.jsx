@@ -27,7 +27,7 @@ const UserPanel = () => {
                       Profile
                   </NavBarElement2>
                   <NavBarElement2 to='/cart'>
-                     <i class="fas fa-shopping-cart"></i>
+                     <i className="fas fa-shopping-cart"></i>
                  </NavBarElement2>
                  <div  className='btn--navbar2' to='/' onClick={onLogoutClick}>
                       <i class="fas fa-sign-out-alt"></i>
@@ -35,7 +35,7 @@ const UserPanel = () => {
                </div>) : (
               <div className='userpanel__withoutuser' >
                    <NavBarElement2 to='/cart'>
-                       <i class="fas fa-shopping-cart"></i>
+                       <i className="fas fa-shopping-cart"></i>
                    </NavBarElement2>
                    <NavBarElement2 to='/login'>
                        <i className="fas fa-user"></i>

@@ -11,6 +11,7 @@ from django.urls import re_path
 urlpatterns = [
 
     path('fns192837465/', admin.site.urls),
+    path('api/brands/', include('base.urls.brand_urls')),
     path('api/products/', include('base.urls.product_urls')),
     path('api/users/', include('base.urls.user_urls')),
     path('api/orders/', include('base.urls.order_urls')),
