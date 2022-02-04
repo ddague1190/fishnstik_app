@@ -22,19 +22,23 @@ const CartItem = ({item}) => {
 
     return (
         <div className='cartitem'>
-            <Figure className='cartitem__image' image={item.image} alt={item.name} description={item.description} height='10rem' />
-            <div className='cartitem__price'>
-                ${item.price} ea
-            </div> 
+            <div className='cartitem__image'>
+                <div className='cartitem__image-wrapper'>
+                    <Figure image={item.image} alt={item.name} description={item.description} height='10rem' />
+                </div>
+                <span className='cartitem__price'>${item.price} ea</span>
+
+            </div>
+            
             <Link 
-                className="cartitem__link u-center-text" 
+                className="cartitem__link" 
                 to={`/product/${item.productId}`}
             >
                 <p className='cartitem__name'>{item.name}</p>
                 <p className='cartitem__variantdescription'>{item.variantIdentifier}</p>
             </Link>
 
-            <form  className='u-center-text cartitem__select' value={item.qty} onChange={(e) => setQty(e.target.value)}>
+            <form  className='cartitem__select' value={item.qty} onChange={(e) => setQty(e.target.value)}>
                 <select className='cartform__select u-center-text' value={item.qty}>
                     {                           
                         [...Array(item.countInStock).keys()].map((x) => (

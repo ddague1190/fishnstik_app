@@ -18,7 +18,6 @@
   
 
     &__paramspanel {
-        box-shadow: 0 1px 1px rgba(black, .2);
         border-radius: 10px;
         grid-area: pp;
         display: grid;
@@ -29,7 +28,10 @@
     }
 
     &__ordersummarypanel {
-        margin: 2rem;
+        margin: 4rem;
+        background-color: $color2;
+        border-radius: 4px;
+        padding: 2rem 5rem;
         min-width: 20rem;
         grid-area: osp;
         @include flexCenter(column);
@@ -58,13 +60,15 @@
     &__title {
         font-family: 'Fisherman';
         font-size: 3rem;
+        color: $color3;
+        z-index: 5;
     }
 
 }
 
 
 
-@media only screen and (max-width: 645px) {
+@media only screen and (max-width: 800px) {
     .placeorderscreen {
         grid-template-areas: 
         '. pp pp .'

@@ -1,4 +1,5 @@
 .figure {
+  position: relative;
   &__modal {
     position: fixed;
     top: 50%;
@@ -20,6 +21,12 @@
     }
   }
 
+  &__icon {
+    cursor: pointer;
+    padding: 2rem;
+    font-size: 2rem;
+  }
+
   &__description {
     font-size: 2rem;
     background-color: white;
@@ -36,6 +43,7 @@
   & img {
     object-fit: contain;
     display: block;
+    overflow: hidden;
     width: 100%;
     height: 100%;
   }

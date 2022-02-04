@@ -35,7 +35,7 @@ const ProductScreen = ()  => {
     const dispatch = useDispatch();
     const {width, height} = useSelector(state => state.dimensions)
     const breakpoint = 800;
-    const breakpoint2 = 430;
+    const breakpoint2 = 560;
 
     const keyword = useSelector(state=>state.keyword);
 

@@ -32,10 +32,16 @@ const MobileVariantsRow = ({product, variant, index}) => {
     }
     return (
         <tr>
-        <td className='mobile-variants__image'><Figure image={variant.image} /></td>
+        <td className='mobile-variants__image'>
+                <div className='mobile-variants__image-wrapper'>
+                    <Figure image={variant.image}/>
+                </div>
+                
+                <span className='mobile-variants__price'>${variant.price} ea</span>
+        </td>
         <td className='mobile-variants__details'>
             <div>
-                <p className='mobile-variants__details--id'>{variant.identifier} (${variant.price} ea)</p>
+                <p className='mobile-variants__details--id'>{variant.identifier}</p>
                 <p className='mobile-variants__details--description'>{variant.description}</p>
             </div>
         </td>

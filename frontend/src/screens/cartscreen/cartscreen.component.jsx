@@ -57,7 +57,7 @@ const CartScreen = () => {
                 <h1 className='heading--secondary'>
                     ${cartItems.reduce((acc,item) => acc + item.qty * item.price, 0).toFixed(2)}
                 </h1>
-                <div
+                <button
                     type='button'
                     className='btn--main'
                     style={{
@@ -67,7 +67,7 @@ const CartScreen = () => {
                     onClick={checkoutHandler}
                  >
                     Proceed to Checkout
-                </div>
+                </button>
             </div>
 
         </div>

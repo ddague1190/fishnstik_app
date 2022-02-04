@@ -37,7 +37,6 @@
 
 
   &__image {
-    box-shadow: 0 1px 1px rgba(black, .5);
     display: block;
     justify-self: start;
     margin-left: 5px;
@@ -78,6 +77,7 @@
     font-size: 2rem;
     justify-self: stretch;
     padding: 2rem;
+    color: $color3;
   }
 
   &__gauge {
@@ -95,11 +95,10 @@
     'image  details'
     ' g g' 
     ' description  description '
-   
     ;
 
     &__gauge {
-      width: 38rem;
+      width: 33rem;
     }
 
     &--nogauge {

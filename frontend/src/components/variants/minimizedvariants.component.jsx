@@ -34,10 +34,10 @@ const MinimizedVariantsRow = ({product, variant, index}) => {
         <tr>
         <td className='minimized-variants__details'>
             <div className='minimized-variants__topdetails'>
-                <Figure image={variant.image} height='8rem' />
+                <Figure icon image={variant.image} />
                 <div >
-                    <p className='minimized-variants__details--id'>{variant.identifier}</p> 
-                    <p className='minimized-variants__details--price'>(${variant.price} ea)</p>
+                    <span className='minimized-variants__details--id'>{variant.identifier}</span> 
+                    <span className='minimized-variants__details--price'> (${variant.price} ea)</span>
                 </div>
             </div>
             <div className='minimized-variants__bottomdetails'>
