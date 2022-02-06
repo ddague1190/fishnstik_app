@@ -1,24 +1,20 @@
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Header from './components/header/header.component';
-import Footer from './components/footer/footer.component';
-import HomeScreen from './screens/homescreen/homescreen.component';
-import ProductScreen from './screens/productscreen/productscreen.component';
-import CartScreen from './screens/cartscreen/cartscreen.component';
-import LoginScreen from './screens/loginscreen/loginscreen.component';
-import RegisterScreen from './screens/registerscreen/registerscreen.component';
-import ProfileScreen from './screens/profilescreen/profilescreen.component';
-import ShippingScreen from './screens/shippingscreen/shippingscreen.component';
-import PaymentScreen from './screens/paymentscreen/paymentscreen.component';
-import PlaceOrderScreen from './screens/placeorderscreen/placeorderscreen.component';
-import OrderScreen from './screens/orderscreen/orderscreen.component';
-import AboutUsScreen from './screens/aboutusscreen/aboutusscreen.component';
-import ProductList from './components/productlist/productlist.component';
-import OtherPage from './components/otherpage/otherpage.component';
-import Brands from './components/brands/brands.component';
+import Header from './components/navigation/header/header.component';
+import Footer from './components/navigation/footer/footer.component';
+import HomeScreen from './components/promotional/homescreen/homescreen.component';
+import ProductScreen from './components/productpresentation/productscreen/productscreen.component';
+import CartScreen from './components/checkoutpathway/cartscreen/cartscreen.component';
+import LoginScreen from './components/user/loginscreen/loginscreen.component';
+import RegisterScreen from './components/user/registerscreen/registerscreen.component';
+import ProfileScreen from './components/user/profilescreen/profilescreen.component';
+import ShippingScreen from './components/checkoutpathway/shippingscreen/shippingscreen.component';
+import PaymentScreen from './components/checkoutpathway/paymentscreen/paymentscreen.component';
+import PlaceOrderScreen from './components/checkoutpathway/placeorderscreen/placeorderscreen.component';
+import OrderScreen from './components/checkoutpathway/orderscreen/orderscreen.component';
+import AboutUsScreen from './components/promotional/aboutusscreen/aboutusscreen.component';
+import ProductList from './components/productpresentation/productlist/productlist.component';
+import Brands from './components/promotional/brands/brands.component';
 import './sass/App.scss';
-import { updateViewportDimensions } from './actions/responsiveActions';
 import useViewport from './utils/useViewport';
 
 
@@ -45,7 +41,6 @@ const App = () => {
             <Route path='/products/:url_cat/:url_subcat/' element={<ProductList />} />
             <Route path='/products/:url_cat/' element={<ProductList />} />
             <Route path='/products/' element={<ProductList />} />
-            <Route path='/other' element={<OtherPage />} />
             <Route path='/brands' element={<Brands />} />
             <Route path='/brands/:url_brand/' element={<ProductList />} />
             <Route path='/aboutus' element={<AboutUsScreen />} />

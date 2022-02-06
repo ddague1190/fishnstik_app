@@ -1,0 +1,149 @@
+.tab-group {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  transform: translateY(-100%);
+  left: 0;
+  @include flexCenter(row);
+  &__tab {
+    cursor: pointer;
+    height: 5rem;
+    width: 15rem;
+    background-color: $color3;
+    @include flexCenter(column);
+    color: white;
+    &:first-child{
+      border-top-left-radius: 4px;
+
+    }
+    &:last-child{
+      border-top-right-radius: 4px;
+    }
+    &--active {
+      color: $color3;
+      background-color: white;
+        border: 1px solid $color3;
+        border-bottom: none;
+    }
+  }
+}
+
+.productscreen {
+  max-width: 120rem;
+  overflow: hidden;
+  width: 100vw;
+  margin: 3rem auto;
+  display: grid;
+  // justify-items: center;
+  grid-template-columns: minmax(5px,1fr) repeat(8, 1fr) minmax(5px,1fr);
+    grid-auto-rows: minmax(75px, auto);
+  grid-template-areas: 
+  '. path-group . . . . . . .  .'
+  '. content content content content content rec rec rec . '
+  '. var var var var var var var var  .'
+  ;
+
+
+
+
+  &__content {
+    grid-area: content;
+    align-self: center;
+    border: 1px solid $color3;
+    border-radius: 3px;
+    position: relative;
+    min-height: 25rem;
+  }
+
+  &__details {
+    // max-width: max-content;
+    // min-width: 300px;
+    justify-content: center;
+  }
+
+  &__table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__recommended {
+    grid-area: rec;
+    max-width: 40rem;
+    
+  }
+
+  &__variants {
+    grid-area: var;
+    border-collapse: collapse;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 2rem auto;
+    position: relative;
+  }
+
+  &__variants-title {
+    font-family: 'Fisherman';
+    text-align: center;
+  }
+
+  &__reviews {
+    padding: 1rem;
+  }
+}
+
+.reviewcards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 10rem);
+  text-overflow: ellipsis;
+  grid-auto-rows: 10rem;
+  gap: 5px;
+  padding-top: 1rem;
+  justify-items:left;
+}
+
+.reviewcard {
+  @include flexCenter(column);
+  width: 10rem;
+  &__date {
+    font-size: 1rem;
+  }
+}
+
+.showreviews, .createreview {
+  
+  margin: 0 auto;
+  width: 80%;
+}
+
+.showreviews {
+
+  &__writebutton {
+    position: absolute;
+    bottom: 1rem;
+    right: 50%;
+    transform: translateX(50%);
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 2px solid $color3;
+    color: $color3;
+    text-transform: none;
+    font-size: 1.6rem;
+  }
+}
+
+
+@media only screen and (max-width: 680px) {
+  .productscreen {
+    grid-template-areas: 
+    '. path-group . . . . . . .  .'
+    '. content content content content content content content content . '
+    '. var var var var var var var var  .'
+    '. rec rec rec rec . . . . . '
+    ;
+    }
+}

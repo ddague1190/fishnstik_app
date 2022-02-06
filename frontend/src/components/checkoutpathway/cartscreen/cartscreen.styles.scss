@@ -1,0 +1,30 @@
+.cartscreen {
+    padding: 2rem;
+}
+
+
+.cartitems-container {
+    border-collapse: collapse;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: 80rem;
+    margin: 2rem auto;
+    position: relative;
+
+    &__grandtotal { 
+        border-top: 1px solid darken($color2,20%);
+        position: absolute;
+        bottom: -80px;
+        height: 75px;
+        width: 15rem;
+        right: 0;
+        background-color: $color2;
+        @include flexCenter(column);
+        z-index: -1;
+    }
+
+    &__spacer {
+        height: 75px;
+    }
+}

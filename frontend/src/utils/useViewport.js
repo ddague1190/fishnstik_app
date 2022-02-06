@@ -1,6 +1,6 @@
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import { useDispatch } from 'react-redux';
-import { updateViewportDimensions } from '../actions/responsiveActions';
+import { updateViewportDimensions } from '../redux/actions/responsiveActions';
 
 
 

@@ -130,3 +130,30 @@
       transform: translateX(-5%);
     }
   }
+
+  .button {
+    width: max-content;
+    display:inline-block;
+    padding:1rem 1rem;
+    border:0.1rem solid #000000;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-weight:300;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0.04rem 0.04rem rgba(0,0,0,0.35);
+    background-color: #48bf91;
+    text-align:center;
+    transition: all 0.15s;
+    cursor: pointer;
+    width: max-content;
+
+
+    &:disabled {
+      background-color: $color3;
+      &:hover, &:active {
+        animation: .2s linear 0s 5 alternate shake;
+      }
+    }
+  }

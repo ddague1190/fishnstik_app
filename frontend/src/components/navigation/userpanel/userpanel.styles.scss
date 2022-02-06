@@ -1,0 +1,24 @@
+.userpanel {
+    height: 6.5rem;
+    background-color: $color3;
+    gap: 1.6rem;
+    @include flexCenter(row);
+
+    &__withuser {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    &__withoutuser {
+      display: flex;
+      gap: 2rem;
+      margin-left: auto;
+    }
+
+    &--mobile a {
+      margin-left: auto;
+      font-size: 2rem;
+    }
+
+  }
