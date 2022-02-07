@@ -66,7 +66,7 @@ const PreCartItem = ({product, variant}) => {
         <div className='outofstock'>
             <div className='outofstock__content'>
                 <div className='outofstock__name'>{variant.identifier}</div>
-                <p className='outofstock__info'>Out of stock. Please contact us for availability.</p>
+                <p className='outofstock__info'>Out of stock. Contact us for availability.</p>
             </div>
             <div className='outofstock__expand' onClick={()=>setShowPlaceholder(false)}>
                 <span><i class="fas fa-plus-circle"></i></span>

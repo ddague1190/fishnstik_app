@@ -77,18 +77,23 @@
 
   &__variants {
     grid-area: var;
+    border: 1px solid $color3;
     border-collapse: collapse;
+    border-radius: 3px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
     margin: 2rem auto;
     position: relative;
   }
 
   &__variants-title {
-    font-family: 'Fisherman';
+    @include flexCenter(column);
+    z-index: 5;
     text-align: center;
+    background-color: $color2;
+    height: 3rem;
+    color: $color3;
   }
 
   &__reviews {

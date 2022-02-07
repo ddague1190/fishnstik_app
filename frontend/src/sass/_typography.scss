@@ -4,15 +4,9 @@
 @import 'variables';
 
 @font-face {
-    font-family: Fisherman;
-    src: url("../staticfiles/fonts/Fisherman-Rough.otf") format("opentype");
+    font-family: 'Fisherman';
+    src: local('Fisherman'), url(../fonts/Fisherman.otf) format('otf');
 }
-
-@font-face {
-    font-family: Otter;
-    src: url("../staticfiles/fonts/Otter-Regular.otf") format("opentype");
-}
-
 body {
     font-family: $font-family-3;
     font-size: 1.6rem;

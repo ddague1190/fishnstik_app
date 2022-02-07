@@ -129,7 +129,10 @@ const ProductScreen = ()  => {
         <Recommended className='productscreen__recommended' />
 
         <div className='productscreen__variants'>
-            <h2 className='productscreen__variants-title'>Options to choose from</h2>
+            <div className='productscreen__variants-title'>
+                <h2>Options to choose from</h2>
+            </div>
+            
 
             {product.variants.map((variant, index) => {
                 
