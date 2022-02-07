@@ -57,7 +57,7 @@ export const subcategories = {
     'snaps': [    
         {
             'subcategory': 'fishnstik',
-            'title': 'Fish\'N\'Stik Tournament '
+            'title': 'Fish\'N\'Stik'
         },
         {
             'subcategory': 'coastlock',

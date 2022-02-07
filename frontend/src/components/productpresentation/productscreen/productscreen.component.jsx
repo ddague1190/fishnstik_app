@@ -130,7 +130,7 @@ const ProductScreen = ()  => {
 
         <div className='productscreen__variants'>
             <div className='productscreen__variants-title'>
-                <h2>Options to choose from</h2>
+                <span>Options available for this product</span>
             </div>
             
 

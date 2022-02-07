@@ -118,7 +118,7 @@ const ProductDetails = ({product, height}) => {
             <span className='productdetails__rating'><Rating value={product.rating} color={'#e0dfa7'} text={`${product.numReviews} reviews`}/> </span>
             <p className='productdetails__catchphrase'>{product.catchPhrase}</p>
         </div>
-            <div className='productdetails__description'>{product.description}</div>
+            <div className='productdetails__description'>"{product.description}"</div>
 
             {width > breakpoint ? (
                     <PullTestGauge test={product.pulltest} />
