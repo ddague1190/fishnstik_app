@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: 'Fisherman';
-    src: local('Fisherman'), url(../fonts/Fisherman.otf) format('otf');
+    src: local('Fisherman'), url(../fonts/Fisherman.otf) format('opentype');
 }
 body {
     font-family: $font-family-3;
@@ -13,7 +13,6 @@ body {
 }
 
 .paragraph {
-    // font-size: $default-fontsize;
 
     &:not(:last-child) {
         margin-bottom: 3rem;
