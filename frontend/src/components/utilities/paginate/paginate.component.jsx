@@ -1,35 +1,32 @@
 import React from 'react';
-import {useLocation} from 'react-router-dom';
-import { Pagination } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import {useLocation, Link} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './paginate.styles.scss';
 
-function Paginate({pages, page}) {
+const Paginate = ({pages, page}) => {
 
-
+    const keyword = useSelector(state=>state.keyword);
     const {pathname, search} = useLocation();
-    
-    const route = search ? `/products/${search}` : pathname;
+    const route = keyword ? `/products/?keyword=${keyword}&` : `${pathname}?`;
 
     return ( pages>1 && (
-        <div className='pagination u-margin-top-medium'>
-            <Pagination>
+        <div className='pagination'>
+            <label className='pagination__label'>Page</label>
+            <div className='pagination__container'>
                 {[...Array(pages).keys()].map((x)=> (
-                    <LinkContainer 
+                    <Link 
                         key={x+1}
-                        to={`${route}&page=${x+1}`}
+                        to={`${route}page=${x+1}`}
                     >   
-                        <Pagination.Item
-                            active={x+1 === page}
-                        >
+                        <span className={`pagination__link ${x+1 === page && 'pagination__link--active'}`} >
                             {x+1}
-                        </Pagination.Item>
-                    </LinkContainer>
+                        </span>
+                    </Link>
                 ))}
-            </Pagination>
+            </div>
         </div>
         )
-    )
-}
+    );
+};
 
 export default Paginate

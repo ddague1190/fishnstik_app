@@ -1,8 +1,15 @@
 export const subcategories = {
+
+    'all': {
+        'all': {
+            'name': 'The whole store',
+            'description': 'If you don\'t see something you need, please let us know'
+        }
+    },
     
     'snaps': {
         'fishnstik' : {
-            'name': 'Fish\'N\'Stik',
+            'name': 'Fish N Stik',
             'path': 'fishnstik',
             'description': 'Our world-famous tournament snaps and bucks. Made and tested in house out of the best materials. Available in several sizes and configurations. Custom made to order',
             'image': '',

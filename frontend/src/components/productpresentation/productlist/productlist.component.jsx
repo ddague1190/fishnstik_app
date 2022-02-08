@@ -6,7 +6,6 @@ import Loader from '../../utilities/loader/loader.component';
 import Message from '../../utilities/message/message.component';
 import Paginate from '../../utilities/paginate/paginate.component';
 import { useLocation, useParams } from 'react-router-dom';
-import { updateKeyword } from '../../../redux/actions/routeActions';
 import './productlist.styles.scss';
 import SubcategoryList from '../subcategorylist/subcategorylist.component';
 import SubcategoryInfo from '../subcategorylist/subcategoryinfo.component';
@@ -18,26 +17,19 @@ const ProductList = ({target, ...otherProps}) => {
     const productList = useSelector(state => state.productList);
     const {error, loading, products, page, pages} = productList;
 
-    let location = useLocation();
-    let keyword = target ? target : location.search;
+    let {search} = useLocation();
     let { url_cat, url_subcat, url_brand } = useParams();
-
     useEffect(() => {
-        if(keyword) {
-            dispatch(updateKeyword(keyword))
-            dispatch(listProducts(keyword))
+        if(!url_cat &&!url_brand && search) {
+            dispatch(listProducts(search))
         }
-        if(!keyword && url_cat) {
-            dispatch(listCategorizedProducts(url_cat, url_subcat))
+        else if(url_cat) {
+            dispatch(listCategorizedProducts(url_cat, url_subcat, search))
         }
-
-        if(url_brand) {
-            dispatch(listProductsByBrand(url_brand))
+        else if(url_brand) {
+            dispatch(listProductsByBrand(url_brand, search))
         }
-    }, [keyword, url_cat, url_subcat, url_brand]);
-
-
-    console.log(loading);
+    }, [search, url_cat, url_subcat, url_brand]);
 
 
     return (
@@ -57,7 +49,7 @@ const ProductList = ({target, ...otherProps}) => {
                     {products.length > 0 ? (
                         products.map((product, index) => {
                         return (
-                            <Product key={product._id} product={product} keyword={keyword}/>
+                            <Product key={product._id} product={product}/>
                         );
                         })
                     ) : (<h3>No products found</h3>)

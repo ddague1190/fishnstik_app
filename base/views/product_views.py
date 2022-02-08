@@ -19,11 +19,10 @@ def getProducts(request, category='', subcategory=''):
     if query == None:
         query = ''
     products = Product.objects.filter(name__icontains=query)
-    
     if category:
         products = Product.objects.filter(category=category)
         if category =='all':
-            products = Product.objects.all()
+            products = Product.objects.all().order_by('-createdAt')
 
     if subcategory:
         products = Product.objects.filter(subcategory=subcategory)

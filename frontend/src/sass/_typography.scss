@@ -34,12 +34,14 @@ h2, h3, h4{
 }
 
 .path-group {
-    margin-bottom: 8rem;
-    grid-area: path-group;
+    margin-bottom: 4rem;
+    grid-area: pg;
     text-transform: uppercase;
-    padding: .5rem 2rem;
+    padding: .5rem 1rem;
     width: max-content;
-    
+    justify-self: start;
+    align-self: start;
+
     &:last-child {
         position: relative;
 

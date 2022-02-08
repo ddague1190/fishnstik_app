@@ -97,16 +97,17 @@ const HorizontalPullTestGauge = ({test}) => {
 const ProductDetails = ({product, height}) => {
 
     const {width} = useSelector(state=>state.dimensions);
-    const breakpoint = 500;
+    const breakpoint = 600;
     const breakpoint2 = 800;
 
     return (    
 
+        
     <div className={`productdetails ${!product.pulltest && 'productdetails--nogauge'}`}>
 
 
         <div className='productdetails__image'>
-        <Figure  image={product.image} height={width > breakpoint ? '20rem' : '20rem' } alt={product.name} />
+        <Figure  image={product.image}  alt={product.name} />
         </div>
         <div className='productdetails__details'>
             <p className='productdetails__name'>{product.name}</p>

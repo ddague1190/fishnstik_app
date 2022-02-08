@@ -15,8 +15,8 @@ const QuantitySelect = ({item}) => {
         dispatch(addToCart(item.productId, item.variantId, e.target.value));
     }
   return (
-        <form  className='select__form' value={item.qty} onChange={quantitySelectHandler}>
-            <select className='select__dropdown' value={item.qty}>
+        <form  className='select__form' >
+            <select className='select__dropdown' value={item.qty} onChange={quantitySelectHandler}>
                     <option>Remove</option>
                 {   
                     [...Array(item.countInStock).keys()].map((x) => (

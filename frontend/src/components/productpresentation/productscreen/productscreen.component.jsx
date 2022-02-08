@@ -38,6 +38,7 @@ const ProductScreen = ()  => {
 
     return (
         <div className='productscreen'>
+
             <div className='path-group'>
                 <Link to='/'>Home</Link> 
                 <span> > </span>

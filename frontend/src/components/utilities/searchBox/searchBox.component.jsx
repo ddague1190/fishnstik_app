@@ -1,38 +1,23 @@
-import React, {useState, useEffect} from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import './searchBox.styles.scss';
+import { useDispatch } from 'react-redux';
+import { updateKeyword } from '../../../redux/actions/routeActions';
 
 const SearchBox = () => {
 
     const [keyword, setKeyword] = useState('')
 
     let navigate = useNavigate();
-    let location = useLocation();
+    const dispatch = useDispatch();
 
     const submitHandler = (e) => {
         e.preventDefault();
-        if(keyword) {
-            const timeoutId = setTimeout(()=>{
-                navigate(`/products/?keyword=${keyword}`)
-            }, 500)
-        } else {
-            navigate(location.pathname)
-        }
-        return (timeoutId)=> clearTimeout(timeoutId)
+        dispatch(updateKeyword(keyword));
+        navigate(`/products/?keyword=${keyword}`);
     }
-
-    useEffect(()=> {
-        const timeoutId = setTimeout(()=>{
-          if(keyword) navigate(`/products/?keyword=${keyword}`)
-        }, 500)
-
-        return (timeoutId)=> clearTimeout(timeoutId)
-    }, [keyword])
-
-
     return (
-
-        <form className='searchbox' >
+        <form className='searchbox' onSubmit={submitHandler} >
             <input
                 size="sm"
                 type='text'
@@ -42,8 +27,8 @@ const SearchBox = () => {
                 className='searchbox__input'
             >
             </input>
+            <button className='searchbox__button button' type='submit'>go</button>
         </form>
-        
     )
 }
 

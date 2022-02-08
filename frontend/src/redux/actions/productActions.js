@@ -13,12 +13,34 @@ import {
 } from '../constants/productConstants';
 
 import axiosInstance from '../axiosInstance';
+import { resetKeyword } from './routeActions';
 
 
 export const listProducts = (keyword='') => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_LIST_REQUEST})
         const {data} = await axios.get(`/api/products/${keyword}`);
+        dispatch({
+            type: PRODUCT_LIST_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_LIST_FAIL,
+            payload: error.response && error.response.data.detail 
+            ? error.response.data.detail
+            : error.message,
+        })
+    } 
+}
+
+export const listCategorizedProducts = (category, subcategory='', keyword='') => async (dispatch) => {
+    try {
+        dispatch({type: PRODUCT_LIST_REQUEST})
+        const {data} = await axios.get(`/api/products/${category}/${subcategory}${subcategory && '/'}${keyword}`);
+
+
+        dispatch(resetKeyword());
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -34,29 +56,12 @@ export const listProducts = (keyword='') => async (dispatch) => {
     } 
 }
 
-export const listCategorizedProducts = (category, subcategory='') => async (dispatch) => {
+export const listProductsByBrand = (brand, search='') => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_LIST_REQUEST})
-        const {data} = await axios.get(`/api/products/${category}/${subcategory}${subcategory && '/'}`);
+        const {data} = await axios.get(`/api/brands/${brand}/${search}`);
 
-        dispatch({
-            type: PRODUCT_LIST_SUCCESS,
-            payload: data
-        })
-    } catch (error) {
-        dispatch({
-            type: PRODUCT_LIST_FAIL,
-            payload: error.response && error.response.data.detail 
-            ? error.response.data.detail
-            : error.message,
-        })
-    } 
-}
-
-export const listProductsByBrand = (brand) => async (dispatch) => {
-    try {
-        dispatch({type: PRODUCT_LIST_REQUEST})
-        const {data} = await axios.get(`/api/brands/${brand}/`);
+        dispatch(resetKeyword());
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,

@@ -4,6 +4,7 @@ import CheckoutSteps from '../../utilities/checkoutsteps/checkoutsteps.component
 import { useNavigate } from 'react-router-dom'
 import { savePaymentMethod } from '../../../redux/actions/cartActions'
 import './paymentscreen.styles.scss';
+import { useEffect } from 'react'
 
 function PaymentScreen() {
 
@@ -14,9 +15,14 @@ function PaymentScreen() {
     let navigate = useNavigate()
 
     const [paymentMethod, setPaymentMethod ] = useState('PayPal or Credit Card')
-    if(!shippingAddress.name) {
-        navigate('/shipping/')
-    }
+
+    useEffect(()=>{
+        if(!shippingAddress) {
+            console.log('no address')
+            navigate('/shipping/')
+        }
+    }, [])
+
 
     const submitHandler = (e) => {
         e.preventDefault()

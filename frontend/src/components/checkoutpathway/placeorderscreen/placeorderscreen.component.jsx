@@ -34,13 +34,16 @@ const PlaceOrderScreen = () => {
         Number(cart.shippingPrice)
     ).toFixed(2);
     
-    useEffect(() => { 
+    console.log(cart.shippingAddress)
 
-        if(cart.cartItems.length === 0) {
-            navigate('/')
+    useEffect(() => { 
+        if(!cart.shippingAddress) {
+            console.log('noaddres')
+            navigate('/shipping/');
         }
-        else if(!cart.shippingAddress.name) {
-            navigate('/shipping/')
+
+        else if(cart.cartItems.length === 0) {
+            navigate('/')
         }
         else if(!cart.paymentMethod) {
             navigate('/payment');

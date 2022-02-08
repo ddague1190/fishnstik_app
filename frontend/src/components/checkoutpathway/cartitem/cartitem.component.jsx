@@ -30,7 +30,8 @@ const CartItem = ({item}) => {
                     to={`/product/${item.productId}`}
                 >
                     <p className='cartitem__name'>{item.name} </p>
-                    <p className='cartitem__variantdescription'>{item.variantIdentifier} {mobilePriceIndicator}</p>
+                    <span className='cartitem__variantdescription'>{item.variantIdentifier} {mobilePriceIndicator}</span>
+
                 </Link>
             </div> 
             <div className='cartitem__params'>

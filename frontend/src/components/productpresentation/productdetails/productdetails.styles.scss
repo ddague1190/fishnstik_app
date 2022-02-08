@@ -2,10 +2,11 @@
   position: relative;
   display: grid;
   padding-block: 2rem;
-    justify-content: stretch;
+  justify-content: stretch;
   text-align: center;
   align-items: center;
-  grid-template-columns: 20rem minmax(15rem, 3fr) 10rem;
+  grid-template-columns: 30rem minmax(15rem, 3fr) 10rem;
+  gap: 2rem;
   align-content: center;
   grid-template-areas: 
 
@@ -22,7 +23,10 @@
   }
 
   &__details {
-    @include flexCenter(column);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 1rem;
     grid-area: details;
   }
@@ -45,10 +49,10 @@
 
   &__name {
     grid-area: name;
-    padding: 1rem;
     color: $color3;
+    margin-bottom: 3rem;
     font-family: 'Fisherman';
-    font-size: 3.3rem;
+    font-size: 3.5rem;
     border-radius: 4px;
   }
 
@@ -86,18 +90,19 @@
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   .productdetails {
-    grid-template-columns: 18rem minmax(10rem, 3fr);
+    grid-template-columns: 20rem minmax(10rem, 3fr);
     grid-template-areas: 
 
     'image  details'
-    ' g g' 
     ' description  description '
+    ' g g' 
+
     ;
 
     &__gauge {
-      width: 33rem;
+      width: 30rem;
     }
 
     &--nogauge {

@@ -1,8 +1,13 @@
-export const updateKeyword = (keyword) => async (dispatch) => {
+export const updateKeyword = (keyword) => (
     
-    dispatch({
+    {
         type: 'UPDATE_KEYWORD',
         payload: keyword
-    })
+    }
+);
 
-}
+export const resetKeyword = () =>(
+    {
+        type: 'RESET_KEYWORD',
+    }
+);

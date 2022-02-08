@@ -4,15 +4,13 @@
 
 .subcategory-list {
     margin-block: 1rem;
-    position: absolute;
     display: flex;
     justify-content: center;
     flex-direction: row;
     width: 100%;
     top: 0;
     left: 0;
-    gap: 2rem;
-    overflow: hidden;
+    gap: 5px;
     
     &__container {
         @include flexCenter(row);
@@ -21,16 +19,18 @@
     }
 
     &__window {
+        overflow: hidden;
         position: relative;
-        width: 70%;
-        height: 20rem;
+        width: 99%;
     }
 
     &--panleft, &--panright {
         padding: 2rem;
         font-size: 2.5rem;
-        color: #777;
+        font-weight: bold;
+        color: $color1;
         cursor: pointer;
+        z-index: 5;
         &:hover {
             color: black;
         }
@@ -41,7 +41,7 @@
 .subcategory-item {
     display: block;
     &__image {
-        border: 3px solid $color4;
+        border: 1px solid $color3;
         border-radius: 4px;
         object-fit: contain;
         height: 15rem;

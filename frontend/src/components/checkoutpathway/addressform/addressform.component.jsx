@@ -40,7 +40,7 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.name}
                     onChange={setFormData}
                 />
-                <label for='name' class='input-control__label'>
+                <label htmlFor='name' class='input-control__label'>
                     Name
                 </label>
             </div> 
@@ -56,7 +56,7 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.address}
                     onChange={setFormData}
                 />
-                <label for='address' class='input-control__label'>
+                <label htmlFor='address' class='input-control__label'>
                     Street Address
                 </label>
             </div> 
@@ -71,7 +71,7 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.apartment}
                     onChange={setFormData}
                 />
-                <label for='apartment' class='input-control__label'>
+                <label htmlFor='apartment' class='input-control__label'>
                     Apartment
                 </label>
             </div>
@@ -87,7 +87,7 @@ const AddressForm = ({toggleAddressForm}) => {
                     value= {formData.city}
                     onChange={setFormData}
                 />
-                <label for='city' class='input-control__label'>
+                <label htmlFor='city' class='input-control__label'>
                     City
                 </label>
             </div>
@@ -103,7 +103,7 @@ const AddressForm = ({toggleAddressForm}) => {
                     value= {formData.city}
                     onChange={setFormData}
                 />
-                <label for='state' class='input-control__label'>
+                <label htmlFor='state' class='input-control__label'>
                     State
                 </label>
             </div>
@@ -119,7 +119,7 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.postalCode}
                     onChange={setFormData}
                 />
-                <label for='postalcode' class='input-control__label'>
+                <label htmlFor='postalcode' class='input-control__label'>
                     Zip
                 </label>
             </div>
@@ -134,7 +134,7 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.phone}
                     onChange={setFormData}
                 />
-                <label for='phone' class='input-control__label'>
+                <label htmlFor='phone' class='input-control__label'>
                     Phone
                 </label>
             </div>

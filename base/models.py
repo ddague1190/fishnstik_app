@@ -5,6 +5,7 @@ from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from base.utils.sendOrderEmail import sendOrderEmail
 from dotenv import load_dotenv
+import datetime
 import os
 if not os.environ.get("PRODUCTION"):
     load_dotenv()
@@ -53,6 +54,7 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        self.createdAt = datetime.datetime.now()
         self.numVariants = self.variants.all().count()    
         super(Product, self).save(*args, **kwargs)
 

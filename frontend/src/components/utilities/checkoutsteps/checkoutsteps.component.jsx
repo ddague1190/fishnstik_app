@@ -7,8 +7,6 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
     if(step3) value += 20;
     if(step4) value += 23;
 
-    console.log(value)
-
     return (
         <div className='progress-bar__container u-margin-bottom-medium'>
                 <span className='u-font-weight-light'>Login</span>
