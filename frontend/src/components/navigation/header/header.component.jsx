@@ -82,7 +82,6 @@ const Header = () => {
             </header>
 
         )}
-    <img src={require('../../../static/images/fishnstik.jpeg')} />
 
     </>
 

@@ -203,12 +203,13 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
 
+
 STATICFILES_DIRS = [
     BASE_DIR / 'frontend/build/static'
 ]
 
 # Upload images here
-MEDIA_ROOT = BASE_DIR / 'static/images'
+MEDIA_ROOT = BASE_DIR / 'static/media'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 CORS_ALLOWED_ORIGINS = [
