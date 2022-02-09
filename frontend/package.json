@@ -2,6 +2,7 @@
   "name": "frontend",
   "proxy": "http://127.0.0.1:8000",
   "version": "0.1.0",
+  "main": "index.js",
   "private": true,
   "dependencies": {
     "@craco/craco": "^5.9.0",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "2.4.5"
   }
 }

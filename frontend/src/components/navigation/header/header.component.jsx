@@ -10,6 +10,7 @@ import { NavBarElement2 } from '../navBarElement/navBarElement.component';
 import Logo from '../../promotional/logo/logo.component';
 import NavBar from '../navbar/navbar.component';
 import MobileLogo from '../../promotional/logo/mobilelogo.component';
+import {ReactComponent as HamburgerIcon} from '../../../svg/hamburger__icon.svg#hamburger__icon';
 
 
 const Header = () => {
@@ -49,11 +50,12 @@ const Header = () => {
                     <MobileLogo />
                     <div className='mobile-navbar__button btn--navbar2' ref={menuButton} onClick={()=>setShowMobileNav(!showMobileNav)}>
                         <span>Menu</span>
-                        <svg className='svg' viewBox="0 0 20 20" width="20" height="20">
+                        <HamburgerIcon />
+                        {/* <svg className='svg' viewBox="0 0 20 20" width="20" height="20">
                             <rect width="20" height="4" rx="5"></rect>
                             <rect y="6.3" width="20" height="4" rx="5"></rect>
                             <rect y="12.6" width="20" height="4" rx="5"></rect>
-                        </svg>
+                        </svg> */}
                     </div>
                 </div>
 

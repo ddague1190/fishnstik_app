@@ -1,4 +1,12 @@
 module.exports = {
+  webpack: {
+    configure: (webpackConfig) => {
+        webpackConfig.externals = {
+            'Config': JSON.stringify(require('./config.prod.js'))
+        };
+        return webpackConfig;
+    },
+  },
     style: {
       sass: {
         loaderOptions: {
