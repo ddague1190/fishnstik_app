@@ -10,11 +10,9 @@ import { NavBarElement2 } from '../navBarElement/navBarElement.component';
 import Logo from '../../promotional/logo/logo.component';
 import NavBar from '../navbar/navbar.component';
 import MobileLogo from '../../promotional/logo/mobilelogo.component';
-import {ReactComponent as HamburgerIcon} from '../../../static/svg/hamburger__icon.svg#hamburger__icon';
-
+import Hamburger from '../../utilities/hamburger/hamburger.component';
 
 const Header = () => {
-
     const menuButton = useRef();
     let navigate = useNavigate();
     let {search} = useLocation();
@@ -48,14 +46,8 @@ const Header = () => {
                 </div>
                 <div className='mobile-navbar'>
                     <MobileLogo />
-                    <div className='mobile-navbar__button btn--navbar2' ref={menuButton} onClick={()=>setShowMobileNav(!showMobileNav)}>
-                        <span>Menu</span>
-                        <HamburgerIcon />
-                        {/* <svg className='svg' viewBox="0 0 20 20" width="20" height="20">
-                            <rect width="20" height="4" rx="5"></rect>
-                            <rect y="6.3" width="20" height="4" rx="5"></rect>
-                            <rect y="12.6" width="20" height="4" rx="5"></rect>
-                        </svg> */}
+                    <div className='mobile-navbar__button' ref={menuButton} onClick={()=>setShowMobileNav(!showMobileNav)}>
+                        <Hamburger opened={showMobileNav} />
                     </div>
                 </div>
 
