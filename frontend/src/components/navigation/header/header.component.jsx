@@ -10,7 +10,7 @@ import { NavBarElement2 } from '../navBarElement/navBarElement.component';
 import Logo from '../../promotional/logo/logo.component';
 import NavBar from '../navbar/navbar.component';
 import MobileLogo from '../../promotional/logo/mobilelogo.component';
-import {ReactComponent as HamburgerIcon} from '../../../svg/hamburger__icon.svg#hamburger__icon';
+import {ReactComponent as HamburgerIcon} from '../../../static/svg/hamburger__icon.svg#hamburger__icon';
 
 
 const Header = () => {
@@ -82,8 +82,12 @@ const Header = () => {
             </header>
 
         )}
+    <img src={require('../../../static/images/fishnstik.jpeg')} />
+
     </>
+
     )
+
 };
 
 export default Header;
