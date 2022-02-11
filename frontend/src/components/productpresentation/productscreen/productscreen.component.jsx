@@ -9,10 +9,8 @@ import { listProductDetails } from '../../../redux/actions/productActions';
 import AddToCartCard from '../../utilities/addtocartcard/addtocartcard.component';
 import WriteReview from '../../utilities/writereview/writereview.component';
 import './productscreen.styles.scss';
-import Recommended from '../../promotional/recommended/recommended.component';
-import Variants from '../variants/variants.component';
-import MobileVariants from '../variants/mobilevariants.component';
-import MinimizedVariants from '../variants/minimizedvariants.component';
+import VerticalProductScreenBanner from '../../svg/recommended/verticalproductscreenbanner.component';
+import HorizontalProductScreenBanner from '../../svg/recommended/horizontalproductscreenbanner.component';
 import PreCartItem from '../../checkoutpathway/cartitem/pre-cartitem.component';
 
 
@@ -23,11 +21,9 @@ const ProductScreen = ()  => {
 
     const dispatch = useDispatch();
 
-
-    const keyword = useSelector(state=>state.keyword);
-
     const {loading, error, product } = useSelector(state => state.productDetails);
-
+    const { width} = useSelector(state=>state.dimensions);
+    const breakpoint = 900;
     const { userInfo } = useSelector(state => state.userLogin);
 
     const productId = useParams();
@@ -126,9 +122,13 @@ const ProductScreen = ()  => {
 
         {product.numVariants === 1 && <AddToCartCard product={product} checkedBoxIndex={0}/> } 
 
-    
-        <Recommended className='productscreen__recommended' />
+        {width > breakpoint ? 
+            <VerticalProductScreenBanner className='productscreen__recommended' />
+        
+            :
 
+            <HorizontalProductScreenBanner className='productscreen__recommended' />
+        }
         <div className='productscreen__variants'>
             <div className='productscreen__variants-title'>
                 <span>Options available for this product</span>

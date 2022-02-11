@@ -1,16 +1,17 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Link, useLocation} from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import SearchBox from '../../utilities/searchBox/searchBox.component';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './header.styles.scss';
 import Dropdown from '../dropdown/dropdown.component';
 import UserPanel from '../userpanel/userpanel.component';
 import { NavBarElement2 } from '../navBarElement/navBarElement.component';
 import Logo from '../../promotional/logo/logo.component';
 import NavBar from '../navbar/navbar.component';
-import MobileLogo from '../../promotional/logo/mobilelogo.component';
-import Hamburger from '../../utilities/hamburger/hamburger.component';
+import Hamburger from '../../svg/hamburger/hamburger.component';
+import Snap from '../../svg/snap/snap.component';
+
 
 const Header = () => {
     const menuButton = useRef();
@@ -45,7 +46,7 @@ const Header = () => {
                     </NavBarElement2>  
                 </div>
                 <div className='mobile-navbar'>
-                    <MobileLogo />
+                    {!showMobileNav && <Snap />}
                     <div className='mobile-navbar__button' ref={menuButton} onClick={()=>setShowMobileNav(!showMobileNav)}>
                         <Hamburger opened={showMobileNav} />
                     </div>

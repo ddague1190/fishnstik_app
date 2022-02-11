@@ -5,7 +5,7 @@
   justify-content: stretch;
   text-align: center;
   align-items: center;
-  grid-template-columns: 30rem minmax(15rem, 3fr) 10rem;
+  grid-template-columns: 27rem minmax(15rem, 3fr) 11rem;
   gap: 2rem;
   align-content: center;
   grid-template-areas: 
@@ -41,6 +41,7 @@
 
 
   &__image {
+
     display: block;
     justify-self: start;
     margin-left: 5px;
@@ -88,13 +89,14 @@
   &__gauge {
     margin: 0 auto;
     grid-area: g;
-    min-width: 8rem;
+    min-width: 11rem;
   }
 }
 
+
 @media only screen and (max-width: 600px) {
   .productdetails {
-    grid-template-columns: 20rem minmax(10rem, 3fr);
+    grid-template-columns: 25rem minmax(10rem, 3fr);
     grid-template-areas: 
 
     'image  details'
@@ -112,6 +114,21 @@
   }
 }
 
+
+@media only screen and (max-width: 500px) {
+  .productdetails {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+
+    &__image {
+      width: 60vw;
+      min-width: 30rem;
+      max-height: 60vw;
+    }
+  }
+
+}
 
 
 

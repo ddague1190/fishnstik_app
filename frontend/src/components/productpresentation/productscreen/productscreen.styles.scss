@@ -73,7 +73,6 @@
   &__recommended {
     grid-area: rec;
     max-width: 40rem;
-    
   }
 
   &__variants {
@@ -149,13 +148,20 @@
 }
 
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 900px) {
   .productscreen {
     grid-template-areas: 
     '. pg pg pg pg pg pg pg pg .'
     '. content content content content content content content content . '
     '. var var var var var var var var  .'
-    '. rec rec rec rec . . . . . '
+    '. rec rec rec rec rec rec rec rec . '
     ;
+    &__recommended {
+      margin: 0 auto;
+      grid-area: rec;
+      max-width: 100%;
+      width:100rem;
+      min-height: 23rem;
+    }
     }
 }

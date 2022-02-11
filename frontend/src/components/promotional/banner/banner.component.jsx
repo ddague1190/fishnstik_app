@@ -7,7 +7,7 @@ const Banner = () => (
 
     
         <svg  className='banner__svg' viewBox="0 0 450 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_13_55906)">
+<g clipPath="url(#clip0_13_55906)">
 <path d="M433 17H17V583H433V17Z" fill="#8ADCE2"/>
 <path fillRule="evenodd" clipRule="evenodd" d="M111.3 1.79997C111.5 2.49997 113.7 3.69997 114 2.49997C114.5 0.999969 111.7 -3.09944e-05 111.3 1.79997Z" fill="#BAF7F7"/>
 <path fillRule="evenodd" clipRule="evenodd" d="M114.3 3.9999C113.9 4.9999 115.5 5.9999 116.5 5.8999C116.6 5.7999 116.7 5.4999 116.9 5.5999C117.7 4.3999 115 2.6999 114.3 3.9999Z" fill="#BAF7F7"/>

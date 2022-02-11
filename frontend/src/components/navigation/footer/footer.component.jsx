@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './footer.styles.scss';
 import { useSelector } from 'react-redux';
+import {ReactComponent as Sailfish} from './sailfish.svg';
 
 const Footer = () => { 
     const {width} = useSelector(state=>state.dimensions);
@@ -92,14 +93,17 @@ const Footer = () => {
                 </article>
 
                 <article className={`footer-info__col footer-info__col--address ${width < breakpoint && 'footer-info__col--offset'}`}>
-                        <div>logoplaceholder</div>
+                       
+                        <div className='footer__image'>
+                            <Sailfish />
+                        </div>
                         <address className='footer__address'>
                             5407 Haverhill Rd, Unit 339
                             <br/>
                             West Palm Beach, FL 33407
                             <br/>
                             United States of America
-                        </address>
+                        </address> 
                         <strong>Call us at (561) 686-7845</strong>
                 </article>
         </section>
