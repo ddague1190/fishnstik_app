@@ -12,6 +12,10 @@ const Footer = () => {
 
 <footer className='footer'>
 
+        <div className='footer__image'>
+            <Sailfish />
+        </div>
+
         <section className='footer-info'>
                 <article className='footer-info__col footer-info__col--wide'>
     
@@ -40,7 +44,7 @@ const Footer = () => {
                                 <span>Shipping &amp; Returns</span>
                             </li>
                             <li>
-                                <a href='https://alltackle.com/privacy-policy/'>Privacy Policy</a>
+                                <span>Privacy Policy</span>
                             </li>
                             <li>
                                 <span>Great Angler Gift Idea</span>
@@ -94,17 +98,17 @@ const Footer = () => {
 
                 <article className={`footer-info__col footer-info__col--address ${width < breakpoint && 'footer-info__col--offset'}`}>
                        
-                        <div className='footer__image'>
-                            <Sailfish />
+ 
+                        <div className='footer__address'>
+                            <address>
+                                5407 Haverhill Rd, Unit 339
+                                <br/>
+                                West Palm Beach, FL 33407
+                                <br/>
+                                United States of America
+                            </address> 
+                            <strong>Call us at (561) 686-7845</strong>
                         </div>
-                        <address className='footer__address'>
-                            5407 Haverhill Rd, Unit 339
-                            <br/>
-                            West Palm Beach, FL 33407
-                            <br/>
-                            United States of America
-                        </address> 
-                        <strong>Call us at (561) 686-7845</strong>
                 </article>
         </section>
             <div className='footer__copyright'>

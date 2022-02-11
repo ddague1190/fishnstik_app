@@ -1,5 +1,4 @@
 import './banner.styles.scss';
-import Featured from '../featured/featured.component';
 
 const Banner = () => (
     <div className='banner'>
@@ -967,7 +966,7 @@ const Banner = () => (
 </svg>
 
 
-        <Featured />
+        
 
         
 

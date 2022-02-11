@@ -3,15 +3,21 @@
   width: 100%;
   color: black;
   padding: 1rem;
+  position: relative;
+  overflow: hidden;
   line-height: 2.5rem;
+  z-index: 3;
   
   &__image {
-    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 10rem;
+    position: absolute;
+    width: 60%;
+    min-width: 70rem;
+    gap: 1rem;
+    fill: rgba($color2, .5);
+    stroke: rgba($color6, .1);
   }
   
   &__copyright {
@@ -19,7 +25,11 @@
   }
 
   &__address {
-    line-height: 2rem;
+    border-radius: 4px;
+    padding: 2rem;
+    width: 30rem;
+    gap: 2rem;
+    @include flexCenter(column);
   }
 
   & li {
@@ -57,6 +67,8 @@
       position: relative;
       border-radius: 4px;
       padding: 2rem;
+      height: 18rem;
+      width: 28rem;
       font-size: 2rem;
       @include flexCenter(column);
       gap: 1rem;
