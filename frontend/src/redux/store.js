@@ -19,6 +19,7 @@ import {
 } from './reducers/orderReducers';
 import { routeReducer } from './reducers/routeReducer';
 import { responsiveReducer } from './reducers/responsiveReducers';
+import { fishFactReducer } from './reducers/promoReducers';
 
 const reducer = combineReducers({
     productList: productListReducer,
@@ -35,7 +36,8 @@ const reducer = combineReducers({
     orderListMy: orderListyMyReducer,
     keyword: routeReducer,
     savedAddresses: getSavedAddressesReducer,
-    dimensions: responsiveReducer
+    dimensions: responsiveReducer,
+    fishFact: fishFactReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ?

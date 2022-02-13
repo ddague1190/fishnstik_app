@@ -8,8 +8,8 @@ const HomeScreen = () => {
     return (
         <div>
             <Banner />
-            <FishFact />
             <Featured />
+            <FishFact />
             
         </div>
     ) 

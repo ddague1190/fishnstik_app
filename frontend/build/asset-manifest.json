@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.cc6a5c08.css",
-    "main.js": "/static/js/main.46fbadb6.js",
+    "main.css": "/static/css/main.762f8833.css",
+    "main.js": "/static/js/main.727f9c01.js",
     "static/js/787.d8c6ec95.chunk.js": "/static/js/787.d8c6ec95.chunk.js",
     "static/media/sailfish.svg": "/static/media/sailfish.0315864837219eac5df8be073e9da609.svg",
+    "static/media/fishwatchlogo.svg": "/static/media/fishwatchlogo.987ef8d1da4bbd96e6682cf9b2d512d2.svg",
     "index.html": "/index.html",
-    "main.cc6a5c08.css.map": "/static/css/main.cc6a5c08.css.map",
-    "main.46fbadb6.js.map": "/static/js/main.46fbadb6.js.map",
+    "main.762f8833.css.map": "/static/css/main.762f8833.css.map",
+    "main.727f9c01.js.map": "/static/js/main.727f9c01.js.map",
     "787.d8c6ec95.chunk.js.map": "/static/js/787.d8c6ec95.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cc6a5c08.css",
-    "static/js/main.46fbadb6.js"
+    "static/css/main.762f8833.css",
+    "static/js/main.727f9c01.js"
   ]
 }
