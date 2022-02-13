@@ -49,6 +49,8 @@
         height: 4rem;
         font-style: italic;
         margin-top: 1rem;
+        user-select: none;
+        cursor: pointer;
     }
 
     &__header{

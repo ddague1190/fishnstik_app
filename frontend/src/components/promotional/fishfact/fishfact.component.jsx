@@ -51,10 +51,10 @@ const FishFact = () => {
     <>
     {loading ? <div className='fishfacts__spaceholder'></div> : (
         <article className='fishfacts'>
-            <heading className='fishfacts__header'>
+            <header className='fishfacts__header'>
                 <Logo />
-                <span onClick={nextSpeciesHandler} className='fishfacts__next button'>Try another species</span>
-            </heading>
+                <span onClick={nextSpeciesHandler} className='fishfacts__next'>Try another species</span>
+            </header>
             <div className='fishfacts__image-container'>
                 <span className='fishfacts__image-left' onClick={onNextClick}><i class="fa-solid fa-chevron-left"></i></span>
                 <Figure image={images[imageIndex]? images[imageIndex] : images[imageIndex+1]} height={width>breakpoint ? '50rem' : width>breakpoint2 ? '45rem' : '35rem'}/>

@@ -9,17 +9,10 @@ import { categories, subcategories } from '../dropdown/categories';
 const NavItem = ({category, setShowMobileNav}) => {
     const [hidden, setHidden] = useState(true);
 
-    const onNavItemClick = (e) => {
-        e.preventDefault();
-        setHidden(!hidden);
-    }
-
-
-
     return (
         <li className='desktop-nav-item'>
 
-            <Link className='desktop-nav-item__link btn--navbar' to={`products/${category.category}/`} onClick={()=>setShowMobileNav(false)}>
+            <Link className='desktop-nav-item__link btn--navbar' to={`products/${category.category}/`}>
                 {category.title}
             </Link>
             <ul className='desktop-nav-submenu'>
@@ -29,7 +22,7 @@ const NavItem = ({category, setShowMobileNav}) => {
 
                     {subcategories[category.category].map((subcategory) => 
                     <li className='desktop-nav-submenu-item' key={subcategory.subcategory}>
-                        <Link className='desktop-nav-submenu-item__link' to={`products/${category.category}/${subcategory.subcategory}/`} onClick={()=>setShowMobileNav(false)}>
+                        <Link className='desktop-nav-submenu-item__link' to={`products/${category.category}/${subcategory.subcategory}/`}>
                           {subcategory.title}
                         </Link>
                     </li>
@@ -41,19 +34,14 @@ const NavItem = ({category, setShowMobileNav}) => {
 
 
 
-const NavBar = ({setShowMobileNav}) => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const onLogoutClick = () => {
-        dispatch(logout());
-        navigate('/');
-    };
+const NavBar = () => {
+
     return (
         <nav className='desktop-nav'>
             <ul className='desktop-nav-list'>
             {categories.map((category) => 
 
-                <NavItem category={category} setShowMobileNav={setShowMobileNav} key={category.category} /> 
+                <NavItem category={category} key={category.category} /> 
             )}
             </ul>
         </nav>

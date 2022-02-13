@@ -20,6 +20,7 @@ import {
 import { routeReducer } from './reducers/routeReducer';
 import { responsiveReducer } from './reducers/responsiveReducers';
 import { fishFactReducer } from './reducers/promoReducers';
+import { whichLoader } from './reducers/promoReducers';
 
 const reducer = combineReducers({
     productList: productListReducer,

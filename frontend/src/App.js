@@ -16,6 +16,7 @@ import ProductList from './components/productpresentation/productlist/productlis
 import Brands from './components/promotional/brands/brands.component';
 import './sass/App.scss';
 import useViewport from './utils/useViewport';
+import Loader from './components/utilities/loader/loader.component';
 
 
 

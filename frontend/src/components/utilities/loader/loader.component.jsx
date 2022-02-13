@@ -1,19 +1,26 @@
-import React from 'react'
-import { Spinner } from 'react-bootstrap'
-function Loader() {
+import React, {useEffect} from 'react';
+import './loader.styles.scss';
+import {ReactComponent as Marlin} from './marlin.svg'
+import {ReactComponent as Dolphin} from './dolphin.svg'
+import {ReactComponent as Tuna} from './tuna.svg'
+import { useSelector, useDispatch } from 'react-redux';
+
+
+
+const Loader = () => {
+    const dispatch = useDispatch();
+    
+    const loaders = [
+        <Tuna />,
+        <Dolphin />,
+        <Marlin />
+    ]
+    
     return (
-        <Spinner
-            animation='border'
-            role='status'
-            style={{
-                height: '100px',
-                width: '100px',
-                margin: 'auto',
-                display: 'block'
-            }}
-        >
-            <span className='sr-only'>Loading...</span>
-        </Spinner>
+        <div className='loader'>
+            <span className='loader__text'>Loading ... </span>
+            {loaders[(Math.floor(Math.random() * 3))]}
+        </div>
     )
 }
 export default Loader

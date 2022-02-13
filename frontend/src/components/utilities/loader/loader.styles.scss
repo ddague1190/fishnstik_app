@@ -1,0 +1,103 @@
+.loader {
+    width: 100%;
+    max-width: 50rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    &__text {
+        position: absolute;
+        font-size: 5rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: $font-family-title;
+        color: $color2;
+        z-index: 10;
+    }
+}
+
+.tuna, .dolphin, .marlin {
+    width: 100%;
+    z-index: 100;
+}
+
+
+//MARLIN
+
+.marlin-cls-1 {
+    fill: #091a3a;
+}
+
+.marlin-cls-2 {
+    fill: #c3cdd3;
+}
+
+.marlin-cls-3 {
+    fill: #436094;
+}
+
+.marlin-cls-4 {
+    fill: #8b9a9d;
+}
+
+.marlin-cls-5 {
+    fill: #4a5459;
+}
+
+.marlin-cls-6 {
+    fill: #fdfdfe;
+}
+
+//DOLPHIN
+
+.dolphin-cls-1 {
+    fill: #304a46;
+}
+
+.dolphin-cls-2 {
+    fill: #c0cc44;
+}
+
+.dolphin-cls-3 {
+    fill: #7b984d;
+}
+
+.dolphin-cls-4 {
+    fill: #597b76;
+}
+
+.dolphin-cls-5 {
+    fill: #d2df82;
+}
+
+.dolphin-cls-6 {
+    fill: #fdfdfd;
+}
+
+//TUNA
+
+.tuna-cls-1 {
+    fill: #2a313d;
+}
+
+.tuna-cls-2 {
+    fill: #465b6e;
+}
+
+.tuna-cls-3 {
+    fill: #92aaac;
+}
+
+.tuna-cls-4 {
+    fill: #687e91;
+}
+
+.tuna-cls-5 {
+    fill: #bec6cc;
+}
+
+.tuna-cls-6 {
+    fill: #fdfdfd;
+}

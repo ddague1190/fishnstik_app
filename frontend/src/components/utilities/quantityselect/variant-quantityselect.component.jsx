@@ -15,7 +15,6 @@ const VariantQuantitySelect = ({product, variant, setCartStatus}) => {
 
     useEffect(()=> {
         parsedCart.forEach(({productId, variantId, qty})=>{
-            console.log(productId, variantId)
             if (productId===product._id && variantId===variant._id) {
                 setAlreadyInCart(true);
                 setQty(qty);
