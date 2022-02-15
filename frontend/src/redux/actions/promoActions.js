@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-export const getFishSpecies = () => async (dispatch) => {
+export const getFishSpecies = (id) => async (dispatch) => {
 
-    const id = Math.floor(Math.random() * 100);
 
     try {
         const config = {

@@ -9,7 +9,7 @@ const PreCartItem = ({product, variant}) => {
     const {width} = useSelector(state=>state.dimensions);
     const breakpoint = 560;
     const breakpoint2 = 460;
-    const mobilePriceIndicator = width < breakpoint2 ? <p>(${variant.price} ea)</p> : null;
+    const mobilePriceIndicator = width < breakpoint2 ? <span>(${variant.price} ea)</span> : null;
     const [cartStatus, setCartStatus] = useState({'qty': 0, alreadyInCart: false})
     const [showPlaceholder, setShowPlaceholder] = useState(variant.countInStock < 1);
 
@@ -69,7 +69,7 @@ const PreCartItem = ({product, variant}) => {
                 <p className='outofstock__info'>Out of stock. Contact us for availability.</p>
             </div>
             <div className='outofstock__expand' onClick={()=>setShowPlaceholder(false)}>
-                <span><i class="fas fa-plus-circle"></i></span>
+                <span><i className="fas fa-plus-circle"></i></span>
                 <span>View details</span>
             </div>
         </div>

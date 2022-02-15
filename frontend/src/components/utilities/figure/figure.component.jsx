@@ -11,7 +11,7 @@ const Figure = ({icon, height, description, image, alt, disable}) => {
             {!icon ? (
                 <img src={image}  alt={`image_of_${alt}`} />
             ) : (
-                <span className='figure__icon'><i class="fas fa-camera"></i></span>
+                <span className='figure__icon'><i className="fas fa-camera"></i></span>
             )}
 
             {!disable && 

@@ -24,13 +24,14 @@ const FishFact = () => {
 
     const dispatch = useDispatch();
     const [imageIndex, setImageIndex] = useState(0);
-    const {loading, error, fish} = useSelector(state=>state.fishFact);
+    const [fishSpeciesIndex, setFishSpeciesIndex] = useState(7);
+    const {loading, error, fish } = useSelector(state=>state.fishFact);
     const {width} = useSelector(state=>state.dimensions);
     const breakpoint = 500;
     const breakpoint2 = 400;
     
     useEffect(()=>{
-        dispatch(getFishSpecies());
+        dispatch(getFishSpecies(fishSpeciesIndex));
     }, [])
 
     let images = String(fish.images).split(',')
@@ -44,7 +45,11 @@ const FishFact = () => {
 
     const nextSpeciesHandler = () => {
         setImageIndex(0);
-        dispatch(getFishSpecies());
+        setFishSpeciesIndex(fishSpeciesIndex+1)
+        if(fishSpeciesIndex > 113) {
+            setFishSpeciesIndex(7)
+        }
+        dispatch(getFishSpecies(fishSpeciesIndex));
     }
 
   return (
@@ -53,12 +58,15 @@ const FishFact = () => {
         <article className='fishfacts'>
             <header className='fishfacts__header'>
                 <Logo />
-                <span onClick={nextSpeciesHandler} className='fishfacts__next'>Try another species</span>
+                <div onClick={nextSpeciesHandler} className='fishfacts__next'>
+                    <span>Species {fishSpeciesIndex-6} of 108</span> 
+                    <span>See another profile</span>
+                </div>
             </header>
             <div className='fishfacts__image-container'>
-                <span className='fishfacts__image-left' onClick={onNextClick}><i class="fa-solid fa-chevron-left"></i></span>
+                <span className='fishfacts__image-left' onClick={onNextClick}><i className="fa-solid fa-chevron-left"></i></span>
                 <Figure image={images[imageIndex]? images[imageIndex] : images[imageIndex+1]} height={width>breakpoint ? '50rem' : width>breakpoint2 ? '45rem' : '35rem'}/>
-                <span className='fishfacts__image-right' onClick={onNextClick}><i class="fa-solid fa-chevron-right"></i></span>
+                <span className='fishfacts__image-right' onClick={onNextClick}><i className="fa-solid fa-chevron-right"></i></span>
             </div>
             <div className='fishfacts__name'>
                 <h3>{fish['Species Name']}</h3>

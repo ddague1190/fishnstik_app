@@ -1,5 +1,5 @@
 import React from 'react';
-import Banner from '../banner/banner.component';
+import Banner from '../../svg/frontpagebanner/frontpagebanner.component';
 import FishFact from '../fishfact/fishfact.component';
 import Featured from '../featured/featured.component'
 

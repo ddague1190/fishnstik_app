@@ -2,7 +2,7 @@
 export const fishFactReducer = (state = {fish: {}}, action) => {
     switch(action.type){ 
         case 'FISH_FACT_REQUEST':
-            return {
+            return {...state, 
                 loading:true, 
                 fish: {}
             }

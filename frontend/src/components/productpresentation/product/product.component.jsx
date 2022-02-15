@@ -15,7 +15,7 @@ const Product = ({ product }) => {
             <div className='productcard u-box-shadow' onClick={onProductCardClick}>
                 <img className='productcard__image' src={product.image} alt={product.name} />
                 <div className='productcard__name'>{product.name.slice(0,30)}</div>
-                <span className='productcard__button'><i class="fas fa-plus-circle"></i></span>
+                <span className='productcard__button'><i className="fas fa-plus-circle"></i></span>
             </div>
     )
 }
