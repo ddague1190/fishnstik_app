@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.9776b5f7.css",
-    "main.js": "/static/js/main.9a406da3.js",
+    "main.css": "/static/css/main.f4379bd1.css",
+    "main.js": "/static/js/main.a8c013d7.js",
     "static/js/787.d8c6ec95.chunk.js": "/static/js/787.d8c6ec95.chunk.js",
-    "static/media/tuna.svg": "/static/media/tuna.97efefba98b22c5d90fcb51f6ff0fbff.svg",
-    "static/media/dolphin.svg": "/static/media/dolphin.2c49f3d34bb1f50cfea1aeba7bdd22dc.svg",
-    "static/media/marlin.svg": "/static/media/marlin.3e136ecd1748595df43d67cf2cee1d00.svg",
+    "static/media/tuna.svg": "/static/media/tuna.1554be59dd3e0f7a15dd0ba1200ff560.svg",
+    "static/media/dolphin.svg": "/static/media/dolphin.bd87737f19b21e78ee095840a4458ec1.svg",
+    "static/media/marlin.svg": "/static/media/marlin.737e507a4d41db3ea1d6b90fb0442688.svg",
     "static/media/sailfish.svg": "/static/media/sailfish.b26884c75c5230ca5afbe125f9b54063.svg",
     "static/media/fishwatchlogo.svg": "/static/media/fishwatchlogo.987ef8d1da4bbd96e6682cf9b2d512d2.svg",
     "index.html": "/index.html",
-    "main.9776b5f7.css.map": "/static/css/main.9776b5f7.css.map",
-    "main.9a406da3.js.map": "/static/js/main.9a406da3.js.map",
+    "main.f4379bd1.css.map": "/static/css/main.f4379bd1.css.map",
+    "main.a8c013d7.js.map": "/static/js/main.a8c013d7.js.map",
     "787.d8c6ec95.chunk.js.map": "/static/js/787.d8c6ec95.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9776b5f7.css",
-    "static/js/main.9a406da3.js"
+    "static/css/main.f4379bd1.css",
+    "static/js/main.a8c013d7.js"
   ]
 }

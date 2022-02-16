@@ -54,6 +54,7 @@
     width: max-content;
     border-radius: 3px;
     position: relative;
+    transition: all .5s;
   
     &:hover,
     &--active {

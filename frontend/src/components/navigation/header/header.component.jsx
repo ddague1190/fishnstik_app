@@ -1,85 +1,71 @@
-import React, {useState, useRef} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation} from 'react-router-dom';
-import SearchBox from '../../utilities/searchBox/searchBox.component';
-import { useNavigate } from 'react-router-dom';
-import './header.styles.scss';
-import Dropdown from '../dropdown/dropdown.component';
-import UserPanel from '../userpanel/userpanel.component';
-import { NavBarElement2 } from '../navBarElement/navBarElement.component';
-import Logo from '../../promotional/logo/logo.component';
-import NavBar from '../navbar/navbar.component';
-import Hamburger from '../../svg/hamburger/hamburger.component';
-import Snap from '../../svg/snap/snap.component';
-
+import React, { useState, useRef } from "react";
+import { motion, useCycle } from "framer-motion";
+import { useSelector } from "react-redux";
+import SearchBox from "../../utilities/searchBox/searchBox.component";
+import "./header.styles.scss";
+import Dropdown from "../dropdown/dropdown.component";
+import UserPanel from "../userpanel/userpanel.component";
+import { NavBarElement2 } from "../navBarElement/navBarElement.component";
+import Logo from "../../promotional/logo/logo.component";
+import NavBar from "../navbar/navbar.component";
+import Hamburger from "../../svg/hamburger/hamburger.component";
+import Snap from "../../svg/snap/snap.component";
 
 const Header = () => {
-    const menuButton = useRef();
-    let navigate = useNavigate();
-    let {search} = useLocation();
-    const [showMobileNav, setShowMobileNav] = useState(false);
-    const [hideSearchBox, setHideSearchBox] = useState(true);
-    const [currentCategory, setCurrentCategory] = useState('');
-    const userLogin = useSelector(state => state.userLogin);
-    const {width, height} = useSelector(state => state.dimensions)
-    const { userInfo } = userLogin;
-    const dispatch = useDispatch();
-    const onNavClick = (category) => {
-        setCurrentCategory(category);
-        setHideSearchBox(true);
-        navigate(`products/${category}`)
-    }
+  const menuButton = useRef();
+  const [showMobileNav, toggleMobileNav] = useCycle(false, true);
+  const { width } = useSelector((state) => state.dimensions);
 
-    const breakpoint = 820;
+  const breakpoint = 820;
 
-    return (
+  return (
+    <>
+      {width < breakpoint ? (
+        <header className='header'>
+          <div className='userpanel userpanel--mobile'>
+            <SearchBox />
+            <NavBarElement2 to='/cart'>
+              <i className='fas fa-shopping-cart'></i>
+            </NavBarElement2>
+          </div>
+          <div className='mobile-navbar'>
+            {!showMobileNav && <Snap />}
+            <div
+              className='mobile-navbar__button'
+              ref={menuButton}
+              onClick={toggleMobileNav}>
+              <Hamburger opened={showMobileNav} />
+            </div>
+          </div>
 
-        <>
+          {showMobileNav && (
+            <Dropdown
+              showMobileNav
+              menuButtonRef={menuButton}
+              toggleMobileNav={toggleMobileNav}
+            />
+          )}
+        </header>
+      ) : (
+        <header className='header'>
+          <div className='userpanel'>
+            <SearchBox />
+            <div className='desktop-navbar__sociallinks'>
+              <a href='https://www.facebook.com/fish.n.stik'>
+                <i className='fab fa-facebook'></i>
+              </a>
+            </div>
+            <UserPanel />
+          </div>
 
-        {width < breakpoint ? (
-
-            <header className='header'>    
-                <div className='userpanel userpanel--mobile'>
-                    <SearchBox />     
-                    <NavBarElement2 to='/cart'>
-                        <i className="fas fa-shopping-cart"></i>
-                    </NavBarElement2>  
-                </div>
-                <div className='mobile-navbar'>
-                    {!showMobileNav && <Snap />}
-                    <div className='mobile-navbar__button' ref={menuButton} onClick={()=>setShowMobileNav(!showMobileNav)}>
-                        <Hamburger opened={showMobileNav} />
-                    </div>
-                </div>
-
-            {showMobileNav && <Dropdown menuButtonRef={menuButton} setShowMobileNav={setShowMobileNav} />}
-            </header>
-
-        ) : (
-            <header className='header'>  
-            
-                <div className='userpanel'>
-                    <SearchBox />
-                    <div className='desktop-navbar__sociallinks'>
-                        <a href='https://www.facebook.com/fish.n.stik'><i className="fab fa-facebook"></i></a>
-                    </div>
-                    <UserPanel />
-                </div>
-
-                <div className='desktop-navbar'>
-                    <Logo />
- 
-                    <NavBar />
-                </div>
-
-            </header>
-
-        )}
-
+          <div className='desktop-navbar'>
+            <Logo />
+            <NavBar />
+          </div>
+        </header>
+      )}
     </>
-
-    )
-
+  );
 };
 
 export default Header;

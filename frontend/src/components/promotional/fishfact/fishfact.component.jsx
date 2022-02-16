@@ -29,6 +29,7 @@ const FishFact = () => {
     const {width} = useSelector(state=>state.dimensions);
     const breakpoint = 500;
     const breakpoint2 = 400;
+    const breakpoint3 = 600;
     
     useEffect(()=>{
         dispatch(getFishSpecies(fishSpeciesIndex));
@@ -65,7 +66,11 @@ const FishFact = () => {
             </header>
             <div className='fishfacts__image-container'>
                 <span className='fishfacts__image-left' onClick={onNextClick}><i className="fa-solid fa-chevron-left"></i></span>
-                <Figure image={images[imageIndex]? images[imageIndex] : images[imageIndex+1]} height={width>breakpoint ? '50rem' : width>breakpoint2 ? '45rem' : '35rem'}/>
+                <Figure 
+                    image={images[imageIndex]? images[imageIndex] : images[imageIndex+1]} 
+                    height={width>breakpoint ? '50rem' : width>breakpoint2 ? '45rem' : '35rem'}
+                    disable ={width<breakpoint3}
+                />
                 <span className='fishfacts__image-right' onClick={onNextClick}><i className="fa-solid fa-chevron-right"></i></span>
             </div>
             <div className='fishfacts__name'>

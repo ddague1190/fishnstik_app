@@ -9,8 +9,7 @@ import {NavBarElement2 } from '../navBarElement/navBarElement.component';
 const UserPanel = () => {
 
     let navigate = useNavigate();
-    const userLogin = useSelector(state => state.userLogin);
-    const { userInfo } = userLogin;
+    const {userInfo} = useSelector(state => state.userLogin);
     const dispatch = useDispatch();
 
     

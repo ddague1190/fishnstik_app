@@ -11,18 +11,18 @@
 
     &__group {
         @include flexCenter(column);
+        gap: 5px;
     }
 
     &__established {
-        @included flexCenter(row);
+        @include flexCenter(row);
+        gap: 3px;
     }
-&__svg {
-    position: absolute;
-    left: 50%;
-    top: -2rem;
-    transform: translateX(-120%);
 
-}
+    &__hook {
+        stroke: $color3;
+    }
+
 
     &__name {
         font-family: $font-family-title;

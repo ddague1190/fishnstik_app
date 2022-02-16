@@ -5,6 +5,7 @@
   transform: translateY(-100%);
   left: 0;
   @include flexCenter(row);
+  
   &__tab {
 
     cursor: pointer;
@@ -12,6 +13,7 @@
     width: 15rem;
     background-color: $color3;
     @include flexCenter(column);
+    transition: all .3s;
     color: white;
 
     &--active {
@@ -49,13 +51,15 @@
   }
 
   &__content {
+
     grid-area: content;
     box-shadow: 0 1px 1px black;
     align-self: center;
     background-color: white;
     border-radius: 3px;
     position: relative;
-    min-height: 25rem;
+    min-height: 38rem;
+    height: 100%;
   }
 
   &__details {
@@ -115,6 +119,11 @@
   gap: 5px;
   padding-top: 1rem;
   justify-items:left;
+}
+
+.photos {
+  @include flexCenter(row);
+  height: 100%;
 }
 
 .reviewcard {

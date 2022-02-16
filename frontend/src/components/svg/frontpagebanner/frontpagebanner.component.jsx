@@ -1,5 +1,4 @@
 import './frontpagebanner.styles.scss';
-// import {ReactComponent as FrontPage} from './FrontPageSVG.jsx';
 import FrontPageSVG from './FrontPageSVG';
 import React, {useRef, useEffect} from 'react';
 

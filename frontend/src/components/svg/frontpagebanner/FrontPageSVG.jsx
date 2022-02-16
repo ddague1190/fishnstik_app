@@ -1,9 +1,7 @@
 const FrontPageSVG = ({setRef}) => (
     <svg className='banner__svg' viewBox="0 0 461.46 600">
 
-
     <defs>
-
         <radialGradient id="radial-gradient" cx="247.06" cy="342.87" r="149.4"
             gradientTransform="translate(314.81 -74.27) rotate(45)" gradientUnits="userSpaceOnUse">
             <stop offset="0" stopColor="#eec9a6" />
@@ -21,8 +19,7 @@ const FrontPageSVG = ({setRef}) => (
             <rect className="cls-1" x="-44.21" y="-9.97" width="531.21" height="454.59" />
         </clipPath>
     </defs>
-
-   
+    
     <g className="cls-2">
         <g id="Layer_1" data-name="Layer 1">
             <rect className="cls-3" x="28.46" y="17" width="416" height="566" />
