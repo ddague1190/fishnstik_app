@@ -4,10 +4,22 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter} from 'react-router-dom';
+import Header from './components/navigation/header/header.component';
+import Footer from './components/navigation/footer/footer.component';
+
 
 ReactDOM.render(
   <Provider store={store}>
+        <BrowserRouter basename='/'>
+        <Header />
+        <main className='main'>
+
+    
     <App />
+    </main>
+      <Footer />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

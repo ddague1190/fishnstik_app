@@ -1,6 +1,5 @@
-import { BrowserRouter, Route, Routes} from 'react-router-dom';
-import Header from './components/navigation/header/header.component';
-import Footer from './components/navigation/footer/footer.component';
+import React, { useState, useEffect } from 'react';
+import { Route, Routes, useLocation} from 'react-router-dom';
 import HomeScreen from './components/promotional/homescreen/homescreen.component';
 import ProductScreen from './components/productpresentation/productscreen/productscreen.component';
 import CartScreen from './components/checkoutpathway/cartscreen/cartscreen.component';
@@ -16,17 +15,15 @@ import ProductList from './components/productpresentation/productlist/productlis
 import Brands from './components/promotional/brands/brands.component';
 import './sass/App.scss';
 import useViewport from './utils/useViewport';
-import Loader from './components/utilities/loader/loader.component';
+import { AnimatePresence, motion } from 'framer-motion';
+
 
 
 
 const App = () => {
-  
 
   useViewport();
-
-
-
+  const location = useLocation();
   const Page404 = () => {
     return (
       <h3>404 - Not found</h3>
@@ -34,17 +31,15 @@ const App = () => {
   };
   
   return (
-    <BrowserRouter basename='/'>
-      <Header />
-        <main className='main'>
-          <Routes>
+
+          <AnimatePresence>
+          <Routes key={location.pathname}>
             <Route exact path='/' element={<HomeScreen/>} />
             <Route path='/products/:url_cat/:url_subcat/' element={<ProductList />} />
             <Route path='/products/:url_cat/' element={<ProductList />} />
             <Route path='/products/' element={<ProductList />} />
-            <Route path='/brands' element={<Brands />} />
             <Route path='/brands/:url_brand/' element={<ProductList />} />
-            <Route path='/aboutus' element={<AboutUsScreen />} />
+            {/* <Route path='/aboutus' element={<AboutUsScreen />} /> */}
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
             <Route path='/profile' element={<ProfileScreen />} />
@@ -57,9 +52,8 @@ const App = () => {
             <Route path='/cart/' element={<CartScreen />} />
             <Route element={<Page404 />} />
           </Routes>
-        </main>
-      <Footer />
-    </BrowserRouter>
+          </AnimatePresence>
+
   );
 }
 

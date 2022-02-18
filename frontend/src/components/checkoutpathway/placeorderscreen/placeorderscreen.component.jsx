@@ -9,6 +9,8 @@ import { ORDER_CREATE_RESET } from '../../../redux/constants/orderConstants';
 import AddressBox from '../../utilities/addressbox/addressbox.component';
 import CartItem from '../cartitem/cartitem.component';
 import './placeorderscreen.styles.scss';
+import { motion } from 'framer-motion';
+import { pageVariants } from '../../../utils/variants';
 
 
 const PlaceOrderScreen = () => {
@@ -71,7 +73,12 @@ const PlaceOrderScreen = () => {
         }))
     };
     return (
-        <div className='placeorderscreen__container'>
+        <motion.div 
+        variants={pageVariants}
+        initial='initial'
+        animate='in'
+        exit='out'
+        className='placeorderscreen__container'>
 
             <CheckoutSteps step1 step2 step3 step4 />
 
@@ -130,7 +137,7 @@ const PlaceOrderScreen = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        </motion.div>
             
     )
 }

@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
 import Figure from '../../utilities/figure/figure.component';
 import './cartitem.styles.scss'
 import VariantQuantitySelect from '../../utilities/quantityselect/variant-quantityselect.component';
@@ -63,7 +64,11 @@ const PreCartItem = ({product, variant}) => {
             </div>
         ) : (
         
-        <div className='outofstock'>
+        <motion.div 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}} 
+            transition={{ duration: 0.5 }}
+            className='outofstock'>
             <div className='outofstock__content'>
                 <div className='outofstock__name'>{variant.identifier}</div>
                 <p className='outofstock__info'>Out of stock. Contact us for availability.</p>
@@ -72,7 +77,7 @@ const PreCartItem = ({product, variant}) => {
                 <span><i className="fas fa-plus-circle"></i></span>
                 <span>View details</span>
             </div>
-        </div>
+        </motion.div>
         )}
         </>
     );

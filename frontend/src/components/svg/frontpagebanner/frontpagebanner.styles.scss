@@ -2,14 +2,19 @@
   position: relative;
   overflow: hidden;
 
-  &__svg {
+  &__crank {
+    z-index: 100;
+
+  }
+
+  &__main {
     display: block;
     max-width: 80rem;
     margin: 0 auto;
   }
 
-  &__rod1 {
-  
+  &__rod {
+    transform: scale(1.2);
   }
   &__rodcontainer {
     transform: translate(-50px, 0px);
@@ -17,111 +22,72 @@
 }
 
 
-.cls-1 {
-  fill: none;
+//Main styles
+
+.prefix__cls-4 {
+  mix-blend-mode: multiply
 }
 
-.cls-2 {
-  isolation: isolate;
+.prefix__cls-5 {
+  fill: #baf7f7
 }
 
-.cls-3 {
-  fill: #8adce2;
+.prefix__cls-10,
+.prefix__cls-15,
+.prefix__cls-5,
+.prefix__cls-6,
+.prefix__cls-7,
+.prefix__cls-8,
+.prefix__cls-9 {
+  fill-rule: evenodd
 }
 
-.cls-4 {
-  mix-blend-mode: multiply;
+.prefix__cls-6 {
+  fill: #bbefe8
 }
 
-.cls-5 {
-  fill: #baf7f7;
+.prefix__cls-7 {
+  fill: #fff
 }
 
-.cls-10,
-.cls-15,
-.cls-5,
-.cls-6,
-.cls-7,
-.cls-8,
-.cls-9 {
-  fill-rule: evenodd;
+.prefix__cls-8 {
+  fill: #136b6d
 }
 
-.cls-6 {
-  fill: #bbefe8;
+.prefix__cls-9 {
+  fill: #bdf2ea
 }
 
-.cls-7 {
-  display: none;
-  fill: #fff;
+.prefix__cls-10 {
+  fill: #c0f9f1
 }
 
-.cls-8 {
-  fill: #136b6d;
+.prefix__cls-13 {
+  fill: #95b7b6
 }
 
-.cls-9 {
-  fill: #bdf2ea;
+.prefix__cls-15 {
+  fill: #2d1005
 }
 
-.cls-10 {
-  fill: #c0f9f1;
+.styledcircle1 {
+  mixBlendMode:color-dodge;
+
 }
 
-.cls-11 {
-  fill: #f45c21;
+
+//ROD styles
+
+.rod__rod__cls-1 {
+  fill: none
 }
 
-.cls-12 {
-  mix-blend-mode: color-dodge;
-  fill: url(#radial-gradient);
+.rod__rod__cls-3,
+.rod__rod__cls-4 {
+  fill: #2c150e;
+  fill-rule: evenodd
 }
 
-.cls-13 {
-  fill: #95b7b6;
-}
-
-.cls-14 {
-  clip-path: url(#clip-path);
-}
-
-.cls-15 {
-  display: none;
-  fill: #2d1005;
-}
-
-.st0 {
-  fill: none;
-}
-
-.st1 {
-  clip-path: url(#SVGID_00000163043771410875872820000002738346857994289064_);
-}
-
-.st2 {
-  fill-rule: evenodd;
-  clip-rule: evenodd;
-  fill: #2C150E;
-}
-
-.st3 {
-  fill-rule: evenodd;
-  clip-rule: evenodd;
-  fill: #FFFFFF;
-}
-
-.st4 {
-  fill-rule: evenodd;
-  clip-rule: evenodd;
-  fill: #2C150E;
-  stroke: url(#Unnamed_Pattern);
-  stroke-miterlimit: 10;
-}
-
-.st5 {
-  fill-rule: evenodd;
-  clip-rule: evenodd;
-  fill: #FFFFFF;
-  stroke: url(#Unnamed_Pattern);
-  stroke-miterlimit: 10;
+.rod__rod__cls-4 {
+  fill: #fff
 }

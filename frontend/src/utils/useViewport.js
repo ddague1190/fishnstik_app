@@ -14,7 +14,7 @@ const useViewport = () => {
       }
   
       window.addEventListener("resize", handleWindowResize, {capture: true});
-    
+      console.log(window.innerWidth);
       dispatch(updateViewportDimensions(window.innerWidth, window.innerHeight))
 
       return () => window.removeEventListener("resize", handleWindowResize);

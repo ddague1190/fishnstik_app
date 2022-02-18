@@ -4,6 +4,8 @@
 }
 
 .fishfacts {
+    overflow: hidden;
+    user-select: none;
     border: 1px solid $color3;
     box-shadow: 0 1px 1px rgba(black, .5);
     display: grid;
@@ -18,7 +20,7 @@
     align-items: center;
     align-content: center;
     justify-content: center;
-    grid-template-columns: 1rem minmax(50rem, 1fr) minmax(25rem, 1fr) 1rem;
+    grid-template-columns: 1rem minmax(60rem, 1fr) minmax(25rem, 1fr) 1rem;
     grid-template-areas: 
         'h h h h '
         '. i n .'
@@ -34,7 +36,7 @@
        grid-template-areas:
         'h h h'
         '. n .'
-        '. i .'
+        'i i i'
         '. f . '
         '. bio .'
         ' . des .'
@@ -48,21 +50,29 @@
 
     &__next {
         margin-left: auto;
+        margin-right: 2rem;
         font-style: italic;
         height: 5.5rem;
-        padding: 1rem 2rem;
         user-select: none;
         cursor: pointer;
-        @include flexCenter(column);
-        border: 1px solid $color3;
-        box-shadow: 0 1px 1px rgba($color3, .2);
-        color: white;
-        background-color: $color3;
+        @include flexCenter(row);
+        gap: 5rem;
+        color: black;
 
 
         &:hover {
-            box-shadow: none;
         }
+
+        &--1 {
+
+        }
+        &--2 {
+            color: white;
+            background-color: black;  
+            padding: 5px 10px;
+            border-radius: 4px;        
+        }
+
 
     }
 
@@ -79,39 +89,29 @@
         grid-area: i;
     }
 
-    &__image-left {
-        background-color: white;
-        text-align: center;
-        user-select: none;
-        cursor: pointer;
-        font-size: 3rem;
-        height: 3.5rem;
-        width: 3rem;
-        color: $color3;
-        top: 70%;
-        left: 0;
-        position: absolute;
-        z-index: 5;
-    }
-
     &__image-right {
+        bottom: 0%;
+        @include flexCenter(row);
         background-color: white;
-        text-align: center;
         user-select: none;
         cursor: pointer;
         font-size: 3rem;
-        height: 3.5rem;
-        width: 3rem;
-        color: $color3;
-        top: 70%;
-        right: 0;
+        left: 50%;
         position: absolute;
         z-index: 5;
-    }
+        text-align: center;
+        color: $color1;
+        padding: 1rem;
+        border: 1px solid $color3;
+        height: 5rem;
+        width: 5rem;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        transition: all .5s;
 
-    &__image-left, &__image-right {
         &:hover {
-            transform: scale(1.1);
+            border:2px solid $color3;
+            color: black;
         }
         &:active {
             background-color: black;
@@ -138,6 +138,7 @@
         background-color: $color3;
         grid-area: f;
         color: white;
+        z-index: 100;
 
         @media only screen and (max-width: 700px) {
             margin-bottom: 2rem;

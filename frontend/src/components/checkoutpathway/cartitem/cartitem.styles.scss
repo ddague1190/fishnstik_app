@@ -28,9 +28,9 @@
         right: -15px;
         padding: 4px 10px;
         border-radius: 4px;
-        font-size: 1.5rem;
+        font-size: 2rem;
         color: white;
-        background-color: $color5;
+        background-color: $color1;
       }
 
     &__image {
@@ -99,7 +99,7 @@
 
 @media only screen and (max-width: 560px) {
     .cartitem {
-        height: 20rem;
+        height: 22rem;
       &__image {
           width: 12rem;
       }

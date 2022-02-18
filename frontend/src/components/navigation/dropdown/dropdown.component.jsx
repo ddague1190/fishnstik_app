@@ -1,30 +1,40 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { motion, useCycle } from "framer-motion";
+import { AnimatePresence, motion, useCycle } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/actions/userActions";
 import { Link, useNavigate } from "react-router-dom";
 import "./dropdown.styles.scss";
 import { categories, subcategories } from "./categories";
 
-const NavItem = ({ i, category, toggleMobileNav }) => {
-  const variants = {
-    true: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        y: { stiffness: 1000, velocity: -100 },
-      },
-    },
-    false: {
-      y: 50,
-      opacity: 0,
-      transition: {
-        y: { stiffness: 1000 },
-      },
-    },
-  };
+const navContainerVariants = {
+  show: { opacity: 1, scaleY: 1, transition: { type: "tween", duration: .2} },
+  hide: { opacity: 0, scaleY: 0 },
+};
 
+const dropdownVariants = {
+  show: {
+    opacity: 1,
+    color: 'black',
+    transition: { staggerChildren: .1, delayChildren: .05 },
+  },
+  hide: {
+    opacity: .5,
+    color: 'red',
+    transition: { staggerChildren: .1, staggerDirection: 1 },
+  },
+};
+const navItemVariants = {
+  show: {
+    opacity: 1,
+ 
+  },
+  hide: {
+    opacity: 0,
+  },
+};
+
+const NavItem = ({ i, category, toggleMobileNav, showMobileNav }) => {
   const [hidden, setHidden] = useState(true);
 
   const onNavItemClick = (e) => {
@@ -33,13 +43,13 @@ const NavItem = ({ i, category, toggleMobileNav }) => {
   };
 
   return (
-    <motion.li variants={variants} className='nav-item'>
+    <motion.li variants={navItemVariants} className='nav-item'>
       <div
         className={`nav-item__link ${!hidden && "nav-item__link--expanded"}`}>
         <Link to={`products/${category.category}/`} onClick={toggleMobileNav}>
           {category.title}
         </Link>
-        <span className='nav-item__link--icon'>{category.icon}</span>
+        {/* <span className='nav-item__link--icon'>{category.icon}</span> */}
 
         <div
           className={`nav-item__expand-button ${
@@ -64,15 +74,6 @@ const NavItem = ({ i, category, toggleMobileNav }) => {
 };
 
 const Dropdown = ({ showMobileNav, toggleMobileNav, menuButtonRef }) => {
-  const variants = {
-    true: {
-      transition: { staggerChildren: 0.07, delayChildren: 0.2 },
-    },
-    false: {
-      transition: { staggerChildren: 0.05, staggerDirection: -1 },
-    },
-  };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -99,14 +100,18 @@ const Dropdown = ({ showMobileNav, toggleMobileNav, menuButtonRef }) => {
 
   return (
     <motion.nav
-      animate={showMobileNav ? "true" : "false"}
+      initial={showMobileNav ? "hide" : "show"}
+      animate={!showMobileNav ? "hide" : "show"}
+      variants={navContainerVariants}
       ref={ref}
       className='nav'>
-      <motion.ul variants={variants} className='nav-list'>
+        <AnimatePresence>
+      <motion.ul variants={dropdownVariants} className='nav-list'>
         {categories.map((category, i) => (
           <NavItem
             i={i}
             category={category}
+            showMobileNav
             toggleMobileNav={toggleMobileNav}
             key={category.category}
           />
@@ -129,6 +134,7 @@ const Dropdown = ({ showMobileNav, toggleMobileNav, menuButtonRef }) => {
           </Link>
         )}
       </motion.ul>
+      </AnimatePresence>
     </motion.nav>
   );
 };

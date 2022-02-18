@@ -135,7 +135,7 @@
   .button {
     width: max-content;
     display:inline-block;
-    padding:1rem 1rem;
+    padding:2rem 3rem;
     border:0.1rem solid #000000;
     border-radius:0.12em;
     box-sizing: border-box;
@@ -148,7 +148,6 @@
     text-align:center;
     transition: all 0.15s;
     cursor: pointer;
-    width: max-content;
 
 
     &:disabled {

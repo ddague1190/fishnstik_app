@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import {motion} from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions';
 import './quantityselect.styles.scss';
@@ -56,7 +57,12 @@ const VariantQuantitySelect = ({product, variant, setCartStatus}) => {
             </select> 
         </form>
         {alreadyInCart ? (
-            <Link to='/cart'><button type='submit' className='select__button select__button--checkout'>Proceed to Checkout</button></Link>
+            <motion.div initial={{textShadow: 'none', boxShadow: 'none'}} animate={{textShadow: '0, 10px, 10px black', boxShadow: '0, 2px, 2px, red'}}   transition={{
+                repeat: 10,
+                duration: .4
+              }}>
+                <Link to='/cart'><button type='submit' className='select__button select__button--checkout'>Proceed to Checkout</button></Link>
+            </motion.div>
         ): (<button type='submit' onClick={()=>setSelectedValue(1)} className='select__button'>Add to Cart</button>
         )}
 
