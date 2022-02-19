@@ -1,8 +1,8 @@
-export const updateViewportDimensions = (width, height) => async (dispatch) => {
+export const updateViewportDimensions = (dimensions) => async (dispatch) => {
     
     dispatch({
         type: 'UPDATE_VIEWPORT_DIMENSIONS',
-        payload: {width, height}
+        payload: dimensions
     })
 
 }

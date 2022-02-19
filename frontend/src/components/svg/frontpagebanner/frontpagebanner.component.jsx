@@ -10,7 +10,6 @@ const Banner = () => {
     return (
     <div className='banner'>
         <FrontPageSVG />
-        <HandleSVG />
         <RodSVG />
 
     </div>

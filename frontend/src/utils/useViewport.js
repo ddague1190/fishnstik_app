@@ -1,28 +1,30 @@
-import {useEffect} from 'react';
-import { useDispatch } from 'react-redux';
-import { updateViewportDimensions } from '../redux/actions/responsiveActions';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { updateViewportDimensions } from "../redux/actions/responsiveActions";
 
+
+const getCurrentDimensions = () => {
+  return {
+    'width': window.innerWidth,
+    'height': window.innerHeight
+  }
+}
 
 
 const useViewport = () => {
-
   const dispatch = useDispatch();
-  
-    useEffect(() => {
-      const handleWindowResize = () => {
-        dispatch(updateViewportDimensions(window.innerWidth, window.innerHeight))
-      }
-  
-      window.addEventListener("resize", handleWindowResize, {capture: true});
-      console.log(window.innerWidth);
-      dispatch(updateViewportDimensions(window.innerWidth, window.innerHeight))
+  useEffect(() => {
+    const handleWindowResize = () => {
+      dispatch(updateViewportDimensions(getCurrentDimensions()));
+    };
 
-      return () => window.removeEventListener("resize", handleWindowResize);
-    }, []);
-  
-    return;
-  }
+    window.addEventListener("resize", handleWindowResize);
+    dispatch(updateViewportDimensions(getCurrentDimensions()));
 
-  export default useViewport;
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, [dispatch]);
 
+  return;
+};
 
+export default useViewport;

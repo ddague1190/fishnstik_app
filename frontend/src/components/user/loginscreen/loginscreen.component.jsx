@@ -47,13 +47,12 @@ const LoginScreen = () => {
   };
 
   return (
-    <motion.div 
-    variants={pageVariants}
-    initial='initial'
-    animate='in'
-    exit='out'
-    className='loginscreen'
-    >
+    <motion.div
+      variants={pageVariants}
+      initial='initial'
+      animate='in'
+      exit='out'
+      className='loginscreen'>
       {error && <Message variant='danger'>{error}</Message>}
 
       {loading && <Loader />}
@@ -61,7 +60,7 @@ const LoginScreen = () => {
       {!needOTP ? (
         <div className='loginscreen__signin'>
           <form className='u-center-text' onSubmit={submitHandler}>
-            <div class='input-control'>
+            <div className='input-control'>
               <input
                 class='input-control__input'
                 id='username'
@@ -71,7 +70,7 @@ const LoginScreen = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-              <label for='username' class='input-control__label'>
+              <label htmlFor='username' class='input-control__label'>
                 Username
               </label>
             </div>
@@ -86,7 +85,7 @@ const LoginScreen = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label for='password' class='input-control__label'>
+              <label htmlFor='password' class='input-control__label'>
                 Password
               </label>
             </div>
@@ -124,7 +123,7 @@ const LoginScreen = () => {
                 value={OTP}
                 onChange={(e) => setOTP(e.target.value)}
               />
-              <label for='password' class='input-control__label'>
+              <label htmlFor='password' class='input-control__label'>
                 Password
               </label>
             </div>
