@@ -1,4 +1,4 @@
-<svg id="prefix__Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+<svg id="prefix__Layer_1" viewbox="0 2860 60 61.12" "data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <style>
             .prefix__cls-1,
@@ -1423,9 +1423,15 @@
         transform="translate(-6.32 -32.24)" />
     <path class="prefix__cls-1" d="M19.9 2920.58a.61.61 0 01.13 0v.9a.26.26 0 01-.11-.08c-.01-.24 0-.53-.02-.82z"
         transform="translate(-6.32 -32.24)" />
-    <path class="prefix__cls-4"
+        <g>
+        <text x="16.4" y="2917.8" transform="translate(-6.32 -32.24)" font-size=3 font-family='Arvo' class="small">wind!</text>
+                <text x="16.83" y="2928.8" transform="translate(-6.32 -32.24)" font-size=2 font-family='Arvo' class="small">keep going</text>
+
+        <circle cx=19.83 cy=2922 r=3 transform="translate(-6.32 -32.24)" opacity='.5'/>
+    <path fill='blue' class="special prefix__cls-4"
         d="M19.83 2922.8a.13.13 0 01.08-.12.13.13 0 00.06-.07v-.06a.13.13 0 000-.06.1.1 0 000-.09.12.12 0 00-.11 0h-.08a.19.19 0 00-.09 0v.12a.17.17 0 000 .1h.05a.14.14 0 01.05.1l-.08.65a.14.14 0 01-.11.14h-.08l-.05.07a.1.1 0 000 .1v.16l.06.11a.12.12 0 00.07.07h.44v-.2a.24.24 0 000-.08.1.1 0 00-.06 0h-.08a.13.13 0 01-.09-.13z"
         transform="translate(-6.32 -32.24)" />
+        </g>
     <path class="prefix__cls-3"
         d="M28.47 2904.17l1.59.53-.17.14a.08.08 0 01-.07 0 .08.08 0 00-.09 0 .08.08 0 000 .08v.08h.09a.09.09 0 00.07 0 .08.08 0 00.05 0 .1.1 0 000-.09.1.1 0 010-.12l.05-.07"
         transform="translate(-6.32 -32.24)" />

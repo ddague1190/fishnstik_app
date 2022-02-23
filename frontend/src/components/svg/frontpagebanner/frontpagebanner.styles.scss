@@ -1,23 +1,83 @@
+.invitation {
+  @include absCenter(full);
+  width: 20em;
+  height: 20em;
+  background-color: rgba(white,.5);
+  text-align: center;
+  border-radius: 10px;
+  z-index: 100;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color2;
+  }
+
+  &__questionmark {
+    height: 90%;
+    width: 90%;
+    @include absCenter(full);
+    top: 60%;
+
+  }
+
+  &__title {
+    font-size: 3rem;
+  }
+}
+
 .banner {
   position: relative;
   overflow: hidden;
+  @include flexCenter(column);
 
-  &__crank {
-    z-index: 100;
+  &__arrows {
+    position: absolute;
+    @include flexCenter(row);
+    flex-direction: row-reverse;
+    gap: 10rem;
+    font-size: 3rem;
+  }
+
+  &__invitation {
+    font-family: $font-family-title;
+    font-size: 2rem;
+  }
+
+  &__title {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   &__main {
     display: block;
-    max-width: 80rem;
+    max-width: 60rem;
     margin: 0 auto;
+  }
+
+  &__fatherson {
+    width: 25rem;
+
   }
 
   &__rod {
     position: absolute;
-    width:150rem;
-    top: -30rem;
-    left: -10rem;
-    z-index: 1;
+    width: 150vw;
+      top: -30vw;
+      left: -20vw;
+
+    @media only screen and (min-width: 600px) {
+      width: 130vw;
+      top: -30vw;
+      left: -10vw;
+    }
+
+    @media only screen and (min-width: 750px) {
+      width: 100vw;
+      top: -20vw;
+      left: 0vw;
+    }
   }
 
 }
@@ -79,6 +139,45 @@
 
 //ROD styles
 
+.rod__crank {
+  cursor: pointer;
+
+  &:hover {
+    .rod__targetcricle {
+      z-index: -1;
+      opacity: 0;
+    }
+  }
+}
+.rod__text {
+  user-select: none;
+
+  &--wind {
+    z-index: 5;
+  }
+  &:hover {
+  }
+}
+.rod__targetcircle {
+  z-index: 100;
+  opacity: .5;
+  fill: $color1;
+
+}
+
+.rod__progresscircle {
+  fill: none;
+  stroke-width: .5px;
+  stroke: green;
+  opacity: 0;
+}
+
+.rod__crank {
+  cursor: pointer;
+
+}
+
+
 .rod__cls-1,
   .rod__cls-1,
   .rod__cls-2,
@@ -128,3 +227,50 @@
   .rod__cls-6 {
       stroke-width: .03px;
   }
+
+
+//fatherson 
+
+.fatherson-cls-1 {
+  fill: none;
+  stroke: black;
+  stroke-miterlimit: 10;
+  stroke-width: 0.2px;
+}
+
+//title
+
+.title-cls-1 {
+  opacity: 0.78;
+  font-size: 6px;
+  fill: #2a344f;
+  stroke: #000;
+  stroke-miterlimit: 10;
+  stroke-width: 0.1px;
+}
+
+.title-cls-1, .title-cls-3 {
+  font-family: FishermanRegular, Fisherman;
+}
+
+.title-cls-2 {
+  fill: #e0dfa7;
+  stroke-width: 0.03px;
+  letter-spacing: 0em;
+}
+
+.title-cls-3 {
+  fill: none;
+  stroke: black;
+  stroke-width: .1px;
+  font-size: 4.8px;
+}
+
+//questionmark
+
+.questionmark-cls-1 {
+  fill: none;
+  stroke: #000;
+  stroke-miterlimit: 10;
+  stroke-width: 0.1px;
+}

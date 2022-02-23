@@ -37,7 +37,6 @@ const FishFact = () => {
   const breakpoint3 = 600;
 
   useEffect(() => {
-    console.log("didMount");
     dispatch(getFishSpecies(fishSpeciesIndex));
   }, []);
 
@@ -58,7 +57,6 @@ const FishFact = () => {
     }
   };
 
-  console.log(width);
 
   return (
     <>
