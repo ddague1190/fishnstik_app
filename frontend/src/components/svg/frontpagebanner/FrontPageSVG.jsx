@@ -5,6 +5,7 @@ const FrontPageSVG = () => {
   return (
     <svg
       className='banner__main'
+      preserveAspectRatio="xMidYMid meet"
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 461.46 600'>
       <g style={{ isolation: "isolate" }}>

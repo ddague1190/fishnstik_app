@@ -3,11 +3,12 @@ import ReactDOM from "react-dom";
 import { motion, useCycle, useMotionValue } from "framer-motion";
 import styled from "./game.module.scss";
 import { useSelector } from "react-redux";
+import useForceUpdate from "../../../utils/forceUpdate";
 
-const Game2 = ({toggleShowGame}) => {
-
+const Game2 = ({ toggleShowGame }) => {
   // state
-  const {width} = useSelector(state=>state.dimensions)
+  const forceUpdate = useForceUpdate();
+  const { width } = useSelector((state) => state.dimensions);
   const [setpoint, setSetpoint] = useState(124);
   const [boxCenterPoint, setBoxCenterPoint] = useState({});
 
@@ -23,15 +24,13 @@ const Game2 = ({toggleShowGame}) => {
   const gameRef = useRef();
 
   //methods
-  // const closeGame = (e) => {
-  //   e.preventDefault();
-  //   toggleShowGame();
-  // };
-
-
+  const closeGame = (e) => {
+    if (e.target.closest("#game")) return;
+    toggleShowGame();
+  };
 
   useEffect(() => {
-    // document.body.addEventListener("click", closeGame, false);
+    document.body.addEventListener("click", closeGame, false);
 
     const { left, top, width, height } =
       crankRef.current.getBoundingClientRect();
@@ -43,9 +42,9 @@ const Game2 = ({toggleShowGame}) => {
     setBoxCenterPoint({ x: boxCenterX, y: boxCenterY });
 
     return () => {
-      // document.body.removeEventListener("click", closeGame);
+      document.body.removeEventListener("click", closeGame);
       mouseUpHandler();
-    }
+    };
   }, [width]);
 
   const getCurrentRotation = () => {
@@ -57,7 +56,7 @@ const Game2 = ({toggleShowGame}) => {
       return 0;
     }
   };
-  
+
   const timingFunction = (revolutions) => {
     const t0 = Date.now();
     const deg0 = framerDeg.get();
@@ -102,10 +101,14 @@ const Game2 = ({toggleShowGame}) => {
   const mouseUpHandler = () => {
     console.log("mouseup");
     gameRef.current?.removeEventListener("mousemove", mouseMoveHandler, false);
+    // setBoxCenterPoint(0)
     framerDeg.set(0);
+    forceUpdate();
+    crankRef.current.style.transform = "rotate(0deg)";
   };
 
   const mouseDownHandler = (e) => {
+    console.log("mousedown");
     const clickDegrees = getDegrees(e.pageX, e.pageY);
     gameRef.current.addEventListener("mousemove", mouseMoveHandler, false);
     gameRef.current.clickDegrees = clickDegrees;
@@ -115,6 +118,7 @@ const Game2 = ({toggleShowGame}) => {
   };
 
   const mouseMoveHandler = (e) => {
+    console.log("mousemove");
     let previousDegree = getCurrentRotation();
     let degrees = getDegrees(e.pageX, e.pageY) - e.currentTarget.clickDegrees;
     if (degrees < 0) degrees = degrees + 360;
@@ -127,10 +131,35 @@ const Game2 = ({toggleShowGame}) => {
   };
 
   return ReactDOM.createPortal(
-    <div 
-    ref={gameRef} 
-    onMouseUp={mouseUpHandler} 
-    className={styled.game}>
+    <div
+      ref={gameRef}
+      onMouseUp={mouseUpHandler}
+      className={styled.game}
+      id='game'>
+      <svg
+        className={styled.game__title}
+        xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 29.7 8.84'>
+        <g id='Layer_2' data-name='Layer 2'>
+          <g id='Layer_1-2' data-name='Layer 1'>
+            <text
+              className='title-cls-1'
+              transform='translate(0.2 4.96) rotate(16.63)'>
+              R
+              <tspan className='title-cls-2' x='3.29' y='0'>
+                ee
+              </tspan>
+              <tspan x='9.07' y='0'>
+                l
+              </tspan>
+            </text>
+            <text className='title-cls-3' transform='translate(13.35 7.1)'>
+              it out
+            </text>
+            <text /> <text />
+          </g>
+        </g>
+      </svg>
       <div
         onMouseDown={mouseDownHandler}
         ref={crankRef}
@@ -138,7 +167,7 @@ const Game2 = ({toggleShowGame}) => {
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 478.25 500.85'>
           <g id='crank__Layer_2' data-name='Layer 2'>
             <g id='crank__Layer_1-2' data-name='Layer 1'>
-              <path
+              <path 
                 className={styled.crank__cls1}
                 d='M130.3 96.44l24.34-16c15.08 31.72 57.62 14.27 49.83-18.24l28.93-3.33c-.63 34 44.74 40.27 52.08 6.81a157.8 157.8 0 0127.12 10c-1.72 5.79-3.39 11.33-2.36 17.3a4.74 4.74 0 01-1.46 4.6q-19.47 19.68-38.9 39.42c-23.39 23.75-46.85 47.42-70.13 71.29-18.68 18.38-22.74 50.12-9.34 72.92 19 33.58 64.46 38.37 89.19 10.24q46.71-51 93.53-102c18.94-22.84 10.59-6.63 32.73-15.68q4.72 14.28 9.39 28.4c-29.75 7.72-28.52 50.87 2.19 55.35 3 .5 3.26.53 3 3.91-.75 8.84-1.25 17.72-3.31 26.37-31.21-6.58-46.35 34.62-17.06 52.53L384.71 366c-25.23-21.42-57.3 10.63-37.52 39.06L323 421.2c-13.93-30.26-55.72-17.15-50.12 17.29-3.25 1.71-23.77 4.14-28.72 3.34-.06-31.73-41.58-40.91-52.41-5.66l-27.16-10.09c14-28.39-20.52-57.35-44.53-29.71l-20.45-21.53c24.54-19.56 4.61-61.19-27.85-47.11l-9.44-28.52c31.75-7.6 27.28-55.13-5.78-55.47l3.26-29.87c31.15 6.49 47.52-34.31 18-52.57 5-8.46 10-17 15.13-25.81C118.39 157 150 124.71 130.3 96.44z'
               />
@@ -235,7 +264,6 @@ const Game2 = ({toggleShowGame}) => {
                 duration: 2,
               }}
               style={{
-
                 //134.1857147216797
                 rotate: framerSetpoint,
                 originX: "122.78px",

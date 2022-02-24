@@ -1,7 +1,7 @@
 .game {
     @include flexCenter(column);
     background-color: rgba(white, 0.9);
-    position: fixed;
+    position: absolute;
     border-radius: 10px;
     top: 0;
     left: 0;
@@ -21,9 +21,11 @@
         padding: 3rem;
         font-family: Arvo;
     }
+
+    &__title {
+        width: 30rem;
+    }
 }
-
-
 
 .crank {
     width: 15rem;
@@ -43,10 +45,7 @@
     }
 }
 
-
-
 .gauges {
-
 }
 
 .RPMgauge {
@@ -55,8 +54,8 @@
 
     &__setpoint {
         stroke-dasharray: 134.1857147216797;
-            stroke-linecap: round;
-            stroke-width: 6px;
+        stroke-linecap: round;
+        stroke-width: 6px;
     }
 
     &__cls4 {

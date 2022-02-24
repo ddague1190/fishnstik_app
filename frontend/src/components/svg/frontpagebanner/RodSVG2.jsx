@@ -16,7 +16,7 @@ const RodSVG2 = ({ castRod }) => {
       if (index.get() > 47) {
         clearInterval(intervalId);
       }
-    }, 60);
+    }, 40);
   };
 
   useEffect(() => {
