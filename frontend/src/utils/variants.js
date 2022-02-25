@@ -30,7 +30,8 @@ export const sentenceVariants = {
   visible: {
     opacity: 1,
     transition: { 
-      delay: .5
+      delay: .5,
+      duration: 3
     }
   }
 }
@@ -43,6 +44,16 @@ export const letterVariants = {
   }
 }
 
+export const letterVariants__title = {
+  hidden: {
+    opacity: 0, 
+    
+  }, 
+  visible: {
+    opacity: 1,
+    y: 0
+   }
+}
 
 export const sentenceVariants__slogan = {
   hidden: {
@@ -54,8 +65,8 @@ export const sentenceVariants__slogan = {
     backgroundColor: '#2A344F',
     opacity: 1,
     transition: { 
-      staggerChildren: .06,
-      duration: 3
+      staggerChildren: .04,
+      duration: 2
     }
   }
 }

@@ -1,47 +1,72 @@
 import "./frontpagebanner.styles.scss";
 import React, { useRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { motion, useCycle, useAnimation, AnimatePresence } from "framer-motion";
 import FrontPageSVG from "./FrontPageSVG";
-import RodSVG2 from "./RodSVG";
-import Game2 from "../game/game2.component";
+import RodSVG from "./RodSVG";
 import Emotive from "./Emotive";
-import { ReactComponent as SwivelSnap } from "./svg_helpers/swivelsnap.svg";
+import Waves from "./Waves";
+import Invitation from "./Invitation";
 import {
   sentenceVariants,
   letterVariants,
+  letterVariants__title,
   sentenceVariants__slogan,
 } from "../../../utils/variants";
 
-const Banner = () => {
-  const [animationEnded, setAnimationEnded] = useState(false);
-  const [showGame, toggleShowGame] = useCycle(false, true);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [castRod, setCastRod] = useState(false);
-  const [showRod, setShowRod] = useState(true);
-  const [showEmotive, setShowEmotive] = useState(false);
+const titleToBlack = (i) => ({
+  color: "black",
+  transition: {
+    delay: i * 0.1,
+  },
+});
 
-  const setRef = useRef();
+const titleToGone = (i) => ({
+  opacity: 0,
+  transition: {
+    delay: i * 0.1,
+    duration: 1,
+  },
+});
+
+
+
+const Banner = () => {
+  const [castRod, setCastRod] = useState(false);
+  const [showEmotive, setShowEmotive] = useState(false);
+  const [hideInvitation, setHideInvitation] = useState(true)
+  const [hideFrontPageSVG, setHideFrontPageSVG] = useState(false)
   const animateTitle = useAnimation();
   const animateSlogan = useAnimation();
-  const animateFatherSon = useAnimation();
+  const animateBanner = useAnimation();
   const animateSwivelSnap = useAnimation();
+  const {width} = useSelector(state=>state.dimensions)
+  const bannerVariants = {
+    full: {
+      y: 0,
+    },
+    shrunk: {
+      y: `-${width*.55}px`,
+    },
+  };
 
   const animate = async () => {
-    setShowRod(true);
     setCastRod(true);
-    await animateTitle.start("visible");
+    await animateTitle.start(titleToBlack);
+    animateTitle.start(titleToGone);
     await animateSlogan.start("visible");
     await animateSlogan.start({
-      height: "90%",
-      duration: 2,
+      height: "95%",
+      duration: 500,
     });
     await setInterval(() => {
       setShowEmotive(true);
     }, 500);
-
-    await setInterval(() => {
-      setAnimationEnded(true)
-    }, 3000);
+    await setInterval(()=> {
+      setHideFrontPageSVG(true)
+      animateBanner.start("shrunk");
+      setHideInvitation(false);
+    }, 5000)
   };
 
   useEffect(() => {
@@ -49,62 +74,56 @@ const Banner = () => {
   }, []);
 
   const title = "TERMINAL TACKLE";
-  const slogan = "It's all about what's at the end of our reel";
+  const slogan = "What do you have at the end of your reel?";
 
   return (
-    <div className='banner'>
+    <motion.div className='banner-container'>
+      <motion.div
+        initial='full'
+        variants={bannerVariants}
+        animate={animateBanner}
+        transition={{ duration: 2 }}
+        className='banner'>
+        <motion.div className='banner__title'>
+          <motion.h2 className='banner__title'>
+            {title.split("").map((char, i) => (
+              <motion.span
+                initial={{ color: "white", opacity: 1 }}
+                transition={{
+                  duration: 4
+                }}
+                custom={i}
+                key={i}
+                animate={animateTitle}>
+                {char}
+              </motion.span>
+            ))}
+          </motion.h2>
+        </motion.div>
 
-    {!animationEnded && 
-      <motion.div className='banner__title'>
         <motion.h2
-          className='banner__title'
-          variants={sentenceVariants}
+          className='banner__slogan'
+          variants={sentenceVariants__slogan}
           initial='hidden'
-          animate={animateTitle}>
-          {title.split("").map((char, index) => (
+          animate={animateSlogan}>
+          {slogan.split("").map((char, index) => (
             <motion.span key={index} variants={letterVariants}>
               {char}
             </motion.span>
           ))}
         </motion.h2>
+
+        <FrontPageSVG hide={hideFrontPageSVG} /> 
+        <Waves />
+          
+        {!hideInvitation && <Invitation />}
+        <RodSVG castRod={castRod} />
+
+        
+
+        {showEmotive && <Emotive animateSlogan={animateSlogan} />}
       </motion.div>
-      }
-
-      <motion.h2
-        className='banner__slogan'
-        variants={sentenceVariants__slogan}
-        initial='hidden'
-        animate={animateSlogan}>
-        {slogan.split("").map((char, index) => (
-          <motion.span key={index} variants={letterVariants}>
-            {char}
-          </motion.span>
-        ))}
-      </motion.h2>
-
-      {!animationEnded ? (
-        <FrontPageSVG />
-      ) : (
-        <motion.div 
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        transition={{duration: 1}}
-        className='invitation'>
-          <SwivelSnap />
-
-        <button onClick={toggleShowGame}>playthegame</button>
-        </motion.div>
-      )}
-
-      {!animationEnded && 
-      (showRod && <RodSVG2 castRod={castRod} />)
-      }
-          {showGame && <Game2 toggleShowGame={toggleShowGame} />}
-
-
-      {showEmotive && <Emotive animateSlogan={animateSlogan} />}
-      {/* <FatherSonSVG animateFatherSon={animateFatherSon} /> */}
-    </div>
+    </motion.div>
   );
 };
 

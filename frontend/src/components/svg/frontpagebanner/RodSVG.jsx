@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useCycle } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 const RodSVG = ({ castRod }) => {
   const [frameIndex, setFrameIndex] = useState(1);
-  const rodRef = useRef();
-  const crankRef = useRef();
+  const animateRod = useAnimation();
 
   const animation = () => {
-    rodRef.current.style.opacity = 1;
     let index = 2;
     const intervalId = setInterval(() => {
       setFrameIndex(index);
@@ -15,6 +13,11 @@ const RodSVG = ({ castRod }) => {
 
       if (index > 47) {
         clearInterval(intervalId);
+        animateRod.start({
+          rotate: 30,
+          translateY: -1300,
+          scale: 0,
+         })
       }
     }, 60);
   };
@@ -22,17 +25,18 @@ const RodSVG = ({ castRod }) => {
   useEffect(() => {
     if (castRod) {
       animation();
+    
     }
   }, [castRod]);
 
   return (
     <>
       <motion.svg
-        ref={rodRef}
-        opacity='1'
+        initial={{opacity: 0.5, scale: 1}}
+        animate={animateRod}
+        transition={{duration: 2}}
         className='banner__rod'
-        id='rod__Layer_1'
-        data-name='Layer 1'
+
         xmlns='http://www.w3.org/2000/svg'
         viewBox={`0 ${33 + 60 * frameIndex} 60 61.12`}>
         <path
