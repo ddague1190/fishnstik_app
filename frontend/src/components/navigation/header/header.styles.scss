@@ -7,6 +7,7 @@
   background-size: 100%;
   
   &__svg {
+    z-index: 100;
     position: absolute;
     width: 100vw; 
     top: 0;
@@ -35,7 +36,12 @@
     object-fit: contain;
     }
 
+.desktop-navbar-container {
+  position: relative;
+  overflow: hidden;
+}
 .desktop-navbar {
+  position: relative;
   display: grid;
   grid-template-columns: 1rem repeat(8, 1fr) 1rem;
   grid-template-rows: 15rem 5rem;

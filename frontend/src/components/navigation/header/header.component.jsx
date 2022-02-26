@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { motion, useCycle } from "framer-motion";
+import { motion, useCycle, useAnimation, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
 import SearchBox from "../../utilities/searchBox/searchBox.component";
 import "./header.styles.scss";
@@ -19,52 +19,53 @@ const Header = () => {
   const breakpoint = 820;
 
   return (
-    <>
-      {width < breakpoint ? (
-        <header className='header'>
-          <div className='userpanel userpanel--mobile'>
-            <SearchBox />
-            <NavBarElement2 to='/cart'>
-              <i className='fas fa-shopping-cart'></i>
-            </NavBarElement2>
-          </div>
-          <div className='mobile-navbar'>
-            {!showMobileNav && <Snap />}
-            <div
-              className='mobile-navbar__button'
-              ref={menuButton}
-              onClick={toggleMobileNav}>
-              <Hamburger opened={showMobileNav} />
+    <AnimatePresence>
+      <motion.div>
+        {width < breakpoint ? (
+          <header className='header'>
+            <div className='userpanel userpanel--mobile'>
+              <SearchBox />
+              <NavBarElement2 to='/cart'>
+                <i className='fas fa-shopping-cart'></i>
+              </NavBarElement2>
             </div>
-          </div>
-
-          {showMobileNav && (
-            <Dropdown
-              showMobileNav
-              menuButtonRef={menuButton}
-              toggleMobileNav={toggleMobileNav}
-            />
-          )}
-        </header>
-      ) : (
-        <header className='header'>
-          <div className='userpanel'>
-            <SearchBox />
-            <div className='desktop-navbar__sociallinks'>
-              <a href='https://www.facebook.com/fish.n.stik'>
-                <i className='fab fa-facebook'></i>
-              </a>
+            <div className='mobile-navbar'>
+              {!showMobileNav && <Snap />}
+              <div
+                className='mobile-navbar__button'
+                ref={menuButton}
+                onClick={toggleMobileNav}>
+                <Hamburger opened={showMobileNav} />
+              </div>
             </div>
-            <UserPanel />
-          </div>
 
-          <div className='desktop-navbar'>
-            <Logo />
-            <NavBar />
-          </div>
-        </header>
-      )}
-    </>
+            {showMobileNav && (
+              <Dropdown
+                showMobileNav
+                menuButtonRef={menuButton}
+                toggleMobileNav={toggleMobileNav}
+              />
+            )}
+          </header>
+        ) : (
+          <header className='header'>
+            <div className='userpanel'>
+              <SearchBox />
+              <div className='desktop-navbar__sociallinks'>
+                <a href='https://www.facebook.com/fish.n.stik'>
+                  <i className='fab fa-facebook'></i>
+                </a>
+              </div>
+              <UserPanel />
+            </div>
+            <div className='desktop-navbar'>
+              <Logo />
+              <NavBar />
+            </div>
+          </header>
+        )}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

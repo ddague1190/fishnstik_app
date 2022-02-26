@@ -19,6 +19,7 @@
 
 .desktop-nav-item {
     position: relative;
+    cursor: pointer;
     &__link {
         display: block;
         font-weight: 700;
@@ -47,6 +48,7 @@
     transform: translateX(-50%);
     text-transform: none;
     width: 20rem;
+    z-index: 1000;
     &__triangle {
         position: absolute;
         z-index: 5;
@@ -58,6 +60,7 @@
 }
 .desktop-nav-submenu-item { 
     cursor: pointer;
+    z-index: 100;
 
     &:hover {
         font-weight: bold;

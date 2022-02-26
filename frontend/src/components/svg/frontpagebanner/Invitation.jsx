@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, useCycle, useAnimation } from "framer-motion";
 import Game2 from "../game/game2.component";
+import Waves from "./Waves";
 import { ReactComponent as SwivelSnap } from "./svg_helpers/swivelsnap.svg";
 
 const Invitation = ({animateSwivelSnap}) => {
@@ -13,13 +14,13 @@ const Invitation = ({animateSwivelSnap}) => {
       transition={{ duration: 1 }}
       className='invitation'>
         
-    <h5 className="invitation__terms">Reel it in  & win a sample pack* </h5>
+    <h2 className="invitation__terms">Win a free sample pack </h2>
       <SwivelSnap />
-
-      <button className='button invitation__button' onClick={toggleShowGame}>
+      {/* <button className='button invitation__button' onClick={toggleShowGame}>
         Play the game
-      </button>
+      </button> */}
       {showGame && <Game2 toggleShowGame={toggleShowGame} />}
+      <Waves />
     </motion.div>
   );
 };

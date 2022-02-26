@@ -11,7 +11,7 @@ const RodSVG = ({ castRod }) => {
       setFrameIndex(index);
       index += 1;
 
-      if (index > 47) {
+      if (index > 44) {
         clearInterval(intervalId);
         animateRod.start({
           rotate: 30,
@@ -32,7 +32,7 @@ const RodSVG = ({ castRod }) => {
   return (
     <>
       <motion.svg
-        initial={{opacity: 0.5, scale: 1}}
+        initial={{opacity: 1, scale: 1}}
         animate={animateRod}
         transition={{duration: 2}}
         className='banner__rod'

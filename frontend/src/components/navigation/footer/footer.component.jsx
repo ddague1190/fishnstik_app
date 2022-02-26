@@ -82,7 +82,7 @@ const Footer = () => {
                     <h4 className='footer-info__heading'>Brands</h4>
                     <ul className='footer-info__list'>
                             <li>
-                                <Link to='/brands/fishnstik'>FishNStik</Link>
+                                <Link to='/brands/fishnstik'>FishNWire</Link>
                             </li>
                             <li>
                                 <Link to='/brands/rosco'>Rosco</Link>
@@ -101,18 +101,18 @@ const Footer = () => {
  
                         <div className='footer__address'>
                             <address>
-                                5407 Haverhill Rd, Unit 339
+                                1 Paco De Lucia Terrace
                                 <br/>
-                                West Palm Beach, FL 33407
+                                Segovia, Florida 01234
                                 <br/>
                                 United States of America
                             </address> 
-                            <strong>Call us at (561) 686-7845</strong>
+                            <strong>Call us at (123) 456-7890</strong>
                         </div>
                 </article>
         </section>
             <div className='footer__copyright'>
-                <p className='powered-by'>&copy; 2022 fishnstik.com </p>
+                <p className='powered-by'>No copyright - this is a fictional company for a porfolio project</p>
             </div>
 
         </footer>

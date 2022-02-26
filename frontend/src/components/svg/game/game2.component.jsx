@@ -5,6 +5,7 @@ import styled from "./game.module.scss";
 import { useSelector } from "react-redux";
 import useForceUpdate from "../../../utils/forceUpdate";
 
+
 const Game2 = ({ toggleShowGame }) => {
   // state
   const forceUpdate = useForceUpdate();

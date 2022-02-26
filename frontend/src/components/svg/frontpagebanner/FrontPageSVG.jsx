@@ -4,10 +4,10 @@ import "./frontpagebanner.styles.scss";
 const FrontPageSVG = ({hide}) => {
   return (
     <svg
-      className={`banner__frontpagesvg ${hide && 'banner__frontpagesvg--hide'}`}
-      preserveAspectRatio="xMidYMid meet"
+      className={`banner__frontpagesvg ${hide ? 'banner__frontpagesvg--hide' : ''}`}
+      preserveAspectRatio="xMidYMid slice"
       xmlns='http://www.w3.org/2000/svg'
-      viewBox='0 100 500 500'>
+      viewBox='0 200 500 500'>
       <g style={{ isolation: "isolate", opacity: 0.4 }}>
         <g id='prefix__Layer_1' data-name='Layer 1'>
           <path fill='#8adce2' d='M28.46 17h416v566h-416z' />

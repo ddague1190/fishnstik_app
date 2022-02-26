@@ -31,9 +31,9 @@ const Logo = () => {
           <path fillRule="evenodd" clipRule="evenodd" d="M11.4216 39.091C12.1337 39.5667 13.5902 40.0115 13.9624 39.9962C13.3729 40.0927 12.0714 39.7136 11.4216 39.091Z" fill="white"/>
           <path fillRule="evenodd" clipRule="evenodd" d="M20.8541 36.6804C20.3854 38.2151 18.9552 39.8618 17.8368 40.7739C18.5529 39.5176 19.8282 37.8052 20.8541 36.6804Z" fill="white"/>
         </svg>
-        <span>1999</span>
+        <span>1862</span>
       </div>
-      <span className='logo__name'>FISH N STIK</span>
+      <span className='logo__name'>FISH N WIRE</span>
       <span>Wholesale and custom tackle</span>
     </div>
 

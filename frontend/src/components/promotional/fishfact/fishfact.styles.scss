@@ -6,7 +6,9 @@
 .fishfacts {
     overflow: hidden;
     user-select: none;
-    border: 1px solid $color3;
+    // border: 1px solid $color3;
+    background-color: darken(white, 2%);
+    border-radius: 4px;
     box-shadow: 0 1px 1px rgba(black, .5);
     display: grid;
     position: relative;
@@ -56,12 +58,10 @@
         user-select: none;
         cursor: pointer;
         @include flexCenter(row);
-        gap: 5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
         color: black;
 
-
-        &:hover {
-        }
 
         &--1 {
 

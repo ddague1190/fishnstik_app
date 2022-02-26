@@ -1,12 +1,10 @@
 import "./frontpagebanner.styles.scss";
 import React, { useRef, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { motion, useCycle, useAnimation, AnimatePresence } from "framer-motion";
-import FrontPageSVG from "./FrontPageSVG";
+import { ReactComponent as SwivelSnap } from "./svg_helpers/swivelsnap.svg";
 import RodSVG from "./RodSVG";
-import Emotive from "./Emotive";
 import Waves from "./Waves";
-import Invitation from "./Invitation";
+import Game2 from "../game/game2.component";
 import {
   sentenceVariants,
   letterVariants,
@@ -29,44 +27,58 @@ const titleToGone = (i) => ({
   },
 });
 
-
-
 const Banner = () => {
+  const [showGame, toggleShowGame] = useCycle(false, true)
   const [castRod, setCastRod] = useState(false);
-  const [showEmotive, setShowEmotive] = useState(false);
-  const [hideInvitation, setHideInvitation] = useState(true)
-  const [hideFrontPageSVG, setHideFrontPageSVG] = useState(false)
   const animateTitle = useAnimation();
-  const animateSlogan = useAnimation();
   const animateBanner = useAnimation();
+  const animateSpacer = useAnimation();
   const animateSwivelSnap = useAnimation();
-  const {width} = useSelector(state=>state.dimensions)
-  const bannerVariants = {
+
+  const spacerVariants = {
     full: {
-      y: 0,
+      height: '40rem'
     },
     shrunk: {
-      y: `-${width*.55}px`,
+      height: '20rem'
+    }
+  }
+  const bannerVariants = {
+    full: {
+    
     },
+    shrunk: {
+    }
   };
+  const swivelSnapVariants = {
+    hidden: {
+      opacity: 0
+    },
+    show: {
+      opacity: 1
+    }
+  }
 
   const animate = async () => {
     setCastRod(true);
-    await animateTitle.start(titleToBlack);
+    animateTitle.start(titleToBlack);
+    animateBanner.start('shrunk');
     animateTitle.start(titleToGone);
-    await animateSlogan.start("visible");
-    await animateSlogan.start({
-      height: "95%",
-      duration: 500,
-    });
-    await setInterval(() => {
-      setShowEmotive(true);
-    }, 500);
-    await setInterval(()=> {
-      setHideFrontPageSVG(true)
-      animateBanner.start("shrunk");
-      setHideInvitation(false);
-    }, 5000)
+    animateBanner.start('shrunk');
+    animateSpacer.start('shrunk');
+    animateSwivelSnap.start('show');
+    // await animateSlogan.start("visible");
+    // await animateSlogan.start({
+    //   height: "95%",
+    //   duration: 500,
+    // });
+    // await setInterval(() => {
+    //   setShowEmotive(true);
+    // }, 500);
+    // await setInterval(()=> {
+    //   setHideFrontPageSVG(true)
+    //   animateBanner.start("shrunk");
+    // }, 5000)
   };
 
   useEffect(() => {
@@ -78,19 +90,26 @@ const Banner = () => {
 
   return (
     <motion.div className='banner-container'>
+      <motion.div 
+      initial='full'
+      variants={spacerVariants}
+      animate={animateSpacer}
+      transition={{duration: 3}}
+      className='banner__spacer'
+      >
+      </motion.div>
       <motion.div
         initial='full'
         variants={bannerVariants}
         animate={animateBanner}
-        transition={{ duration: 2 }}
+        transition={{ duration: 4}}
         className='banner'>
-        <motion.div className='banner__title'>
           <motion.h2 className='banner__title'>
             {title.split("").map((char, i) => (
               <motion.span
                 initial={{ color: "white", opacity: 1 }}
                 transition={{
-                  duration: 4
+                  duration: 4,
                 }}
                 custom={i}
                 key={i}
@@ -99,29 +118,32 @@ const Banner = () => {
               </motion.span>
             ))}
           </motion.h2>
-        </motion.div>
 
-        <motion.h2
-          className='banner__slogan'
-          variants={sentenceVariants__slogan}
-          initial='hidden'
-          animate={animateSlogan}>
-          {slogan.split("").map((char, index) => (
-            <motion.span key={index} variants={letterVariants}>
-              {char}
-            </motion.span>
-          ))}
-        </motion.h2>
 
-        <FrontPageSVG hide={hideFrontPageSVG} /> 
         <Waves />
-          
-        {!hideInvitation && <Invitation />}
+
         <RodSVG castRod={castRod} />
-
+              
+        <div className='invitation__container'>
+        <motion.div
+        onClick={toggleShowGame}
+        initial='hidden'
+        animate={animateSwivelSnap}
+        variants={swivelSnapVariants}
+        transition={{delay: 2, duration: 1, type: 'spring'}}
+        className='invitation'
+        >
+        <div className='invitation__terms'>
+          <h3><strong>Click to play the game</strong></h3>
+        </div>
         
+        <SwivelSnap />
 
-        {showEmotive && <Emotive animateSlogan={animateSlogan} />}
+            {showGame && <Game2 toggleShowGame={toggleShowGame}/>}
+
+        </motion.div>
+        </div>
+
       </motion.div>
     </motion.div>
   );
