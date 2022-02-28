@@ -11,8 +11,6 @@ import Message from "../../utilities/message/message.component";
 import { addToCart } from "../../../redux/actions/cartActions";
 import CartItem from "../cartitem/cartitem.component";
 import "./cartscreen.styles.scss";
-import { motion } from "framer-motion";
-import { pageVariants } from "../../../utils/variants";
 
 const CartScreen = () => {
   const productId = useParams().id;
@@ -39,12 +37,7 @@ const CartScreen = () => {
   };
 
   return (
-    <motion.div
-      variants={pageVariants}
-      initial='initial'
-      animate='in'
-      exit='out'
-      className='cartscreen'>
+    <div className='cartscreen'>
       <h2 className='u-center-text'>Items in your cart</h2>
       {cartItems.length === 0 ? (
         <Message variant='info'>
@@ -76,7 +69,7 @@ const CartScreen = () => {
           Proceed to checkout
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

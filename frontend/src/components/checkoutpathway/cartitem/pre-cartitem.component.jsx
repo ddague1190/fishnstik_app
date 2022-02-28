@@ -10,7 +10,7 @@ const PreCartItem = ({product, variant}) => {
     const {width} = useSelector(state=>state.dimensions);
     const breakpoint = 560;
     const breakpoint2 = 460;
-    const mobilePriceIndicator = width < breakpoint2 ? <span>(${variant.price} ea)</span> : null;
+    const mobilePriceIndicator = width < breakpoint2 ? <span>(${variant.price})</span> : null;
     const [cartStatus, setCartStatus] = useState({'qty': 0, alreadyInCart: false})
     const [showPlaceholder, setShowPlaceholder] = useState(variant.countInStock < 1);
 
@@ -26,7 +26,7 @@ const PreCartItem = ({product, variant}) => {
                             <Figure image={variant.image} alt={variant.name} description={variant.description} height={width<breakpoint ? '12rem' : '20rem'} />
                         </div>
                     
-                        <span className='cartitem__price'>${variant.price} ea</span>
+                        <span className='cartitem__price'>${variant.price}</span>
                     </div>
                 }
                     

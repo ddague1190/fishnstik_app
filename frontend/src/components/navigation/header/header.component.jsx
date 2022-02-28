@@ -19,53 +19,49 @@ const Header = () => {
   const breakpoint = 820;
 
   return (
-    <AnimatePresence>
-      <motion.div>
-        {width < breakpoint ? (
-          <header className='header'>
-            <div className='userpanel userpanel--mobile'>
-              <SearchBox />
-              <NavBarElement2 to='/cart'>
-                <i className='fas fa-shopping-cart'></i>
-              </NavBarElement2>
+    <div>
+      {width < breakpoint ? (
+        <header className='header'>
+          <div className='userpanel userpanel--mobile'>
+            <SearchBox />
+            <NavBarElement2 to='/cart'>
+              <i className='fas fa-shopping-cart'></i>
+            </NavBarElement2>
+          </div>
+          <div className='mobile-navbar'>
+            {!showMobileNav && <Snap />}
+            <div
+              className='mobile-navbar__button'
+              ref={menuButton}
+              onClick={toggleMobileNav}>
+              <Hamburger opened={showMobileNav} />
             </div>
-            <div className='mobile-navbar'>
-              {!showMobileNav && <Snap />}
-              <div
-                className='mobile-navbar__button'
-                ref={menuButton}
-                onClick={toggleMobileNav}>
-                <Hamburger opened={showMobileNav} />
-              </div>
-            </div>
+          </div>
 
-            {showMobileNav && (
-              <Dropdown
-                showMobileNav
-                menuButtonRef={menuButton}
-                toggleMobileNav={toggleMobileNav}
-              />
-            )}
-          </header>
-        ) : (
-          <header className='header'>
-            <div className='userpanel'>
-              <SearchBox />
-              <div className='desktop-navbar__sociallinks'>
-                <a href='https://www.facebook.com/fish.n.stik'>
-                  <i className='fab fa-facebook'></i>
-                </a>
-              </div>
-              <UserPanel />
+          {showMobileNav && (
+            <Dropdown
+              showMobileNav
+              menuButtonRef={menuButton}
+              toggleMobileNav={toggleMobileNav}
+            />
+          )}
+        </header>
+      ) : (
+        <header className='header'>
+          <div className='userpanel'>
+            <SearchBox />
+            <div className='desktop-navbar__sociallinks'>
+              <i className='fab fa-facebook'></i>
             </div>
-            <div className='desktop-navbar'>
-              <Logo />
-              <NavBar />
-            </div>
-          </header>
-        )}
-      </motion.div>
-    </AnimatePresence>
+            <UserPanel />
+          </div>
+          <div className='desktop-navbar'>
+            <Logo />
+            <NavBar />
+          </div>
+        </header>
+      )}
+    </div>
   );
 };
 

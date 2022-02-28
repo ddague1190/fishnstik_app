@@ -9,8 +9,6 @@ import Loader from "../../utilities/loader/loader.component";
 import Message from "../../utilities/message/message.component";
 import "./shippingscreen.styles.scss";
 import AddressForm from "../addressform/addressform.component";
-import { motion } from "framer-motion";
-import { pageVariants } from "../../../utils/variants";
 function ShippingScreen() {
   const { addresses, loading } = useSelector((state) => state.savedAddresses);
 
@@ -83,12 +81,7 @@ function ShippingScreen() {
   ));
 
   return (
-    <motion.div
-      variants={pageVariants}
-      initial='initial'
-      animate='in'
-      exit='out'
-      className='shippingscreen'>
+    <div className='shippingscreen'>
       {message && <Message variant='danger'>{message}</Message>}
       {loading && <Loader />}
       <CheckoutSteps step1 step2 />
@@ -115,7 +108,7 @@ function ShippingScreen() {
       ) : (
         <AddressForm />
       )}
-    </motion.div>
+    </div>
   );
 }
 

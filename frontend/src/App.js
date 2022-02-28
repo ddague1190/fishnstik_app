@@ -25,30 +25,25 @@ const App = () => {
   };
 
   return (
-    <AnimatePresence>
-      <Routes key={location.pathname}>
-        <Route exact path='/' element={<HomeScreen />} />
-        <Route
-          path='/products/:url_cat/:url_subcat/'
-          element={<ProductList />}
-        />
-        <Route path='/products/:url_cat/' element={<ProductList />} />
-        <Route path='/products/' element={<ProductList />} />
-        <Route path='/brands/:url_brand/' element={<ProductList />} />
-        {/* <Route path='/aboutus' element={<AboutUsScreen />} /> */}
-        <Route path='/login' element={<LoginScreen />} />
-        <Route path='/register' element={<RegisterScreen />} />
-        <Route path='/profile' element={<ProfileScreen />} />
-        <Route path='/shipping' element={<ShippingScreen />} />
-        <Route path='/payment' element={<PaymentScreen />} />
-        <Route path='/placeorder' element={<PlaceOrderScreen />} />
-        <Route path='/order/:id' element={<OrderScreen />} />
-        <Route path='/product/:id' element={<ProductScreen />} />
-        <Route path='/cart/:id' element={<CartScreen />} />
-        <Route path='/cart/' element={<CartScreen />} />
-        <Route element={<Page404 />} />
-      </Routes>
-    </AnimatePresence>
+    <Routes key={location.pathname}>
+      <Route exact path='/' element={<HomeScreen />} />
+      <Route path='/products/:url_cat/:url_subcat/' element={<ProductList />} />
+      <Route path='/products/:url_cat/' element={<ProductList />} />
+      <Route path='/products/' element={<ProductList />} />
+      <Route path='/brands/:url_brand/' element={<ProductList />} />
+      {/* <Route path='/aboutus' element={<AboutUsScreen />} /> */}
+      <Route path='/login' element={<LoginScreen />} />
+      <Route path='/register' element={<RegisterScreen />} />
+      <Route path='/profile' element={<ProfileScreen />} />
+      <Route path='/shipping' element={<ShippingScreen />} />
+      <Route path='/payment' element={<PaymentScreen />} />
+      <Route path='/placeorder' element={<PlaceOrderScreen />} />
+      <Route path='/order/:id' element={<OrderScreen />} />
+      <Route path='/product/:id' element={<ProductScreen />} />
+      <Route path='/cart/:id' element={<CartScreen />} />
+      <Route path='/cart/' element={<CartScreen />} />
+      <Route element={<Page404 />} />
+    </Routes>
   );
 };
 

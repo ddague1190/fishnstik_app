@@ -22,14 +22,14 @@ const Footer = () => {
                     <h4 className='footer-info__heading'>Connect With Us</h4>
                     <ul className='socialLinks'>
                         <li className='socialLinks__item'>
-                            <a href='https://www.facebook.com/fish.n.stik'><i className='fab fa-facebook'></i></a>
+                            <i className='fab fa-facebook'></i>
                         </li>
                     </ul>
     
                     <h4 className='footer-info__heading'>Information</h4>
                     <ul className='footer-info__list'>
                             <li>
-                                <span>FishNStik Store Hours</span>
+                                <span>FishNWire Store Hours</span>
                             </li>
                             <li>
                                 <span>Contact Us</span>
@@ -82,7 +82,7 @@ const Footer = () => {
                     <h4 className='footer-info__heading'>Brands</h4>
                     <ul className='footer-info__list'>
                             <li>
-                                <Link to='/brands/fishnstik'>FishNWire</Link>
+                                <Link to='/brands/fishnstik'>FishNStik</Link>
                             </li>
                             <li>
                                 <Link to='/brands/rosco'>Rosco</Link>

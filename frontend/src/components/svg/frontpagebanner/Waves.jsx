@@ -1,12 +1,14 @@
 import React from "react";
-import { motion, useMotionValue, useCycle } from "framer-motion";
+import { motion, useMotionValue, useCycle, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 
 const Waves = () => {
   const position = useMotionValue(200);
+  const animateWave = useAnimation();
   const [frame, moveFrame] = useCycle(0, .1, .2, .3, .4, .5, .6, .7, .8, .7, .6, .5, .4, .3, .2, .1)
 
-  useEffect(()=> {
+  useEffect(async ()=> {
+    await animateWave.start({opacity: 1, transition: {opacity: {duration: 2}}})
     const id = setInterval(()=>{
       moveFrame()
     }, 50)
@@ -21,9 +23,9 @@ const Waves = () => {
   return (
     <div className='waves'>
       <motion.svg 
-      initial={{opacity: 1}}
-      animate={{opacity: .5}}
-      transition={{duration: 2, delay: 1}}
+      initial={{opacity: 0.1}}
+      animate={animateWave}
+      transition={{duration: 2, delay:1}}
       xmlns='http://www.w3.org/2000/svg' 
       viewBox={`${frame} ${50-frame}  1040 300`}
       preserveAspectRatio="xMidYMid meet"

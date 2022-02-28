@@ -68,12 +68,7 @@ const OrderScreen = () => {
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
-    <motion.div
-      variants={pageVariants}
-      initial='initial'
-      animate='in'
-      exit='out'
-      className='orderscreen'>
+    <div className='orderscreen'>
       <table className='orderscreen__params u-box-shadow'>
         <tbody classname='u-center-text'>
           <tr>
@@ -210,7 +205,7 @@ const OrderScreen = () => {
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

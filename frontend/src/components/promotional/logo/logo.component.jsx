@@ -34,7 +34,7 @@ const Logo = () => {
         <span>1862</span>
       </div>
       <span className='logo__name'>FISH N WIRE</span>
-      <span>Wholesale and custom tackle</span>
+      <span>Wholesale terminal tackle</span>
     </div>
 
 

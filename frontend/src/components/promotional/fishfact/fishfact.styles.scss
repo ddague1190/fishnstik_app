@@ -85,6 +85,7 @@
 
     &__image-container {
         position: relative;
+        margin-bottom: 2rem;
         justify-self: center;
         grid-area: i;
     }
@@ -127,6 +128,7 @@
         width: 100%;
         font-size: 3rem;
         grid-area: n;
+        z-index: 100;
         & i {
             font-size: 2rem;
         }

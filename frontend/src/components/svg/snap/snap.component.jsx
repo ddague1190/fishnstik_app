@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "./snap.styles.scss";
 
 const Snap = ({ className }) => {
-  const { loading, product } = useSelector((state) => state.productDetails);
   const [angle, setAngle] = useState(-8);
   const ref = useRef();
   const finalAngle = -20;
@@ -30,11 +29,13 @@ const Snap = ({ className }) => {
         if (currentAngle > -9) clearInterval(intervalId);
       }
     }, 13);
+    return intervalId
   };
 
   useEffect(() => {
-    if (!loading) animation();
-  }, [product]);
+     const intervalId = animation();
+     return ()=>clearInterval(intervalId)
+  }, []);
 
   useEffect(() => {
     ref.current.style.transform = transformValue;

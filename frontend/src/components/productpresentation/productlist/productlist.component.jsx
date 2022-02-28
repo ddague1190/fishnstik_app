@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Product from "../product/product.component";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,7 +21,6 @@ const ProductList = ({ target, ...otherProps }) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { error, loading, products, page, pages } = productList;
-
   let { search } = useLocation();
   let { url_cat, url_subcat, url_brand } = useParams();
   useEffect(() => {
@@ -35,12 +34,8 @@ const ProductList = ({ target, ...otherProps }) => {
   }, [search, url_cat, url_subcat, url_brand]);
 
   return (
-    <motion.div
+    <div
       className='productlist'
-      variants={pageVariants}
-      initial='initial'
-      animate='in'
-      exit='out'
       >
       {loading ? (
         <Loader />
@@ -51,7 +46,7 @@ const ProductList = ({ target, ...otherProps }) => {
           <>
             {url_brand && <BrandInfo brand={url_brand} />}
 
-            {url_cat && !url_subcat && <SubcategoryList category={url_cat} />}
+            {url_cat && !url_subcat && <SubcategoryList justPath category={url_cat} />}
 
             {url_subcat && (
               <SubcategoryInfo category={url_cat} subcategory={url_subcat} />
@@ -70,7 +65,7 @@ const ProductList = ({ target, ...otherProps }) => {
       )}
 
       <Paginate page={page} pages={pages} />
-    </motion.div>
+    </div>
   );
 };
 

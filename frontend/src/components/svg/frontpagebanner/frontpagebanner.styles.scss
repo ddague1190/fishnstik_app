@@ -8,7 +8,7 @@
   height: 17vw;
   z-index: 1;
   &__wave {
-    fill: $color3;
+    fill: #ced4e4;
   }
 }
 
@@ -25,7 +25,6 @@
 
   &__container {
     border-radius: 4px;
-    background-color: red;
     width: 100%;
     height: 100%;
     background-color: darken(white, 2%);
@@ -39,10 +38,12 @@
 
   &__swivelsnap {
     position: absolute;
-    width: 300px;
+    min-width: 150px;
+    width: 30vw;
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 100;
   }
 
   &__terms {
@@ -54,8 +55,11 @@
     left: 50%;
     transform: translateX(-50%);
     color: $color3;
-    font-size: 2rem;  
-    font-style: normal;
+    font-size: 1.3rem;  
+    font-style: italic;
+    & strong {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -90,7 +94,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: "Fisherman";
-    font-size: clamp(5rem, 10vw, 10rem);
+    font-size: clamp(3rem, 6vw, 8rem);
     z-index: 1;
   }
 
@@ -127,8 +131,9 @@
   &__rod {
     position: absolute;
     width: 80vw;
-    top: -20rem;
+    top: -40rem;
     left: 0vw;
+    z-index: 1;
 
     // @media only screen and (min-width: 600px) {
     //   width: 100vw;
@@ -309,16 +314,4 @@
   z-index: 100;
   overflow: hidden;
   @include flexCenter(column);
-}
-.emotive {
-  width: 65rem;
-
-  &__title {
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  &__cls1 {
-    fill: darken(white, 30%);
-  }
 }

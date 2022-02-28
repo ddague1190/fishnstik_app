@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Rating from "../../utilities/rating/rating.component";
 import Loader from "../../utilities/loader/loader.component";
 import Message from "../../utilities/message/message.component";
 import ProductDetails from "../productdetails/productdetails.component";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../../redux/actions/productActions";
-import AddToCartCard from "../../utilities/addtocartcard/addtocartcard.component";
 import WriteReview from "../../utilities/writereview/writereview.component";
 import "./productscreen.styles.scss";
 import VerticalProductScreenBanner from "../../svg/recommended/verticalproductscreenbanner.component";
 import HorizontalProductScreenBanner from "../../svg/recommended/horizontalproductscreenbanner.component";
 import PreCartItem from "../../checkoutpathway/cartitem/pre-cartitem.component";
-import { pageVariants } from "../../../utils/variants";
 
 const ProductScreen = () => {
   const variants = {
@@ -44,12 +42,7 @@ const ProductScreen = () => {
   }, [dispatch, productId.id]);
 
   return (
-    <motion.div 
-    variants={pageVariants}
-    initial='initial'
-    animate='in'
-    exit='out'
-    className='productscreen'>
+    <div className='productscreen'>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -82,8 +75,8 @@ const ProductScreen = () => {
                 className={`tab-group__tab ${
                   whichContent === "photos" && "tab-group__tab--active"
                 }`}
-                onClick={() => setWhichContent("photos")}>
-                <span>#fishnstik</span>
+                onClick={() => setWhichContent("size")}>
+                <span>Actual size</span>
               </li>
               <li
                 className={`tab-group__tab ${
@@ -105,14 +98,14 @@ const ProductScreen = () => {
                     <ProductDetails product={product} height='8rem' />
                   </motion.div>
                 ),
-                photos: (
+                size: (
                   <div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.6 }}
                     className='photos'>
-                    <p>Mechanism to allow customers to upload files to #tag</p>
+                    <p>This is the actual size of this product</p>
                   </div>
                 ),
 
@@ -174,9 +167,9 @@ const ProductScreen = () => {
             }
           </div>
 
-          {product.numVariants === 1 && (
+          {/* {product.numVariants === 1 && (
             <AddToCartCard product={product} checkedBoxIndex={0} />
-          )}
+          )} */}
 
           {width > breakpoint ? (
             <VerticalProductScreenBanner className='productscreen__recommended' />
@@ -196,7 +189,7 @@ const ProductScreen = () => {
           </div>
         </>
       )}
-    </motion.div>
+    </div>
   );
 };
 

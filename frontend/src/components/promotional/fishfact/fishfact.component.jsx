@@ -57,7 +57,6 @@ const FishFact = () => {
     }
   };
 
-
   return (
     <>
       {loading ? (

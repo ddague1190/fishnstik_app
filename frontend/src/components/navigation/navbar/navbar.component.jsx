@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import {createPortal} from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.styles.scss";
 import { categories, subcategories } from "../dropdown/categories";
@@ -37,14 +38,14 @@ const NavItem = ({ category, setShowMobileNav }) => {
 };
 
 const NavBar = () => {
-  return (
+  return createPortal(
     <nav className='desktop-nav'>
       <ul className='desktop-nav-list'>
         {categories.map((category) => (
           <NavItem category={category} key={category.category} />
         ))}
       </ul>
-    </nav>
+    </nav>, document.body
   );
 };
 

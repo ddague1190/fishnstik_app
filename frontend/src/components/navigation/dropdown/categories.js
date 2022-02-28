@@ -60,13 +60,9 @@ export const subcategories = {
             'title': 'Fish N Stik'
         },
         {
-            'subcategory': 'coastlock',
-            'title': 'Coast Lock'
-        },
-        {
-            'subcategory': 'rosco',
-            'title': 'Rosco'
-        },
+            'subcategory': 'other',
+            'title': 'Other brands'
+        }
     ],
 
     'swivels': [    
@@ -87,27 +83,15 @@ export const subcategories = {
         }
     ],
     'hooks': [    
-        {
-            'subcategory': 'mudstad',
-            'title': 'Mudstad'
-        }
+    
     ],
         'lures': [    
-            {
-                'subcategory': 'TODO',
-                'title': 'TODO'
-            }
+      
     ],
     'accessories': [
-        {
-            'subcategory': 'TODO',
-            'title': 'TODO'
-        }
+   
     ],
     'apparel': [
-        {
-            'subcategory': 'TODO',
-            'title': 'TODO'
-        }
+ 
     ]
 }

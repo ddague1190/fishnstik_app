@@ -35,12 +35,7 @@ function PaymentScreen() {
   };
 
   return (
-    <motion.div
-      variants={pageVariants}
-      initial='initial'
-      animate='in'
-      exit='out'
-      className='paymentscreen'>
+    <div className='paymentscreen'>
       <CheckoutSteps step1 step2 step3 />
 
       <form className='productscreen__form' onSubmit={submitHandler}>
@@ -57,7 +52,7 @@ function PaymentScreen() {
           Continue
         </button>
       </form>
-    </motion.div>
+    </div>
   );
 }
 

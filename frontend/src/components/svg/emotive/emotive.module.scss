@@ -1,13 +1,118 @@
+.wrapper {
+  padding-top: 2rem;
+  width: 90%;
+  position: relative;
+  margin: 0 auto;
+
+  &__wavysurface {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    stroke: $color3;
+    opacity: 0.3;
+  }
+
+  &__spacer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(white, #8c9ac0);
+    width: 100%;
+    height: 12vw;
+    z-index: -100;
+  }
+}
+
 .container {
-    background-color: white;
-    margin: 3rem auto;
-    width: 90%;
-    height: 40rem;
-    text-align: center;
-    background-color: darken(white, 2%);
+
+  overflow: hidden;
+  position: absolute;
+  margin: 0 auto;
+  top: 20rem;
+  left: 0;
+  width: 80%;
+  min-width: 300px;
+  height: 40vw;
+  max-height: 60rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-size: cover;
+  border-radius: 4px;
+}
+
+.inview {
+  width: 100%;
+  height: 200rem;
+  margin: 0 auto;
 }
 
 .title {
-    font-size: 2rem;
-    width: 90%;
+  display: block;
+  width: 100%;
+  font-size: 2rem;
+  z-index: 100;
+  width: 90%;
+}
+
+.svg {
+  margin: 0 auto;
+  position: absolute;
+  width: 90%;
+  max-width: 60rem;
+
+  height: 100%;
+  z-index: 100;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.svg__class12,
+.svg__class2 {
+  fill: #fff;
+}
+
+.svg__class10,
+.svg__class11,
+.svg__class4 {
+  fill: none;
+}
+
+.svg__class5 {
+  opacity: 0.69;
+}
+
+.svg__class7 {
+  opacity: 0.83;
+}
+
+.svg__class10,
+.svg__class11,
+.svg__class12 {
+  stroke: #000;
+}
+
+.svg__class10,
+.svg__class11,
+.svg__class12,
+.svg__class13,
+.svg__class14 {
+  stroke-miterlimit: 10;
+}
+
+.svg__class10,
+.svg__class12 {
+  stroke-width: 0.25px;
+}
+
+.svg__class13,
+.svg__class14 {
+  stroke: #fff;
+}
+
+.svg__class14 {
+  stroke-width: 2px;
 }
