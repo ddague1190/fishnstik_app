@@ -7,32 +7,22 @@ const Featured = () => {
   const pics = [
     "https://fishnwirepictures.s3.amazonaws.com/matolures.jpeg",
     "https://fishnwirepictures.s3.amazonaws.com/matolures1.jpeg",
-    "https://fishnwirepictures.s3.amazonaws.com/matolures2.jpeg"
+    "https://fishnwirepictures.s3.amazonaws.com/matolures2.jpeg",
   ];
-  const [currentPic, setCurrentPic] = useState({'pic': pics[0], 'index': 0});
+  const [currentPic, setCurrentPic] = useState({ pic: pics[0], index: 0 });
 
-  const [currPic, cycleThrough] = useCycle(...pics)
+  const [currPic, cycleThrough] = useCycle(...pics);
   const changePic = (forward) => {
-       let newIndex = forward ? currentPic.index +1 : currentPic.index-1
+    let newIndex = forward ? currentPic.index + 1 : currentPic.index - 1;
     setCurrentPic({
-              'pic': pics[newIndex],
-            'index': newIndex
-            })
-      }
-  
-
-
+      pic: pics[newIndex],
+      index: newIndex,
+    });
+  };
 
   return (
     <div className='featured'>
-      <h1 className='featured__title'>Featured Products</h1>
-      <div className='featured__product'>
-        <Figure image={currPic} animate height='30rem' />
-        <span className='fishfacts__image-right featured__chevron' onClick={cycleThrough}>
-          <i className='fa-solid fa-chevron-right'></i>
-        </span>
-        <h3>Mato Lures</h3>
-      </div>
+      <span className='featured__title tab-group__tab--active'>Featured Products</span>
       <svg
         height='300px'
         className='featured__svg'
@@ -47,6 +37,24 @@ const Featured = () => {
           </g>
         </g>
       </svg>
+      <div className='featured__product'>
+        <Figure image={currPic} animate height='30rem' />
+        <span
+          className='fishfacts__image-right featured__chevron'
+          onClick={cycleThrough}>
+          <i className='fa-solid fa-chevron-right'></i>
+        </span>
+        <h3>Mato Lures</h3>
+      </div>
+      <div className='featured__product'>
+        <Figure image={currPic} animate height='30rem' />
+        <span
+          className='fishfacts__image-right featured__chevron'
+          onClick={cycleThrough}>
+          <i className='fa-solid fa-chevron-right'></i>
+        </span>
+        <h3>Mato Lures</h3>
+      </div>
     </div>
   );
 };

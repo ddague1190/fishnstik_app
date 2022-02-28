@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./fishfact.styles.scss";
 import { getFishSpecies } from "../../../redux/actions/promoActions";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import Figure from "../../utilities/figure/figure.component";
 import { ReactComponent as Logo } from "./fishwatchlogo.svg";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useAnimation,
+  useMotionValue,
+} from "framer-motion";
 import { pageVariants } from "../../../utils/variants";
 
 const Ellipsis = ({ title, text, className }) => {
@@ -26,12 +31,23 @@ const Ellipsis = ({ title, text, className }) => {
   );
 };
 
+// const fishFactsVariants = {
+//   shrunk: {
+//     backgroundColor: 'red'
+//   },
+//   normal: {
+//   }
+// }
+
 const FishFact = () => {
   const dispatch = useDispatch();
   const [imageIndex, setImageIndex] = useState(0);
   const [fishSpeciesIndex, setFishSpeciesIndex] = useState(8);
+  const [expanded, setExpanded] = useState(false);
   const { loading, error, fish } = useSelector((state) => state.fishFact);
   const { width } = useSelector((state) => state.dimensions);
+  const animateWindow = useAnimation();
+  const animateSpacer = useAnimation();
   const breakpoint = 500;
   const breakpoint2 = 400;
   const breakpoint3 = 600;
@@ -57,90 +73,130 @@ const FishFact = () => {
     }
   };
 
+  const expandWindow = async (e) => {
+    e.preventDefault()
+    setExpanded(true)
+    await animateWindow.start({
+      scale: 1,
+      x: 0,
+    });
+    await animateSpacer.start({
+      height: '120rem'
+    })
+  };
+
   return (
-    <>
-      {loading ? (
-        <div className='fishfacts__spaceholder'></div>
-      ) : (
-        <AnimatePresence exitBeforeEnter>
-          <motion.div
-            variants={pageVariants}
-            initial='initial'
-            animate='in'
-            exit='out'
-            className='fishfacts'>
-            <header className='fishfacts__header'>
-              <Logo />
-              <div onClick={nextSpeciesHandler} className='fishfacts__next'>
-                <span className='fishfacts__next--1'>
-                  Species {fishSpeciesIndex - 7} of 108
-                </span>
-                <span className='fishfacts__next--2'>See another profile</span>
-              </div>
-            </header>
-            <div className='fishfacts__image-container'>
-              <Figure
-                animate
-                image={
-                  images[imageIndex]
-                    ? images[imageIndex]
-                    : images[imageIndex + 1]
-                }
-                height={
-                  width > breakpoint
-                    ? "60rem"
-                    : width > breakpoint2
-                    ? "50rem"
-                    : "38rem"
-                }
-              />
+    <div className='fishfacts-section'>
+      <span className='fishfacts-window__title tab-group__tab--active'>
+        Fish facts
+      </span>
+      <motion.div
+        className='fishfacts-window'
+        onClick={!expanded && expandWindow}
+        initial={{ scale: 0.5, x: "-22vw" }}
+        animate={animateWindow}
+        transition={{ duration: 1 }}>
+        <motion.div
+          className='fishfacts-spacer'
+          initial={{ height: "80rem" }}
+          animate={animateSpacer}
+          transition={{ duration: 1 }}></motion.div>
+        <div className='fishfacts-container'>
+          <>
+            <h1>Learn about different species</h1>
+            {loading ? (
+              <div className='fishfacts__spaceholder'></div>
+            ) : (
+              <AnimatePresence exitBeforeEnter>
+                <motion.div
+                  variants={pageVariants}
+                  initial='initial'
+                  animate='in'
+                  exit='out'
+                  className='fishfacts'>
+                  <header className='fishfacts__header'>
+                    <Logo />
+                    <div
+                      onClick={expanded && nextSpeciesHandler}
+                      className='fishfacts__next'>
+                      <span className='fishfacts__next--1'>
+                        Species {fishSpeciesIndex - 7} of 108
+                      </span>
+                      <span className='fishfacts__next--2'>
+                        See another profile
+                      </span>
+                    </div>
+                  </header>
+                  <div className='fishfacts__image-container'>
+                    <Figure
+                      animate
+                      image={
+                        images[imageIndex]
+                          ? images[imageIndex]
+                          : images[imageIndex + 1]
+                      }
+                      height={
+                        width > breakpoint
+                          ? "60rem"
+                          : width > breakpoint2
+                          ? "50rem"
+                          : "38rem"
+                      }
+                      disable={!expanded}
+                    />
 
-              <span className='fishfacts__image-right' onClick={onNextClick}>
-                <i className='fa-solid fa-chevron-right'></i>
-              </span>
-            </div>
-            <div className='fishfacts__name'>
-              <h3>{fish["Species Name"]}</h3>
-              <h5>
-                <i>{fish["Scientific Name"]}</i>
-              </h5>
-            </div>
-            <ul className='fishfacts__factoids'>
-              <li>
-                <strong>Protein:</strong> {fish["Protein"]}
-              </li>
-              <li>
-                <strong>Taste:</strong> {fish["Taste"]}
-              </li>
-              <li>
-                <strong>Health benefits:</strong> {fish["Health Benefits"]}
-              </li>
-            </ul>
-            <Ellipsis
-              className='fishfacts__des'
-              title='Physical Description'
-              text={fish["Physical Description"]}
-            />
-            <Ellipsis
-              className='fishfacts__bio'
-              title='Biology'
-              text={fish["Biology"]}
-            />
-            <Ellipsis
-              className='fishfacts__hab'
-              title='Habitat'
-              text={fish["Habitat"]}
-            />
-            <br />
-            <br />
+                    <span
+                      className='fishfacts__image-right'
+                      onClick={expanded && onNextClick}>
+                      <i className='fa-solid fa-chevron-right'></i>
+                    </span>
+                  </div>
+                  <div className='fishfacts__name'>
+                    <h3>{fish["Species Name"]}</h3>
+                    <h5>
+                      <i>{fish["Scientific Name"]}</i>
+                    </h5>
+                  </div>
+                  <ul className='fishfacts__factoids'>
+                    <li>
+                      <strong>Protein:</strong> {fish["Protein"]}
+                    </li>
+                    <li>
+                      <strong>Taste:</strong> {fish["Taste"]}
+                    </li>
+                    <li>
+                      <strong>Health benefits:</strong>{" "}
+                      {fish["Health Benefits"]}
+                    </li>
+                  </ul>
+                  <Ellipsis
+                    className='fishfacts__des'
+                    title='Physical Description'
+                    text={fish["Physical Description"]}
+                  />
+                  <Ellipsis
+                    className='fishfacts__bio'
+                    title='Biology'
+                    text={fish["Biology"]}
+                  />
+                  <Ellipsis
+                    className='fishfacts__hab'
+                    title='Habitat'
+                    text={fish["Habitat"]}
+                  />
+                  <br />
+                  <br />
 
-            <span className='fishfacts__credit'>
-              Courtesy of: https://www.fishwatch.gov/
-            </span>
-          </motion.div>
-        </AnimatePresence>
-      )}
-    </>
+                  <span className='fishfacts__credit'>
+                    Courtesy of: https://www.fishwatch.gov/
+                  </span>
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 

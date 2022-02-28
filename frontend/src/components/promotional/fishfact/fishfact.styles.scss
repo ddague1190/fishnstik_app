@@ -1,21 +1,52 @@
+.fishfacts-section {
+}
+
+.fishfacts-window {
+    width: 100vw;
+    min-width: 300px;
+    max-width: 100rem;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+
+    &__title {
+        text-align: center;
+        color: $color3;
+
+    }
+}
+
+.fishfacts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+
+}
+
+.fishfacts-spacer {
+    // height: 116rem;
+    width: 100%;
+
+}
+
 .fishwatchlogo {
     width: 20rem;
     height: 10rem;
 }
 
 .fishfacts {
+    position: absolute;
+    top: 0;
+    left: 0;
     overflow: hidden;
     user-select: none;
-    // border: 1px solid $color3;
     background-color: darken(white, 2%);
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(black, .5);
     display: grid;
     position: relative;
-    margin: 0 auto;
-    margin-bottom: 5rem;
-    width: 100vw;
-    max-width: 100rem;
     justify-items: center;
     column-gap: 1rem;
     padding-bottom: 2rem;
@@ -47,7 +78,7 @@
     }
 
     &__spaceholder {
-        height: 100rem;
+        height: 116rem;
     }
 
     &__next {

@@ -4,6 +4,7 @@
   background-image: linear-gradient(#8c9ac0, white 30%, white);
   width: 90%;
   margin: 0 auto;
+  margin-bottom: 10rem;
   height: 600px;
   @include flexCenter(column);
   
@@ -14,9 +15,11 @@
   }
 
   &__title {
-    color: black;
-    font-family: $font-family-title;
-
+    color: $color3;
+    font-size: 2.2rem;
+    width: 100% !important;
+    padding: 5px 10px;
+  
   }
   &__svg {
     position: absolute;

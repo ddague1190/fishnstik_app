@@ -7,6 +7,8 @@ const Snap = ({ className }) => {
   const [angle, setAngle] = useState(-8);
   const ref = useRef();
   const finalAngle = -20;
+  const {loadingProducts} = useSelector(state=>state.productList)
+  const {loadingProduct} = useSelector(state=>state.productDetails)
 
   const transformValue = `translate(820px, 350px) rotate(${angle}deg) translate(-820px, -350px)`;
 
@@ -32,10 +34,13 @@ const Snap = ({ className }) => {
     return intervalId
   };
 
-  useEffect(() => {
-     const intervalId = animation();
-     return ()=>clearInterval(intervalId)
-  }, []);
+  // useEffect(() => {
+  //   let intervalId 
+  //   if(!loadingProduct && !loadingProducts) {
+  //   intervalId = animation();
+  //   }
+  //    return ()=>clearInterval(intervalId)
+  // }, []);
 
   useEffect(() => {
     ref.current.style.transform = transformValue;

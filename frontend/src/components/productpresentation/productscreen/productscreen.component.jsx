@@ -12,6 +12,7 @@ import "./productscreen.styles.scss";
 import VerticalProductScreenBanner from "../../svg/recommended/verticalproductscreenbanner.component";
 import HorizontalProductScreenBanner from "../../svg/recommended/horizontalproductscreenbanner.component";
 import PreCartItem from "../../checkoutpathway/cartitem/pre-cartitem.component";
+import OneVariant from "../../checkoutpathway/cartitem/oneVariant.component";
 
 const ProductScreen = () => {
   const variants = {
@@ -65,7 +66,7 @@ const ProductScreen = () => {
             <ul className='tab-group'>
               <li
                 className={`tab-group__tab ${
-                  whichContent === "overview" && "tab-group__tab--active"
+                  whichContent === "overview" ? "tab-group__tab--active" : ""
                 }`}
                 onClick={() => setWhichContent("overview")}>
                 <span>Overview</span>
@@ -73,7 +74,7 @@ const ProductScreen = () => {
 
               <li
                 className={`tab-group__tab ${
-                  whichContent === "photos" && "tab-group__tab--active"
+                  whichContent === "size" && "tab-group__tab--active"
                 }`}
                 onClick={() => setWhichContent("size")}>
                 <span>Actual size</span>
@@ -167,26 +168,35 @@ const ProductScreen = () => {
             }
           </div>
 
-          {/* {product.numVariants === 1 && (
-            <AddToCartCard product={product} checkedBoxIndex={0} />
-          )} */}
+          {product.numVariants === 1 && (
+            <div className='productscreen__variants--one-variant'>
+              <OneVariant product={product} variant={product.variants[0]} />
+            </div>
+          )}
 
           {width > breakpoint ? (
             <VerticalProductScreenBanner className='productscreen__recommended' />
           ) : (
             <HorizontalProductScreenBanner className='productscreen__recommended' />
           )}
+
+        {product.numVariants > 1 &&
+
           <div className='productscreen__variants'>
             <div className='productscreen__variants-title'>
               <span>Options available for this product</span>
             </div>
-
-            {product.variants.map((variant, index) => {
-              return (
-                <PreCartItem product={product} variant={variant} key={index} />
-              );
-            })}
+              {product.variants.map((variant, index) => {
+                return (
+                  <PreCartItem
+                    product={product}
+                    variant={variant}
+                    key={index}
+                  />
+                );
+              })}
           </div>
+}
         </>
       )}
     </div>

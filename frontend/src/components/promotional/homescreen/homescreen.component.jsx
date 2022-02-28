@@ -6,10 +6,8 @@ import Emotive from "../../svg/emotive/emotive.component";
 const HomeScreen = () => {
   return (
     <div>
-
       <Banner />
       <Emotive />
-
       <Featured />
       <FishFact />
     </div>
