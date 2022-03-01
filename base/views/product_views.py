@@ -95,17 +95,20 @@ class ReviewView(generics.CreateAPIView):
     def create(self, request, pk, *args, **kwargs):
         user = request.user
         product = Product.objects.get(_id=pk)
+
         if not self.verified_buyer(user, product):
             raise serializers.ValidationError({'detail': "You must be a verfied buyer to leave a review."})
         if self.already_exists(user, product):
             raise serializers.ValidationError({"detail": "Product already reviewed."})
         
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        serializer.is_valid()
         
+        if serializer.errors:
+            if serializer.errors['comment'][0]:
+                raise serializers.ValidationError({'detail': serializer.errors['comment'][0].title()})
         if serializer.validated_data['rating'] == 0:
             raise serializers.ValidationError({'detail': "Review cannot be 0."})
-
         serializer.save(user=request.user, product=Product.objects.get(_id=pk) )  
 
         return Response(status=status.HTTP_201_CREATED)

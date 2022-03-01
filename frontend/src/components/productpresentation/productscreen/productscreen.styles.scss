@@ -119,8 +119,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 10rem);
   text-overflow: ellipsis;
-  grid-auto-rows: 10rem;
-  gap: 5px;
+  gap: 1rem;
   padding-top: 1rem;
   justify-items: left;
 }
@@ -132,7 +131,9 @@
 
 .reviewcard {
   @include flexCenter(column);
-  width: 10rem;
+  gap: 5px;
+  text-align: center;
+  width: 20rem;
   &__date {
     font-size: 1rem;
   }
@@ -147,6 +148,9 @@
 .createreview {
   &__goback {
     position: absolute;
+    border-radius: 2px;
+    border: 1px solid $color3;
+    padding: 1px 4px;
     top: 0;
     right: 0;
     margin: 2rem;

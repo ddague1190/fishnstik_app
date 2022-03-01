@@ -12,7 +12,10 @@
     &__textarea {
         width: 100%;
         height: 5rem;   
+    }
 
+    @media only screen and (max-width: 400px) {
+    @include flexCenter(column);
     }
 
 }
