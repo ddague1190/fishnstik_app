@@ -1,9 +1,10 @@
-<svg className={styled.wrapper__waveysurface} id="svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 2978 608.45">
+<svg className={styled.wrapper__waveysurface} id="svg" preserveAspectRatio="xMidYMid slice" viewBox="100 0 2800 608.45">
   <defs>
     <style>
       #svg {
-        width: 100%;
-        height: 40vw;
+    width: 100%;
+    height: 40vw;
+    max-height: 20rem;
       }
 
       .cls-1 {
@@ -11,7 +12,7 @@
       }
     </style>
   </defs>
-  <g id="svg" data-name="Layer 2">
+  <g className={styled.wrapper__waveysurface} data-name="Layer 2">
     <g id="Layer_1-2" data-name="Layer 1">
       <g>
         <path class="cls-1"

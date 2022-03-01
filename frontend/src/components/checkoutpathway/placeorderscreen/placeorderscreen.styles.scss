@@ -29,7 +29,13 @@
         display: grid;
         padding: 2rem 5rem;
         grid-template-columns: 20rem 1fr;
-        align-items: center;
+        align-items: center;  
+
+        @media only screen and (max-width: 355px) {
+            @include flexCenter(column);
+        }
+        
+
     }
 
     &__ordersummarypanel {

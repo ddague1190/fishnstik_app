@@ -4,17 +4,18 @@ $info: #F8F4D5;
 $info-text: #887b05;
 $warn: #F8F4D5;
 $warn-text: #96722E;
-$error: #fcad95;
-$error-text: #dd0c05;
+$error: rgba($color1,.2);
+$error-text: $color1;
 $success: #DDF3D5;
 $success-text: #597151;
 
 .message-box{
 @include flexCenter(row);
+text-align: center;
   width: 30rem;
   border-radius: 4px;
   margin: 2rem auto;
-  padding: 1rem 0;
+  padding: 1rem;
   gap: 2rem;
   position: relative;
   text-overflow: ellipsis;
@@ -27,6 +28,10 @@ $success-text: #597151;
         opacity: .8;
       }
     }
+  }
+
+  &__container {
+    width: 100%;
   }
 }
 .message-text{

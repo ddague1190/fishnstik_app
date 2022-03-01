@@ -4,6 +4,8 @@ import { getFishSpecies } from "../../../redux/actions/promoActions";
 import { batch, useDispatch, useSelector } from "react-redux";
 import Figure from "../../utilities/figure/figure.component";
 import { ReactComponent as Logo } from "./fishwatchlogo.svg";
+import { ReactComponent as LookInside } from "./lookinside.svg";
+
 import {
   AnimatePresence,
   motion,
@@ -31,14 +33,6 @@ const Ellipsis = ({ title, text, className }) => {
   );
 };
 
-// const fishFactsVariants = {
-//   shrunk: {
-//     backgroundColor: 'red'
-//   },
-//   normal: {
-//   }
-// }
-
 const FishFact = () => {
   const dispatch = useDispatch();
   const [imageIndex, setImageIndex] = useState(0);
@@ -46,6 +40,8 @@ const FishFact = () => {
   const [expanded, setExpanded] = useState(false);
   const { loading, error, fish } = useSelector((state) => state.fishFact);
   const { width } = useSelector((state) => state.dimensions);
+  const [currentPic, setCurrentPic] = useState({});
+
   const animateWindow = useAnimation();
   const animateSpacer = useAnimation();
   const breakpoint = 500;
@@ -56,16 +52,27 @@ const FishFact = () => {
     dispatch(getFishSpecies(fishSpeciesIndex));
   }, []);
 
-  let images = String(fish.images).split(",");
+  useEffect(() => {
+    setCurrentPic({
+      pic: images[0],
+      index: 0,
+    });
+  }, [loading]);
 
-  const onNextClick = () => {
-    if (imageIndex === images.length - 1) {
-      setImageIndex(0);
-    } else setImageIndex(imageIndex + 1);
+  const images = String(fish.images).split(",");
+
+  const changePic = (index) => {
+    setCurrentPic({
+      pic: images[index],
+      index: index,
+    });
   };
 
   const nextSpeciesHandler = () => {
-    setImageIndex(0);
+    setCurrentPic({
+      pic: images[0],
+      index: 0,
+    });
     dispatch(getFishSpecies(fishSpeciesIndex + 1));
     setFishSpeciesIndex(fishSpeciesIndex + 1);
     if (fishSpeciesIndex > 110) {
@@ -74,36 +81,42 @@ const FishFact = () => {
   };
 
   const expandWindow = async (e) => {
-    e.preventDefault()
-    setExpanded(true)
+    e.preventDefault();
+    setExpanded(true);
     await animateWindow.start({
       scale: 1,
       x: 0,
     });
     await animateSpacer.start({
-      height: '120rem'
-    })
+      height: width<650 ? '140rem' : "120rem",
+    });
   };
 
   return (
-    <div className='fishfacts-section'>
-      <span className='fishfacts-window__title tab-group__tab--active'>
-        Fish facts
-      </span>
+    <div
+      className={`fishfacts-section ${
+        !expanded ? "" : "fishfacts-section--noAfter"
+      }`}
+      onClick={!expanded ? expandWindow : null}>
+      {!expanded && (
+        <div className='fishfacts__lookinside'>
+          <LookInside />
+          <h3>Learn more about various species</h3>
+        </div>
+      )}
       <motion.div
         className='fishfacts-window'
-        onClick={!expanded && expandWindow}
         initial={{ scale: 0.5, x: "-22vw" }}
         animate={animateWindow}
         transition={{ duration: 1 }}>
         <motion.div
           className='fishfacts-spacer'
-          initial={{ height: "80rem" }}
+          initial={{ height: "40rem" }}
           animate={animateSpacer}
           transition={{ duration: 1 }}></motion.div>
+
         <div className='fishfacts-container'>
           <>
-            <h1>Learn about different species</h1>
             {loading ? (
               <div className='fishfacts__spaceholder'></div>
             ) : (
@@ -117,7 +130,7 @@ const FishFact = () => {
                   <header className='fishfacts__header'>
                     <Logo />
                     <div
-                      onClick={expanded && nextSpeciesHandler}
+                      onClick={expanded ? nextSpeciesHandler : null}
                       className='fishfacts__next'>
                       <span className='fishfacts__next--1'>
                         Species {fishSpeciesIndex - 7} of 108
@@ -130,26 +143,33 @@ const FishFact = () => {
                   <div className='fishfacts__image-container'>
                     <Figure
                       animate
-                      image={
-                        images[imageIndex]
-                          ? images[imageIndex]
-                          : images[imageIndex + 1]
-                      }
+                      image={currentPic.pic}
                       height={
                         width > breakpoint
-                          ? "60rem"
+                          ? "47rem"
                           : width > breakpoint2
-                          ? "50rem"
+                          ? "45rem"
                           : "38rem"
                       }
                       disable={!expanded}
                     />
 
-                    <span
-                      className='fishfacts__image-right'
-                      onClick={expanded && onNextClick}>
-                      <i className='fa-solid fa-chevron-right'></i>
-                    </span>
+                    <div
+                      className='featured__image-selector fishfacts__image-selector'>
+                     {images.map((_, index) => {
+                        return (
+                          <div
+                            key={index}
+                            onClick={() => changePic(index)}
+                            className={
+                              index === currentPic.index
+                                ? "featured__image-selector-dot featured__image-selector-dot--active"
+                                : "featured__image-selector-dot"
+                            }
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
                   <div className='fishfacts__name'>
                     <h3>{fish["Species Name"]}</h3>

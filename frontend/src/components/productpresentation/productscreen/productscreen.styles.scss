@@ -144,6 +144,16 @@
   width: 80%;
 }
 
+.createreview {
+  &__goback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2rem;
+    cursor: pointer;
+  }
+}
+
 .showreviews {
   &__writebutton {
     position: absolute;

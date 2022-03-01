@@ -1,40 +1,71 @@
 .featured {
   position: relative;
-  z-index: 1;
-  background-image: linear-gradient(#8c9ac0, white 30%, white);
+  z-index: 10;
   width: 90%;
-  margin: 0 auto;
-  margin-bottom: 10rem;
-  height: 600px;
-  @include flexCenter(column);
+  margin: 2rem auto;
+  height: 80rem;
+  padding: 2rem;
+  background-color: darken(white, 2%);
+  @media only screen and (max-width: 600px) {
+    height: 100rem;
+}
   
-  &__chevron {
-    position: absolute;
-    z-index: 10000;
+
+  &__text {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    min-width: 20rem;
+  }
+
+  &__product-title {
+    font-size: 2.2rem;
+  }
+
+  &__product-description {
+    max-width: 50rem;
+  }
+  &__image-selector {
+    @include flexCenter(row);
+    gap: 5px;
+  }
+
+  &__image-selector-dot {
     cursor: pointer;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    &--active {
+      background-color: $color3;
+    }
+  }
+  &__images {
+    @include flexCenter(column);
+    gap: 10px;
+  }
+
+  &__svg {
+    position: absolute;
+    z-index: 1000;
+  }
+  &__title {
+    font-size: 2rem;
   }
 
   &__title {
     color: $color3;
     font-size: 2.2rem;
-    width: 100% !important;
-    padding: 5px 10px;
-  
-  }
-  &__svg {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    height: 600px;
-    z-index: -100;
   }
 
   &__product {
-    position: absolute;
-    left: 0;
-    bottom: 0;
     width: 100%;
-    height: 30rem;
-    background-color: darken(white, 2%);
+    margin-block: 2rem;
+    @include flexCenter(row);
+    gap: 2rem;
+
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+  }
   }
 }

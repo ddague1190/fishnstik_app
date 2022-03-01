@@ -148,7 +148,12 @@ const ProductScreen = () => {
                     ) : (
                       <div className='createreview'>
                         <h3>Write a review</h3>
-
+                        <span className='createreview__goback' 
+                        onClick={()=>setWriteReview(false)}>
+                          <i
+                            className='fa fa-arrow-left'
+                            aria-hidden='true'></i>
+                        </span>
                         {userInfo ? (
                           <WriteReview setWriteReview={setWriteReview} />
                         ) : (
@@ -180,12 +185,11 @@ const ProductScreen = () => {
             <HorizontalProductScreenBanner className='productscreen__recommended' />
           )}
 
-        {product.numVariants > 1 &&
-
-          <div className='productscreen__variants'>
-            <div className='productscreen__variants-title'>
-              <span>Options available for this product</span>
-            </div>
+          {product.numVariants > 1 && (
+            <div className='productscreen__variants'>
+              <div className='productscreen__variants-title'>
+                <span>Options available for this product</span>
+              </div>
               {product.variants.map((variant, index) => {
                 return (
                   <PreCartItem
@@ -195,8 +199,8 @@ const ProductScreen = () => {
                   />
                 );
               })}
-          </div>
-}
+            </div>
+          )}
         </>
       )}
     </div>

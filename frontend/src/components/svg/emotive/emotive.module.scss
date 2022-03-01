@@ -1,31 +1,58 @@
 .wrapper {
-  padding-top: 2rem;
   width: 90%;
   position: relative;
   margin: 0 auto;
 
   &__wavysurface {
     overflow: hidden;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     stroke: $color3;
     opacity: 0.3;
+    width: 100%;
+    background-color: rgba($color5, 0.8);
+    z-index: -2;
   }
 
-  &__spacer {
+  &__underwater {
     position: absolute;
-    bottom: 0;
+    bottom: -100px;
     left: 0;
     background-image: linear-gradient(white, #8c9ac0);
     width: 100%;
-    height: 12vw;
+    height: 20rem;
+    z-index: -1;
+  }
+
+
+  &__spacer2 {
+    width: 100%;
+    height: 40vw;
+    max-height: 20rem;
+  }
+}
+
+.shore {
+  z-index: -1;
+  position: relative;
+  background-image: linear-gradient(translucent 30%, white);
+  width: 100%;
+  margin: 0 auto;
+  height: 40vw;
+  max-height: 60rem;
+  &__svg {
+    position: absolute;
+    right: 0;
+    stroke: red;
+    stroke-width: 3px;
+    bottom: 0;
+    height: 200px;
     z-index: -100;
   }
 }
 
 .container {
-
   overflow: hidden;
   position: absolute;
   margin: 0 auto;
@@ -34,19 +61,13 @@
   width: 80%;
   min-width: 300px;
   height: 40vw;
-  max-height: 60rem;
+  max-height: 20rem;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   background-size: cover;
   border-radius: 4px;
-}
-
-.inview {
-  width: 100%;
-  height: 200rem;
-  margin: 0 auto;
 }
 
 .title {
@@ -59,13 +80,11 @@
 
 .svg {
   margin: 0 auto;
-  position: absolute;
   width: 90%;
   max-width: 60rem;
-
   height: 100%;
-  z-index: 100;
-  top: 0;
+  z-index: 10000;
+  top: 0rem;
   left: 50%;
   transform: translateX(-50%);
 }

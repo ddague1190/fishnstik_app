@@ -20,8 +20,7 @@ const AddressForm = ({toggleAddressForm}) => {
 
     const {name, address, apartment, city, state, postalCode, phone} = formData;
 
-    const submitHandler = (e) => {
-        e.preventDefault()
+    const submitHandler = () => {
         dispatch(saveShippingAddress({name, address, apartment, city, state, postalCode, phone}))
         navigate('/payment')
     }
@@ -29,9 +28,9 @@ const AddressForm = ({toggleAddressForm}) => {
     return (
     <div className='shippingscreen__addressform'>
         <form className='addaddressform' onSubmit={submitHandler}>
-            <div class='input-control addaddressform__name'>
+            <div className='input-control addaddressform__name'>
                 <input 
-                    class='input-control__input'
+                    className='input-control__input'
                     id='name'
                     name='name'
                     required
@@ -40,14 +39,14 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.name}
                     onChange={setFormData}
                 />
-                <label htmlFor='name' class='input-control__label'>
+                <label htmlFor='name' className='input-control__label'>
                     Name
                 </label>
             </div> 
 
-            <div class='input-control addaddressform__address'>
+            <div className='input-control addaddressform__address'>
                 <input 
-                    class='input-control__input'
+                    className='input-control__input'
                     id='address'
                     name='address'
                     required
@@ -56,14 +55,14 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.address}
                     onChange={setFormData}
                 />
-                <label htmlFor='address' class='input-control__label'>
+                <label htmlFor='address' className='input-control__label'>
                     Street Address
                 </label>
             </div> 
 
-            <div class='input-control addaddressform__apartment'>
+            <div className='input-control addaddressform__apartment'>
                 <input 
-                    class='input-control__input'
+                    className='input-control__input'
                     id='apartment'
                     name='apartment'
                     type='text'
@@ -71,14 +70,14 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.apartment}
                     onChange={setFormData}
                 />
-                <label htmlFor='apartment' class='input-control__label'>
+                <label htmlFor='apartment' className='input-control__label'>
                     Apartment
                 </label>
             </div>
 
-            <div class='input-control addaddressform__city'>
+            <div className='input-control addaddressform__city'>
                 <input 
-                    class='input-control__input'
+                    className='input-control__input'
                     id='city'
                     name='city'
                     required
@@ -87,30 +86,30 @@ const AddressForm = ({toggleAddressForm}) => {
                     value= {formData.city}
                     onChange={setFormData}
                 />
-                <label htmlFor='city' class='input-control__label'>
+                <label htmlFor='city' className='input-control__label'>
                     City
                 </label>
             </div>
 
-            <div class='input-control addaddressform__state'>
+            <div className='input-control addaddressform__state'>
                 <input 
-                    class='input-control__input'
+                    className='input-control__input'
                     id='state'
                     name='state'
                     required
                     type='text'
-                    placeholder='Enter city'
-                    value= {formData.city}
+                    placeholder='Enter state'
+                    value= {formData.state}
                     onChange={setFormData}
                 />
-                <label htmlFor='state' class='input-control__label'>
+                <label htmlFor='state' className='input-control__label'>
                     State
                 </label>
             </div>
 
-            <div class='input-control addaddressform__postalCode'>
+            <div className='input-control addaddressform__postalCode'>
                 <input 
-                    class='input-control__input'
+                    className='input-control__input'
                     id='postalcode'
                     name='postalCode'
                     required
@@ -119,14 +118,14 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.postalCode}
                     onChange={setFormData}
                 />
-                <label htmlFor='postalcode' class='input-control__label'>
+                <label htmlFor='postalcode' className='input-control__label'>
                     Zip
                 </label>
             </div>
 
-            <div class='input-control addaddressform__phone'>
+            <div className='input-control addaddressform__phone'>
                 <input 
-                    class='input-control__input'
+                    className='input-control__input'
                     id='phone'
                     name='phone'
                     type='text'
@@ -134,14 +133,14 @@ const AddressForm = ({toggleAddressForm}) => {
                     value={formData.phone}
                     onChange={setFormData}
                 />
-                <label htmlFor='phone' class='input-control__label'>
+                <label htmlFor='phone' className='input-control__label'>
                     Phone
                 </label>
             </div>
             
         </form>
         <div className='shippingscreen__buttonwrapper u-margin-top-medium'>
-            <button className='btn--main' type='submit' variant='primary'>
+            <button onClick={submitHandler} className='btn--main' type='submit' variant='primary'>
                 Continue 
             </button>
 

@@ -126,7 +126,7 @@ const Dropdown = ({ showMobileNav, toggleMobileNav, menuButtonRef }) => {
 
             <div className='nav-item__link' to='/' onClick={onLogoutClick}>
               <span>Logout</span>
-              <i class='fas fa-sign-out-alt'></i>
+              <i className='fas fa-sign-out-alt'></i>
             </div>
           </>
         ) : (

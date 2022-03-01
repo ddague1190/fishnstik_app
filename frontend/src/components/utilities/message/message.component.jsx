@@ -12,7 +12,7 @@ const Message = ({children, variant}) => {
         //   type = "info";
         //   break;
       }
-  return <div>
+  return <div className='message-box__container'>
     {showMessage && 
         <div className={`message-box message-box-${type}`}>
             <i className="fa fa-info-circle fa-2x"></i>

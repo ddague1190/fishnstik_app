@@ -1,12 +1,15 @@
 .loader {
+    @include flexCenter(column);
     height: 100%;
     width: 100vw;
     max-width: 50rem;
+    margin: 0 auto;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 100;
+    z-index: 10000;
+    background-color: transparent;
     &__text {
         position: absolute;
         font-size: 5rem;

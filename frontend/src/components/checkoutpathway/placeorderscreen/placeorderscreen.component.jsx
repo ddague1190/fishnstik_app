@@ -85,7 +85,7 @@ const PlaceOrderScreen = () => {
             <Message variant='info'>Your cart is empty</Message>
           ) : (
             <div className='cartitems-container'>
-              <h2 className=''>Items in this order</h2>
+              <h2 className='cartitems-container__title'>Items in this order</h2>
               {cart.cartItems.map((item, index) => (
                 <CartItem key={index} item={item} />
               ))}

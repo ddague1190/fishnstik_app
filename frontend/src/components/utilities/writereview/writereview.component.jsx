@@ -17,7 +17,7 @@ const WriteReview = ({setWriteReview}) => {
     const [comment, setComment] = useState('');
     const dispatch = useDispatch();
     const productReviewCreate = useSelector(state => state.productReviewCreate);
-    let { loading:loadingProductReview, error:errorProductReview, success:successProductReview } = productReviewCreate;
+    let { loading, error, success} = productReviewCreate;
     const productId = useParams();
 
     const submitHandler = (e) => {
@@ -26,25 +26,27 @@ const WriteReview = ({setWriteReview}) => {
     }
     
     useEffect(() => {
-        if (errorProductReview?.includes('token not valid')) {
+        if (error?.includes('token not valid')) {
             dispatch(logout());
         } 
-        if(successProductReview) {
+        if(error) {
+            console.log(error)
+        }
+        if(success) {
+            console.log('hi')
             setRating(0);
             setComment('');
             setWriteReview(false);
             dispatch({type: PRODUCT_CREATE_REVIEW_RESET});
         }
-        return(()=>setWriteReview(false))
-
-    }, [dispatch, successProductReview, errorProductReview]);
+    }, [dispatch, success, error]);
 
 
     return(
         <>
-        {loadingProductReview && <Loader />}
-        {successProductReview && <Message variant='success'>Review Submitted</Message>}
-        {errorProductReview && <Message variant='danger'>{errorProductReview}</Message>}
+        {loading && <Loader />}
+        {success && <Message variant='success'>Review Submitted</Message>}
+        {error && <Message variant='danger'>{error}</Message>}
     
             <form className='writereview' onSubmit={submitHandler}>
                     <span className='u-font-weight-light'>Select a rating</span>
@@ -66,7 +68,7 @@ const WriteReview = ({setWriteReview}) => {
                     onChange={(e)=> setComment(e.target.value)}
                     />    
                     <button
-                        disabled={loadingProductReview}
+                        disabled={loading}
                         type='submit'
                         className='btn--main'
                     >

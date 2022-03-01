@@ -31,7 +31,7 @@ const Modal = ({ image, toggleShow, alt }) => {
   );
 };
 
-const Figure = ({ animate, icon, height, image, alt, disable }) => {
+const Figure = ({ className, animate, icon, height, image, alt, disable, children }) => {
   const [showModal, setShowModal] = useState(false);
   const toggleShow = () => {
     setShowModal(!showModal);
@@ -42,7 +42,7 @@ const Figure = ({ animate, icon, height, image, alt, disable }) => {
       <div
         onClick={toggleShow}
         style={{ width: height, height: height }}
-        className='figure'>
+        className={`figure ${className}`}>
         {!icon ? (
           <AnimatePresence exitBeforeEnter>
             <motion.img
@@ -60,6 +60,7 @@ const Figure = ({ animate, icon, height, image, alt, disable }) => {
             <i className='fas fa-camera'></i>
           </span>
         )}
+        {children}
       </div>
       {!disable && showModal && (
         <Modal image={image} toggleShow={toggleShow} alt={alt} />
