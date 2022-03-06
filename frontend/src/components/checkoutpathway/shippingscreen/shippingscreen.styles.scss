@@ -1,4 +1,8 @@
 .shippingscreen {
+
+    &__optionbutton {
+        cursor: pointer;
+    }
     
     &__oldaddressform {
         @include flexCenter(column);

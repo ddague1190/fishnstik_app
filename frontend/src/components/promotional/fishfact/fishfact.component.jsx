@@ -35,7 +35,6 @@ const Ellipsis = ({ title, text, className }) => {
 
 const FishFact = () => {
   const dispatch = useDispatch();
-  const [imageIndex, setImageIndex] = useState(0);
   const [fishSpeciesIndex, setFishSpeciesIndex] = useState(8);
   const [expanded, setExpanded] = useState(false);
   const { loading, error, fish } = useSelector((state) => state.fishFact);

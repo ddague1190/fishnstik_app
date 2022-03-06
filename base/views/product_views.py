@@ -42,7 +42,7 @@ def getProducts(request, category='', subcategory=''):
     
     page = int(page)
 
-    serializer = product_serializers.ProductSerializer(products, many=True)
+    serializer = product_serializers.BasicProductInfoSerializer(products, many=True)
     return Response({
         'products': serializer.data,
         'page': page,

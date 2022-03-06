@@ -4,38 +4,37 @@
     grid-template-columns: 1rem minmax(15rem, 3fr) minmax(25rem, 2fr) 1rem;
     justify-content: center;
     justify-items: center;
-    grid-template-areas: 
-    '. pp osp .'
+    grid-template-areas:
+        ". pp osp ."
+        ". cip cip .";
 
-    '. cip cip .'
-    
-    ;
-
-   &__address {
-       margin: 0;
-       padding: 0;
-   }
-  
+    &__address {
+        margin: 0;
+        padding: 0;
+        &--centered li {
+            text-align: center;
+            margin: 0 auto;
+            transform: translateY(-25px);
+        }
+    }
 
     &__paramspanel {
         border-radius: 10px;
         grid-area: pp;
         width: 100%;
         max-width: 80rem;
-
     }
 
     &__paramspanel-content {
         display: grid;
         padding: 2rem 5rem;
         grid-template-columns: 20rem 1fr;
-        align-items: center;  
+        align-items: center;
 
         @media only screen and (max-width: 355px) {
             @include flexCenter(column);
+            gap: 10px;
         }
-        
-
     }
 
     &__ordersummarypanel {
@@ -45,7 +44,6 @@
         grid-area: osp;
         font-size: 2rem;
         @include flexCenter(column);
-
     }
 
     &__cartitemspanel {
@@ -68,22 +66,18 @@
     grid-template-columns: max-content max-content;
 
     &__title {
-        font-family: 'Fisherman';
-        font-size: 3rem;
+        font-family: $font-family-title;
+        font-size: 2.6rem;
         color: $color3;
         z-index: 5;
     }
-
 }
-
-
 
 @media only screen and (max-width: 800px) {
     .placeorderscreen {
-        grid-template-areas: 
-        '. pp pp .'
-        '. cip cip .'
-        '. osp osp .'
-        ;    
+        grid-template-areas:
+            ". pp pp ."
+            ". cip cip ."
+            ". osp osp .";
     }
-  }
+}

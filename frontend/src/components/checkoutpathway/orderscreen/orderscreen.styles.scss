@@ -3,10 +3,18 @@
     grid-template-columns: minmax(1rem, 1fr) minmax(40rem, 3fr) minmax(25rem, 2fr) minmax(1rem, 1fr);
     grid-template-rows: 1fr 1fr 1fr;
     justify-content: center;
+    gap: 2rem;
     justify-items: center;
-    grid-template-areas: 
-    '. p os .'
-    '. oi oi .';
+    grid-template-areas:
+        ". p os ."
+        ". oi oi .";
+
+    @media only screen and (max-width: 600px) {
+    grid-template-areas:
+        ". p p ."
+        " . os os ."
+        ". oi oi .";
+    }
 
     &__params {
         grid-area: p;
@@ -25,21 +33,32 @@
     }
 
     &__ordersummary {
-                padding: 2rem 5rem;
-
+        padding: 2rem 5rem;
         min-width: 20rem;
         grid-area: os;
         @include flexCenter(column);
     }
 }
 
+.orderitems-table {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    grid-template-columns: minmax(20rem, 30rem) 10rem 10rem;
+    gap: 1rem;
 
-@media only screen and (max-width: 800px) {
-    // .orderscreen {
-    //     grid-template-areas: 
-    //     '. pp pp .'
-    //     '. cip cip .'
-    //     '. osp osp .'
-    //     ;    
-    // }
-  }
+    &__product {
+        & span {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        & p {
+            text-align: left;
+
+            font-size: 1.6rem;
+        }
+    }
+}

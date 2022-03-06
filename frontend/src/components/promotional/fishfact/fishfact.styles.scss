@@ -1,11 +1,9 @@
-
-
 .fishfacts-section {
     position: relative;
 
     &::after {
         position: absolute;
-        content: '';
+        content: "";
         top: 0;
         left: 0;
         height: 100%;
@@ -14,12 +12,10 @@
         z-index: 1000;
     }
     &--noAfter {
-
         &::after {
             display: none;
         }
     }
-
 }
 
 .fishfacts-window {
@@ -34,14 +30,7 @@
         text-align: center;
         color: $color3;
     }
-    &__lookinside {
-        width: 5rem;
-        height: 5rem;
-        position: absolute; 
-        top: -10rem; 
-        right: -10rem;
-        z-index: 100;
-    }
+
 }
 
 .fishfacts-container {
@@ -50,7 +39,6 @@
     left: 0;
     width: 100%;
     z-index: 100;
-
 }
 
 .fishfacts-spacer {
@@ -109,14 +97,17 @@
         @include flexCenter(row);
         gap: 1rem;
         & h3 {
-            width: 10rem;
+            width: 15rem;
+            color: $color3;
+            font-family: $font-family-title;
         }
         & svg {
             width: 12rem;
             height: 12rem;
         }
-    
-   
+        @media only screen and (max-width: 400px) {
+            transform: translateX(-50px);
+        }
     }
 
     &__spaceholder {
@@ -163,7 +154,6 @@
     &__image-selector {
         margin-top: 10px;
     }
-
 
     &__name {
         text-align: center;
@@ -231,32 +221,3 @@
     }
 }
 
-
-
-// bottom: 0%;
-// @include flexCenter(row);
-// background-color: white;
-// user-select: none;
-// cursor: pointer;
-// font-size: 3rem;
-// left: 50%;
-// position: absolute;
-// z-index: 5;
-// text-align: center;
-// color: $color1;
-// padding: 1rem;
-// border: 1px solid $color3;
-// height: 5rem;
-// width: 5rem;
-// border-radius: 50%;
-// transform: translateX(-50%);
-// transition: all 0.5s;
-
-// &:hover {
-//     border: 2px solid $color3;
-//     color: black;
-// }
-// &:active {
-//     background-color: black;
-//     color: white;
-// }

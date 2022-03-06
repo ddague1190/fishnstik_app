@@ -4,22 +4,24 @@
   width: 90%;
   margin: 2rem auto;
   height: 80rem;
-  padding: 2rem;
-  background-color: darken(white, 2%);
+  padding: 1rem;
   @media only screen and (max-width: 600px) {
-    height: 100rem;
+    height: 110rem;
 }
   
 
   &__text {
     display: flex;
-    gap: 2rem;
+    gap: 4rem;
+    align-items: center;
     flex-direction: column;
     min-width: 20rem;
   }
 
   &__product-title {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
+    color: $color3;
+    font-family: $font-family-title;
   }
 
   &__product-description {
@@ -27,7 +29,7 @@
   }
   &__image-selector {
     @include flexCenter(row);
-    gap: 5px;
+    gap: 2rem;
   }
 
   &__image-selector-dot {
@@ -36,8 +38,10 @@
     width: 1.5rem;
     border-radius: 50%;
     border: 1px solid black;
+    transition: all .2s;
     &--active {
       background-color: $color3;
+      transform: scale(1.2);
     }
   }
   &__images {
@@ -50,16 +54,19 @@
     z-index: 1000;
   }
   &__title {
-    font-size: 2rem;
+    font-size: 3rem;
+    font-family: $font-family-title;
+    text-align: center;
   }
 
   &__title {
     color: $color3;
-    font-size: 2.2rem;
   }
 
   &__product {
+    padding: 1rem;
     width: 100%;
+    background-color: white;
     margin-block: 2rem;
     @include flexCenter(row);
     gap: 2rem;

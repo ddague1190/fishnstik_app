@@ -62,7 +62,7 @@ const LoginScreen = () => {
           <form className='u-center-text' onSubmit={submitHandler}>
             <div className='input-control'>
               <input
-                class='input-control__input'
+                className='input-control__input'
                 id='username'
                 required
                 type='username'
@@ -70,14 +70,14 @@ const LoginScreen = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-              <label htmlFor='username' class='input-control__label'>
+              <label htmlFor='username' className='input-control__label'>
                 Username
               </label>
             </div>
 
-            <div class='input-control'>
+            <div className='input-control'>
               <input
-                class='input-control__input'
+                className='input-control__input'
                 id='password'
                 required
                 type='password'
@@ -85,7 +85,7 @@ const LoginScreen = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label htmlFor='password' class='input-control__label'>
+              <label htmlFor='password' className='input-control__label'>
                 Password
               </label>
             </div>
@@ -113,9 +113,9 @@ const LoginScreen = () => {
           </h5>
 
           <form onSubmit={submitOTP}>
-            <div class='input-control'>
+            <div className='input-control'>
               <input
-                class='input-control__input'
+                className='input-control__input'
                 id='password'
                 required
                 type='name'
@@ -123,7 +123,7 @@ const LoginScreen = () => {
                 value={OTP}
                 onChange={(e) => setOTP(e.target.value)}
               />
-              <label htmlFor='password' class='input-control__label'>
+              <label htmlFor='password' className='input-control__label'>
                 Password
               </label>
             </div>

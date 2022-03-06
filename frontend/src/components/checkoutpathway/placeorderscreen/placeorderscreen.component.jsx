@@ -9,11 +9,10 @@ import { ORDER_CREATE_RESET } from "../../../redux/constants/orderConstants";
 import AddressBox from "../../utilities/addressbox/addressbox.component";
 import CartItem from "../cartitem/cartitem.component";
 import "./placeorderscreen.styles.scss";
-import { motion } from "framer-motion";
-import { pageVariants } from "../../../utils/variants";
 
 const PlaceOrderScreen = () => {
   const orderCreate = useSelector((state) => state.orderCreate);
+  const { width } = useSelector((state) => state.dimensions);
   let { order, error, success } = orderCreate;
   const [instructions, setInstructions] = useState("");
   const dispatch = useDispatch();
@@ -34,8 +33,6 @@ const PlaceOrderScreen = () => {
     Number(cart.taxPrice) +
     Number(cart.shippingPrice)
   ).toFixed(2);
-
-  console.log(cart.shippingAddress);
 
   useEffect(() => {
     if (!cart.shippingAddress) {
@@ -73,10 +70,12 @@ const PlaceOrderScreen = () => {
           <div className='placeorderscreen__paramspanel-content'>
             <h3>Shipping to:</h3>
             <AddressBox
-              className='placeorderscreen__address'
+              className={`placeorderscreen__address ${
+                width < 355 ? "placeorderscreen__address--centered" : ""
+              }`}
               input={cart.shippingAddress}
             />
-            <h3>Payment Method</h3>
+            <h3>Payment Method:</h3>
             <p>{cart.paymentMethod}</p>
           </div>
         </div>
@@ -85,7 +84,9 @@ const PlaceOrderScreen = () => {
             <Message variant='info'>Your cart is empty</Message>
           ) : (
             <div className='cartitems-container'>
-              <h2 className='cartitems-container__title'>Items in this order</h2>
+              <h2 className='cartitems-container__title'>
+                Items in this order
+              </h2>
               {cart.cartItems.map((item, index) => (
                 <CartItem key={index} item={item} />
               ))}

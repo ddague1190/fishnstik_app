@@ -13,7 +13,8 @@ const featuredProducts = {
     "https://fishnwirepictures.s3.amazonaws.com/matolures.jpeg",
   ],
   title: 'FishNStik Dolphin Snaps',
-  description: 'The finest tournament snaps. Handmade in West Palm Beach, FL.'
+  description: 'The finest tournament snaps. Handmade in West Palm Beach, FL.',
+  to: '/product/40'
 },
 mato_lures: {
   pics: 
@@ -23,12 +24,13 @@ mato_lures: {
   "https://fishnwirepictures.s3.amazonaws.com/matolures.jpeg",
 ],
 title: 'Mato Lures - Small',
-description: 'Handcrafted from fine materials, each one is unique. Let us know if you catch more fish with these. We certaintly have.'
+description: 'Handcrafted from fine materials, each one is unique. Let us know if you catch more fish with these. We certaintly have.',
+to: '/product/40'
 }
 
 };
 
-const Product = ({product: {pics, title, description}}) => {
+const Product = ({product: {pics, title, description, to}}) => {
   const [currentPic, setCurrentPic] = useState({ pic: pics[0], index: 0 });
 
   const changePic = (index) => {
@@ -48,7 +50,7 @@ const Product = ({product: {pics, title, description}}) => {
               key={index}
               onClick={() => changePic(index)}
               className={
-                index === currentPic.index
+                index === currentPic.index   
                   ? "featured__image-selector-dot featured__image-selector-dot--active"
                   : "featured__image-selector-dot"
               }
@@ -58,7 +60,7 @@ const Product = ({product: {pics, title, description}}) => {
       </div>
     </div>
     <div className='featured__text'>
-      <Link to='/product/40'>
+      <Link to={to}>
         <h3 className='featured__product-title'>{title}</h3>
       </Link>
       <p className='featured__product-description'>
@@ -75,7 +77,7 @@ const Featured = () => {
 
   return (
     <div className='featured'>
-      <h3 className='featured__title'>Featured products</h3>
+      <h1 className='featured__title'>Featured products</h1>
       <Product product={featuredProducts['dolphin_snaps']} />
       <Product product={featuredProducts['mato_lures']} />
 

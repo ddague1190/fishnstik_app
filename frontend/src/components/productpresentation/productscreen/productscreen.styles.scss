@@ -91,9 +91,7 @@
     position: relative;
     &--one-variant {
       grid-area: var;
-      box-shadow: 0 1px 1px black;
       border-collapse: collapse;
-      border-radius: 3px;
       margin-top: 5px
     }
   }

@@ -1,5 +1,5 @@
 .footer {
-  background-color: whitesmoke;
+  background-color: darken(white, 2%);
   width: 100%;
   color: black;
   padding: 1rem;
@@ -7,7 +7,7 @@
   overflow: hidden;
   line-height: 2.5rem;
   z-index: 3;
-  
+
   &__image {
     top: 50%;
     left: 50%;
@@ -16,10 +16,11 @@
     width: 60%;
     min-width: 70rem;
     gap: 1rem;
-    fill: rgba($color2, .5);
-    stroke: rgba($color6, .1);
+    fill: rgba($color2, 0.4);
+    stroke: rgba($color6, 0.01);
+    z-index: -1;
   }
-  
+
   &__copyright {
     text-align: center;
   }
@@ -42,7 +43,6 @@
 }
 
 .footer-info {
-
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
@@ -87,5 +87,4 @@
   &__link {
     margin-left: 2rem;
   }
-  
 }

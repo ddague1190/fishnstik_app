@@ -2,7 +2,6 @@ import "./frontpagebanner.styles.scss";
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useCycle, useAnimation, AnimatePresence } from "framer-motion";
 import { ReactComponent as SwivelSnap } from "./svg_helpers/swivelsnap.svg";
-import RodSVG from "./RodSVG";
 import Waves from "./Waves";
 import Game2 from "../game/game2.component";
 import {
@@ -23,7 +22,7 @@ const titleToGone = (i) => ({
   opacity: 0,
   transition: {
     delay: i * 0.1,
-    duration: 1,
+    duration: 3,
   },
 });
 
@@ -64,25 +63,13 @@ const Banner = () => {
     animateBanner.start("shrunk");
     animateSpacer.start("shrunk");
     animateSwivelSnap.start("show");
-    // await animateSlogan.start("visible");
-    // await animateSlogan.start({
-    //   height: "95%",
-    //   duration: 500,
-    // });
-    // await setInterval(() => {
-    //   setShowEmotive(true);
-    // }, 500);
-    // await setInterval(()=> {
-    //   setHideFrontPageSVG(true)
-    //   animateBanner.start("shrunk");
-    // }, 5000)
   };
 
   useEffect(() => {
     animate();
   }, []);
 
-  const title = "Win a free trial pack";
+  const title = "Win a free sample pack";
   const slogan = "What do you have at the end of your reel?";
 
   return (
@@ -116,11 +103,12 @@ const Banner = () => {
 
         <Waves />
 
-        <RodSVG castRod={castRod} />
-
         <div className='invitation__container'>
           <motion.div
-            onClick={toggleShowGame}
+            onClick={() => {
+              if (!showGame) toggleShowGame();
+              return;
+            }}
             initial='hidden'
             animate={animateSwivelSnap}
             variants={swivelSnapVariants}

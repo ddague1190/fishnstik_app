@@ -35,13 +35,18 @@ export const productListReducer = (state = {products:[]}, action) => {
     }
 }
 
-export const productDetailsReducer = (state = {product: {reviews: [], variants: []}}, action) => {
+export const productDetailsReducer = (state = {product: {reviews: [], variants: [], images: []}}, action) => {
     switch(action.type){
         case PRODUCT_DETAILS_REQUEST:
             return {loading:true, product: {}}
 
-        case PRODUCT_DETAILS_SUCCESS:
-            return {loading:false, product: action.payload}
+        case PRODUCT_DETAILS_SUCCESS: 
+            let product = action.payload
+            const imageList = product.images.map((image, index)=> {
+                return image.image
+            })  
+            product = {...product, images: imageList}
+            return {loading:false, product: product}
 
         case PRODUCT_DETAILS_FAIL:
             return {loading:false, error: action.payload}

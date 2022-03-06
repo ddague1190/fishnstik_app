@@ -1,0 +1,22 @@
+.homescreen {
+    &__intro {
+        width: 90%;
+        margin: 0 auto;
+        text-transform: none;
+        margin-block: 10rem;
+        @include flexCenter(column);
+        gap: 2rem;
+
+        & h1 {
+            font-family: $font-family-title;
+            max-width: 90%;
+            font-size: 3rem;
+        }
+
+        & h2 {
+            text-transform: none;
+
+        }
+
+    }
+}

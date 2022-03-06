@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { motion, useCycle, useMotionValue } from "framer-motion";
 import styled from "./game.module.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import useForceUpdate from "../../../utils/forceUpdate";
-
 
 const Game2 = ({ toggleShowGame }) => {
   // state
@@ -12,11 +11,14 @@ const Game2 = ({ toggleShowGame }) => {
   const { width } = useSelector((state) => state.dimensions);
   const [setpoint, setSetpoint] = useState(124);
   const [boxCenterPoint, setBoxCenterPoint] = useState({});
+  const [gameWon, setGameWon] = useState(false);
+  const [indicator, levelUp] = useCycle(75, 50, 25, 1, -25, -25);
 
   //framer variables
   const framerSetpoint = useMotionValue(setpoint);
   const framerRPM = useMotionValue(0);
   const framerDeg = useMotionValue(0);
+  const stage = useMotionValue(0);
 
   //ref
   const progressCircle = useRef();
@@ -31,8 +33,8 @@ const Game2 = ({ toggleShowGame }) => {
   };
 
   useEffect(() => {
+    document.body.addEventListener("scroll", forceUpdate());
     document.body.addEventListener("click", closeGame, false);
-
     const { left, top, width, height } =
       crankRef.current.getBoundingClientRect();
     // get the current center point
@@ -58,37 +60,35 @@ const Game2 = ({ toggleShowGame }) => {
     }
   };
 
+  const gameCompletionCheck = (RPM, tf) => {
+    if (stage.get() === 3) {
+      levelUp()
+      setTimeout(() => {
+        setGameWon(true);
+      }, 1000);
+    }
+    if (RPM < 70 && RPM > 50) {
+      levelUp()
+      stage.set(stage.get() + 1);
+    } else {
+      stage.set(0);
+    }
+  };
+
   const timingFunction = (revolutions) => {
     const t0 = Date.now();
     const deg0 = framerDeg.get();
 
     setTimeout(() => {
-      const dt = Date.now() - t0;
+      const tf = Date.now();
+      const dt = tf - t0;
       const dDeg = framerDeg.get() - deg0;
       const RPM = ((dDeg / dt) * 60 * 1000) / 360;
+      gameCompletionCheck(RPM, tf);
       //2.06 correction factor for SVG gauge
       framerRPM.set(RPM > 120 ? 250 : RPM > 0 ? RPM * 2.06 : 0);
     }, 1000);
   };
-
-  //   const autonomousRotate = (speed) => {
-  //     let count = 0;
-  //     let revolutions;
-  //     let prevDeg;
-  //     let newDeg = 0;
-  //     setInterval(() => {
-  //       prevDeg = newDeg;
-  //       newDeg = (newDeg + speed) % 360;
-  //       if (newDeg < prevDeg) {
-  //         revolutions += 1;
-  //       }
-  //       crankRef.current.style.transform = `rotate(${newDeg}deg)`;
-  //     }, 80);
-
-  //     setInterval(() => {
-  //       timingFunction(revolutions);
-  //     }, 2000);
-  //   };
 
   const getDegrees = (mouseX, mouseY) => {
     const radians = Math.atan2(
@@ -100,7 +100,6 @@ const Game2 = ({ toggleShowGame }) => {
   };
 
   const mouseUpHandler = () => {
-    console.log("mouseup");
     gameRef.current?.removeEventListener("mousemove", mouseMoveHandler, false);
     // setBoxCenterPoint(0)
     framerDeg.set(0);
@@ -109,17 +108,16 @@ const Game2 = ({ toggleShowGame }) => {
   };
 
   const mouseDownHandler = (e) => {
-    console.log("mousedown");
     const clickDegrees = getDegrees(e.pageX, e.pageY);
     gameRef.current.addEventListener("mousemove", mouseMoveHandler, false);
     gameRef.current.clickDegrees = clickDegrees;
+    let stage = 0;
     setInterval(() => {
       timingFunction();
     }, 1500);
   };
 
   const mouseMoveHandler = (e) => {
-    console.log("mousemove");
     let previousDegree = getCurrentRotation();
     let degrees = getDegrees(e.pageX, e.pageY) - e.currentTarget.clickDegrees;
     if (degrees < 0) degrees = degrees + 360;
@@ -161,6 +159,7 @@ const Game2 = ({ toggleShowGame }) => {
           </g>
         </g>
       </svg>
+      {!gameWon ? ( <>  
       <div
         onMouseDown={mouseDownHandler}
         ref={crankRef}
@@ -168,7 +167,7 @@ const Game2 = ({ toggleShowGame }) => {
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 478.25 500.85'>
           <g id='crank__Layer_2' data-name='Layer 2'>
             <g id='crank__Layer_1-2' data-name='Layer 1'>
-              <path 
+              <path
                 className={styled.crank__cls1}
                 d='M130.3 96.44l24.34-16c15.08 31.72 57.62 14.27 49.83-18.24l28.93-3.33c-.63 34 44.74 40.27 52.08 6.81a157.8 157.8 0 0127.12 10c-1.72 5.79-3.39 11.33-2.36 17.3a4.74 4.74 0 01-1.46 4.6q-19.47 19.68-38.9 39.42c-23.39 23.75-46.85 47.42-70.13 71.29-18.68 18.38-22.74 50.12-9.34 72.92 19 33.58 64.46 38.37 89.19 10.24q46.71-51 93.53-102c18.94-22.84 10.59-6.63 32.73-15.68q4.72 14.28 9.39 28.4c-29.75 7.72-28.52 50.87 2.19 55.35 3 .5 3.26.53 3 3.91-.75 8.84-1.25 17.72-3.31 26.37-31.21-6.58-46.35 34.62-17.06 52.53L384.71 366c-25.23-21.42-57.3 10.63-37.52 39.06L323 421.2c-13.93-30.26-55.72-17.15-50.12 17.29-3.25 1.71-23.77 4.14-28.72 3.34-.06-31.73-41.58-40.91-52.41-5.66l-27.16-10.09c14-28.39-20.52-57.35-44.53-29.71l-20.45-21.53c24.54-19.56 4.61-61.19-27.85-47.11l-9.44-28.52c31.75-7.6 27.28-55.13-5.78-55.47l3.26-29.87c31.15 6.49 47.52-34.31 18-52.57 5-8.46 10-17 15.13-25.81C118.39 157 150 124.71 130.3 96.44z'
               />
@@ -212,8 +211,7 @@ const Game2 = ({ toggleShowGame }) => {
           </g>
         </svg>
       </div>
-
-      <div className={styled.game__console}>
+         <div className={styled.game__console}>
         <div className={styled.game__instructions}>
           <h1>Reel console</h1>
           <h2>Rules</h2>
@@ -222,103 +220,173 @@ const Game2 = ({ toggleShowGame }) => {
               <h4>- Spin the crank to match speed to target speed</h4>
             </li>
             <li>
+              <h4>- Sorry, this machine only works clockwise</h4>
+            </li>
+            <li>
               <h4>- Hold until fish is caught</h4>
             </li>
           </ul>
         </div>
-        <div className={styled.gauges}>
-          <svg
-            className={styled.RPMgauge}
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 287.61 246.99'>
-            <defs>
-              <linearGradient
-                id='Orange_Yellow'
-                data-name='Orange, Yellow'
-                x1='58.27'
-                y1='82.25'
-                x2='125.36'
-                y2='82.25'
-                gradientUnits='userSpaceOnUse'>
-                <stop offset='0' stopColor='#fff33b' />
-                <stop offset='0.04' stopColor='#fee72e' />
-                <stop offset='0.12' stopColor='#fed51b' />
-                <stop offset='0.2' stopColor='#fdca10' />
-                <stop offset='0.28' stopColor='#fdc70c' />
-                <stop offset='0.67' stopColor='#f3903f' />
-                <stop offset='0.89' stopColor='#ed683c' />
-                <stop offset='1' stopColor='#e93e3a' />
-              </linearGradient>
-            </defs>
-            <motion.path
-              className={styled.RPMgauge__setpoint}
-              initial={{
-                pathOffset: 130,
-                opacity: 0,
-              }}
-              animate={{
-                pathOffset: 0,
-                opacity: 1,
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-              }}
-              style={{
-                //134.1857147216797
-                rotate: framerSetpoint,
-                originX: "122.78px",
-                originY: "134.48px",
-              }}
-              // stroke= url(#Orange_Yellow)
-              stroke='green'
-              strokeMiterlimit='10'
-              strokeWidth='6'
-              d='M122.78 134.48L10.85 208.49'
-            />
-            <path
-              d='M199.5 60.62a108.45 108.45 0 00-148.72-1.28c-40.11 37.13-44.3 94.37-20 134.75a.86.86 0 001.17.3l20.75-12.08a.85.85 0 00.31-1.18L52 179.29a.87.87 0 00-1.17-.3l-13.48 7.73a.87.87 0 01-1.24-.43l-7.54-18.61 4.2-1.68c-.38-1.44-.73-3-1.14-4.41l-3.55.93a.87.87 0 01-1.08-.73c-.82-6.49-1.6-12.63-2.41-19-.06-.51.34-1 .85-.64h15.21a2.46 2.46 0 00.69-1.19v-3a.85.85 0 00-.86-.85H25.23a.86.86 0 01-.86-.93c.54-6.83.89-13.42 2.8-19.81a.9.9 0 011.07-.59l1.87.49.12-.37v0a5.41 5.41 0 01.16-1.08 21.86 21.86 0 01.34-2.56l-1.9-.52a.86.86 0 01-.57-1.17L36 92a.88.88 0 011.24-.42l13.42 7.77a.86.86 0 001.17-.3L53 97a.85.85 0 00-.32-1.16L39.17 88a.88.88 0 01-.26-1.29c4.16-5.38 8.17-10.59 12.52-16.23a.88.88 0 011.32-.07l.9 1H54c.69-.66 1.36-1.34 2-2a5.73 5.73 0 01.44-.52l-1-1a.87.87 0 01.07-1.31L71.4 54.24a.87.87 0 011.28.25l7.8 13.39a.86.86 0 001.19.3l2-1.24a.86.86 0 00.3-1.16l-7.7-13.41a.87.87 0 01.42-1.25l18.62-7.72a.87.87 0 011.17.57l1 .64c1.07-.38 2.06-.83 3.07-1.19 0-.15-.08-.33-.14-.54a.86.86 0 01.73-1.07l20.17-2.6a.86.86 0 011 .85v15.25a.85.85 0 00.86.86h2.28a.86.86 0 00.86-.86V40a.87.87 0 011-.86l19.87 2.52a.88.88 0 01.73 1.09l-.32 1.25h.1a19.86 19.86 0 013.52 1.51l.18.09.49-1.81a.87.87 0 011.17-.57l18.62 7.65a.86.86 0 01.43 1.23l-7.7 13.41a.87.87 0 00.32 1.18l2 1.13a.85.85 0 001.17-.31l7.77-13.4a.87.87 0 011.28-.25l16.29 12.49a.88.88 0 01.07 1.33l-2 1.9v.16a5.12 5.12 0 011.42 1 4.59 4.59 0 011 1.41c.69-.69 1.37-1.38 2.07-2.1a.88.88 0 011.31.08l12.41 16.07a.87.87 0 01-.26 1.29l-13.41 7.75a.86.86 0 00-.31 1.18l1.16 2a.86.86 0 001.17.31l13.23-7.57a.87.87 0 011.22.38c1.35 2.82 2.72 5.51 3.87 8.28 1.38 3.3 2.58 6.69 3.89 10.2a.87.87 0 01-.59 1.15l-3.16.85c.44 1.25.81 2.51 1.16 3.78l.13.08 3.09-.82a.86.86 0 011.08.72c.91 6.85 1.78 13.5 2.69 20.43a.87.87 0 01-.85 1H208.2a.85.85 0 00-.86.85v3s.43.86.9.11h15.34c.53.75.92 1.22.85 1.73-.91 6.76-1.78 13.19-2.67 19.81a.88.88 0 01-1.09.72l-3.61-1c-.08.19-.17.37-.27.56a23.43 23.43 0 00-1.3 3.25l4.12 1.16a.87.87 0 01.56 1.17c-2.68 6.29-5.24 12.27-7.87 18.44a.86.86 0 01-1.23.41l-13.35-7.71a.86.86 0 00-1.16.29l-1.23 2.05a.86.86 0 00.31 1.19l20.77 11.88a.86.86 0 001.16-.29c24.05-38.33 21.83-96.15-18.07-134.21z'
-              fill='none'
-              stroke='#000'
-              strokeWidth='.75'
-              strokeMiterlimit='10'
-            />
-            <motion.path
-              style={{
-                rotate: framerRPM,
-                originX: "122.78px",
-                originY: "134.48px",
-              }}
-              d='M56.1 178.26s34.82-17.53 47.35-22.85c8.5-3.61 16.9-7.51 25.32-11.32a9.15 9.15 0 004.81-5.71 14.24 14.24 0 00-3.2-14.28c-3.69-3.83-8.56-4.73-12.54-1.91-3.68 2.6-7.22 5.45-10.67 8.43zm64.76-36.67a7.49 7.49 0 01-7.32-6.24 8 8 0 013.9-8.13c5.42-3.27 11.43 1.42 11.27 6.83a7.55 7.55 0 01-7.85 7.54z'
-              fill='#ed1c24'
-              stroke='#ed1c24'
-              strokeMiterlimit='10'
-            />
-            <text
-              className={styled.RPMgauge__cls4}
-              transform='translate(0 208.49)'>
-              0
-            </text>
-            <text
-              transform='translate(95.01 194.97)'
-              fontSize='29'
-              fill='#231f20'
-              fontFamily='Arvo'>
-              RPM
-            </text>
-            <text
-              className={styled.RPMgauge__cls4}
-              transform='translate(107.21 24.36)'>
-              60
-            </text>
-            <text
-              className={styled.RPMgauge__cls4}
-              transform='translate(225.23 204.5)'>
-              120
-            </text>
-          </svg>
-        </div>
-      </div>
+          <div className={styled.gauges}>
+            <svg
+              className={styled.RPMgauge}
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 287.61 246.99'>
+              <defs>
+                <linearGradient
+                  id='Orange_Yellow'
+                  data-name='Orange, Yellow'
+                  x1='58.27'
+                  y1='82.25'
+                  x2='125.36'
+                  y2='82.25'
+                  gradientUnits='userSpaceOnUse'>
+                  <stop offset='0' stopColor='#fff33b' />
+                  <stop offset='0.04' stopColor='#fee72e' />
+                  <stop offset='0.12' stopColor='#fed51b' />
+                  <stop offset='0.2' stopColor='#fdca10' />
+                  <stop offset='0.28' stopColor='#fdc70c' />
+                  <stop offset='0.67' stopColor='#f3903f' />
+                  <stop offset='0.89' stopColor='#ed683c' />
+                  <stop offset='1' stopColor='#e93e3a' />
+                </linearGradient>
+              </defs>
+              <motion.path
+                className={styled.RPMgauge__setpoint}
+                initial={{
+                  pathOffset: 130,
+                  opacity: 0,
+                }}
+                animate={{
+                  pathOffset: 0,
+                  opacity: 1,
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                }}
+                style={{
+                  //134.1857147216797
+                  rotate: framerSetpoint,
+                  originX: "122.78px",
+                  originY: "134.48px",
+                }}
+                // stroke= url(#Orange_Yellow)
+                stroke='green'
+                strokeMiterlimit='10'
+                strokeWidth='6'
+                d='M122.78 134.48L10.85 208.49'
+              />
+              <path
+                d='M199.5 60.62a108.45 108.45 0 00-148.72-1.28c-40.11 37.13-44.3 94.37-20 134.75a.86.86 0 001.17.3l20.75-12.08a.85.85 0 00.31-1.18L52 179.29a.87.87 0 00-1.17-.3l-13.48 7.73a.87.87 0 01-1.24-.43l-7.54-18.61 4.2-1.68c-.38-1.44-.73-3-1.14-4.41l-3.55.93a.87.87 0 01-1.08-.73c-.82-6.49-1.6-12.63-2.41-19-.06-.51.34-1 .85-.64h15.21a2.46 2.46 0 00.69-1.19v-3a.85.85 0 00-.86-.85H25.23a.86.86 0 01-.86-.93c.54-6.83.89-13.42 2.8-19.81a.9.9 0 011.07-.59l1.87.49.12-.37v0a5.41 5.41 0 01.16-1.08 21.86 21.86 0 01.34-2.56l-1.9-.52a.86.86 0 01-.57-1.17L36 92a.88.88 0 011.24-.42l13.42 7.77a.86.86 0 001.17-.3L53 97a.85.85 0 00-.32-1.16L39.17 88a.88.88 0 01-.26-1.29c4.16-5.38 8.17-10.59 12.52-16.23a.88.88 0 011.32-.07l.9 1H54c.69-.66 1.36-1.34 2-2a5.73 5.73 0 01.44-.52l-1-1a.87.87 0 01.07-1.31L71.4 54.24a.87.87 0 011.28.25l7.8 13.39a.86.86 0 001.19.3l2-1.24a.86.86 0 00.3-1.16l-7.7-13.41a.87.87 0 01.42-1.25l18.62-7.72a.87.87 0 011.17.57l1 .64c1.07-.38 2.06-.83 3.07-1.19 0-.15-.08-.33-.14-.54a.86.86 0 01.73-1.07l20.17-2.6a.86.86 0 011 .85v15.25a.85.85 0 00.86.86h2.28a.86.86 0 00.86-.86V40a.87.87 0 011-.86l19.87 2.52a.88.88 0 01.73 1.09l-.32 1.25h.1a19.86 19.86 0 013.52 1.51l.18.09.49-1.81a.87.87 0 011.17-.57l18.62 7.65a.86.86 0 01.43 1.23l-7.7 13.41a.87.87 0 00.32 1.18l2 1.13a.85.85 0 001.17-.31l7.77-13.4a.87.87 0 011.28-.25l16.29 12.49a.88.88 0 01.07 1.33l-2 1.9v.16a5.12 5.12 0 011.42 1 4.59 4.59 0 011 1.41c.69-.69 1.37-1.38 2.07-2.1a.88.88 0 011.31.08l12.41 16.07a.87.87 0 01-.26 1.29l-13.41 7.75a.86.86 0 00-.31 1.18l1.16 2a.86.86 0 001.17.31l13.23-7.57a.87.87 0 011.22.38c1.35 2.82 2.72 5.51 3.87 8.28 1.38 3.3 2.58 6.69 3.89 10.2a.87.87 0 01-.59 1.15l-3.16.85c.44 1.25.81 2.51 1.16 3.78l.13.08 3.09-.82a.86.86 0 011.08.72c.91 6.85 1.78 13.5 2.69 20.43a.87.87 0 01-.85 1H208.2a.85.85 0 00-.86.85v3s.43.86.9.11h15.34c.53.75.92 1.22.85 1.73-.91 6.76-1.78 13.19-2.67 19.81a.88.88 0 01-1.09.72l-3.61-1c-.08.19-.17.37-.27.56a23.43 23.43 0 00-1.3 3.25l4.12 1.16a.87.87 0 01.56 1.17c-2.68 6.29-5.24 12.27-7.87 18.44a.86.86 0 01-1.23.41l-13.35-7.71a.86.86 0 00-1.16.29l-1.23 2.05a.86.86 0 00.31 1.19l20.77 11.88a.86.86 0 001.16-.29c24.05-38.33 21.83-96.15-18.07-134.21z'
+                fill='none'
+                stroke='#000'
+                strokeWidth='.75'
+                strokeMiterlimit='10'
+              />
+              <motion.path
+                style={{
+                  rotate: framerRPM,
+                  originX: "122.78px",
+                  originY: "134.48px",
+                }}
+                d='M56.1 178.26s34.82-17.53 47.35-22.85c8.5-3.61 16.9-7.51 25.32-11.32a9.15 9.15 0 004.81-5.71 14.24 14.24 0 00-3.2-14.28c-3.69-3.83-8.56-4.73-12.54-1.91-3.68 2.6-7.22 5.45-10.67 8.43zm64.76-36.67a7.49 7.49 0 01-7.32-6.24 8 8 0 013.9-8.13c5.42-3.27 11.43 1.42 11.27 6.83a7.55 7.55 0 01-7.85 7.54z'
+                fill='#ed1c24'
+                stroke='#ed1c24'
+                strokeMiterlimit='10'
+              />
+              <text
+                className={styled.RPMgauge__cls4}
+                transform='translate(0 208.49)'>
+                0
+              </text>
+              <text
+                transform='translate(95.01 194.97)'
+                fontSize='29'
+                fill='#231f20'
+                fontFamily='Arvo'>
+                RPM
+              </text>
+              <text
+                className={styled.RPMgauge__cls4}
+                transform='translate(107.21 24.36)'>
+                60
+              </text>
+              <text
+                className={styled.RPMgauge__cls4}
+                transform='translate(225.23 204.5)'>
+                120
+              </text>
+            </svg>
+            <svg height='120' width='150' viewBox='0 -25 80 140'>
+              <text x='25' y='-10' fontSize='2rem' stroke='black'>
+                HERO
+              </text>
+              <g>
+                <rect
+                  x='0'
+                  y='0'
+                  stoke='black'
+                  strokeWidth='5px'
+                  fill='green'
+                  height='20'
+                  width='100'
+                />
+                <text x='25' y='15' fontSize='2rem' stroke='black'>
+                  Stage 3
+                </text>
+              </g>
+              <g>
+                <rect
+                  x='0'
+                  y='25'
+                  stoke='black'
+                  strokeWidth='5px'
+                  fill='yellow'
+                  height='20'
+                  width='100'
+                />
+                <text x='25' y='40' fontSize='2rem' stroke='black'>
+                  Stage 2
+                </text>
+              </g>
+              <g>
+                <rect
+                  x='0'
+                  y='50'
+                  stoke='black'
+                  strokeWidth='5px'
+                  fill='red'
+                  height='20'
+                  width='100'
+                />
+                <text x='25' y='66' fontSize='2rem' stroke='black'>
+                  Stage 1
+                </text>
+              </g>
+
+              <text x='25' y='90' fontSize='2rem' stroke='black'>
+                ZERO
+              </text>
+              <rect
+                x='-5'
+                y={indicator}
+                height='20'
+                fill='none'
+                stroke='black'
+                width='110'
+              />
+            </svg>
+          </div>
+          </div>
+        </>
+        ) : 
+          <>
+          <h1>You won</h1>
+          <h4>Enter this code during checkout: FreeSample2022</h4>
+          </>
+        
+}
     </div>,
     document.body
   );

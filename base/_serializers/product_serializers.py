@@ -1,7 +1,7 @@
 from asyncore import read
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from base.models import Product, Order, OrderItem, ShippingAddress, Review, Variant
+from base.models import Product, Order, OrderItem, ShippingAddress, Review, Variant, Pictures
 from rest_framework.response import Response
 
 
@@ -27,11 +27,16 @@ class ReviewSerializer(serializers.ModelSerializer):
     #         raise serializers.ValidationError({'detail': "Comment must be less than 100 characters."})
     #     return value
 
+class PicturesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pictures        
+        fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
     reviews = serializers.SerializerMethodField(read_only=True)
     # variants = VariantSerializer(many=True)
     variants = serializers.SerializerMethodField(read_only=True)
+    images = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Product        
@@ -45,4 +50,21 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_variants(self, obj):
         qs = obj.variants.all().order_by('-countInStock')
         serializer = VariantSerializer(qs, many=True)
+        return serializer.data
+
+    def get_images(self, obj):
+        qs = obj.images.all()
+        serializer = PicturesSerializer(qs, many=True)
+        return serializer.data
+
+class BasicProductInfoSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Product        
+        fields = ('name', 'image', '_id')
+
+    def get_image(self, obj):
+        qs = obj.images.first()
+        serializer = PicturesSerializer(qs)
         return serializer.data

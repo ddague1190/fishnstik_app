@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./figure.styles.scss";
 import ReactDOM from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 const Modal = ({ image, toggleShow, alt }) => {
   const callback = (e) => {
@@ -9,31 +10,77 @@ const Modal = ({ image, toggleShow, alt }) => {
     toggleShow();
   };
 
-  useEffect(() => {
-    document.body.addEventListener("click", callback);
-    return () => document.body.removeEventListener("click", callback);
-  }, []);
+  // useEffect(() => {
+  //   document.body.addEventListener("click", callback);
+  //   return () => document.body.removeEventListener("click", callback);
+  // }, []);
 
+
+  const rule1 = {
+    step: '.02'
+  }
+  const rule2 = {
+    step: '.05'
+  }
   return ReactDOM.createPortal(
-      <div className='modal__container'>
-        <div className='modal' onClick={toggleShow}>
-          <motion.img
-            key={image}
-            initial={{ y: -500, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ type: "tween", duration: .6}}
-            src={image}
-            alt={`image_of_${alt}`}
-          />
+    <div className='modal__container'>
+
+    <div className='modal'>
+        <TransformWrapper 
+          doubleClick={rule2}
+        wheel={rule1}
+        >
+          {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+          <React.Fragment>
+            <motion.div drag className="modal__tools">
+              <div className='modal__buttons'>
+                <button className='button modal__button' onClick={() => zoomIn(.02)}>+</button>
+                <button className='button modal__button' onClick={() => zoomOut()}>-</button>
+                <button className='button modal__button' onClick={() => resetTransform()}>RESET</button>
+                <button className='button modal__button' onClick={toggleShow}>CLOSE</button>
+              </div>
+
+              <h4>You can zoom image to match ruler in the picture to your own ruler</h4>
+
+            </motion.div>
+  
+
+            <TransformComponent
+              >
+            <motion.img
+            className='modal__image'
+              key={image}
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: "tween", duration: 0.6 }}
+              src={image}
+              alt={`image_of_${alt}`}
+            />       
+       
+            </TransformComponent>
+          </React.Fragment>
+        )}
+  
+        </TransformWrapper>
         </div>
-      </div>,
+    </div>,
     document.body
   );
 };
 
-const Figure = ({ className, animate, icon, height, image, alt, disable, children }) => {
+const Figure = ({
+  className,
+  animate,
+  icon,
+  height,
+  image,
+  alt,
+  disable,
+  children,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const toggleShow = () => {
+    console.log('click')
     setShowModal(!showModal);
   };
 
@@ -46,10 +93,10 @@ const Figure = ({ className, animate, icon, height, image, alt, disable, childre
         {!icon ? (
           <AnimatePresence exitBeforeEnter>
             <motion.img
-              initial={animate && { x: 600, opacity: 0 }}
-              animate={animate && { x: 0, opacity: 1 }}
-              exit={animate && {x: -600, opacity: 0}}
-              transition={{ type: "tween", stiffness: 80}}
+              initial={animate && { y: -50, opacity: 0 }}
+              animate={animate && { y: 0, opacity: 1 }}
+              exit={animate && { y: 50, opacity: 0 }}
+              transition={{ type: "tween", stiffness: 80 }}
               src={image}
               key={image}
               alt={`image_of_${alt}`}

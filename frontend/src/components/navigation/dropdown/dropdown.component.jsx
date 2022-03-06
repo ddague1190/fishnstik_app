@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {createPortal} from "react-dom";
+import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 import { AnimatePresence, motion, useCycle } from "framer-motion";
 import { useDispatch } from "react-redux";
@@ -9,26 +9,25 @@ import "./dropdown.styles.scss";
 import { categories, subcategories } from "./categories";
 
 const navContainerVariants = {
-  show: { opacity: 1, scaleY: 1, transition: { type: "tween", duration: .2} },
+  show: { opacity: 1, scaleY: 1, transition: { type: "tween", duration: 0.2 } },
   hide: { opacity: 0, scaleY: 0 },
 };
 
 const dropdownVariants = {
   show: {
     opacity: 1,
-    color: 'black',
-    transition: { staggerChildren: .1, delayChildren: .05 },
+    color: "black",
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
   },
   hide: {
-    opacity: .5,
-    color: 'red',
-    transition: { staggerChildren: .1, staggerDirection: 1 },
+    opacity: 0.5,
+    color: "red",
+    transition: { staggerChildren: 0.1, staggerDirection: 1 },
   },
 };
 const navItemVariants = {
   show: {
     opacity: 1,
- 
   },
   hide: {
     opacity: 0,
@@ -80,6 +79,7 @@ const Dropdown = ({ showMobileNav, toggleMobileNav, menuButtonRef }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
   const onLogoutClick = () => {
     dispatch(logout());
+    toggleMobileNav();
     navigate("/");
   };
 
@@ -106,35 +106,41 @@ const Dropdown = ({ showMobileNav, toggleMobileNav, menuButtonRef }) => {
       variants={navContainerVariants}
       ref={ref}
       className='nav'>
-        <AnimatePresence>
-      <motion.ul variants={dropdownVariants} className='nav-list'>
-        {categories.map((category, i) => (
-          <NavItem
-            i={i}
-            category={category}
-            showMobileNav
-            toggleMobileNav={toggleMobileNav}
-            key={category.category}
-          />
-        ))}
+      <AnimatePresence>
+        <motion.ul variants={dropdownVariants} className='nav-list'>
+          {categories.map((category, i) => (
+            <NavItem
+              i={i}
+              category={category}
+              showMobileNav
+              toggleMobileNav={toggleMobileNav}
+              key={category.category}
+            />
+          ))}
 
-        {userInfo ? (
-          <>
-            <Link className='nav-item__link' to='/profile'>
-              Profile
+          {userInfo ? (
+            <>
+              <Link
+                className='nav-item__link'
+                to='/profile'
+                onClick={toggleMobileNav}>
+                Profile
+              </Link>
+
+              <div className='nav-item__link' to='/' onClick={onLogoutClick}>
+                <span>Logout</span>
+                <i className='fas fa-sign-out-alt'></i>
+              </div>
+            </>
+          ) : (
+            <Link
+              className='nav-item__link'
+              to='/login/'
+              onClick={toggleMobileNav}>
+              Login
             </Link>
-
-            <div className='nav-item__link' to='/' onClick={onLogoutClick}>
-              <span>Logout</span>
-              <i className='fas fa-sign-out-alt'></i>
-            </div>
-          </>
-        ) : (
-          <Link className='nav-item__link' to='/login/'>
-            Login
-          </Link>
-        )}
-      </motion.ul>
+          )}
+        </motion.ul>
       </AnimatePresence>
     </motion.nav>
   );

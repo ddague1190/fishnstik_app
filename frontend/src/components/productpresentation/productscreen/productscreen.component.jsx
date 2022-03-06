@@ -13,6 +13,7 @@ import VerticalProductScreenBanner from "../../svg/recommended/verticalproductsc
 import HorizontalProductScreenBanner from "../../svg/recommended/horizontalproductscreenbanner.component";
 import PreCartItem from "../../checkoutpathway/cartitem/pre-cartitem.component";
 import OneVariant from "../../checkoutpathway/cartitem/oneVariant.component";
+import Emotive from "../../svg/emotive/emotive.component";
 
 const ProductScreen = () => {
   const variants = {
@@ -72,14 +73,6 @@ const ProductScreen = () => {
                 onClick={() => setWhichContent("overview")}>
                 <span>Overview</span>
               </li>
-
-              <li
-                className={`tab-group__tab ${
-                  whichContent === "size" && "tab-group__tab--active"
-                }`}
-                onClick={() => setWhichContent("size")}>
-                <span>Actual size</span>
-              </li>
               <li
                 className={`tab-group__tab ${
                   whichContent === "reviews" && "tab-group__tab--active"
@@ -99,16 +92,6 @@ const ProductScreen = () => {
                     className='productscreen__details'>
                     <ProductDetails product={product} height='8rem' />
                   </motion.div>
-                ),
-                size: (
-                  <div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className='photos'>
-                    <p>This is the actual size of this product</p>
-                  </div>
                 ),
 
                 reviews: (

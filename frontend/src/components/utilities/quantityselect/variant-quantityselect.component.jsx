@@ -6,7 +6,7 @@ import { addToCart, removeFromCart } from '../../../redux/actions/cartActions';
 import './quantityselect.styles.scss';
 import { cartParser } from '../../../utils/reduxSelectors';
 
-const VariantQuantitySelect = ({product, variant, setCartStatus}) => {
+const VariantQuantitySelect = ({oneVariant, product, variant, setCartStatus}) => {
     const [alreadyInCart, setAlreadyInCart] = useState(false);
     const [selectedValue, setSelectedValue] = useState(0); 
     const parsedCart = useSelector(cartParser);
@@ -61,9 +61,9 @@ const VariantQuantitySelect = ({product, variant, setCartStatus}) => {
                 repeat: 10,
                 duration: .4
               }}>
-                <Link to='/cart'><button type='submit' className='select__button select__button--checkout'>Proceed to Checkout</button></Link>
+                <Link to='/cart'><button type='submit' className={`select__button select__button--checkout ${oneVariant ? 'select__button--oneVariant' : ''}`}>Proceed to Checkout</button></Link>
             </motion.div>
-        ): (<button type='submit' onClick={()=>setSelectedValue(1)} className='select__button'>Add to Cart</button>
+        ): (<button type='submit' onClick={()=>setSelectedValue(1)} className={`select__button ${oneVariant ? 'select__button--oneVariant' : ''}`}>Add to Cart</button>
         )}
 
     </>

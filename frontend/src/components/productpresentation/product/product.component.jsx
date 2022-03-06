@@ -15,7 +15,7 @@ const Product = ({ product }) => {
       whileHover={{ y: -3 }}
       className='productcard u-box-shadow'
       onClick={onProductCardClick}>
-      <Figure image={product.image} alt={product.name} />
+      <Figure image={product.image.image} alt={product.name} />
       <div className='productcard__name'>{product.name.slice(0, 30)}</div>
       <span className='productcard__button'>
         <i className='fas fa-plus-circle'></i>

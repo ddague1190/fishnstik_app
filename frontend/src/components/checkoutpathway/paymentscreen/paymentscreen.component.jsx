@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { savePaymentMethod } from "../../../redux/actions/cartActions";
 import "./paymentscreen.styles.scss";
 import { useEffect } from "react";
-import { motion } from "framer-motion";
-import { pageVariants } from "../../../utils/variants";
 
 function PaymentScreen() {
   const cart = useSelector((state) => state.cart);
@@ -38,14 +36,14 @@ function PaymentScreen() {
     <div className='paymentscreen'>
       <CheckoutSteps step1 step2 step3 />
 
-      <form className='productscreen__form' onSubmit={submitHandler}>
+      <form className='paymentscreen__form' onSubmit={submitHandler}>
         <input
           className='paymentscreen__input'
           type='checkbox'
           id='paypal'
           name='paypal'
         />
-        <label className='paymentscreen__label' for='paypal'>
+        <label className='paymentscreen__label' htmlFor='paypal'>
           PayPal or Credit Card
         </label>
         <button className='button' type='submit' variant='primary'>

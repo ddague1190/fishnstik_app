@@ -58,8 +58,6 @@ const Emotive = ({ animateSlogan }) => {
           transition={{ duration: 4, repeat: Infinity }}
           className={styled.wrapper__underwater}></motion.div>
       </div>
-
-      {/* <motion.div initial={{}} className={styled.shore}></motion.div> */}
     </div>
   );
 };

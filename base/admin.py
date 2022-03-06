@@ -28,9 +28,16 @@ class VariantsInline(admin.TabularInline):
     extra = 1
     formfield_overrides = {models.ImageField: {'widget': AdminImageWidget}}
 
+class PicturesInline(admin.TabularInline):
+    model = Pictures
+    fk_name = 'product'
+    extra = 1
+    formfield_overrides = {models.ImageField: {'widget': AdminImageWidget}}
+
 class ProductAdmin(admin.ModelAdmin):
     inlines = [
         VariantsInline,
+        PicturesInline
     ]
 
 class ShippingAddressInline(admin.TabularInline):
@@ -55,6 +62,7 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Review)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem)
+admin.site.register(Pictures)
 admin.site.register(Variant)
 admin.site.register(ShippingAddress)
 

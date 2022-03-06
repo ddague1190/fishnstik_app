@@ -5,14 +5,11 @@
     left: 50%;
     transform: translateX(-50%);
     font-size: 2rem;
-    z-index: 1000;
+    z-index: 100;
     text-transform: uppercase;
-
-
     & a {
         color: white;
     }
-    
 }
 
 .desktop-nav-list {
@@ -30,8 +27,6 @@
         @include flexCenter(row);
         justify-content: flex-start;
         border-radius: 4px;
-
-
     }
     &:hover .desktop-nav-submenu {
         display: block;
@@ -58,10 +53,9 @@
         bottom: 100%;
         left: 50%;
         transform: translateX(-18rem);
-
     }
 }
-.desktop-nav-submenu-item { 
+.desktop-nav-submenu-item {
     cursor: pointer;
     z-index: 100;
 
@@ -73,5 +67,4 @@
     & a {
         color: black;
     }
-    
 }

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,YAAY,CAAC;EACX,QAAQ,EAAE,QAAQ;EAClB,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,KAAK;EAClB,eAAe,EAAE,WAAW;CAY7B;;AAVE,AAAD,mBAAQ,CAAC;EACP,MAAM,EAAE,MAAM;EACd,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,uBAAuB;EAC9C,cAAc,EAAE,KAAK;EACrB,eAAe,EAAE,MAAM;EACvB,GAAG,EAAE,IAAI;EACT,QAAQ,EAAE,QAAQ;EAClB,SAAS,EAAE,MAAM;CAClB",
+    "sources": [
+        "productlist.styles.scss"
+    ],
+    "names": [],
+    "file": "productlist.styles.css"
+}

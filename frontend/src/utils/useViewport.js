@@ -2,14 +2,12 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateViewportDimensions } from "../redux/actions/responsiveActions";
 
-
 const getCurrentDimensions = () => {
   return {
-    'width': window.innerWidth,
-    'height': window.innerHeight
-  }
-}
-
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+};
 
 const useViewport = () => {
   const dispatch = useDispatch();

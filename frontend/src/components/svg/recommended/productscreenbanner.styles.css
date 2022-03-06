@@ -1,0 +1,23 @@
+.horizontalproductscreenbanner {
+  position: relative;
+}
+
+@media only screen and (max-width: 450px) {
+  .horizontalproductscreenbanner__text {
+    -webkit-transform: translate(15px, -10px);
+            transform: translate(15px, -10px);
+  }
+}
+
+.horizontalproductscreenbanner::after {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  content: '';
+  width: 100vw;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+/*# sourceMappingURL=productscreenbanner.styles.css.map */
