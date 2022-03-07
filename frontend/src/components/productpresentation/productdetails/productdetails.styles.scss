@@ -6,12 +6,18 @@
   justify-content: stretch;
   text-align: center;
   align-items: center;
-  grid-template-columns: 27rem minmax(15rem, 3fr) 8rem;
+  grid-template-columns: 30rem minmax(15rem, 3fr) 8rem;
   gap: 2rem;
   align-content: center;
   grid-template-areas:
     "image  details g"
     " description  description description ";
+
+  &__gauge {
+    margin: 0 auto;
+    grid-area: g;
+    min-width: 8rem;
+  }
 
   &__image-selector {
     position: absolute !important;
@@ -32,14 +38,6 @@
       " description  description";
   }
 
-  &--oneVariant {
-    grid-template-columns: 20rem minmax(10rem, 3fr);
-    grid-template-areas:
-      "image  details"
-      " description  description"
-      " p p";
-  }
-
   &__price {
     grid-area: p;
     font-size: 2rem;
@@ -51,6 +49,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: 1rem;
+    width: 100%;
     grid-area: details;
   }
 
@@ -86,9 +85,9 @@
       position: absolute;
       bottom: -10px;
       left: 0;
-      width: 200%;
+      width: 100%;
       content: "";
-      background-image: linear-gradient(to right, rgba($color4, 0.5), white);
+      background-image: linear-gradient(to right, rgba($color4, 0.5) white);
       border-radius: 1px;
       height: 5px;
     }
@@ -122,17 +121,11 @@
     justify-self: center;
     max-width: 500px;
   }
-
-  &__gauge {
-    margin: 0 auto;
-    grid-area: g;
-    min-width: 8rem;
-  }
 }
 
 @media only screen and (max-width: 600px) {
   .productdetails {
-    grid-template-columns: 25rem minmax(10rem, 3fr);
+    grid-template-columns: 30rem minmax(10rem, 3fr);
     grid-template-areas:
       "image  details"
       " description  description "
@@ -140,16 +133,6 @@
 
     &__gauge {
       width: 30rem;
-    }
-
-    &--nogauge {
-    }
-
-    &--oneVariant {
-      grid-template-areas:
-        "image  details"
-        " description  description "
-        " p p";
     }
   }
 }
@@ -162,7 +145,8 @@
 
     &__image {
       width: 40vw;
-      min-width: 30rem;
+      min-width: 200px;
+      margin: 0 auto;
     }
   }
 }
@@ -178,3 +162,22 @@
     color: $color1;
   }
 }
+
+.productdetails--oneVariant {
+  grid-template-columns: 30rem minmax(10rem, 1fr);
+  grid-template-areas:
+    "image details"
+    "description description"
+    "p p";
+
+  
+    .productscreen__price {
+      grid-area: p;
+    }
+
+  .productdetails__gauge {
+    display: none;
+  }
+}
+
+

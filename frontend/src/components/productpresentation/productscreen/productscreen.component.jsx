@@ -105,7 +105,7 @@ const ProductScreen = () => {
                       <div className='showreviews'>
                         <h3 className='u-center-text'>Recent reviews</h3>
                         {product.reviews.length === 0 && (
-                          <Message variant='info'>No Reviews</Message>
+                          <Message cvariant='info'>No Reviews</Message>
                         )}
                         <div className='reviewcards'>
                           {product.reviews.map((review) => (

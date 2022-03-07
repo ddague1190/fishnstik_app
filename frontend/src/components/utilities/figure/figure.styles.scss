@@ -20,7 +20,6 @@
   }
 }
 
-
 .modal {
   position: relative;
   width: 100%;
@@ -28,65 +27,65 @@
   margin: 0 auto;
   @include flexCenter(column);
 
-    &__button {
-      padding: 1rem 2rem !important;
-      background-color: $color3 !important;
-      color: white;
-    }
+  &__button {
+    padding: 1rem 2rem !important;
+    background-color: $color3 !important;
+    color: white;
+  }
 
-    &__tools, &__ruler {
-      background-color: black;
-      position: absolute;
-      color: white;
-      width: 100%;
-      margin: 0 auto;
-      height: 10rem;
-      @include flexCenter(column);
-      gap: 1rem;
-      top: 0;
-      left: 0;
-      z-index: 100;
-    }
+  &__tools,
+  &__ruler {
+    background-color: black;
+    position: absolute;
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    height: 10rem;
+    @include flexCenter(column);
+    gap: 1rem;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
 
-    &__ruler {
-      background-color: rgba(white, .5);
-      color: black;
-      @include flexCenter(column);
-      width: max-content;
-      top: 6rem;
-      right: 0;
-      height: 10rem;
-      padding: 1rem 2rem;
-      & h2 {
-        text-transform: none;
+  &__ruler {
+    background-color: rgba(white, 0.5);
+    color: black;
+    @include flexCenter(column);
+    width: max-content;
+    top: 6rem;
+    right: 0;
+    height: 10rem;
+    padding: 1rem 2rem;
+    & h2 {
+      text-transform: none;
+    }
+    &--here {
+      position: relative;
+      &::after {
+        position: absolute;
+        content: "";
+        width: 96px;
+        height: 5px;
       }
-      &--here {
-        position: relative;
-        &::after {
-          position: absolute;
-          content: '';
-          width: 96px;
-          height: 5px;
-
-        }
-      }
     }
+  }
+
+  &__image {
+    width: 90vw;
+    height: 100vh;
+    object-fit: contain;
+    display: block;
     
-    &__image {
-      width: 100vw;
-      object-fit: contain;
-display: block;
-    }
+  }
 
-    &__container {
-      position: fixed;
-      background-color: rgba(black, 0.8);
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      z-index: 500;
-
-    }
-  
+  &__container {
+    position: fixed;
+    background-color: rgba(black, 0.8);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 500;
+  }
 }

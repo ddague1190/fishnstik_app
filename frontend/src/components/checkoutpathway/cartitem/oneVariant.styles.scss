@@ -6,7 +6,7 @@
     padding-left: 5px;
     height: 20rem;
     width: 100%;
-
+    background-color: darken(white, 4%);
 
     &__select {
         @include flexCenter(row);

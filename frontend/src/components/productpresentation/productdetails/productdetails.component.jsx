@@ -249,7 +249,7 @@ const ProductDetails = ({ product, height }) => {
         !product.pulltest && "productdetails--nogauge"
       } ${product.numVariants === 1 ? "productdetails--oneVariant" : ""}`}>
       <div className='productdetails__image'>
-        <Figure image={currentPic.pic} alt={product.name} animate height={width>500 ? '25rem' : '30rem'} />
+        <Figure image={currentPic.pic} alt={product.name} animate height='30rem' />
         <div className='featured__image-selector fishfacts__image-selector productdetails__image-selector'>
 
           {images.length>1 && images.map((_, index) => {
@@ -284,6 +284,7 @@ const ProductDetails = ({ product, height }) => {
         <p className='productdetails__catchphrase'>{product.catchPhrase}</p>
       </div>
       <div className='productdetails__description'>"{product.description}"</div>
+      
       {product.numVariants === 1 && (
         <p className='productdetails__price'>
           Price: ${product.variants[0].price}
