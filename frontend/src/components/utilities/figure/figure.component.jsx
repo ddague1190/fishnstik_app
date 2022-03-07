@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./figure.styles.scss";
 import ReactDOM from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,59 +10,82 @@ const Modal = ({ image, toggleShow, alt }) => {
     toggleShow();
   };
 
+  const [zoom, setZoom] = useState(1);
+
+  const zoomOut = () => {
+    setZoom(zoom - 0.02);
+  };
+
+  const resetZoom = () => {
+    setZoom(1);
+  };
+
   // useEffect(() => {
   //   document.body.addEventListener("click", callback);
   //   return () => document.body.removeEventListener("click", callback);
   // }, []);
 
-
   const rule1 = {
-    step: '.02'
-  }
+    step: ".02",
+  };
   const rule2 = {
-    step: '.05'
-  }
+    step: ".05",
+  };
   return ReactDOM.createPortal(
     <div className='modal__container'>
+      <div className='modal'>
+        <TransformWrapper doubleClick={rule2} wheel={rule1}>
+          {({ zoomIn, resetTransform, ...rest }) => (
+            <React.Fragment>
+              <motion.div drag className='modal__tools'>
+                <div className='modal__buttons'>
+                  <button
+                    className='button modal__button'
+                    onClick={() => zoomIn(0.02)}>
+                    <i className='fa-solid fa-plus'></i>
+                  </button>
+                  <button
+                    className='button modal__button'
+                    onClick={() => {
+                      zoomOut();
+                    }}>
+                    <i className='fa-solid fa-minus'></i>
+                  </button>
+                  <button
+                    className='button modal__button'
+                    onClick={() => {
+                      resetTransform();
+                      resetZoom();
+                    }}>
+                    RESET
+                  </button>
+                  <button className='button modal__button' onClick={toggleShow}>
+                    CLOSE
+                  </button>
+                </div>
 
-    <div className='modal'>
-        <TransformWrapper 
-          doubleClick={rule2}
-        wheel={rule1}
-        >
-          {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
-          <React.Fragment>
-            <motion.div drag className="modal__tools">
-              <div className='modal__buttons'>
-                <button className='button modal__button' onClick={() => zoomIn(.02)}>+</button>
-                <button className='button modal__button' onClick={() => zoomOut()}>-</button>
-                <button className='button modal__button' onClick={() => resetTransform()}>RESET</button>
-                <button className='button modal__button' onClick={toggleShow}>CLOSE</button>
-              </div>
+                <h4>
+                  You can zoom image to match ruler in the picture to your own
+                  ruler
+                </h4>
+              </motion.div>
 
-              <h4>You can zoom image to match ruler in the picture to your own ruler</h4>
-
-            </motion.div>
-  
-
-            <TransformComponent
-              >
-            <motion.img
-            className='modal__image'
-              key={image}
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ type: "tween", duration: 0.6 }}
-              src={image}
-              alt={`image_of_${alt}`}
-            />       
-       
-            </TransformComponent>
-          </React.Fragment>
-        )}
-  
+              <TransformComponent>
+                <motion.img
+                  className='modal__image'
+                  key={image}
+                  style={{ scale: zoom }}
+                  initial={{ y: -100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ type: "tween", duration: 0.6 }}
+                  src={image}
+                  alt={`image_of_${alt}`}
+                />
+              </TransformComponent>
+            </React.Fragment>
+          )}
         </TransformWrapper>
-        </div>
+      </div>
     </div>,
     document.body
   );
@@ -80,7 +103,7 @@ const Figure = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const toggleShow = () => {
-    console.log('click')
+    console.log("click");
     setShowModal(!showModal);
   };
 

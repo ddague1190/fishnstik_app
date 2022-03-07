@@ -3,11 +3,13 @@ import Banner from "../../svg/frontpagebanner/frontpagebanner.component";
 import FishFact from "../fishfact/fishfact.component";
 import Featured from "../featured/featured.component";
 import Emotive from "../../svg/emotive/emotive.component";
+import Deepsea from "../../svg/deepsea/deepsea.component";
 import './homescreen.styles.scss';
 const HomeScreen = () => {
   return (
     <div>
-      <Banner />
+      <Deepsea/>
+      {/* <Banner /> */}
       <Emotive />
       <section className="homescreen__intro">
         <h1>About us</h1>

@@ -1,19 +1,20 @@
 import React from 'react'
-import styled from 'deepsea.module.scss'
+import styled from './deepsea.module.scss';
+import {ReactComponent as Deep} from './DeepOcean.svg'
 
 const Deepsea = () => {
   return (
-    <div >
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 841.9 595.3" style="enable-background:new 0 0 841.9 595.3" xml:space="preserve">
-  <style>
-    .st8{fill:#059fb6}.st9{fill:#49fcea}.st11{fill:#009aaf}.st39{fill:#036f91}
-  </style>
+    <div  >
+
+        <Deep></Deep>
+{/* <svg  version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 841.9 595.3" style="enable-background:new 0 0 841.9 595.3" >
+
   <g id="XMLID_42_">
     <defs>
       <path id="XMLID_32_" d="M0 0h841.9v595.3H0z"/>
     </defs>
     <clipPath id="XMLID_41_">
-      <use xlink:href="#XMLID_32_" style="overflow:visible"/>
+      <use href="#XMLID_32_" style={{overflow: 'visible'}}/>
     </clipPath>
     <g id="XMLID_2_" style="clip-path:url(#XMLID_41_)">
       <linearGradient id="XMLID_46_" gradientUnits="userSpaceOnUse" x1="399.702" y1="27.065" x2="437.702" y2="511.065">
@@ -455,7 +456,7 @@ const Deepsea = () => {
       <path id="XMLID_204_" class="st39" d="M688 431.6c-.5-4.3-5.6-1.6-8.3-.7-5.5 1.8-10.9 4.6-16.6 6.3-2.3-5.3-4.6-10.6-8-15.2-10.3-13.8-28.7-21.5-46-20.6-4.5.3-9.1.4-13.6.6v-.9c.5-2.4 2.1-1.9 4-3.1 2.6-1.6 3.4-4.5 5-7.1 2.2-3.7 4.9-7.6 8-10.7 2.9-2.9 15.3-9 14.8-13.7-13.8-3-28.1 8.3-37.7 17.3-3.1 2.9-8.2 7.7-8.2 12.1 0 2.4.7 4.7 1.2 7.2-5.6.8-11.1 2.1-16.3 4.4-3.8 1.7-5.6-3.4-8.2-4.7-2.7-1.4-7.7-1.4-10.8-1.6-2.6-.2-3.5.1-5.5 1.9-1.6 1.4-3.6 3.3-4.3 5.4-1.5 4.8 7.1 7.8 10.7 9.1 2.5.9 5.3.2 7.5 1.7 1.7 1.2 3.6 3.6 4.6 5.3-.9 2-1.2 5-1.3 8.2-2.4 1.1-4.6 1.8-7.5 2.8-2.7.9-5.9 1.9-7.6 4.2-8 10.2-6 29.3-4.3 41.1.3 2.4 2.4 17.4 6.6 16.5 2.5-.5 2.8-8.6 3.2-10.4 1.3-5.6 3-11.3 4.8-16.7 1.6-4.9 3.6-9 3.4-14.2-.2-4.4-.6-7 1.9-10.7.2-.3.4-.6.7-.9 0 .2.1.5.1.7 1.4 7 4.4 12.2 8.7 17.9 5.1 6.8 12.3 13.6 20.7 15.9 12.8 3.5 24.4 2.2 37.1-.7 3.3-.7 6.6-1.5 10-2.3 3.6 6.1 6.6 12.5 9.5 19 .8 1.8 2.8 7.1 4.9 7.7 3.2.9 2.3-3.3 2.4-5.4.2-3.4.8-5.7 2.5-8.6 1.2-2 2.4-4.7 1.7-7.1-1.2-3.9-4.7-7.1-7.7-10.1.9-.4 1.7-.8 2.6-1.3 4.8-2.5 11.7-3.4 15.5-7.5.7-.8 1.3-1.7 1.6-2.6 1.4-3.6.1-8.1-1.6-12.1 1 .1 1.9.2 2.8.1 5.5-.1 8.9-2.7 11.1-7.5 1.3-2.7 6.2-5.8 5.9-9z"/>
     </g>
   </g>
-</svg>
+</svg> */}
 
 
 
