@@ -27,7 +27,7 @@ const ProductScreen = () => {
   };
   const [whichContent, setWhichContent] = useState("overview");
   const [writeReview, setWriteReview] = useState(false);
-  const [reviewJustAdded, setReviewJustAdded] = useState(false)
+  const [reviewJustAdded, setReviewJustAdded] = useState(false);
   const dispatch = useDispatch();
 
   const { loading, error, product } = useSelector(
@@ -41,7 +41,6 @@ const ProductScreen = () => {
 
   useEffect(() => {
     dispatch(listProductDetails(productId.id));
-
   }, [dispatch, productId.id, reviewJustAdded]);
 
   return (
@@ -132,14 +131,18 @@ const ProductScreen = () => {
                     ) : (
                       <div className='createreview'>
                         <h3>Write a review</h3>
-                        <span className='createreview__goback' 
-                        onClick={()=>setWriteReview(false)}>
+                        <span
+                          className='createreview__goback'
+                          onClick={() => setWriteReview(false)}>
                           <i
                             className='fa fa-arrow-left'
                             aria-hidden='true'></i>
                         </span>
                         {userInfo ? (
-                          <WriteReview setReviewJustAdded={setReviewJustAdded} setWriteReview={setWriteReview} />
+                          <WriteReview
+                            setReviewJustAdded={setReviewJustAdded}
+                            setWriteReview={setWriteReview}
+                          />
                         ) : (
                           <>
                             <br />

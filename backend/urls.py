@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/users/', include('base.urls.user_urls')),
     path('api/orders/', include('base.urls.order_urls')),
     path('webhooks/paypal/', ProcessWebhookView.as_view()),
+    path('djrichtextfield/', include('djrichtextfield.urls')),
     re_path('', TemplateView.as_view(template_name='index.html')),
 ] 
 

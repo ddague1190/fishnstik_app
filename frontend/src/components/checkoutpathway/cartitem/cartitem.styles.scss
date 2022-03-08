@@ -1,8 +1,6 @@
 .cartitem {
-    // box-shadow: 0 1px 1px 1px rgba(black, .1);
     border-bottom: 2px solid $color3;
     @include flexCenter(row);
-
     position: relative;
     gap: 5px;
     padding-left: 5px;
@@ -22,18 +20,6 @@
         gap: 2rem;
     }
 
-    &__price {
-        position: absolute;
-        background-color: white;
-        bottom: -5px;
-        right: -15px;
-        padding: 4px 10px;
-        border-radius: 4px;
-        font-size: 2rem;
-        color: $color3;
-        border-radius: $color3;
-      }
-
     &__image {
         grid-column: 1 / span 1;
         display: block;
@@ -41,7 +27,6 @@
         width: 100%;
         position: relative;
         width: 20rem;
-    
     }
 
     &__image-wrapper {
@@ -52,12 +37,11 @@
 
     &__link {
         padding: 1rem;
-        color:black;
+        color: black;
         font-size: 2rem;
         margin: 0 auto;
         justify-self: center;
     }
-
 
     &__outofstock {
         margin: 0 auto;
@@ -81,15 +65,15 @@
         justify-content: center;
         gap: 2rem;
         min-width: 15rem;
-        border-left: 1px solid darken($color2,0%);
+        border-left: 1px solid darken($color2, 0%);
 
         &--added {
-            background-color: lighten($color2,15%);
+            background-color: lighten($color2, 15%);
         }
     }
 
     &__quantity {
-        background-color:redf;
+        background-color: redf;
         text-align: center;
     }
 
@@ -101,23 +85,21 @@
 @media only screen and (max-width: 560px) {
     .cartitem {
         height: 22rem;
-      &__image {
-          width: 12rem;
-      }
+        &__image {
+            width: 12rem;
+        }
     }
-  }
-
+}
 
 .outofstock {
     @include flexCenter(row);
     height: 10rem;
-    box-shadow: 0 1px 1px 1px rgba(black, .1);
+    box-shadow: 0 1px 1px 1px rgba(black, 0.1);
 
     &__content {
         padding: 2rem;
         display: flex;
         flex-direction: column;
-
     }
 
     &__name {
@@ -135,9 +117,43 @@
         background-color: whitesmoke;
         margin-left: auto;
         cursor: pointer;
-        border-left: 1px solid darken($color2,0%);
+        border-left: 1px solid darken($color2, 0%);
         @include flexCenter(column);
+    }
+}
 
+.pricebox {
+    @include flexCenter(row);
+    gap: 1rem;
+    position: absolute;
+    bottom: 5px;
+    z-index: 100;
+    left: 1rem;
+    color: $color3;
+
+    @media only screen and (max-width: 460px) {
+        @include flexCenter(column);
+        gap: 0;
+        align-items: flex-start;
     }
 
+
+    &__lighttext {
+        font-weight: 100;
+        font-style: normal;
+        margin-right: 1rem;
+    }
+
+    &__boldtext {
+        font-style: normal;
+        font-weight: 800;
+        font-size: 2rem;
+        color: $color3;
+    }
+
+    &__login {
+        cursor: pointer;
+        font-size: 2rem;
+        font-weight: 100;
+    }
 }
