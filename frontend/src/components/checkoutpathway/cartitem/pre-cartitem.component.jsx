@@ -11,7 +11,6 @@ export const PriceBox = ({ price, discountPrice }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
   const navigate = useNavigate()
   const {id} = useParams();
-  console.log(useParams());
 
   const onLoginClick = () => {
     navigate(`/login?redirect=/product/${id}`);

@@ -95,7 +95,7 @@ const LoginScreen = () => {
             </button>
           </form>
 
-          <div className='u-margin-top-small'>
+          <div className='u-margin-top-small loginscreen__register'>
             New to our site?
             <Link
               to={redirect ? `/register?redirect=${redirect}` : "/register"}>

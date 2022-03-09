@@ -4,7 +4,7 @@ import {ReactComponent as Deep} from './DeepOcean.svg'
 
 const Deepsea = () => {
   return (
-    <div className='deepsea' >
+    <div className={styled.deepsea} >
 
         <Deep></Deep>
 {/* <svg  version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 841.9 595.3" style="enable-background:new 0 0 841.9 595.3" >

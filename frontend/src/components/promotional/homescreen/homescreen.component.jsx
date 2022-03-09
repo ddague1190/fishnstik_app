@@ -4,12 +4,13 @@ import FishFact from "../fishfact/fishfact.component";
 import Featured from "../featured/featured.component";
 import Emotive from "../../svg/emotive/emotive.component";
 import Deepsea from "../../svg/deepsea/deepsea.component";
+import { Video } from "../featured/featured.component";
 import './homescreen.styles.scss';
 const HomeScreen = () => {
   return (
     <div>
       <Featured />
-
+      {/* <Video/> */}
       <Deepsea/>
       {/* <Banner /> */}
       {/* <Emotive /> */}

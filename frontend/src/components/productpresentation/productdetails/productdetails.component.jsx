@@ -73,29 +73,27 @@ const HorizontalPullTestGauge = ({ test }) => {
   const strokeDashArray = 100;
   const t1 = 180;
 
-  const offset = 0.56216 * test - 280.81
+  const offset = 0.56216 * test - 280.81;
 
   const value = useMotionValue(-281.35);
 
-
   useEffect(() => {
-    const offset = 0.56216 * test - 280.81
-    const id = setInterval(()=>{
-        if(value.get()<offset) {
-          value.set(value.get()+1);
-          ref.current.style.strokeDashoffset = value.get()
-        } 
-        else {
-          clearInterval(id)
-        }
-    }, 20)
+    const offset = 0.56216 * test - 280.81;
+    const id = setInterval(() => {
+      if (value.get() < offset) {
+        value.set(value.get() + 1);
+        ref.current.style.strokeDashoffset = value.get();
+      } else {
+        clearInterval(id);
+      }
+    }, 20);
   }, [test]);
 
   return (
     <div className='productdetails__gauge '>
       <svg viewBox='0 0 355 153' fill='none' xmlns='http://www.w3.org/2000/svg'>
         <motion.path
-          ref = {ref}
+          ref={ref}
           d='M275 146C275 134.838 272.569 123.785 267.845 113.472C263.121 103.159 256.197 93.7889 247.468 85.8959C238.739 78.0029 228.377 71.7419 216.972 67.4702C205.568 63.1986 193.344 61 181 61C168.656 61 156.432 63.1986 145.028 67.4702C133.623 71.7419 123.261 78.0029 114.532 85.8959C105.803 93.7889 98.8793 103.159 94.1553 113.472C89.4314 123.785 87 134.838 87 146'
           strokeDasharray={281.35}
           stroke='black'
@@ -258,7 +256,9 @@ const ProductDetails = ({ product, height }) => {
         </span>
         <p className='productdetails__catchphrase'>{product.catchPhrase}</p>
       </div>
-      <div className='productdetails__description'>"{product.description}"</div>
+      <div
+        className='productdetails__description'
+        dangerouslySetInnerHTML={{ __html: product.description }}></div>
 
       {product.numVariants === 1 && (
         <p className='productdetails__price'>
@@ -266,11 +266,11 @@ const ProductDetails = ({ product, height }) => {
         </p>
       )}
 
-      {width > breakpoint ? (
+      {product.pulltest && (width > breakpoint ? (
         <PullTestGauge test={product.pulltest} />
       ) : (
         <HorizontalPullTestGauge test={product.pulltest} />
-      )}
+      ))}
     </div>
   );
 };
