@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./figure.styles.scss";
 import ReactDOM from "react-dom";
+import { useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { useEffect } from "react";
 
 const Modal = ({ image, toggleShow, alt }) => {
   const callback = (e) => {
@@ -19,11 +21,6 @@ const Modal = ({ image, toggleShow, alt }) => {
   const resetZoom = () => {
     setZoom(1);
   };
-
-  // useEffect(() => {
-  //   document.body.addEventListener("click", callback);
-  //   return () => document.body.removeEventListener("click", callback);
-  // }, []);
 
   const rule1 = {
     step: ".02",
@@ -101,18 +98,28 @@ const Figure = ({
   disable,
   children,
 }) => {
+  const { width } = useSelector((state) => state.dimensions);
   const [showModal, setShowModal] = useState(false);
   const toggleShow = () => {
-    console.log("click");
     setShowModal(!showModal);
   };
+
+  useEffect(() => {
+    setShowModal(false);
+  }, [width]);
 
   return (
     <>
       <div
-        onClick={toggleShow}
+        onClick={width > 600 ? toggleShow : null}
         style={{ width: height, height: height }}
         className={`figure ${className}`}>
+          {width < 600 &&
+        <div className='figure__open-button' onClick={toggleShow}>
+          <span>Expand</span>
+          <i className='fa fa-expand' aria-hidden='true'></i>
+        </div>
+}
         {!icon ? (
           <AnimatePresence exitBeforeEnter>
             <motion.img

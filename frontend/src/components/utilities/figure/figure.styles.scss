@@ -1,6 +1,28 @@
 .figure {
   position: relative;
   cursor: pointer;
+  @media only screen and (max-width: 600px) {
+    cursor: auto;
+  }
+
+  &__open-button {
+    position: absolute;
+    bottom: 2rem;
+    padding: 5px 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    @include flexCenter(row);
+    gap: 5px;
+    & i {
+      color: $color3;
+      font-size: 2rem;
+      @include flexCenter(row);
+    }
+  }
+
   &__icon {
     color: $color4;
     padding: 1rem;
@@ -76,7 +98,6 @@
     height: 100vh;
     object-fit: contain;
     display: block;
-    
   }
 
   &__container {

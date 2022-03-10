@@ -1,7 +1,7 @@
 import "./featured.styles.scss";
 import { motion, useCycle } from "framer-motion";
 import Figure from "../../utilities/figure/figure.component";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const featuredProducts = {
@@ -52,7 +52,6 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
   };
   return (
     <div className='featured__product'>
-      {/* <div className="featured__watchvideo">Video</div> */}
       <div className='featured__images'>
         <Figure image={currentPic.pic} animate height='30rem' />
 
@@ -82,7 +81,10 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
 
         <div className='featured__videos'>
           {videos &&
-            videos.map((item, index) => {
+          <>
+                    <span>Videos</span>
+
+            {videos.map((item, index) => {
               return (
                 <MinVidBox
                   video={item.video}
@@ -92,6 +94,10 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
                 />
               );
             })}
+
+          
+            </>
+            }
         </div>
       </div>
     </div>
@@ -110,29 +116,51 @@ const Featured = () => {
 export default Featured;
 
 const variants = {
-  open: { scale: 1 },
-  closed: { scale: 0.2 },
+  open: { opacity: 1, scale: 1 },
+  closed: { scale: 0.2, display: "none" },
 };
 
 export const MinVidBox = ({ index, title, video }) => {
+  const ref = useRef();
   const [isOpen, setOpen] = useState(false);
 
-  const onOpenClick = () => {
+  const callback = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (e.target.closest(".featured__video")) {
+      return;
+    }
     setOpen(!isOpen);
-    console.log("hi");
+    const tmp = ref.current.src;
+    ref.current.src = "";
+    ref.current.src = tmp;
+
+    document.body.removeEventListener("click", callback);
+  };
+
+  useEffect(() => {
+    if (isOpen) document.body.addEventListener("click", callback);
+  }, [isOpen]);
+
+  const onOpenClick = () => {
+    setOpen(true);
   };
 
   return (
-    <div >
-      <div className='video__index'>Video {index}</div>
+    <div className='video__index' onClick={onOpenClick}>
+      {index}
       <motion.div
         variants={variants}
         animate={isOpen ? "open" : "closed"}
         className='featured__video'
-        transition={{ duration: 0.3 }}
-        onClick={onOpenClick}>
+        transition={{ duration: 0.3 }}>
         <div className='video'>
-          <iframe className='video__iframe' title={title} src={video}></iframe>
+          <iframe
+            ref={ref}
+            className='video__iframe'
+            allow='fullscreen'
+            title={title}
+            src={video}></iframe>
           <h5>{title}</h5>
         </div>
       </motion.div>
