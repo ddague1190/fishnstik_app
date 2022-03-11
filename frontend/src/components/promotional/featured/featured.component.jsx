@@ -80,24 +80,22 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
         <p className='featured__product-description'>{description}</p>
 
         <div className='featured__videos'>
-          {videos &&
-          <>
-                    <span>Videos</span>
+          {videos && (
+            <>
+              <span>Videos</span>
 
-            {videos.map((item, index) => {
-              return (
-                <MinVidBox
-                  video={item.video}
-                  title={item.title}
-                  key={index}
-                  index={index + 1}
-                />
-              );
-            })}
-
-          
+              {videos.map((item, index) => {
+                return (
+                  <MinVidBox
+                    video={item.video}
+                    title={item.title}
+                    key={index}
+                    index={index + 1}
+                  />
+                );
+              })}
             </>
-            }
+          )}
         </div>
       </div>
     </div>
@@ -130,16 +128,16 @@ export const MinVidBox = ({ index, title, video }) => {
     if (e.target.closest(".featured__video")) {
       return;
     }
-    setOpen(!isOpen);
     const tmp = ref.current.src;
     ref.current.src = "";
     ref.current.src = tmp;
-
+    setOpen(!isOpen);
     document.body.removeEventListener("click", callback);
   };
 
   useEffect(() => {
     if (isOpen) document.body.addEventListener("click", callback);
+    return ()=>document.body.removeEventListener("click", callback);
   }, [isOpen]);
 
   const onOpenClick = () => {

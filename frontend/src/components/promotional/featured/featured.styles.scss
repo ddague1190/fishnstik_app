@@ -45,13 +45,13 @@
 
   &__image-selector-dot {
     cursor: pointer;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 2rem;
+    width: 2rem;
     border-radius: 50%;
-    border: 1px solid black;
+    border: 1px solid rgba($color3, 0.5);
     transition: all 0.2s;
     &--active {
-      background-color: $color3;
+      background-color: rgba($color3, 0.5);
       transform: scale(1.2);
     }
   }

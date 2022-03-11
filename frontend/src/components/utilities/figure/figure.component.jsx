@@ -6,10 +6,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { useEffect } from "react";
 
-const Modal = ({ image, toggleShow, alt }) => {
-  const callback = (e) => {
+const Modal = ({ image, toggleShow, showModal, alt }) => {
+  const closeModalHandler = (e) => {
+    e.stopPropagation();
     e.preventDefault();
-    toggleShow();
+    if (
+      e.target.closest(".image-wrapper") ||
+      e.target.closest(".modal__tools")
+    ) {
+      return;
+    }
+    if (showModal) {
+      toggleShow();
+    }
   };
 
   const [zoom, setZoom] = useState(1);
@@ -29,12 +38,15 @@ const Modal = ({ image, toggleShow, alt }) => {
     step: ".05",
   };
   return ReactDOM.createPortal(
-    <div className='modal__container'>
+    <div className='modal__container' onClick={closeModalHandler}>
       <div className='modal'>
         <TransformWrapper doubleClick={rule2} wheel={rule1}>
           {({ zoomIn, resetTransform, ...rest }) => (
             <React.Fragment>
-              <motion.div drag className='modal__tools'>
+              <motion.div
+                drag
+                className='modal__tools'
+                onClick={(e) => e.stopPropagation}>
                 <div className='modal__buttons'>
                   <button
                     className='button modal__button'
@@ -67,18 +79,19 @@ const Modal = ({ image, toggleShow, alt }) => {
                 </h4>
               </motion.div>
 
-              <TransformComponent>
-                <motion.img
-                  className='modal__image'
-                  key={image}
-                  style={{ scale: zoom }}
-                  initial={{ y: -100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ type: "tween", duration: 0.6 }}
-                  src={image}
-                  alt={`image_of_${alt}`}
-                />
-              </TransformComponent>
+              <div className='image-wrapper' onClick={(e) => e.stopPropagation}>
+                <TransformComponent>
+                  <motion.img
+                    className='modal__image'
+                    key={image}
+                    style={{ scale: zoom }}
+                    initial={{ y: -10, opacity: 0.5 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    src={image}
+                    alt={`image_of_${alt}`}
+                  />
+                </TransformComponent>
+              </div>
             </React.Fragment>
           )}
         </TransformWrapper>
@@ -114,12 +127,12 @@ const Figure = ({
         onClick={width > 600 ? toggleShow : null}
         style={{ width: height, height: height }}
         className={`figure ${className}`}>
-          {width < 600 &&
-        <div className='figure__open-button' onClick={toggleShow}>
-          <span>Expand</span>
-          <i className='fa fa-expand' aria-hidden='true'></i>
-        </div>
-}
+        {width < 600 && (
+          <div className='figure__open-button' onClick={toggleShow}>
+            <span>Expand</span>
+            <i className='fa fa-expand' aria-hidden='true'></i>
+          </div>
+        )}
         {!icon ? (
           <AnimatePresence exitBeforeEnter>
             <motion.img
@@ -140,7 +153,12 @@ const Figure = ({
         {children}
       </div>
       {!disable && showModal && (
-        <Modal image={image} toggleShow={toggleShow} alt={alt} />
+        <Modal
+          image={image}
+          showModal={showModal}
+          toggleShow={toggleShow}
+          alt={alt}
+        />
       )}
     </>
   );

@@ -1,7 +1,7 @@
 .productdetails {
   position: relative;
   display: grid;
-  margin-top: 2rem;
+  margin-top: 4rem;
   min-height: 38rem;
   // padding-block: 2rem;
   justify-content: stretch;
@@ -22,7 +22,7 @@
 
   &__image-selector {
     position: absolute !important;
-    bottom: -30px;
+    bottom: -50px;
     left: 50%;
     transform: translateX(-50%);
     @media only screen and (max-width: 500px) {
@@ -71,7 +71,7 @@
     color: $color3;
     margin-bottom: 3rem;
     font-family: $font-family-title;
-    font-size: 3.5rem;
+    font-size: 3rem;
     border-radius: 4px;
     position: relative;
 
@@ -161,7 +161,6 @@
 
 .gauge {
   &__indicator {
-    // transform: translateY(-20%);
   }
   &__label {
     display: block;
