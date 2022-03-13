@@ -38,7 +38,6 @@ const VariantQuantitySelect = ({
       setCartStatus({ qty: 1, alreadyInCart: false });
       return;
     } else if (selectedValue > 0) {
-      // dispatch(addToCart(product._id, variant._id, selectedValue));
       dispatch(addToCart({
         productId: product._id, 
         variantId: variant._id, 

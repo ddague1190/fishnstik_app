@@ -102,6 +102,7 @@ const Modal = ({ image, toggleShow, showModal, alt }) => {
 };
 
 const Figure = ({
+  pulltest,
   imageClickEvenWhenSmall,
   className,
   animate,
@@ -139,6 +140,12 @@ const Figure = ({
           <div className='figure__open-button' onClick={toggleShow}>
             <span>Expand</span>
             <i className='fa fa-expand' aria-hidden='true'></i>
+          </div>
+        )}
+
+        {pulltest && (
+          <div className='figure__open-button figure__pulltest'>
+            <span>#{pulltest}</span>
           </div>
         )}
         {!icon ? (

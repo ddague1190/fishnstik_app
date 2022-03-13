@@ -10,13 +10,11 @@ const CartItem = ({ item }) => {
   const breakpoint = 560;
   const breakpoint2 = 460;
 
-  const mobilePriceIndicator =
-    width < breakpoint2 ? <p>(${item.price} ea)</p> : null;
 
   return (
     <div className='cartitem'>
       <div className='cartitem__product'>
-        {width > breakpoint2 && (
+        {width > breakpoint2 ? (
           <div className='cartitem__image'>
             <div className='cartitem__image-wrapper'>
               <Figure
@@ -27,20 +25,8 @@ const CartItem = ({ item }) => {
                 height={width < breakpoint ? "12rem" : "20rem"}
               />
             </div>
-
-            <span className='cartitem__price'>${item.price} ea</span>
           </div>
-        )}
-
-        <Link className='cartitem__link' to={`/product/${item.productId}`}>
-          <p className='cartitem__name'>{item.name} </p>
-          <span className='cartitem__variantdescription'>
-            {item.variantIdentifier} {mobilePriceIndicator}
-          </span>
-        </Link>
-      </div>
-      <div className='cartitem__params'>
-        {width < breakpoint2 && (
+        ) : (
           <div className='cartitem__imageicon'>
             <Figure
               imageClickEvenWhenSmall
@@ -51,7 +37,21 @@ const CartItem = ({ item }) => {
             />
           </div>
         )}
+
+        <Link className='cartitem__link' to={`/product/${item.productId}`}>
+          <p className='cartitem__name'>{item.name} </p>
+          <span className='cartitem__variantdescription'>
+            {item.variantIdentifier} 
+          </span>
+        </Link>
+      </div>
+      <div className='cartitem__params'>
         <div className='cartitem__quantity'>
+          <div className='cartitem__item-price'>
+            <span>Your Price</span>
+            <span>${item.qty * item.price}</span>
+          </div>
+
           <span>Quantity</span>
           <QuantitySelect item={item} />
         </div>

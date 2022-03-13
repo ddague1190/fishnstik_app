@@ -40,6 +40,7 @@ const ProductScreen = () => {
   const productId = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(listProductDetails(productId.id));
   }, [dispatch, productId.id, reviewJustAdded]);
 

@@ -1,5 +1,17 @@
 .homescreen {
     position: relative;
+    overflow: hidden;
+
+    &__fish {
+        width: 100%;
+        position: absolute;
+        overflow: hidden;
+    }
+
+    &__plane {
+        overflow: hidden;
+    }
+
     &__box {
         width: 100%;
         background-color: rgba($color3, .2);
@@ -24,5 +36,17 @@
         & h2 {
             text-transform: none;
         }
+    }
+}
+
+@keyframes flight {
+    0% {
+        transform: translateY(-10px)
+    }
+    50% {
+        transform: translateY(-10px)
+    }
+    100% {
+        transform: translateY(0px)
     }
 }

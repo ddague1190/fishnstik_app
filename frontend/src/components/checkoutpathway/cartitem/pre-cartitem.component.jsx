@@ -19,7 +19,14 @@ export const PriceBox = ({ alreadyInCart, price, discountPrice }) => {
 
   return (
     <div className='pricebox'>
-      <div className={alreadyInCart ? 'pricebox__regprice--none' : userInfo ? "pricebox__regprice--crossthrough" : ""}>
+      <div
+        className={
+          alreadyInCart
+            ? "pricebox__regprice--none"
+            : userInfo
+            ? "pricebox__regprice--crossthrough"
+            : ""
+        }>
         <span className='pricebox__lighttext'>Reg. price</span>
         <span className='pricebox__boldtext'>${price}</span>
       </div>
@@ -54,16 +61,14 @@ const PreCartItem = ({ product, variant }) => {
     variant.countInStock < 1
   );
 
-  useEffect(()=>{
-
-  }, [cartStatus])
+  useEffect(() => {}, [cartStatus]);
 
   return (
     <>
       {!showPlaceholder ? (
         <div className='cartitem cartitem--mobile'>
           <div className='cartitem__product'>
-            {width > breakpoint2 && (
+            {width > breakpoint2 ? (
               <div className='cartitem__image'>
                 <div className='cartitem__image-wrapper'>
                   <Figure
@@ -74,6 +79,16 @@ const PreCartItem = ({ product, variant }) => {
                     height={width < breakpoint ? "12rem" : "20rem"}
                   />
                 </div>
+              </div>
+            ) : (
+              <div className='cartitem__imageicon'>
+                <Figure
+                  imageClickEvenWhenSmall
+                  icon
+                  image={variant.image}
+                  alt={variant.identifier}
+                  description={variant.description}
+                />
               </div>
             )}
 
@@ -88,17 +103,6 @@ const PreCartItem = ({ product, variant }) => {
             className={`cartitem__params ${
               cartStatus.alreadyInCart && "cartitem__params--added"
             }`}>
-            {width < breakpoint2 && (
-              <div className='cartitem__imageicon'>
-                <Figure
-                  imageClickEvenWhenSmall
-                  icon
-                  image={variant.image}
-                  alt={variant.identifier}
-                  description={variant.description}
-                />
-              </div>
-            )}
             {variant.countInStock > 0 ? (
               <>
                 <div className='cartitem__quantity'>

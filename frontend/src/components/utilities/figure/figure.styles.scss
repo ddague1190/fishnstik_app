@@ -6,6 +6,16 @@
     cursor: auto;
   }
 
+  &__pulltest {
+    font-style: bold;
+    font-family: $font-family-title;
+    color: black;
+    font-size: 2rem;
+    z-index: 5;
+    background-color: darken(white, .5%) !important;
+    border-radius: 10px !important;
+  }
+
   &__open-button {
     position: absolute;
     bottom: 2rem;
@@ -56,8 +66,7 @@
     color: white;
   }
 
-  &__tools,
-  &__ruler {
+  &__tools {
     background-color: black;
     position: absolute;
     color: white;
@@ -71,31 +80,9 @@
     z-index: 100;
   }
 
-  &__ruler {
-    background-color: rgba(white, 0.5);
-    color: black;
-    @include flexCenter(column);
-    width: max-content;
-    top: 6rem;
-    right: 0;
-    height: 10rem;
-    padding: 1rem 2rem;
-    & h2 {
-      text-transform: none;
-    }
-    &--here {
-      position: relative;
-      &::after {
-        position: absolute;
-        content: "";
-        width: 96px;
-        height: 5px;
-      }
-    }
-  }
-
   &__image {
     width: 90vw;
+    max-width: 60rem;
     object-fit: contain;
     display: block;
   }

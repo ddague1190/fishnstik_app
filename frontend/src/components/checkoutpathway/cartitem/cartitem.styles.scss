@@ -7,6 +7,22 @@
     height: 22rem;
     width: 100%;
 
+    &__item-price {
+        color: $color3;
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        margin-top: 1px;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        @include flexCenter(row);
+        gap: 5px;
+        background-color: rgba(white, .5);
+        border: 1px solid rgba($color5, .2);
+        color: $color5;
+    }
+
     &__imageicon {
         position: absolute;
         top: 0;
@@ -54,6 +70,7 @@
     }
 
     &__params {
+        position: relative;
         margin-left: auto;
         background-color: whitesmoke;
         display: flex;

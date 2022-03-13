@@ -5,7 +5,6 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Waves from "../../svg/frontpagebanner/Waves";
 
-
 const featuredProducts = {
   liveoceanlures: {
     pics: [
@@ -54,7 +53,10 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
   };
   return (
     <div className='featured__product'>
-      <Waves/>
+      <Link className='button featured__button' to={to}>
+        More info <i className="fas fa-expand"></i>
+      </Link>
+      <Waves />
       <div className='featured__images'>
         <Figure image={currentPic.pic} animate height='30rem' />
 
@@ -85,7 +87,12 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
         <div className='featured__videos'>
           {videos && (
             <>
-              <span>Videos</span>
+              <span>
+                <i
+                  style={{ opacity: 0.6, marginRight: "1rem" }}
+                  className='fa fa-video-camera'
+                  aria-hidden='true'></i>
+              </span>
 
               {videos.map((item, index) => {
                 return (

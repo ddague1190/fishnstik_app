@@ -10,9 +10,22 @@
     height: 110rem;
   }
 
+  &__button {
+    @include flexCenter(row);
+    gap: 1rem;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem  !important;
+    opacity: .8;
+  }
+
   &__videos {
     @include flexCenter(row);
     gap: 1rem;
+    margin-bottom: 2rem;
+
   }
 
   &__video {
@@ -73,13 +86,12 @@
     margin: 0 auto;
     text-align: center;
     font-family: $font-family-title;
-
   }
 
   &__product {
     padding: 1rem;
     width: 100%;
-    background-color: rgba(white, 0.5);
+    background-color: rgba(white, 0.8);
     margin-block: 1rem;
     @include flexCenter(row);
     gap: 4rem;

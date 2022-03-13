@@ -1,21 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.2bafa48b.css",
-    "main.js": "/static/js/main.3d85fce5.js",
+    "main.css": "/static/css/main.2a0530c7.css",
+    "main.js": "/static/js/main.8a12ea3f.js",
     "static/js/787.d8c6ec95.chunk.js": "/static/js/787.d8c6ec95.chunk.js",
     "static/media/DeepOcean.svg": "/static/media/DeepOcean.85dde228af79cb10d800783e5741f9f0.svg",
     "static/media/waveysurface.svg": "/static/media/waveysurface.5eda88442614a132b2602cfbbe2dfdb7.svg",
     "static/media/swivelsnap.svg": "/static/media/swivelsnap.c2008e6973a0696927f1534b4bb3b40a.svg",
     "static/media/sailfish.svg": "/static/media/sailfish.ef3bd2c48dcf815ca46c98a2a1e8639f.svg",
+    "static/media/planebanner.svg": "/static/media/planebanner.faf09b47b8413e480b72179a24434d5b.svg",
     "static/media/fishwatchlogo.svg": "/static/media/fishwatchlogo.987ef8d1da4bbd96e6682cf9b2d512d2.svg",
     "index.html": "/index.html",
     "static/media/lookinside.svg": "/static/media/lookinside.77e576287c9205bcd4cfcb730d28149d.svg",
-    "main.2bafa48b.css.map": "/static/css/main.2bafa48b.css.map",
-    "main.3d85fce5.js.map": "/static/js/main.3d85fce5.js.map",
+    "main.2a0530c7.css.map": "/static/css/main.2a0530c7.css.map",
+    "main.8a12ea3f.js.map": "/static/js/main.8a12ea3f.js.map",
     "787.d8c6ec95.chunk.js.map": "/static/js/787.d8c6ec95.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2bafa48b.css",
-    "static/js/main.3d85fce5.js"
+    "static/css/main.2a0530c7.css",
+    "static/js/main.8a12ea3f.js"
   ]
 }

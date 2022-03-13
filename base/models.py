@@ -44,22 +44,22 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.extra.save()
 
+
 class Product(models.Model):
+    noMainPicture = models.BooleanField(default=False)
+    dropdownSelection = models.BooleanField(default=False)
     catchPhrase = models.CharField(max_length=200, null=True, blank=True)
     numVariants = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=200, null=True, blank=True)
     pulltest = models.CharField(max_length=200, null=True, blank=True)
-    # image = models.ImageField(null=True, blank=True)
     brand = models.CharField(max_length=200, null=True, blank=True)
     category = models.CharField(max_length=200, null=True, blank=True)
     subcategory = models.CharField(max_length=200, null=True, blank=True)
     description = RichTextField()
-    # description = models.TextField(null=True, blank=True)
     rating = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     numReviews = models.IntegerField(null=True, blank=True, default=0)
     createdAt = models.DateTimeField(auto_now_add=True)
-    display_as_pulldown = models.BooleanField(default=False)
     _id = models.AutoField(primary_key=True, editable=False)
 
     def __str__(self):
@@ -73,7 +73,9 @@ class Product(models.Model):
 
 class Pictures(models.Model):
     image = models.ImageField(null=True, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='images')
+
 
 class Variant(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)

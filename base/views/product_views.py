@@ -21,12 +21,12 @@ def getProducts(request, category='', subcategory=''):
         query = ''
     products = Product.objects.filter(name__icontains=query)
     if category:
-        products = Product.objects.filter(category=category)
+        products = Product.objects.filter(category=category).order_by('pulltest')
         if category == 'all':
             products = Product.objects.all().order_by('-createdAt')
 
     if subcategory:
-        products = Product.objects.filter(subcategory=subcategory)
+        products = Product.objects.filter(subcategory=subcategory).order_by('pulltest')
 
     page = request.query_params.get('page')
     paginator = Paginator(products, 10)

@@ -21,7 +21,10 @@ const ProductList = ({ target, ...otherProps }) => {
   const { error, loading, products, page, pages } = productList;
   let { search } = useLocation();
   let { url_cat, url_subcat, url_brand } = useParams();
+
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     if (!url_cat && !url_brand && search) {
       dispatch(listProducts(search));
     } else if (url_cat) {

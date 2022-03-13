@@ -213,33 +213,37 @@ const ProductDetails = ({ product, height }) => {
 
   return (
     <div
-      className={`productdetails ${
-        !product.pulltest && "productdetails--nogauge"
-      } ${product.numVariants === 1 ? "productdetails--oneVariant" : ""}`}>
-      <div className='productdetails__image'>
-        <Figure
-          image={currentPic.pic}
-          alt={product.name}
-          animate
-          height='30rem'
-        />
-        <div className='featured__image-selector fishfacts__image-selector productdetails__image-selector'>
-          {images.length > 1 &&
-            images.map((_, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => changePic(index)}
-                  className={
-                    index === currentPic.index
-                      ? "featured__image-selector-dot featured__image-selector-dot--active"
-                      : "featured__image-selector-dot"
-                  }
-                />
-              );
-            })}
+      className={`productdetails 
+      ${!product.pulltest ? "productdetails--nogauge" : ""} 
+      // ${product.numVariants === 1 ? "productdetails--oneVariant" : ""}
+      ${product.noMainPicture ? "productdetails--noMainPicture" : ""}
+      `}>
+      {!product.noMainPicture && (
+        <div className='productdetails__image'>
+          <Figure
+            image={currentPic.pic}
+            alt={product.name}
+            animate
+            height='30rem'
+          />
+          <div className='featured__image-selector fishfacts__image-selector productdetails__image-selector'>
+            {images.length > 1 &&
+              images.map((_, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => changePic(index)}
+                    className={
+                      index === currentPic.index
+                        ? "featured__image-selector-dot featured__image-selector-dot--active"
+                        : "featured__image-selector-dot"
+                    }
+                  />
+                );
+              })}
+          </div>
         </div>
-      </div>
+      )}
       <div className='productdetails__details'>
         <p className='productdetails__name'>{product.name}</p>
         <p className='productdetails__maker'>

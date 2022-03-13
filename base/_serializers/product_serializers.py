@@ -62,7 +62,7 @@ class BasicProductInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product        
-        fields = ('name', 'image', '_id')
+        fields = ('name', 'image', '_id', 'pulltest')
 
     def get_image(self, obj):
         qs = obj.images.first()
