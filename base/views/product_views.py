@@ -13,6 +13,7 @@ from base._serializers import product_serializers
 from rest_framework import serializers
 from pprint import pprint
 
+
 @api_view(['GET'])
 def getProducts(request, category='', subcategory=''):
     query = request.query_params.get('keyword')
@@ -21,7 +22,7 @@ def getProducts(request, category='', subcategory=''):
     products = Product.objects.filter(name__icontains=query)
     if category:
         products = Product.objects.filter(category=category)
-        if category =='all':
+        if category == 'all':
             products = Product.objects.all().order_by('-createdAt')
 
     if subcategory:
@@ -30,7 +31,7 @@ def getProducts(request, category='', subcategory=''):
     page = request.query_params.get('page')
     paginator = Paginator(products, 10)
 
-    try: 
+    try:
         products = paginator.page(page)
     except PageNotAnInteger:
         products = paginator.page(1)
@@ -39,7 +40,34 @@ def getProducts(request, category='', subcategory=''):
 
     if page == None:
         page = 1
-    
+
+    page = int(page)
+
+    serializer = product_serializers.BasicProductInfoSerializer(
+        products, many=True)
+    return Response({
+        'products': serializer.data,
+        'page': page,
+        'pages': paginator.num_pages
+    })
+
+
+@api_view(['GET'])
+def getProductsByBrand(request, brand=''):
+    products = Product.objects.filter(brand__icontains=brand)
+    page = request.query_params.get('page')
+    paginator = Paginator(products, 10)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    if page == None:
+        page = 1
+
     page = int(page)
 
     serializer = product_serializers.BasicProductInfoSerializer(products, many=True)
@@ -49,31 +77,6 @@ def getProducts(request, category='', subcategory=''):
         'pages': paginator.num_pages
     })
 
-@api_view(['GET'])
-def getProductsByBrand(request, brand=''):
-    products = Product.objects.filter(brand__icontains=brand)
-    page = request.query_params.get('page')
-    paginator = Paginator(products, 10)
-
-    try: 
-        products = paginator.page(page)
-    except PageNotAnInteger:
-        products = paginator.page(1)
-    except EmptyPage:
-        products = paginator.page(paginator.num_pages)
-
-    if page == None:
-        page = 1
-    
-    page = int(page)
-
-   
-    serializer = product_serializers.ProductSerializer(products, many=True)
-    return Response({
-        'products': serializer.data,
-        'page': page,
-        'pages': paginator.num_pages
-    })
 
 @api_view(['GET'])
 def getProduct(request, pk):
@@ -87,29 +90,32 @@ class ReviewView(generics.CreateAPIView):
     serializer_class = product_serializers.ReviewSerializer
 
     def verified_buyer(self, user, product):
-        return OrderItem.objects.filter(product=product, order__user=user);        
+        return OrderItem.objects.filter(product=product, order__user=user)
 
     def already_exists(self, user, product):
         return product.reviews.filter(user=user).exists()
-        
+
     def create(self, request, pk, *args, **kwargs):
         user = request.user
         product = Product.objects.get(_id=pk)
 
         if not self.verified_buyer(user, product):
-            raise serializers.ValidationError({'detail': "You must be a verfied buyer to leave a review."})
+            raise serializers.ValidationError(
+                {'detail': "You must be a verfied buyer to leave a review."})
         if self.already_exists(user, product):
-            raise serializers.ValidationError({"detail": "Product already reviewed."})
-        
+            raise serializers.ValidationError(
+                {"detail": "Product already reviewed."})
+
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid()
-        
+
         if serializer.errors:
             if serializer.errors['comment'][0]:
-                raise serializers.ValidationError({'detail': serializer.errors['comment'][0].title()})
+                raise serializers.ValidationError(
+                    {'detail': serializer.errors['comment'][0].title()})
         if serializer.validated_data['rating'] == 0:
-            raise serializers.ValidationError({'detail': "Review cannot be 0."})
-        serializer.save(user=request.user, product=Product.objects.get(_id=pk) )  
+            raise serializers.ValidationError(
+                {'detail': "Review cannot be 0."})
+        serializer.save(user=request.user, product=Product.objects.get(_id=pk))
 
         return Response(status=status.HTTP_201_CREATED)
-

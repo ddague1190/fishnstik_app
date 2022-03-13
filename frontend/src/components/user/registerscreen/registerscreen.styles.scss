@@ -8,10 +8,10 @@
   @include flexCenter(column);
 }
 .registrationform {
-@include flexCenter(row);
-max-width: 50rem;
-flex-wrap: wrap;
+  @include flexCenter(row);
+  max-width: 50rem;
+  flex-wrap: wrap;
   &__alreadyhaveaccount {
-    width: 100%; 
+    width: 100%;
   }
 }

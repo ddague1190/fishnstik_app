@@ -7,8 +7,6 @@
     height: 22rem;
     width: 100%;
 
-    &--mobile {
-    }
     &__imageicon {
         position: absolute;
         top: 0;
@@ -73,7 +71,6 @@
     }
 
     &__quantity {
-        background-color: redf;
         text-align: center;
     }
 
@@ -119,41 +116,5 @@
         cursor: pointer;
         border-left: 1px solid darken($color2, 0%);
         @include flexCenter(column);
-    }
-}
-
-.pricebox {
-    @include flexCenter(row);
-    gap: 1rem;
-    position: absolute;
-    bottom: 5px;
-    z-index: 100;
-    left: 1rem;
-    color: $color3;
-
-    @media only screen and (max-width: 460px) {
-        @include flexCenter(column);
-        gap: 0;
-        align-items: flex-start;
-    }
-
-
-    &__lighttext {
-        font-weight: 100;
-        font-style: normal;
-        margin-right: 1rem;
-    }
-
-    &__boldtext {
-        font-style: normal;
-        font-weight: 800;
-        font-size: 2rem;
-        color: $color3;
-    }
-
-    &__login {
-        cursor: pointer;
-        font-size: 2rem;
-        font-weight: 100;
     }
 }

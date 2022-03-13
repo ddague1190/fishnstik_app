@@ -6,11 +6,12 @@ import { motion } from "framer-motion";
 import Figure from "../../utilities/figure/figure.component";
 import "./cartitem.styles.scss";
 import VariantQuantitySelect from "../../utilities/quantityselect/variant-quantityselect.component";
+import { useEffect } from "react";
 
-export const PriceBox = ({ price, discountPrice }) => {
+export const PriceBox = ({ alreadyInCart, price, discountPrice }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
-  const navigate = useNavigate()
-  const {id} = useParams();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const onLoginClick = () => {
     navigate(`/login?redirect=/product/${id}`);
@@ -18,9 +19,9 @@ export const PriceBox = ({ price, discountPrice }) => {
 
   return (
     <div className='pricebox'>
-        <div>
-      <span className='pricebox__lighttext'>Regular price</span>
-      <span className='pricebox__boldtext' >${price}</span> 
+      <div className={alreadyInCart ? 'pricebox__regprice--none' : userInfo ? "pricebox__regprice--crossthrough" : ""}>
+        <span className='pricebox__lighttext'>Reg. price</span>
+        <span className='pricebox__boldtext'>${price}</span>
       </div>
       {userInfo ? (
         <div>
@@ -29,7 +30,9 @@ export const PriceBox = ({ price, discountPrice }) => {
         </div>
       ) : (
         <div>
-          <span className='pricebox__login' onClick={onLoginClick}><u>Login</u> to see your price</span>
+          <span className='pricebox__login' onClick={onLoginClick}>
+            <u>Login</u> to see your price
+          </span>
         </div>
       )}
     </div>
@@ -41,6 +44,8 @@ const PreCartItem = ({ product, variant }) => {
   const breakpoint = 560;
   const breakpoint2 = 460;
 
+  const { userInfo } = useSelector((state) => state.userLogin);
+
   const [cartStatus, setCartStatus] = useState({
     qty: 0,
     alreadyInCart: false,
@@ -48,6 +53,10 @@ const PreCartItem = ({ product, variant }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(
     variant.countInStock < 1
   );
+
+  useEffect(()=>{
+
+  }, [cartStatus])
 
   return (
     <>
@@ -58,6 +67,7 @@ const PreCartItem = ({ product, variant }) => {
               <div className='cartitem__image'>
                 <div className='cartitem__image-wrapper'>
                   <Figure
+                    imageClickEvenWhenSmall
                     image={variant.image}
                     alt={variant.name}
                     description={variant.description}
@@ -73,10 +83,6 @@ const PreCartItem = ({ product, variant }) => {
                 {variant.description}
               </p>
             </Link>
-            <PriceBox
-              price={variant.price}
-              discountPrice={variant.discountPrice}
-            />
           </div>
           <div
             className={`cartitem__params ${
@@ -85,6 +91,7 @@ const PreCartItem = ({ product, variant }) => {
             {width < breakpoint2 && (
               <div className='cartitem__imageicon'>
                 <Figure
+                  imageClickEvenWhenSmall
                   icon
                   image={variant.image}
                   alt={variant.identifier}
@@ -98,7 +105,9 @@ const PreCartItem = ({ product, variant }) => {
                   {cartStatus.alreadyInCart ? (
                     <span>Change quantity</span>
                   ) : (
-                    <span>Select quantity</span>
+                    <span style={{ display: userInfo ? "block" : "none" }}>
+                      Select quantity
+                    </span>
                   )}
                   <VariantQuantitySelect
                     product={product}
@@ -113,7 +122,7 @@ const PreCartItem = ({ product, variant }) => {
                       <h2>
                         $
                         {cartStatus.alreadyInCart &&
-                          (cartStatus.qty * variant.price).toFixed(2)}
+                          (cartStatus.qty * variant.discountPrice).toFixed(2)}
                       </h2>
                     </>
                   )}

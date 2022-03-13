@@ -26,16 +26,13 @@ const Footer = () => {
           <h4 className='footer-info__heading'>Information</h4>
           <ul className='footer-info__list'>
             <li>
-              <span>Custom tackle services</span>
+              <Link to='/aboutus'>About Us</Link>
             </li>
             <li>
-              <span>About Us</span>
+              <Link to='/shippingreturns'> Returns Policy</Link>
             </li>
             <li>
-              <span>Shipping &amp; Returns</span>
-            </li>
-            <li>
-              <span>Privacy Policy</span>
+              <Link to='/privacypolicy'>Privacy Policy</Link>
             </li>
           </ul>
         </article>
@@ -99,14 +96,11 @@ const Footer = () => {
             <p>Open 8 to 4 weekdays</p>
 
             <strong>Call us at (561) 685-7845</strong>
-
           </div>
         </article>
       </section>
       <div className='footer__copyright'>
-        <p className='powered-by'>
-          &copy; FishNStik
-        </p>
+        <p className='powered-by'>&copy; FishNStik</p>
       </div>
     </footer>
   );

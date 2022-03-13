@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../../redux/actions/cartActions";
 import "./quantityselect.styles.scss";
 import { cartParser } from "../../../utils/reduxSelectors";
+import { PriceBox } from "../../checkoutpathway/cartitem/pre-cartitem.component";
 
 const VariantQuantitySelect = ({
   oneVariant,
@@ -15,7 +16,7 @@ const VariantQuantitySelect = ({
   const [alreadyInCart, setAlreadyInCart] = useState(false);
   const [selectedValue, setSelectedValue] = useState(0);
   const parsedCart = useSelector(cartParser);
-  const {userInfo} = useSelector(state=>state.userLogin)
+  const { userInfo } = useSelector((state) => state.userLogin);
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
@@ -37,7 +38,18 @@ const VariantQuantitySelect = ({
       setCartStatus({ qty: 1, alreadyInCart: false });
       return;
     } else if (selectedValue > 0) {
-      dispatch(addToCart(product._id, variant._id, selectedValue));
+      // dispatch(addToCart(product._id, variant._id, selectedValue));
+      dispatch(addToCart({
+        productId: product._id, 
+        variantId: variant._id, 
+        name: product.name,
+        variantIdentifier: variant.identifier,
+        image: variant.image,
+        price: variant.discountPrice,
+        countInStock: variant.countInStock,
+        qty: selectedValue,
+      }));
+
       setAlreadyInCart(true);
       setQty(selectedValue);
       setCartStatus({ qty: selectedValue, alreadyInCart: true });
@@ -46,19 +58,26 @@ const VariantQuantitySelect = ({
 
   return (
     <>
-      <form className='select__form'>
-        <select
-          className='select__dropdown'
-          value={qty}
-          onChange={(e) => setSelectedValue(e.target.value)}>
-          {alreadyInCart && <option>Remove</option>}
-          {[...Array(variant.countInStock).keys()].map((x) => (
-            <option key={x + 1} value={x + 1}>
-              {x + 1}
-            </option>
-          ))}
-        </select>
-      </form>
+      <PriceBox
+        alreadyInCart={alreadyInCart}
+        price={variant.price}
+        discountPrice={variant.discountPrice}
+      />
+      {userInfo && (
+        <form className='select__form'>
+          <select
+            className='select__dropdown'
+            value={qty}
+            onChange={(e) => setSelectedValue(e.target.value)}>
+            {alreadyInCart && <option>Remove</option>}
+            {[...Array(variant.countInStock).keys()].map((x) => (
+              <option key={x + 1} value={x + 1}>
+                {x + 1}
+              </option>
+            ))}
+          </select>
+        </form>
+      )}
       {alreadyInCart ? (
         <motion.div
           initial={{ textShadow: "none", boxShadow: "none" }}
@@ -82,14 +101,13 @@ const VariantQuantitySelect = ({
         </motion.div>
       ) : (
         <button
-        disabled={!userInfo}
+          disabled={!userInfo}
           type='submit'
           onClick={() => setSelectedValue(1)}
           className={`select__button ${
             oneVariant ? "select__button--oneVariant" : ""
           }`}>
-        
-          {userInfo ? 'Add to Cart' : 'Login to add'}
+          {userInfo ? "Add to Cart" : "Login to add"}
         </button>
       )}
     </>

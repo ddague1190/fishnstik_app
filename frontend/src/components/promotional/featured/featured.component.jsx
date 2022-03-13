@@ -3,6 +3,8 @@ import { motion, useCycle } from "framer-motion";
 import Figure from "../../utilities/figure/figure.component";
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import Waves from "../../svg/frontpagebanner/Waves";
+
 
 const featuredProducts = {
   liveoceanlures: {
@@ -52,6 +54,7 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
   };
   return (
     <div className='featured__product'>
+      <Waves/>
       <div className='featured__images'>
         <Figure image={currentPic.pic} animate height='30rem' />
 
@@ -137,7 +140,7 @@ export const MinVidBox = ({ index, title, video }) => {
 
   useEffect(() => {
     if (isOpen) document.body.addEventListener("click", callback);
-    return ()=>document.body.removeEventListener("click", callback);
+    return () => document.body.removeEventListener("click", callback);
   }, [isOpen]);
 
   const onOpenClick = () => {

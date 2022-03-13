@@ -12,10 +12,9 @@ import PlaceOrderScreen from "./components/checkoutpathway/placeorderscreen/plac
 import OrderScreen from "./components/checkoutpathway/orderscreen/orderscreen.component";
 import AboutUsScreen from "./components/promotional/aboutusscreen/aboutusscreen.component";
 import ProductList from "./components/productpresentation/productlist/productlist.component";
-import Brands from "./components/promotional/brands/brands.component";
 import "./sass/App.scss";
 import useViewport from "./utils/useViewport";
-import { AnimatePresence, motion } from "framer-motion";
+import { ShippingReturns, PrivacyPolicy } from "./components/promotional/policies/policies.component";
 
 const App = () => {
   useViewport();
@@ -31,7 +30,9 @@ const App = () => {
       <Route path='/products/:url_cat/' element={<ProductList />} />
       <Route path='/products/' element={<ProductList />} />
       <Route path='/brands/:url_brand/' element={<ProductList />} />
-      {/* <Route path='/aboutus' element={<AboutUsScreen />} /> */}
+      <Route path='/aboutus' element={<AboutUsScreen />} />
+      <Route path='/shippingreturns' element={<ShippingReturns />} />
+      <Route path='/privacypolicy' element={<PrivacyPolicy />} />
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
       <Route path='/profile' element={<ProfileScreen />} />

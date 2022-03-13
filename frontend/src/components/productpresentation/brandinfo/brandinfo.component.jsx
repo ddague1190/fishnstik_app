@@ -1,26 +1,20 @@
-import React from 'react';
-import {brandinfo} from './brandinfo';
-import './brandinfo.styles.scss';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { brandinfo } from "./brandinfo";
+import "./brandinfo.styles.scss";
+import { Link } from "react-router-dom";
 
-const BrandInfo = ({brand}) => {
-  console.log(brand)
+const BrandInfo = ({ brand }) => {
   return (
-  
     <>
-
-    <div className='path-group'>
-        <Link to='/'>Home</Link> 
+      <div className='path-group'>
+        <Link to='/'>Home</Link>
         <span> > </span>
         <Link to={`/brands/${brand}/`}>{brand}</Link>
-    </div>
+      </div>
 
-
-
-
-    <div className='brand-info'>
-      <span className='brand-info__description'>{brandinfo[brand]}</span>
-    </div>
+      <div className='brand-info'>
+        <span className='brand-info__description'>{brandinfo[brand]}</span>
+      </div>
     </>
   );
 };

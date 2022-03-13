@@ -23,8 +23,7 @@ const CartScreen = () => {
 
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
+  const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
     if (productId) {

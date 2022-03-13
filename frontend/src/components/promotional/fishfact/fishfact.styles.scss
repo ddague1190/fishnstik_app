@@ -30,7 +30,6 @@
         text-align: center;
         color: $color3;
     }
-
 }
 
 .fishfacts-container {
@@ -90,6 +89,7 @@
     }
 
     &__lookinside {
+        cursor: pointer;
         position: absolute;
         top: 18%;
         left: 42%;
@@ -220,4 +220,3 @@
         font-style: italic;
     }
 }
-

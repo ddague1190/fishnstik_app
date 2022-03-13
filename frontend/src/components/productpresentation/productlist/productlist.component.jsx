@@ -14,8 +14,6 @@ import "./productlist.styles.scss";
 import SubcategoryList from "../subcategorylist/subcategorylist.component";
 import SubcategoryInfo from "../subcategorylist/subcategoryinfo.component";
 import BrandInfo from "../brandinfo/brandinfo.component";
-import { motion } from "framer-motion";
-import { pageVariants } from "../../../utils/variants";
 
 const ProductList = ({ target, ...otherProps }) => {
   const dispatch = useDispatch();
@@ -34,9 +32,7 @@ const ProductList = ({ target, ...otherProps }) => {
   }, [search, url_cat, url_subcat, url_brand]);
 
   return (
-    <div
-      className='productlist'
-      >
+    <div className='productlist'>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -46,7 +42,9 @@ const ProductList = ({ target, ...otherProps }) => {
           <>
             {url_brand && <BrandInfo brand={url_brand} />}
 
-            {url_cat && !url_subcat && <SubcategoryList justPath category={url_cat} />}
+            {url_cat && !url_subcat && (
+              <SubcategoryList justPath category={url_cat} />
+            )}
 
             {url_subcat && (
               <SubcategoryInfo category={url_cat} subcategory={url_subcat} />

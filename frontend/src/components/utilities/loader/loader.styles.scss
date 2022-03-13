@@ -22,15 +22,16 @@
     }
 }
 
-.tuna, .dolphin, .marlin {
+.tuna,
+.dolphin,
+.marlin {
     top: 50%;
     transform: translate(-50%, -50%);
     left: 50%;
     position: absolute;
     width: 100%;
-    opacity: .7;
+    opacity: 0.7;
 }
-
 
 //MARLIN
 

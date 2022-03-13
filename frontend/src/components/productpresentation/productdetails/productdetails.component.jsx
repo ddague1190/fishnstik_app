@@ -266,11 +266,12 @@ const ProductDetails = ({ product, height }) => {
         </p>
       )}
 
-      {product.pulltest && (width > breakpoint ? (
-        <PullTestGauge test={product.pulltest} />
-      ) : (
-        <HorizontalPullTestGauge test={product.pulltest} />
-      ))}
+      {product.pulltest &&
+        (width > breakpoint ? (
+          <PullTestGauge test={product.pulltest} />
+        ) : (
+          <HorizontalPullTestGauge test={product.pulltest} />
+        ))}
     </div>
   );
 };

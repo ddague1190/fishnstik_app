@@ -6,10 +6,9 @@
   transform: translateX(-50%);
   width: 100%;
   height: 17vw;
-  z-index: 1;
+  z-index: -1;
   &__wave {
-    // fill: rgba(rgb(166, 237, 59),.5);
-    fill: rgba(green, .2);
+    fill: rgba($color6, .1);
   }
 }
 

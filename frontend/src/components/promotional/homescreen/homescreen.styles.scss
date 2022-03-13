@@ -1,4 +1,12 @@
 .homescreen {
+    position: relative;
+    &__box {
+        width: 100%;
+        background-color: rgba($color3, .2);
+        position: relative;
+        padding-top: 5rem;
+
+    }
     &__intro {
         width: 90%;
         margin: 0 auto;
@@ -15,8 +23,6 @@
 
         & h2 {
             text-transform: none;
-
         }
-
     }
 }

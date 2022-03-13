@@ -1,48 +1,47 @@
-import jwt_decode from 'jwt-decode'
-import axios from 'axios'
-import dayjs from 'dayjs'
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import dayjs from "dayjs";
 
-
-let baseURL = process.env.REACT_APP_BASE_URL 
+let baseURL = process.env.REACT_APP_BASE_URL;
 // baseURL = "http://localhost:3000"
 
 const axiosInstance = axios.create({
-    baseURL,
+  baseURL,
+  headers: {
+    "Content-type": "application/json",
+  },
+});
+
+axiosInstance.interceptors.request.use(async (req) => {
+  let userInfo = localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo"))
+    : null;
+  req.headers["Authorization"] = `Bearer ${userInfo?.access}`;
+  const token = jwt_decode(userInfo?.access);
+  const isExpired = dayjs.unix(token.exp).diff(dayjs()) < 1;
+  if (!isExpired) return req;
+
+  const config = {
     headers: {
-        'Content-type': 'application/json',
-     }
-})
+      "Content-type": "application/json",
+      "Refresh-attempt": true,
+    },
+  };
 
+  const { data } = await axios.post(
+    "/api/users/login/refresh/",
+    {
+      refresh: userInfo.refresh,
+    },
+    config
+  );
 
-axiosInstance.interceptors.request.use( async req => {
+  // data['username'] = userInfo.username
 
-    let userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
-    req.headers['Authorization'] = `Bearer ${userInfo?.access}`
-    const token = jwt_decode(userInfo?.access)
-    const isExpired = dayjs.unix(token.exp).diff(dayjs()) < 1;
-    if(!isExpired) return req
+  localStorage.setItem("userInfo", JSON.stringify(data));
+  req.headers.Authorization = `Bearer ${data.access}`;
 
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-            'Refresh-attempt': true
-        }
-    }
-     
-    const {data} = await axios.post(
-       '/api/users/login/refresh/',
-        {
-           'refresh': userInfo.refresh,
-        },
-        config
-       )
+  return req;
+});
 
-    // data['username'] = userInfo.username
-
-    localStorage.setItem('userInfo', JSON.stringify(data))
-    req.headers.Authorization = `Bearer ${data.access}`
-
-    return req
-})
-
-export default axiosInstance
+export default axiosInstance;

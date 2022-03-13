@@ -102,6 +102,7 @@ const Modal = ({ image, toggleShow, showModal, alt }) => {
 };
 
 const Figure = ({
+  imageClickEvenWhenSmall,
   className,
   animate,
   icon,
@@ -117,6 +118,13 @@ const Figure = ({
     setShowModal(!showModal);
   };
 
+  const onImageClick = () => {
+    if (width > 600 || imageClickEvenWhenSmall) {
+      toggleShow();
+      return;
+    }
+  };
+
   useEffect(() => {
     setShowModal(false);
   }, [width]);
@@ -124,10 +132,10 @@ const Figure = ({
   return (
     <>
       <div
-        onClick={width > 600 ? toggleShow : null}
+        onClick={onImageClick}
         style={{ width: height, height: height }}
         className={`figure ${className}`}>
-        {width < 600 && (
+        {width < 600 && !imageClickEvenWhenSmall && (
           <div className='figure__open-button' onClick={toggleShow}>
             <span>Expand</span>
             <i className='fa fa-expand' aria-hidden='true'></i>

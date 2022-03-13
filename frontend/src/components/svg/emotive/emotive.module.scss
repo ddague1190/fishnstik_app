@@ -1,7 +1,11 @@
 .wrapper {
-  width: 90%;
-  position: relative;
+  width: 100%;
+  position: absolute;
   margin: 0 auto;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: .5;
 
   &__wavysurface {
     overflow: hidden;

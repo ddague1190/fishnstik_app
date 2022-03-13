@@ -2,16 +2,16 @@
   margin-top: 5rem;
   @include flexCenter(row);
   gap: 1rem;
-  
+
   &__link {
     padding: 1rem;
-    transition: .2s all;
+    transition: 0.2s all;
     &--active {
       position: relative;
       color: white;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         border-radius: 50%;
         background-color: $color3;
@@ -22,8 +22,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
-      
     }
   }
-
 }

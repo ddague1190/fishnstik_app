@@ -2,16 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import Figure from "../../utilities/figure/figure.component";
 import "./oneVariant.styles.scss";
 import VariantQuantitySelect from "../../utilities/quantityselect/variant-quantityselect.component";
 
 const OneVariant = ({ product, variant }) => {
-  const { width } = useSelector((state) => state.dimensions);
-  const breakpoint = 560;
-  const breakpoint2 = 460;
-  const mobilePriceIndicator =
-    width < breakpoint2 ? <span>(${variant.price})</span> : null;
   const [cartStatus, setCartStatus] = useState({
     qty: 0,
     alreadyInCart: false,
@@ -24,7 +18,6 @@ const OneVariant = ({ product, variant }) => {
     <>
       {!showPlaceholder ? (
         <div className='oneVariant'>
-
           {variant.countInStock > 0 ? (
             <>
               <div className='oneVariant__quantity'>
@@ -34,7 +27,7 @@ const OneVariant = ({ product, variant }) => {
                   <span>Select quantity</span>
                 )}
                 <VariantQuantitySelect
-                    oneVariant
+                  oneVariant
                   product={product}
                   variant={variant}
                   setCartStatus={setCartStatus}
@@ -47,7 +40,7 @@ const OneVariant = ({ product, variant }) => {
                     <h2>
                       $
                       {cartStatus.alreadyInCart &&
-                        (cartStatus.qty * variant.price).toFixed(2)}
+                        (cartStatus.qty * variant.discountPrice).toFixed(2)}
                     </h2>
                   </>
                 )}
