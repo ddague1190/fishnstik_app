@@ -36,6 +36,9 @@ const LoginScreen = () => {
     }
   }, [navigate, userInfo, redirect, error]);
 
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  }, [])
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(username, password));

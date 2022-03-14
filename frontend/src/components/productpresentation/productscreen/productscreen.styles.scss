@@ -10,15 +10,15 @@
     cursor: pointer;
     height: 5rem;
     width: 15rem;
-    background-color: $color3;
+    background-color: $color5;
     @include flexCenter(column);
     transition: all 0.3s;
     color: white;
 
     &--active {
-      color: $color3;
+      color: $color5;
       background-color: white;
-      border: 1px solid $color3;
+      border: 1px solid $color5;
       border-bottom: none;
     }
   }
@@ -98,7 +98,7 @@
 
   &__variants-title {
     @include flexCenter(column);
-    background-color: $color3;
+    background-color: $color5;
     z-index: 5;
     gap: 10px;
     text-align: center;

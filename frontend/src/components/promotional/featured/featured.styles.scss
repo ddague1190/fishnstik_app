@@ -3,9 +3,11 @@
   z-index: 10;
   width: 90%;
   margin: 2rem auto;
+
   height: 80rem;
   padding: 1rem;
   border-radius: 5px;
+  
   @media only screen and (max-width: 600px) {
     height: 110rem;
   }
@@ -43,13 +45,14 @@
   }
 
   &__product-title {
-    font-size: 2.8rem;
-    color: $color3;
+    font-size: clamp(2.3rem, 2.5vw, 3rem);
+    color: white;
     font-family: $font-family-title;
   }
 
   &__product-description {
     max-width: 50rem;
+    color: $color2;
   }
   &__image-selector {
     @include flexCenter(row);
@@ -61,8 +64,9 @@
     height: 2rem;
     width: 2rem;
     border-radius: 50%;
-    border: 1px solid rgba($color3, 0.5);
+    border: 1px solid rgba($color2, 1);
     transition: all 0.2s;
+    margin-block: 1rem;
     &--active {
       background-color: rgba($color3, 0.5);
       transform: scale(1.2);
@@ -71,11 +75,15 @@
   &__images {
     @include flexCenter(column);
     gap: 10px;
+    max-width: 50rem;
+    aspect-ratio: 1/1;
+    min-width: 35rem;
   }
 
   &__svg {
     position: absolute;
     z-index: 1000;
+
   }
   &__title {
     font-style: italic;
@@ -91,13 +99,13 @@
   &__product {
     padding: 1rem;
     width: 100%;
-    background-color: rgba(white, 0.8);
+    background: $color5;
     margin-block: 1rem;
     @include flexCenter(row);
     gap: 4rem;
     border-bottom: 1px solid $color3;
-    padding: 3em;
-    border-radius: 5px;
+    padding: 1rem 3rem;
+    border-radius: 3px;
     position: relative;
 
     @media only screen and (max-width: 700px) {

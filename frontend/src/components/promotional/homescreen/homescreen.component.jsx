@@ -22,7 +22,6 @@ const HomeScreen = () => {
   return (
     <div>
       <div className='homescreen__box'>
-        <Emotive></Emotive>
         <Featured />
       </div>
 

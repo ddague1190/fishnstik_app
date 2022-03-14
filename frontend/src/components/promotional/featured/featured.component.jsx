@@ -1,5 +1,6 @@
 import "./featured.styles.scss";
 import { motion, useCycle } from "framer-motion";
+import { useSelector } from "react-redux";
 import Figure from "../../utilities/figure/figure.component";
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
@@ -45,6 +46,8 @@ const featuredVideos = {};
 
 const Product = ({ product: { pics, title, description, to, videos } }) => {
   const [currentPic, setCurrentPic] = useState({ pic: pics[0], index: 0 });
+  const {width} = useSelector(state=>state.dimensions);
+
   const changePic = (index) => {
     setCurrentPic({
       pic: pics[index],
@@ -53,12 +56,12 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
   };
   return (
     <div className='featured__product'>
-      <Link className='button featured__button' to={to}>
+      {/* <Link className='button featured__button' to={to}>
         More info <i className="fas fa-expand"></i>
-      </Link>
+      </Link> */}
       <Waves />
       <div className='featured__images'>
-        <Figure image={currentPic.pic} animate height='30rem' />
+        <Figure image={currentPic.pic} animate height={width > 700 ? '89%' : '100%'} />
 
         {pics.length > 1 && (
           <div className='featured__image-selector'>

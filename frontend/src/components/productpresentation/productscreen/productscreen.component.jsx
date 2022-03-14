@@ -14,8 +14,10 @@ import HorizontalProductScreenBanner from "../../svg/recommended/horizontalprodu
 import PreCartItem from "../../checkoutpathway/cartitem/pre-cartitem.component";
 import OneVariant from "../../checkoutpathway/cartitem/oneVariant.component";
 import Emotive from "../../svg/emotive/emotive.component";
+import { useScreenOrientation } from "../../../utils/useOrientationChange";
 
 const ProductScreen = () => {
+  const orientation = useScreenOrientation();
   const variants = {
     overview: { opacity: 1 },
     photos: { opacity: 0.5 },
@@ -44,6 +46,9 @@ const ProductScreen = () => {
     dispatch(listProductDetails(productId.id));
   }, [dispatch, productId.id, reviewJustAdded]);
 
+  useEffect(()=>{
+
+  }, [width, orientation])
   return (
     <div className='productscreen'>
       {loading ? (
