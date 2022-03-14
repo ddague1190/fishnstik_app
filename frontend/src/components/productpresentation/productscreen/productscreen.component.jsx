@@ -48,7 +48,7 @@ const ProductScreen = () => {
 
   useEffect(()=>{
 
-  }, [width, orientation])
+  }, [width])
   return (
     <div className='productscreen'>
       {loading ? (
