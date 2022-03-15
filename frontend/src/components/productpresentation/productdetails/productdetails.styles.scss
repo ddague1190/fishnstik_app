@@ -24,7 +24,8 @@
     position: absolute !important;
     bottom: -50px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 4rem);
+    z-index: 10;
     @media only screen and (max-width: 500px) {
       bottom: 30%;
       transform: translateY(-50%) rotateZ(90deg);
@@ -111,7 +112,7 @@
   }
 
   &__description {
-    margin-top: 3vw;
+    margin-top: 10rem;
     grid-area: description;
     display: block;
     align-self: stretch;
@@ -154,11 +155,12 @@
     display: flex;
     margin: 0 auto;
     flex-direction: column;
-    gap: 5rem;
+    gap: 1rem;
     &__image {
       width: 40vw;
       min-width: 200px;
       margin: 0 auto;
+      margin-bottom: 6rem;
     }
 
     &__details {
@@ -167,6 +169,10 @@
       width: 100%;
       margin-left: 2rem;
       text-align: left;
+      padding: 0;
+    }
+    &__description {
+      margin-top: 0;
     }
   }
 }

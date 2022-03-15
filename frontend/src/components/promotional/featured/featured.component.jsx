@@ -61,7 +61,7 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
       </Link> */}
       <Waves />
       <div className='featured__images'>
-        <Figure image={currentPic.pic} animate height={width > 700 ? '89%' : '100%'} />
+        <Figure image={currentPic.pic} animate height={width > 700 ? '80%' : '100%'} />
 
         {pics.length > 1 && (
           <div className='featured__image-selector'>

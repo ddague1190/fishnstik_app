@@ -10,6 +10,9 @@
     background-color: $color4;
     background-image: none;
     cursor: pointer;
+    &--big {
+        // padding: 2rem 5rem;
+    }
 }
 
 .select__form {
@@ -20,6 +23,11 @@
     height: 3rem;
     overflow: hidden;
     width: 11rem;
+
+    &--big {
+        height: 5rem;
+        width: 20rem;
+    }
 
     &::after {
         content: "\25BC";
@@ -38,6 +46,10 @@
         background-color: darken($color4, 5%);
         transition: 0.25s all ease;
         pointer-events: none;
+        z-index: 100;
+    }
+    &--big {
+
     }
 }
 
@@ -60,15 +72,6 @@
     text-align: center;
     transition: all 0.15s;
     cursor: pointer;
-
-    // &::before {
-    //     position: absolute;
-    //     content: '';
-    //     background-color: white;
-    //     z-index: -1;
-    //     height: 100%;
-    //     width: 100%;
-    // }
 
     &--oneVariant {
         right: 50%;

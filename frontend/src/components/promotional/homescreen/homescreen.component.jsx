@@ -25,7 +25,7 @@ const HomeScreen = () => {
         <Featured />
       </div>
 
-      <Deepsea />
+      {/* <Deepsea /> */}
 
       <section className='homescreen__intro'>
         <h1>About us</h1>

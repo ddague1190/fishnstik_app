@@ -15,6 +15,7 @@ import PreCartItem from "../../checkoutpathway/cartitem/pre-cartitem.component";
 import OneVariant from "../../checkoutpathway/cartitem/oneVariant.component";
 import Emotive from "../../svg/emotive/emotive.component";
 import { useScreenOrientation } from "../../../utils/useOrientationChange";
+import PreCartDropdown from "../../checkoutpathway/cartitem/precartdropdown.component";
 
 const ProductScreen = () => {
   const orientation = useScreenOrientation();
@@ -46,9 +47,6 @@ const ProductScreen = () => {
     dispatch(listProductDetails(productId.id));
   }, [dispatch, productId.id, reviewJustAdded]);
 
-  useEffect(()=>{
-
-  }, [width])
   return (
     <div className='productscreen'>
       {loading ? (
@@ -183,15 +181,25 @@ const ProductScreen = () => {
               <div className='productscreen__variants-title'>
                 <span>Options available for this product</span>
               </div>
-              {product.variants.map((variant, index) => {
-                return (
-                  <PreCartItem
-                    product={product}
-                    variant={variant}
-                    key={index}
-                  />
-                );
-              })}
+
+              {!product.dropdownSelection ? (
+                product.variants.map((variant, index) => {
+                  return (
+                    <PreCartItem
+                      orientation={orientation}
+                      width={width}
+                      product={product}
+                      variant={variant}
+                      key={index}
+                    />
+                  );
+                })
+              ) : (
+                <PreCartDropdown
+                  product={product}
+                  variants={product.variants}
+                />
+              )}
             </div>
           )}
         </>

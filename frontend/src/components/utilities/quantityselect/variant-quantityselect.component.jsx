@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../../redux/actions/cartActions";
 import "./quantityselect.styles.scss";
 import { cartParser } from "../../../utils/reduxSelectors";
 import { PriceBox } from "../../checkoutpathway/cartitem/pre-cartitem.component";
-
+import { useParams } from "react-router";
 const VariantQuantitySelect = ({
   oneVariant,
   product,
@@ -19,6 +19,11 @@ const VariantQuantitySelect = ({
   const { userInfo } = useSelector((state) => state.userLogin);
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const loginAndComeBack = () => {
+    navigate(`/login?redirect=/products${id}`);
+  };
 
   useEffect(() => {
     parsedCart.forEach(({ productId, variantId, qty }) => {
@@ -38,16 +43,18 @@ const VariantQuantitySelect = ({
       setCartStatus({ qty: 1, alreadyInCart: false });
       return;
     } else if (selectedValue > 0) {
-      dispatch(addToCart({
-        productId: product._id, 
-        variantId: variant._id, 
-        name: product.name,
-        variantIdentifier: variant.identifier,
-        image: variant.image,
-        price: variant.discountPrice,
-        countInStock: variant.countInStock,
-        qty: selectedValue,
-      }));
+      dispatch(
+        addToCart({
+          productId: product._id,
+          variantId: variant._id,
+          name: product.name,
+          variantIdentifier: variant.identifier,
+          image: variant.image,
+          price: variant.discountPrice,
+          countInStock: variant.countInStock,
+          qty: selectedValue,
+        })
+      );
 
       setAlreadyInCart(true);
       setQty(selectedValue);
@@ -100,9 +107,8 @@ const VariantQuantitySelect = ({
         </motion.div>
       ) : (
         <button
-          disabled={!userInfo}
           type='submit'
-          onClick={() => setSelectedValue(1)}
+          onClick={userInfo ? () => setSelectedValue(1) : loginAndComeBack}
           className={`select__button ${
             oneVariant ? "select__button--oneVariant" : ""
           }`}>
