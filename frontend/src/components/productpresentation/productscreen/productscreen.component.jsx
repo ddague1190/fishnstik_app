@@ -49,6 +49,7 @@ const ProductScreen = () => {
 
   return (
     <div className='productscreen'>
+      <div className='productscreen__spacer'></div>
       {loading ? (
         <Loader />
       ) : error ? (

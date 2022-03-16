@@ -1,6 +1,18 @@
 .homescreen {
     position: relative;
     overflow: hidden;
+    &__image {
+        position: absolute;
+        top: -20rem;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    &__spacer {
+        height: 20rem;
+        width: 100%;
+    }
 
     &__plane {
         overflow: hidden;
@@ -11,10 +23,10 @@
         position: relative;
     }
     &__intro {
-        width: 90%;
-        margin: 0 auto;
+        width: 80%;
+        max-width: 60rem;
+        margin: 10vw auto;
         text-transform: none;
-        margin-block: 10rem;
         @include flexCenter(column);
         gap: 2rem;
 

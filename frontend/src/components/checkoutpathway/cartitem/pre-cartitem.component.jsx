@@ -61,7 +61,7 @@ const PreCartItem = ({ product, variant }) => {
     variant.countInStock < 1
   );
 
-  useEffect(() => {}, [cartStatus]);
+  useEffect(() => {}, [width, cartStatus]);
 
   return (
     <>

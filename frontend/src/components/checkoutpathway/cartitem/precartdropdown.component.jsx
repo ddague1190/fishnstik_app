@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { motion } from "framer-motion";
 import Figure from "../../utilities/figure/figure.component";
 import "./cartitem.styles.scss";
-import VariantQuantitySelect from "../../utilities/quantityselect/variant-quantityselect.component";
-import { useEffect } from "react";
+import VariantQuantityDropdownSelect from "../../utilities/quantityselect/variant-quantity-dropdown.component";
 import { PriceBox } from "./pre-cartitem.component";
+import { cartParser } from "../../../utils/reduxSelectors";
 
 const VariantDropDownSelect = ({
   variants,
   setSelectedVariant,
   selectedVariant,
 }) => {
-  const variantsObj = {};
+  const [variantsObj, setVariantsObj] = useState({});
   const variantsObjFromArray = () => {
     variants.map((item, index) => {
-      variantsObj[item._id] = { ...item };
+      variantsObj[item._id] = {
+        ...item,
+        qty: 1,
+        alreadyInCart: false,
+        productId: item.product,
+        variantId: item._id,
+      };
     });
   };
 
@@ -25,9 +29,27 @@ const VariantDropDownSelect = ({
     variantsObjFromArray();
   }, []);
 
+  const parsedCart = useSelector(cartParser);
+
   const onChangeHandler = (e) => {
-    setSelectedVariant({...variantsObj[e.target.value]});
+    const selected = {
+      ...variantsObj[e.target.value],
+      qty: 1,
+      alreadyInCart: false,
+    };
+
+    parsedCart.forEach(({ productId, variantId, qty }) => {
+      if (
+        selected.productId === productId &&
+        selected.variantId === variantId
+      ) {
+        selected['qty'] = qty;
+        selected['alreadyInCart'] = true;
+      }
+    });
+    setSelectedVariant(selected);
   };
+
   return (
     <form className='select__form select__form--big'>
       <select
@@ -56,14 +78,9 @@ const PreCartDropdown = ({ product, variants }) => {
 
   const { userInfo } = useSelector((state) => state.userLogin);
 
-  const [cartStatus, setCartStatus] = useState({
-    qty: 0,
-    alreadyInCart: false,
-  });
+  const [cartStatus, setCartStatus] = useState({});
 
-  useEffect(()=>{
-    console.log(selectedVariant)
-  }, [selectedVariant])
+  useEffect(() => {}, [selectedVariant]);
   useEffect(() => {}, [cartStatus]);
 
   return (
@@ -120,11 +137,14 @@ const PreCartDropdown = ({ product, variants }) => {
               Select quantity
             </span>
           )}
-          {/* <VariantQuantitySelect
-                    product={product}
-                    // variant={variant}
-                    setCartStatus={setCartStatus}
-                  /> */}
+          <VariantQuantityDropdownSelect
+            product={product}
+            variants={variants}
+            selectedVariant={selectedVariant}
+            setSelectedVariant={setSelectedVariant}
+            cartStatus={cartStatus}
+            setCartStatus={setCartStatus}
+          />
         </div>
         <div className='cartitem__select'>
           {cartStatus.alreadyInCart && (

@@ -46,7 +46,7 @@ const featuredVideos = {};
 
 const Product = ({ product: { pics, title, description, to, videos } }) => {
   const [currentPic, setCurrentPic] = useState({ pic: pics[0], index: 0 });
-  const {width} = useSelector(state=>state.dimensions);
+  const { width } = useSelector((state) => state.dimensions);
 
   const changePic = (index) => {
     setCurrentPic({
@@ -56,12 +56,14 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
   };
   return (
     <div className='featured__product'>
-      {/* <Link className='button featured__button' to={to}>
-        More info <i className="fas fa-expand"></i>
-      </Link> */}
+
       <Waves />
       <div className='featured__images'>
-        <Figure image={currentPic.pic} animate height={width > 700 ? '80%' : '100%'} />
+        <Figure
+          image={currentPic.pic}
+          animate
+          // height={width > 700 ? "80%" : "80%"}
+        />
 
         {pics.length > 1 && (
           <div className='featured__image-selector'>
