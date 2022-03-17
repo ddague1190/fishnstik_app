@@ -10,9 +10,6 @@
     background-color: $color4;
     background-image: none;
     cursor: pointer;
-    &--big {
-        // padding: 2rem 5rem;
-    }
 }
 
 .select__form {
@@ -25,6 +22,10 @@
     width: 11rem;
 
     &--big {
+        height: 5rem;
+        width: 20rem;
+    }
+    &--wide {
         height: 5rem;
         width: 20rem;
     }
@@ -49,7 +50,6 @@
         z-index: 100;
     }
     &--big {
-
     }
 }
 
@@ -73,10 +73,14 @@
     transition: all 0.15s;
     cursor: pointer;
 
-    &--oneVariant {
+    &--dropdown, &--oneVariant {
+        width: 20rem;
         right: 50%;
         transform: translateX(50%);
+        bottom: 2rem;
     }
+
+
 
     &--checkout {
         width: 30rem;

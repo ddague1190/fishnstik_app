@@ -7,6 +7,7 @@ import "./quantityselect.styles.scss";
 import { cartParser } from "../../../utils/reduxSelectors";
 import { PriceBox } from "../../checkoutpathway/cartitem/pre-cartitem.component";
 import { useParams } from "react-router";
+
 const VariantQuantitySelect = ({
   oneVariant,
   product,

@@ -4,9 +4,14 @@ import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Modal = ({ image, toggleShow, showModal, alt }) => {
+  const ref = useRef();
+
+  const onLoadHandler = () => {
+    console.log(ref.current.naturalWidth);
+  };
   const closeModalHandler = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -82,6 +87,8 @@ const Modal = ({ image, toggleShow, showModal, alt }) => {
               <div className='image-wrapper' onClick={(e) => e.stopPropagation}>
                 <TransformComponent>
                   <motion.img
+                    onLoad={onLoadHandler}
+                    ref={ref}
                     className='modal__image'
                     key={image}
                     style={{ scale: zoom }}

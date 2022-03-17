@@ -22,7 +22,7 @@ const CartItem = ({ item }) => {
                 image={item.image}
                 alt={item.name}
                 description={item.description}
-                height={width < breakpoint ? "12rem" : "20rem"}
+                // height={width < breakpoint ? "12rem" : "20rem"}
               />
             </div>
           </div>

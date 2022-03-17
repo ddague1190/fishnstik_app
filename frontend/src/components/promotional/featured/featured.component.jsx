@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import "./featured.styles.scss";
 import { motion, useCycle } from "framer-motion";
 import { useSelector } from "react-redux";
@@ -14,7 +15,7 @@ const featuredProducts = {
       "https://fishnwirepictures.s3.amazonaws.com/Ballyhoo-9.21.jpg",
       "https://fishnwirepictures.s3.amazonaws.com/FlyingFish.jpg",
     ],
-    title: "LIVE OCEAN Big Game Fishing Lures ",
+    title:" Big Game Fishing Lures ",
     description:
       "10in Swim Bait. Live-swim-action from 1 to 17 Knots! Available in 3 models with or without the stainless dredge.",
     to: "/product/45",
@@ -56,14 +57,11 @@ const Product = ({ product: { pics, title, description, to, videos } }) => {
   };
   return (
     <div className='featured__product'>
-
       <Waves />
       <div className='featured__images'>
-        <Figure
-          image={currentPic.pic}
-          animate
-          // height={width > 700 ? "80%" : "80%"}
-        />
+        <div className="featured__figure-container">
+          <Figure image={currentPic.pic} animate />
+        </div>
 
         {pics.length > 1 && (
           <div className='featured__image-selector'>
@@ -170,7 +168,8 @@ export const MinVidBox = ({ index, title, video }) => {
         <div className='video'>
           <iframe
             ref={ref}
-            className='video__iframe'
+            className='
+            video__iframe'
             allow='fullscreen'
             title={title}
             src={video}></iframe>

@@ -24,7 +24,9 @@ const CartScreen = () => {
   const dispatch = useDispatch();
 
   const { cartItems } = useSelector((state) => state.cart);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, variantId, qty));
