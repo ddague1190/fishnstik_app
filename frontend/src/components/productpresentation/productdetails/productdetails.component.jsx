@@ -61,7 +61,7 @@ const PullTestGauge = ({ test }) => {
           transition={{ delay: 0.3, duration: 1, type: "spring" }}
           className='gauge__indicator'
           d='M19 120.5L4.75 127.861V113.139L19 120.5Z'
-          fill='#BB1515'
+          fill='black'
         />
       </svg>
     </div>
@@ -193,8 +193,7 @@ const HorizontalPullTestGauge = ({ test }) => {
 const ProductDetails = ({ product, height }) => {
   const images = [...product.images];
   const { width } = useSelector((state) => state.dimensions);
-  const breakpoint = 600;
-  const breakpoint2 = 800;
+  const breakpoint = 700;
   const [currentPic, setCurrentPic] = useState({});
 
   const changePic = (index) => {

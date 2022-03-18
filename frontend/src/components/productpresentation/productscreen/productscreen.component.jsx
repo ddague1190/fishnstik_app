@@ -57,7 +57,7 @@ const ProductScreen = () => {
       ) : (
         <>
           <div className='path-group'>
-             <Link to='/'>Home</Link>
+            <Link to='/'>Home</Link>
             <span> > </span>
             <Link to={`/products/${product.category}/`}>
               {product.category}
@@ -109,7 +109,9 @@ const ProductScreen = () => {
                       <div className='showreviews'>
                         <h3 className='u-center-text'>Recent reviews</h3>
                         {product.reviews.length === 0 && (
-                          <Message cvariant='info'>No Reviews</Message>
+                          <div className='showreviews__message'>
+                          <Message variant='info'>No Reviews</Message>
+                          </div>
                         )}
                         <div className='reviewcards'>
                           {product.reviews.map((review) => (
@@ -179,13 +181,6 @@ const ProductScreen = () => {
 
           {product.numVariants > 1 && (
             <div className='productscreen__variants'>
-              <div className='productscreen__variants-title'>
-              </div>
-              <div className='productscreen__variants-title productscreen__variants-title--2'>
-              </div>
-              <div className='productscreen__variants-title productscreen__variants-title--3'>
-              </div>
-
               {!product.dropdownSelection ? (
                 product.variants.map((variant, index) => {
                   return (

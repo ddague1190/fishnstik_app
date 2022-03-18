@@ -17,9 +17,9 @@
     position: relative;
     display: flex;
     border-radius: 4px;
-    height: 3rem;
+    height: 4rem;
     overflow: hidden;
-    width: 11rem;
+    width: 14rem;
 
     &--big {
         height: 5rem;
@@ -43,7 +43,7 @@
         top: 0;
         right: 0;
         color: white;
-        font-size: 1rem;
+        font-size: 1.5rem;
         background-color: darken($color4, 5%);
         transition: 0.25s all ease;
         pointer-events: none;
@@ -57,15 +57,17 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 15rem;
+    width: 17rem;
     display: inline-block;
-    padding: 1rem 2rem;
-    height: 4rem;
+    height: 5rem;
+    padding: 1rem;
+    font-size: 2rem;
     border: 1px solid black;
     box-sizing: border-box;
     text-decoration: none;
     font-weight: 300;
     font-weight: bold;
+    
     color: white;
     text-shadow: 0 0.04rem 0.04rem rgba(0, 0, 0, 0.35);
     background-color: rgba($color3, 0.4);
@@ -116,15 +118,15 @@ select::-ms-expand {
     position: absolute;
     color: $color3;
     top: 0;
-    right: 0;
+    left: 0;
     @include flexCenter(column);
     width: 15rem;
-    margin-left: 2px;
+    margin-left: -15px;
 
     &__regprice {
         &--crossthrough {
             text-decoration: line-through;
-            font-size: 1.2rem;
+            font-size: 1.6rem;
         }
         &--none {
             display: none;
@@ -140,7 +142,7 @@ select::-ms-expand {
     &__boldtext {
         font-style: normal;
         font-weight: 800;
-        font-size: 2rem;
+        font-size: 2.5rem;
         color: $color3;
     }
 

@@ -1,27 +1,75 @@
 .verticalproductscreenbanner {
+    background-color: black;
+    @include flexCenter(column);
+    padding-top: 0;
+    gap: 2rem;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    &__image {
+        display: block;
+        object-fit: contain;
+        height: 40rem;
+    }   
+    &__logo {
+        position: absolute;
+        top: 50%;
+    }
+    &__message {
+        text-align: center;
+        font-size: 2rem;
+        color: white;
+        font-family: $font-family-title;
+    }
 }
 
 .horizontalproductscreenbanner {
     position: relative;
+    height: 25rem;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 5px;
 
+    &__image {
+        top: -70%;
+        position: absolute;
+        display: block;
+        object-fit: contain;
+        width: 100%;
+        z-index: 2;
+        opacity: .5;
+    }
 
-    @media only screen and (max-width: 450px) {
-        &__text {
-            transform: translate(15px, -10px)
+    &__title {
+        @include absCenter(full);
+        font-size: clamp(2rem, 4vw, 5rem);
+        text-align: center;
+        @include flexCenter(row);
+        gap: 2rem;
+        top: 5rem;
+        height: 7vw;
+        min-height: 6rem;
+        color: white !important;
+        mix-blend-mode: color-burn;
+        z-index: 100;
+        & span:nth-child(1){
+            font-size: 3rem;
+        }
+
+        & span:nth-child(2) {
+            font-size: 6.5rem;
+            font-family: $font-family-title;
+        }
+
+        &::after {
+            @include absCenter(full);
+            content: '';
+            background-color: $color5;
+            z-index: -100;
         }
     }
 
-&::after {
-    position: absolute;
-    background-size: contain;
-    background-repeat: no-repeat;
-    content: '';
-    width: 100vw;
-    height: 100%;
-    left: 0;
-    top: 0;
-    z-index: -1;
 
-}
+
 
 }

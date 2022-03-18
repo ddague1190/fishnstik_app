@@ -21,8 +21,6 @@ const Fish = ({ image, style }) => {
 const HomeScreen = () => {
   return (
     <div className='homescreen'>
-      {/* <div className='homescreen__spacer'></div>
-      <img className='homescreen__image' src="https://fishnwirepictures.s3.amazonaws.com/istockphoto-1205360869-2048x2048.jpeg"/> */}
       <div className='homescreen__box'>
         <Featured />
       </div>

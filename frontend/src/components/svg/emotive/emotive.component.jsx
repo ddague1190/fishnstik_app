@@ -54,7 +54,7 @@ const Emotive = ({ animateSlogan }) => {
         <WavySurface />
         <motion.div
           initial={{ y: 0 }}
-          animate={{ y: 13 }}
+          animate={{ y: 10 }}
           transition={{ duration: 4, repeat: Infinity }}
           className={styled.wrapper__underwater}></motion.div>
       </div>

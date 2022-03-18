@@ -48,8 +48,6 @@ export const PriceBox = ({ alreadyInCart, price, discountPrice }) => {
 
 const PreCartItem = ({ product, variant }) => {
   const { width } = useSelector((state) => state.dimensions);
-  const breakpoint = 560;
-  const breakpoint2 = 460;
 
   const { userInfo } = useSelector((state) => state.userLogin);
 
@@ -68,7 +66,6 @@ const PreCartItem = ({ product, variant }) => {
       {!showPlaceholder ? (
         <div className='cartitem cartitem--mobile'>
           <div className='cartitem__product'>
-            {width > breakpoint2 ? (
               <div className='cartitem__image'>
                 <div className='cartitem__image-wrapper'>
                   <Figure
@@ -76,22 +73,10 @@ const PreCartItem = ({ product, variant }) => {
                     image={variant.image}
                     alt={variant.name}
                     description={variant.description}
-                    height={width < breakpoint ? "12rem" : "20rem"}
                   />
                 </div>
               </div>
-            ) : (
-              <div className='cartitem__imageicon'>
-                <Figure
-                  imageClickEvenWhenSmall
-                  icon
-                  image={variant.image}
-                  alt={variant.identifier}
-                  description={variant.description}
-                />
-              </div>
-            )}
-
+  
             <Link className='cartitem__link' to={`/product/${product._id}`}>
               <p className='cartitem__name'>{variant.identifier} </p>
               <p className='cartitem__variantdescription'>

@@ -2,16 +2,17 @@
     position: relative;
     overflow: hidden;
     &__image {
-        position: absolute;
-        top: -20rem;
+        position: absolute;;
         left: 0;
+        top: 0;
         width: 100%;
-        z-index: 1000;
+        min-width: 100rem;
     }
 
     &__spacer {
-        height: 20rem;
+        height: 30vw;
         width: 100%;
+        background-color: transparent;
     }
 
     &__plane {
