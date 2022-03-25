@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/actions/userActions";
 import { Link, useNavigate } from "react-router-dom";
 import "./dropdown.styles.scss";
-import { categories, subcategories } from "./categories";
+// import { categories, subcategories } from "./categories";
 
 const navContainerVariants = {
   show: { opacity: 1, scaleY: 1, transition: { type: "tween", duration: 0.2 } },
@@ -43,11 +43,11 @@ const NavItem = ({ i, category, toggleMobileNav, showMobileNav }) => {
   };
 
   return (
-    <motion.li variants={navItemVariants} className='nav-item'>
+    <motion.li variants={navItemVariants} className="nav-item">
       <div
         className={`nav-item__link ${!hidden && "nav-item__link--expanded"}`}>
-        <Link to={`products/${category.category}/`} onClick={toggleMobileNav}>
-          {category.title}
+        <Link to={`products/${category.slug}/`} onClick={toggleMobileNav}>
+          {category.name}
         </Link>
         {/* <span className='nav-item__link--icon'>{category.icon}</span> */}
 
@@ -58,13 +58,13 @@ const NavItem = ({ i, category, toggleMobileNav, showMobileNav }) => {
           onClick={onNavItemClick}></div>
       </div>
       <ul className={`nav-submenu ${hidden && "nav-submenu--hidden"}`}>
-        {subcategories[category.category].map((subcategory) => (
-          <li className='nav-submenu-item' key={subcategory.subcategory}>
+        {category.children.map((subcategory, index) => (
+          <li className="nav-submenu-item" key={index}>
             <Link
-              className='nav-submenu-item__link'
-              to={`products/${category.category}/${subcategory.subcategory}/`}
+              className="nav-submenu-item__link"
+              to={`products/${category.slug}/${subcategory.slug}/`}
               onClick={toggleMobileNav}>
-              {subcategory.title}
+              {subcategory.name}
             </Link>
           </li>
         ))}
@@ -76,6 +76,7 @@ const NavItem = ({ i, category, toggleMobileNav, showMobileNav }) => {
 const Dropdown = ({ showMobileNav, toggleMobileNav, menuButtonRef }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, categories } = useSelector((state) => state.categories);
   const { userInfo } = useSelector((state) => state.userLogin);
   const onLogoutClick = () => {
     dispatch(logout());
@@ -105,42 +106,44 @@ const Dropdown = ({ showMobileNav, toggleMobileNav, menuButtonRef }) => {
       animate={!showMobileNav ? "hide" : "show"}
       variants={navContainerVariants}
       ref={ref}
-      className='nav'>
+      className="nav">
       <AnimatePresence>
-        <motion.ul variants={dropdownVariants} className='nav-list'>
-          {categories.map((category, i) => (
-            <NavItem
-              i={i}
-              category={category}
-              showMobileNav
-              toggleMobileNav={toggleMobileNav}
-              key={category.category}
-            />
-          ))}
+        {!loading && (
+          <motion.ul variants={dropdownVariants} className="nav-list">
+            {categories.map((category, i) => (
+              <NavItem
+                i={i}
+                category={category}
+                showMobileNav
+                toggleMobileNav={toggleMobileNav}
+                key={i}
+              />
+            ))}
 
-          {userInfo ? (
-            <>
+            {userInfo ? (
+              <>
+                <Link
+                  className="nav-item__link"
+                  to="/profile"
+                  onClick={toggleMobileNav}>
+                  Profile
+                </Link>
+
+                <div className="nav-item__link" to="/" onClick={onLogoutClick}>
+                  <span>Logout</span>
+                  <i className="fas fa-sign-out-alt"></i>
+                </div>
+              </>
+            ) : (
               <Link
-                className='nav-item__link'
-                to='/profile'
+                className="nav-item__link"
+                to="/login/"
                 onClick={toggleMobileNav}>
-                Profile
+                Login
               </Link>
-
-              <div className='nav-item__link' to='/' onClick={onLogoutClick}>
-                <span>Logout</span>
-                <i className='fas fa-sign-out-alt'></i>
-              </div>
-            </>
-          ) : (
-            <Link
-              className='nav-item__link'
-              to='/login/'
-              onClick={toggleMobileNav}>
-              Login
-            </Link>
-          )}
-        </motion.ul>
+            )}
+          </motion.ul>
+        )}
       </AnimatePresence>
     </motion.nav>
   );

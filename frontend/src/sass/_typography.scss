@@ -29,11 +29,16 @@ h4 {
 }
 
 .path-group {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    background-color: lightblue;
+    width: 150vw;
+    display: block;
     margin-bottom: 7rem;
-    grid-area: pg;
     text-transform: uppercase;
-    padding: 0.5rem 1rem;
-    width: max-content;
+    height: 10rem;
+    padding: 2rem;
     justify-self: start;
     align-self: start;
 }

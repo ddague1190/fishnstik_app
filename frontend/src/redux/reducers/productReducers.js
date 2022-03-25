@@ -1,5 +1,8 @@
 // Reducer is a function that takes in current state and an action - what we want to do with our current state, it will manipulate our state and then return a new state into the store
 import {
+  CATEGORIES_REQUEST,
+  CATEGORIES_FAIL,
+  CATEGORIES_SUCCESS,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
@@ -12,6 +15,18 @@ import {
   PRODUCT_CREATE_REVIEW_RESET,
 } from "../constants/productConstants";
 
+export const categoriesReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case CATEGORIES_REQUEST:
+      return { loading: true };
+    case CATEGORIES_SUCCESS:
+      return { categories: action.payload, loading: false };
+    case CATEGORIES_FAIL:
+      return { ...state, error: action.payload, loading: false };
+    default:
+      return state;
+  }
+};
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:

@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
+  categoriesReducer,
   productListReducer,
   productDetailsReducer,
   productReviewCreateReducer,
@@ -26,6 +27,7 @@ import { fishFactReducer } from "./reducers/promoReducers";
 import { whichLoader } from "./reducers/promoReducers";
 
 const reducer = combineReducers({
+  categories: categoriesReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productReviewCreate: productReviewCreateReducer,

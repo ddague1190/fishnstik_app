@@ -10,6 +10,7 @@ import Logo from "../../promotional/logo/logo.component";
 import NavBar from "../navbar/navbar.component";
 import Hamburger from "../../svg/hamburger/hamburger.component";
 import Snap from "../../svg/snap/snap.component";
+import CategoryNavigation from "../categories/categories.component";
 
 const Header = () => {
   const menuButton = useRef();
@@ -56,8 +57,7 @@ const Header = () => {
             <UserPanel />
           </div>
           <div className='desktop-navbar'>
-            <Logo />
-            <NavBar />
+          <CategoryNavigation/>
           </div>
         </header>
       )}

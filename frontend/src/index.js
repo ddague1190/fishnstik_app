@@ -12,8 +12,6 @@ import Game2 from "./components/svg/game/game2.component";
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename='/'>
-      {/* <Game2 /> */}
-
       <Header />
       <main className='main'>
         <App />

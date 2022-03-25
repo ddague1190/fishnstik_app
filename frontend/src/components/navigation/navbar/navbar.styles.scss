@@ -27,6 +27,21 @@
         @include flexCenter(row);
         justify-content: flex-start;
         border-radius: 4px;
+        &--active {
+
+        &::after {
+            transition: all .2;
+            position: absolute;
+            content: '';
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            background-color: $color3;
+            height: 7px;
+       
+            }
+        }
+
     }
     &:hover .desktop-nav-submenu {
         display: block;

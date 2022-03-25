@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import HomeScreen from "./components/promotional/homescreen/homescreen.component";
 import ProductScreen from "./components/productpresentation/productscreen/productscreen.component";
@@ -13,10 +14,18 @@ import OrderScreen from "./components/checkoutpathway/orderscreen/orderscreen.co
 import AboutUsScreen from "./components/promotional/aboutusscreen/aboutusscreen.component";
 import ProductList from "./components/productpresentation/productlist/productlist.component";
 import "./sass/App.scss";
+// import "./sass/output.css";
+
 import useViewport from "./utils/useViewport";
 import { ShippingReturns, PrivacyPolicy } from "./components/promotional/policies/policies.component";
+import { getCategories } from "./redux/actions/productActions";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getCategories())
+  }, [dispatch])
   useViewport();
   const location = useLocation();
   const Page404 = () => {

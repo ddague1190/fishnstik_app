@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const Product = ({ product }) => {
   const navigate = useNavigate();
   const onProductCardClick = () => {
-    navigate(`/product/${product._id}`);
+    navigate(`/product/${product.slug}`);
   };
 
   return (

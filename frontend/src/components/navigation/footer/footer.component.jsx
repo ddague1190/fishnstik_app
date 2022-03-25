@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import "./footer.styles.scss";
 import { useSelector } from "react-redux";
@@ -8,11 +9,11 @@ const Footer = () => {
   const { width } = useSelector((state) => state.dimensions);
   const breakpoint = 570;
 
-  return (
+  return ReactDOM.createPortal(
     <footer className='footer'>
-      <div className='footer__image'>
+      {/* <div className='footer__image'> */}
         <Sailfish />
-      </div>
+      {/* </div> */}
 
       <section className='footer-info'>
         <article className='footer-info__col footer-info__col--wide'>
@@ -37,55 +38,14 @@ const Footer = () => {
           </ul>
         </article>
 
-        <article className='footer-info__col '>
-          <h4 className='footer-info__heading'>Categories</h4>
-          <ul className='footer-info__list'>
-            <li>
-              <Link to='/products/snaps/'>Snaps</Link>
-            </li>
-            <li>
-              <Link to='/products/swivels/'>Swivels</Link>
-            </li>
-            <li>
-              <Link to='/products/hooks/'>Hooks</Link>
-            </li>
-            <li>
-              <Link to='/products/lures/'>Lures</Link>
-            </li>
-            <li>
-              <Link to='/products/fishingline/'>Fishing Line</Link>
-            </li>
-            <li>
-              <Link to='/products/accessories/'>Accessories</Link>
-            </li>
-            <li>
-              <Link to='/products/apparel/'>Apparel</Link>
-            </li>
-          </ul>
-        </article>
-        <article className='footer-info__col '>
-          <h4 className='footer-info__heading'>Brands</h4>
-          <ul className='footer-info__list'>
-            <li>
-              <Link to='/brands/fishnstik'>FishNStik</Link>
-            </li>
-            <li>
-              <Link to='/brands/rosco'>Rosco</Link>
-            </li>
-            <li>
-              <Link to='/brands/aftco'>AFTCO</Link>
-            </li>
-            <li>
-              <Link to='/brands/sampo'>Sampo</Link>
-            </li>
-          </ul>
-        </article>
+        
+
 
         <article
           className={`footer-info__col footer-info__col--address ${
             width < breakpoint && "footer-info__col--offset"
           }`}>
-          <div className='footer__address'>
+          {/* <div className='footer__address'>
             <address>
               5407 Haverhill Rd Unit 339
               <br />
@@ -96,13 +56,13 @@ const Footer = () => {
             <p>Open 8 to 4 weekdays</p>
 
             <strong>Call us at (561) 685-7845</strong>
-          </div>
+          </div> */}
         </article>
       </section>
       <div className='footer__copyright'>
         <p className='powered-by'>&copy; FishNStik</p>
       </div>
-    </footer>
+    </footer>, document.body
   );
 };
 

@@ -64,19 +64,12 @@ const PreCartItem = ({ product, variant }) => {
   return (
     <>
       {!showPlaceholder ? (
-        <div className='cartitem cartitem--mobile'>
+        <div className='cartitem'>
           <div className='cartitem__product'>
-              <div className='cartitem__image'>
-                <div className='cartitem__image-wrapper'>
-                  <Figure
-                    imageClickEvenWhenSmall
-                    image={variant.image}
-                    alt={variant.name}
-                    description={variant.description}
-                  />
-                </div>
-              </div>
-  
+            <div className='cartitem__image-wrapper'>
+              <img className='cartitem__image' src={variant.image} />
+            </div>
+
             <Link className='cartitem__link' to={`/product/${product._id}`}>
               <p className='cartitem__name'>{variant.identifier} </p>
               <p className='cartitem__variantdescription'>
@@ -153,3 +146,12 @@ const PreCartItem = ({ product, variant }) => {
 };
 
 export default PreCartItem;
+
+{
+  /* <Figure
+                  imageClickEvenWhenSmall
+                  image={variant.image}
+                  alt={variant.name}
+                  description={variant.description}
+                /> */
+}

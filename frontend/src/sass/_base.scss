@@ -25,12 +25,13 @@ html {
     }
     
     @include respond(big-desktop) {
-        font-size: 75%; //1rem = 12, 12/16
+        font-size: 70%; //1rem = 12, 12/16
     }
 }
 
 body {
     min-height: 60vh;
+    font-size: 2rem !important;
     width: 100vw;
     box-sizing: border-box;
     background-color: $color-background;

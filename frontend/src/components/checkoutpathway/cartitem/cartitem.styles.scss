@@ -1,16 +1,16 @@
 .cartitem {
-    border-bottom: 2px solid $color3;
+    
     @include flexCenter(row);
     position: relative;
-    gap: 5px;
+    gap: 1rem;
     padding-left: 2rem;
     height: 22rem;
     width: 100%;
+    min-height: 30rem;
+    box-shadow: 0 .2px .5px .2px rgba(black, 1);
 
-    @media only screen and (max-width: 840px) {
-        min-height: 30rem;
-    }
-
+    margin: 0 auto;
+    
     &--dropdown {
         height: 100%;
         min-height: 25rem;
@@ -43,6 +43,8 @@
     }
 
     &__product {
+        width: 100%;
+        margin-right: 20rem;
         @include flexCenter(row);
         gap: 2rem;
 
@@ -65,25 +67,34 @@
 
     &__image {
         grid-column: 1 / span 1;
-        display: block;
-        height: 100%;
+        object-fit: contain;
         width: 100%;
-        position: relative;
-        width: 40rem;
+        height: 100%;
+        // overflow: hidden; 
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
     &__image-wrapper {
+        position: relative;
+        width: 100%;
+        width: 20rem;
+        height: 30rem;
         border-radius: 3px;
         overflow: hidden;
-        max-height: 20rem;
     }
 
     &__link {
         padding: 2.5rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(white, .5);
+        text-align: left;
         color: black;
         font-size: 2.5rem;
         margin: 0 auto;
-        background-color: darken(white, 3%);
         border-radius: 5px;
         margin-top: -2rem;
         @media only screen and (max-width: 840px) {
@@ -107,7 +118,8 @@
     }
 
     &__params {
-        position: relative;
+        position: absolute;
+        right: 0;
         margin-left: auto;
         background-color: whitesmoke;
         display: flex;
@@ -116,7 +128,9 @@
         height: 100%;
         justify-content: center;
         gap: 2rem;
-        min-width: 17rem;
+        width: 25rem;
+        background-color: rgba($color3, .5);
+        color: white;
         border-left: 1px solid darken($color2, 0%);
 
         &--dropdown {
@@ -124,11 +138,12 @@
         }
 
         &--added {
-            background-color: lighten($color2, 15%);
+            background-color: lighten($color1, 18%);
         }
     }
 
     &__quantity {
+        text-transform: uppercase;
         text-align: center;
     }
 
@@ -137,13 +152,6 @@
     }
 }
 
-@media only screen and (max-width: 560px) {
-    .cartitem {
-        &__image {
-            width: 100%;
-        }
-    }
-}
 
 .outofstock {
     @include flexCenter(row);

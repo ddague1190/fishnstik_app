@@ -8,6 +8,7 @@ import Deepsea from "../../svg/deepsea/deepsea.component";
 import { ReactComponent as Plane } from "./planebanner.svg";
 import { Video } from "../featured/featured.component";
 import "./homescreen.styles.scss";
+import Logo from "../logo/logo.component";
 const images = [
   "https://www.fishwatch.gov/sites/default/files/atlantic_mahimahi_dolphinfish.png",
   "https://fishnwirepictures.s3.amazonaws.com/striped-marlin-illustration.png",
@@ -21,6 +22,7 @@ const Fish = ({ image, style }) => {
 const HomeScreen = () => {
   return (
     <div className='homescreen'>
+      <Logo/>
       <div className='homescreen__box'>
         <Featured />
       </div>

@@ -1,8 +1,10 @@
 .userpanel {
-    height: 6.5rem;
-    background-color: lighten($color3, 7%);
+    height: 8rem;
+    background-color: lighten($color3, 0);
     gap: 1.6rem;
+    font-size: 2rem;
     @include flexCenter(row);
+    padding: 2rem;
 
     &__withuser {
       margin-left: auto;

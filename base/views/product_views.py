@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
-from base.models import Product, Review, OrderItem
+from base.models import Product, Review, OrderItem, Category
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework import generics
@@ -14,6 +14,28 @@ from rest_framework import serializers
 from pprint import pprint
 
 
+class CategoryTreeView(generics.GenericAPIView):
+    serializer_class = product_serializers.CategorySerializer
+
+    def get(self, request, *args, **kwargs):
+
+        root_nodes = Category.objects.all().get_cached_trees()
+
+        data = []
+        for n in root_nodes:
+            data.append(self.recursive_node_to_dict(n))
+
+        return Response(data)
+
+    def recursive_node_to_dict(self, node):
+        result = self.get_serializer(instance=node).data
+        children = [self.recursive_node_to_dict(
+            c) for c in node.get_children()]
+        if children:
+            result["children"] = children
+        return result
+
+
 @api_view(['GET'])
 def getProducts(request, category='', subcategory=''):
     query = request.query_params.get('keyword')
@@ -21,12 +43,18 @@ def getProducts(request, category='', subcategory=''):
         query = ''
     products = Product.objects.filter(name__icontains=query)
     if category:
-        products = Product.objects.filter(category=category).order_by('pulltest')
+        category_object = Category.objects.filter(slug=category).first()
+        print(category_object)
+        products = Product.objects.filter(
+            category=category_object)
         if category == 'all':
             products = Product.objects.all().order_by('-createdAt')
 
     if subcategory:
-        products = Product.objects.filter(subcategory=subcategory).order_by('pulltest')
+        category_object = Category.objects.filter(slug=subcategory).first()
+        print(category_object)
+        products = Product.objects.filter(
+            subcategory=category_object)
 
     page = request.query_params.get('page')
     paginator = Paginator(products, 10)
@@ -70,7 +98,8 @@ def getProductsByBrand(request, brand=''):
 
     page = int(page)
 
-    serializer = product_serializers.BasicProductInfoSerializer(products, many=True)
+    serializer = product_serializers.BasicProductInfoSerializer(
+        products, many=True)
     return Response({
         'products': serializer.data,
         'page': page,
@@ -79,8 +108,8 @@ def getProductsByBrand(request, brand=''):
 
 
 @api_view(['GET'])
-def getProduct(request, pk):
-    product = Product.objects.get(_id=pk)
+def getProduct(request, slug):
+    product = Product.objects.get(slug=slug)
     serializer = product_serializers.ProductSerializer(product, many=False)
     return Response(serializer.data)
 

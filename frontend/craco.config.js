@@ -8,6 +8,7 @@ module.exports = {
     },
   },
   style: {
+
     sass: {
       loaderOptions: {
         additionalData: `

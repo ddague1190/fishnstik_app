@@ -11,9 +11,6 @@ import Message from "../../utilities/message/message.component";
 import Paginate from "../../utilities/paginate/paginate.component";
 import { useLocation, useParams } from "react-router-dom";
 import "./productlist.styles.scss";
-import SubcategoryList from "../subcategorylist/subcategorylist.component";
-import SubcategoryInfo from "../subcategorylist/subcategoryinfo.component";
-import BrandInfo from "../brandinfo/brandinfo.component";
 
 const ProductList = ({ target, ...otherProps }) => {
   const dispatch = useDispatch();
@@ -43,15 +40,8 @@ const ProductList = ({ target, ...otherProps }) => {
       ) : (
         products && (
           <>
-            {url_brand && <BrandInfo brand={url_brand} />}
 
-            {url_cat && !url_subcat && (
-              <SubcategoryList justPath category={url_cat} />
-            )}
 
-            {url_subcat && (
-              <SubcategoryInfo category={url_cat} subcategory={url_subcat} />
-            )}
             <div className='productlist__cards'>
               {products.length > 0 ? (
                 products.map((product, index) => {

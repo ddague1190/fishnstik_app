@@ -4,25 +4,15 @@ import { motion } from "framer-motion";
 import Rating from "../../utilities/rating/rating.component";
 import Loader from "../../utilities/loader/loader.component";
 import Message from "../../utilities/message/message.component";
-import ProductDetails from "../productdetails/productdetails.component";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../../redux/actions/productActions";
 import WriteReview from "../../utilities/writereview/writereview.component";
 import "./productscreen.styles.scss";
-import VerticalProductScreenBanner from "../../svg/recommended/verticalproductscreenbanner.component";
-import HorizontalProductScreenBanner from "../../svg/recommended/horizontalproductscreenbanner.component";
-import PreCartItem from "../../checkoutpathway/cartitem/pre-cartitem.component";
-import OneVariant from "../../checkoutpathway/cartitem/oneVariant.component";
-import Emotive from "../../svg/emotive/emotive.component";
 import { useScreenOrientation } from "../../../utils/useOrientationChange";
-import PreCartDropdown from "../../checkoutpathway/cartitem/precartdropdown.component";
+import { ProductViewer } from "../productviewer/productviewer.component";
 
 const ProductScreen = () => {
   const orientation = useScreenOrientation();
-  const variants = {
-    overview: { opacity: 1 },
-    photos: { opacity: 0.5 },
-  };
 
   const item = {
     whichContent: { opacity: 1, x: 0 },
@@ -55,7 +45,7 @@ const ProductScreen = () => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <>
+        <div>
           <div className='path-group'>
             <Link to='/'>Home</Link>
             <span> > </span>
@@ -94,7 +84,7 @@ const ProductScreen = () => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.6 }}
                     className='productscreen__details'>
-                    <ProductDetails product={product} height='8rem' />
+                    <ProductViewer product={product} height='8rem' />
                   </motion.div>
                 ),
 
@@ -164,47 +154,16 @@ const ProductScreen = () => {
                   </motion.div>
                 ),
               }[whichContent]
-            }
+     
+      }
           </div>
-
-          {product.numVariants === 1 && (
-            <div className='productscreen__variants--one-variant'>
-              <OneVariant product={product} variant={product.variants[0]} />
-            </div>
-          )}
-
-          {width > breakpoint ? (
-            <VerticalProductScreenBanner className='productscreen__recommended' />
-          ) : (
-            <HorizontalProductScreenBanner className='productscreen__recommended' />
-          )}
-
-          {product.numVariants > 1 && (
-            <div className='productscreen__variants'>
-              {!product.dropdownSelection ? (
-                product.variants.map((variant, index) => {
-                  return (
-                    <PreCartItem
-                      orientation={orientation}
-                      width={width}
-                      product={product}
-                      variant={variant}
-                      key={index}
-                    />
-                  );
-                })
-              ) : (
-                <PreCartDropdown
-                  product={product}
-                  variants={product.variants}
-                />
-              )}
-            </div>
-          )}
-        </>
-      )}
-    </div>
-  );
-};
+      
+          
+      </div>      
+      )
+  }
+  </div>
+  )
+}
 
 export default ProductScreen;

@@ -1,5 +1,6 @@
 .footer {
-  background-color: darken(white, 2%);
+  background-color: white;
+  opacity: 1;
   width: 100%;
   color: black;
   padding: 1rem;
@@ -8,17 +9,28 @@
   line-height: 2.9rem;
   z-index: 3;
   font-size: 2rem;
+  overflow: visible;
 
+  & a {
+  }
+
+
+
+  
+  &__sailfish1 {
+    position: absolute;
+    bottom: 0;
+    z-index: -100
+  }
   &__image {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
     position: absolute;
     width: 60%;
-    min-width: 70rem;
+    min-width: 50rem;
     gap: 1rem;
-    fill: rgba($color2, 0.4);
-    stroke: rgba($color6, 0.01);
+    fill: darken($color3, 4%);
     z-index: -1;
   }
 

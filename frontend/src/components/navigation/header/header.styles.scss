@@ -40,22 +40,8 @@
   overflow: hidden;
 }
 .desktop-navbar {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1rem repeat(8, 1fr) 1rem;
-  grid-template-rows: 15rem 5rem;
-  grid-template-areas:
-    ". logo logo logo logo logo logo logo logo ."
-    ". desktop-nav desktop-nav desktop-nav desktop-nav desktop-nav desktop-nav desktop-nav desktop-nav .";
-  align-items: center;
-  justify-content: center;
-
-  &__sociallinks {
-    grid-area: facebook-icon;
-
-    & i {
-      font-size: 2rem;
-      color: white;
-    }
-  }
 }
+
+
+  
+

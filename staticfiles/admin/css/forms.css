@@ -7,6 +7,11 @@
     padding: 10px;
     font-size: 13px;
     border-bottom: 1px solid var(--hairline-color);
+    display: flex; 
+    width: 100vw;
+    height: 25rem;
+    flex-wrap: wrap;
+    background-color: red;
 }
 
 .form-row img, .form-row input {

@@ -2,10 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.db.models.signals import post_save, pre_delete
+from django.utils.text import slugify
 from django.dispatch import receiver
 from base.utils.sendOrderEmail import sendOrderEmail
 from dotenv import load_dotenv
+from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
 import datetime
+from django.urls import reverse
 import os
 from djrichtextfield.models import RichTextField
 
@@ -45,22 +48,80 @@ def save_user_profile(sender, instance, **kwargs):
     instance.extra.save()
 
 
+class Category(MPTTModel):
+    parent = TreeForeignKey('self', blank=True, null=True,
+                            related_name='children', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    slug = models.SlugField()
+    description = models.TextField(max_length=255, blank=True, null=True)
+    image = models.ImageField(blank=True, upload_to='images/')
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+    def __str__(self):                           # __str__ method elaborated later in
+        # post.  use __unicode__ in place of
+        full_path = [self.name]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.name)
+            k = k.parent
+        return ' / '.join(full_path[::-1])
+
+
+class Brand(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
+
+    class Meta:
+        ordering = ['-name']
+
+    def __str__(self):
+        return self.name
+
+
+class Variations(MPTTModel):
+    parent = TreeForeignKey('self', blank=True, null=True,
+                            related_name='children', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+
+    def __str__(self):                           # __str__ method elaborated later in
+        # post.  use __unicode__ in place of
+        full_path = [self.name]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.name)
+            k = k.parent
+        return ' / '.join(full_path[::-1])
+
+
 class Product(models.Model):
-    noMainPicture = models.BooleanField(default=False)
-    dropdownSelection = models.BooleanField(default=False)
-    catchPhrase = models.CharField(max_length=200, null=True, blank=True)
-    numVariants = models.IntegerField(null=True, blank=True)
-    name = models.CharField(max_length=200, null=True, blank=True)
-    pulltest = models.CharField(max_length=200, null=True, blank=True)
-    brand = models.CharField(max_length=200, null=True, blank=True)
-    category = models.CharField(max_length=200, null=True, blank=True)
-    subcategory = models.CharField(max_length=200, null=True, blank=True)
+    variations = TreeManyToManyField(Variations, default='None')
+    brand = models.ForeignKey(
+        Brand, related_name='productsbybrand', on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category, related_name='productsbycategory', on_delete=models.CASCADE)
+    subcategory = models.ForeignKey(
+        Category, related_name='productsbysubcategory', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(blank=True, unique=True)
     description = RichTextField()
     rating = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     numReviews = models.IntegerField(null=True, blank=True, default=0)
+    pulltest = models.IntegerField(null=True, blank=True, default=0)
+    numVariants = models.IntegerField(null=True, blank=True, default=0)
     createdAt = models.DateTimeField(auto_now_add=True)
+    price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     _id = models.AutoField(primary_key=True, editable=False)
+    price = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True)
+    discountPrice = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -68,8 +129,9 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         self.createdAt = datetime.datetime.now()
         self.numVariants = self.variants.all().count()
+        slug=''.join(self.name.lower().split(' '))
+        self.slug = slug
         super(Product, self).save(*args, **kwargs)
-
 
 class Pictures(models.Model):
     image = models.ImageField(null=True, blank=True)
@@ -77,16 +139,53 @@ class Pictures(models.Model):
         Product, on_delete=models.CASCADE, related_name='images')
 
 
+class Type(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=10, blank=True, null=True)
+    description = models.TextField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        ordering = ['-name']
+
+    def __str__(self):
+        return self.name
+
+
+class Packsize(models.Model):
+    name = models.CharField(max_length=20)
+    code = models.CharField(max_length=10, blank=True, null=True)
+
+    class Meta:
+        ordering = ['-name']
+
+    def __str__(self):
+        return self.name
+
+
+class Material(models.Model):
+    name = models.CharField(max_length=20)
+    code = models.CharField(max_length=10, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Variant(models.Model):
-    _id = models.AutoField(primary_key=True, editable=False)
-    image = models.ImageField(null=True, blank=True)
-    identifier = models.CharField(max_length=200, null=True, blank=True)
+    identifier = models.CharField(max_length=100, blank=True, null=True)
+    title = models.CharField(max_length=100, blank=True, null=True)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='variants')
+    _id = models.AutoField(primary_key=True, editable=False)
+    image = models.ImageField(null=True, blank=True)
+    _type = models.ForeignKey(
+        Type, on_delete=models.CASCADE, blank=True, null=True)
+    pack = models.ForeignKey(
+        Packsize, on_delete=models.CASCADE, blank=True, null=True)
+    material = models.ForeignKey(
+        Material, on_delete=models.CASCADE, blank=True, null=True)
     description = models.CharField(max_length=200, null=True, blank=True)
-    snap = models.BooleanField(default=False)
-    relatedProductLink = models.ForeignKey(
-        Product, on_delete=models.SET_NULL, null=True, blank=True)
+    # relatedProductLink = models.ForeignKey(
+    #     Product, on_delete=models.SET_NULL, null=True, blank=True)
     price = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     discountPrice = models.DecimalField(

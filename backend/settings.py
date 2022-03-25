@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'payments.apps.PaymentsConfig',
     'corsheaders',
-    'storages'
+    'storages',
+    'mptt'
 ]
 
 REST_FRAMEWORK = {
@@ -154,8 +155,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fishnstik',
-        'USER': 'fns_admin',
+        'NAME': 'djangoreact',
+        'USER': 'postgres',
         'PASSWORD': os.getenv('POSTGRES_PASS'),
         'HOST': os.getenv('DATABASE_ENDPOINT'),
         'PORT': '5432'
