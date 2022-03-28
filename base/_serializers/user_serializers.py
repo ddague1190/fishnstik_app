@@ -32,7 +32,6 @@ class MyTokenObtainSerializer(TokenObtainPairSerializer):
         self.user.save()
 
     def validate(self, attrs):
-        print('hi')
         data = super().validate(attrs)
         # refresh = self.get_token(self.user)
         if not self.user.extra.isAuthenticated:
@@ -40,7 +39,6 @@ class MyTokenObtainSerializer(TokenObtainPairSerializer):
             print('notok')
             self.email_validation()
             raise serializers.ValidationError({'detail': 'We were not able to verify your email. We sent another OTP to your email, please enter it below...'})
-        print('after')
         return data
 
 
