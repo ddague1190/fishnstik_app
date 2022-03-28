@@ -38,18 +38,18 @@ const CartScreen = () => {
   };
 
   return (
-    <div className='cartscreen'>
-      <h2 className='u-center-text'>Items in your cart</h2>
+    <div className="cartscreen">
+      <h2 className="u-center-text">Items in your cart</h2>
       {cartItems.length === 0 ? (
-        <Message variant='info'>
-          Your cart is empty <Link to='/'>Go Back</Link>
+        <Message variant="info">
+          Your cart is empty <Link to="/">Go Back</Link>
         </Message>
       ) : (
-        <div className='cartitems-container'>
+        <div className="cartitems-container">
           {cartItems.map((item, index) => (
             <CartItem key={index} item={item} />
           ))}
-          <div className='cartitems-container__grandtotal'>
+          <div className="cartitems-container__grandtotal">
             <span>Grandtotal</span>
             <h2>
               $
@@ -60,11 +60,11 @@ const CartScreen = () => {
           </div>
         </div>
       )}
-      <div className='cartitems-container__spacer'></div>
-      <div className='u-center-text'>
+      <div className="cartitems-container__spacer"></div>
+      <div className="u-center-text">
         <button
-          type='submit'
-          className='button'
+          type="submit"
+          className="button"
           disabled={cartItems.length === 0}
           onClick={checkoutHandler}>
           Proceed to checkout

@@ -49,15 +49,32 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Category(MPTTModel):
+
+    CATEGORY_TYPES = (
+        ('root', 'Root'),
+        ('featured', 'Featured'),
+        ('product', 'Product'),
+        ('brand', 'Brand'),
+        ('collection', 'Collection')
+    )
+    
     parent = TreeForeignKey('self', blank=True, null=True,
                             related_name='children', on_delete=models.CASCADE)
+    type = models.CharField(
+        max_length=20, choices=CATEGORY_TYPES, default='root')
     name = models.CharField(max_length=200)
     slug = models.SlugField()
     description = models.TextField(max_length=255, blank=True, null=True)
     image = models.ImageField(blank=True, upload_to='images/')
 
+
     class MPTTMeta:
         order_insertion_by = ['name']
+
+    def save(self, *args, **kwargs):
+        slug = ''.join(self.name.lower().split(' '))
+        self.slug = slug
+        super(Category, self).save(*args, **kwargs)
 
     def __str__(self):                           # __str__ method elaborated later in
         # post.  use __unicode__ in place of
@@ -87,7 +104,6 @@ class Variations(MPTTModel):
 
     class MPTTMeta:
         order_insertion_by = ['name']
-
 
     def __str__(self):                           # __str__ method elaborated later in
         # post.  use __unicode__ in place of
@@ -122,6 +138,7 @@ class Product(models.Model):
         max_digits=7, decimal_places=2, null=True, blank=True)
     discountPrice = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
+    leadTime = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -129,9 +146,16 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         self.createdAt = datetime.datetime.now()
         self.numVariants = self.variants.all().count()
-        slug=''.join(self.name.lower().split(' '))
+        slug = ''.join(self.name.lower().split(' '))
         self.slug = slug
         super(Product, self).save(*args, **kwargs)
+
+class ProductDetailsList(models.Model):
+    detail = models.CharField(max_length=200)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='details')
+
+
 
 class Pictures(models.Model):
     image = models.ImageField(null=True, blank=True)

@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
-import HomeScreen from "./components/promotional/homescreen/homescreen.component";
-import ProductScreen from "./components/productpresentation/productscreen/productscreen.component";
-import CartScreen from "./components/checkoutpathway/cartscreen/cartscreen.component";
-import LoginScreen from "./components/user/loginscreen/loginscreen.component";
-import RegisterScreen from "./components/user/registerscreen/registerscreen.component";
+import ProductList from "./components/productpresentation/ProductList";
+import ProductDetails from "./components/productpresentation/ProductDetails";
+import CartScreen from "./components/checkoutpathway/CartScreen";
 import ProfileScreen from "./components/user/profilescreen/profilescreen.component";
-import ShippingScreen from "./components/checkoutpathway/shippingscreen/shippingscreen.component";
 import PaymentScreen from "./components/checkoutpathway/paymentscreen/paymentscreen.component";
 import PlaceOrderScreen from "./components/checkoutpathway/placeorderscreen/placeorderscreen.component";
 import OrderScreen from "./components/checkoutpathway/orderscreen/orderscreen.component";
-import AboutUsScreen from "./components/promotional/aboutusscreen/aboutusscreen.component";
-import ProductList from "./components/productpresentation/productlist/productlist.component";
 import "./sass/App.scss";
-// import "./sass/output.css";
-
 import useViewport from "./utils/useViewport";
-import { ShippingReturns, PrivacyPolicy } from "./components/promotional/policies/policies.component";
 import { getCategories } from "./redux/actions/productActions";
-
+import LoginScreen from "./components/user/LoginScreen";
+import { HomeScreen } from "./components/promotional/HomeScreen";
+import AboutUsScreen from "./components/promotional/AboutUs";
+import Privacy from "./components/promotional/Privacy";
+import Terms from "./components/promotional/Terms";
+import RegisterScreen from "./components/user/RegisterScreen";
+import ShippingScreen from "./components/checkoutpathway/ShippingScreen";
 const App = () => {
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(getCategories())
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
   useViewport();
   const location = useLocation();
   const Page404 = () => {
@@ -34,25 +32,25 @@ const App = () => {
 
   return (
     <Routes key={location.pathname}>
-      <Route exact path='/' element={<HomeScreen />} />
-      <Route path='/products/:url_cat/:url_subcat/' element={<ProductList />} />
-      <Route path='/products/:url_cat/' element={<ProductList />} />
-      <Route path='/products/' element={<ProductList />} />
-      <Route path='/brands/:url_brand/' element={<ProductList />} />
-      <Route path='/aboutus' element={<AboutUsScreen />} />
-      <Route path='/shippingreturns' element={<ShippingReturns />} />
-      <Route path='/privacypolicy' element={<PrivacyPolicy />} />
-      <Route path='/login' element={<LoginScreen />} />
-      <Route path='/register' element={<RegisterScreen />} />
-      <Route path='/profile' element={<ProfileScreen />} />
-      <Route path='/shipping' element={<ShippingScreen />} />
-      <Route path='/payment' element={<PaymentScreen />} />
-      <Route path='/placeorder' element={<PlaceOrderScreen />} />
-      <Route path='/order/:id' element={<OrderScreen />} />
-      <Route path='/product/:id' element={<ProductScreen />} />
-      <Route path='/cart/:id' element={<CartScreen />} />
-      <Route path='/cart/' element={<CartScreen />} />
-      <Route element={<Page404 />} />
+      <Route exact path="/" element={<HomeScreen />} />
+      <Route path="/products/:url_cat/:url_subcat/" element={<ProductList />} />
+      <Route path="/products/:url_cat/" element={<ProductList />} />
+      <Route path="/products/" element={<ProductList />} />
+      <Route path="/brands/:url_brand/" element={<ProductList />} />
+      <Route path="/about" element={<AboutUsScreen />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/login" element={<LoginScreen />} />
+      <Route path="/register" element={<RegisterScreen />} />
+      <Route path="/profile" element={<ProfileScreen />} />
+      <Route path="/shipping" element={<ShippingScreen />} />
+      <Route path="/payment" element={<PaymentScreen />} />
+      <Route path="/placeorder" element={<PlaceOrderScreen />} />
+      <Route path="/order/:id" element={<OrderScreen />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/cart/:id" element={<CartScreen />} />
+      <Route path="/cart/" element={<CartScreen />} />
+      <Route path='/' element={<Page404 />} />
     </Routes>
   );
 };

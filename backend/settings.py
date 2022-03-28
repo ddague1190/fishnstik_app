@@ -152,10 +152,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES = {
+DATABASES = {  
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangoreact',
+        'NAME': 'fishnstik1',
         'USER': 'postgres',
         'PASSWORD': os.getenv('POSTGRES_PASS'),
         'HOST': os.getenv('DATABASE_ENDPOINT'),

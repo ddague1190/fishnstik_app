@@ -13,17 +13,16 @@ from mptt.models import TreeManyToManyField
 from django import forms
 
 
-# from rest_framework_simplejwt.token_blacklist import models as blacklist_models
-# from rest_framework_simplejwt.token_blacklist.admin import OutstandingTokenAdmin
-
 class filterCategories(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
 
-    def __init__(self,*args,**kwargs):
-        super(filterCategories, self).__init__(*args,**kwargs)
-        self.fields['variations'].queryset = Variations.objects.filter(children=None)
+    def __init__(self, *args, **kwargs):
+        super(filterCategories, self).__init__(*args, **kwargs)
+        self.fields['variations'].queryset = Variations.objects.filter(
+            children=None)
+
 
 class AdminImageWidget(AdminFileWidget):
     def render(self, name, value, attrs=None, renderer=None):
@@ -37,22 +36,17 @@ class AdminImageWidget(AdminFileWidget):
         return mark_safe(u''.join(output))
 
 
+class ProductDetailsInline(admin.TabularInline):
+    model = ProductDetailsList
+    fk_name = 'product'
+    extra = 1
+
+
 class VariantsInline(admin.TabularInline):
     model = Variant
     fk_name = 'product'
     extra = 1
     formfield_overrides = {models.ImageField: {'widget': AdminImageWidget}}
-    # fieldsets = (
-    #     (None, {
-    #         'fields': ('identifier', 'title', '_type', 'pack', 'material')
-    #     }),
-    #     ('Advanced options', {
-    #         'classes': ('collapse',),
-    #         'fields': ('image', 'description', 'price', 'discountPrice', 'countInStock'),
-    #     }),
-    # )
-
-
 
 
 class PicturesInline(admin.TabularInline):
@@ -69,7 +63,8 @@ class ProductAdmin(admin.ModelAdmin):
     }
     inlines = [
         VariantsInline,
-        PicturesInline
+        PicturesInline,
+        ProductDetailsInline
     ]
 
 
@@ -131,7 +126,6 @@ class VariationsAdmin(DraggableMPTTAdmin):
     mptt_indent_field = "name"
     list_display = ('tree_actions', 'indented_title')
     list_display_links = ('indented_title',)
-
 
 
 admin.site.register(Product, ProductAdmin)

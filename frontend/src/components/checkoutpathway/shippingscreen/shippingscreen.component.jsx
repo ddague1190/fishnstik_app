@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CheckoutSteps from "../../utilities/checkoutsteps/checkoutsteps.component";
+import CheckoutSteps from "../../utilities/CheckoutSteps";
 import { useNavigate } from "react-router-dom";
 import { saveShippingAddress } from "../../../redux/actions/cartActions";
 import { getSavedAddresses } from "../../../redux/actions/userActions";
@@ -84,7 +84,7 @@ function ShippingScreen() {
     <div className='shippingscreen'>
       {message && <Message variant='danger'>{message}</Message>}
       {loading && <Loader />}
-      <CheckoutSteps step1 step2 />
+      <CheckoutSteps step1='complete' step2='current' />
       <h2 className='u-center-text u-margin-bottom-medium'>Shipping</h2>
 
       {addresses ? (

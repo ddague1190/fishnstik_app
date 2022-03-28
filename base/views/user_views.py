@@ -47,7 +47,7 @@ class WithOTPTokenObtainPairView(TokenObtainPairView):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = user_serializers.MyTokenObtainSerializer
     
-    @method_decorator(ratelimit(key='post:username', rate='10/h', method='POST'))
+    # @method_decorator(ratelimit(key='post:username', rate='10/h', method='POST'))
     def post(self, request, *args, **kwargs):
         was_limited = getattr(request, 'limited', False)
         if was_limited:

@@ -5,15 +5,15 @@ import store from "./redux/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import Header from "./components/navigation/header/header.component";
-import Footer from "./components/navigation/footer/footer.component";
-import Game2 from "./components/svg/game/game2.component";
+import Footer from "./components/navigation/Footer";
+import "./main.css";
+import Navigation from "./components/navigation/Navigation";
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename='/'>
-      <Header />
-      <main className='main'>
+    <BrowserRouter basename="/">
+      <Navigation />
+      <main id="main">
         <App />
       </main>
       <Footer />
@@ -21,8 +21,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
