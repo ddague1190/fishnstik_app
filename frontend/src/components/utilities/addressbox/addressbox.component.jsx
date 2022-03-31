@@ -10,7 +10,7 @@ const AddressBox = ({
 }) => {
   if (!input) return "";
 
-  const { name, address, apartment, city, state, postalCode, phone } = input;
+  const { firstName, lastName, company, streetAddress, apartment, city, state, postalCode, phone, email } = input;
 
   return (
     <ul
@@ -18,13 +18,16 @@ const AddressBox = ({
         highlighted ? "addressbox--highlighted" : ""
       } addressbox`}
       onClick={() => selectedAddress(input, index)}>
-      <li>{name}</li>
-      <li>{address}</li>
+      <li>{firstName} {lastName}</li>
+      <li>{company}</li>
+      <li>{streetAddress}</li>
       {apartment && <li>{apartment}</li>}
       <li>
         {city}, {state} {postalCode}
       </li>
-      {phone && <li>Phone: {phone}</li>}
+      <li>USA</li>
+
+
     </ul>
   );
 };

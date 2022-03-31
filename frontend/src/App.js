@@ -5,8 +5,6 @@ import ProductList from "./components/productpresentation/ProductList";
 import ProductDetails from "./components/productpresentation/ProductDetails";
 import CartScreen from "./components/checkoutpathway/CartScreen";
 import ProfileScreen from "./components/user/profilescreen/profilescreen.component";
-import PaymentScreen from "./components/checkoutpathway/paymentscreen/paymentscreen.component";
-import PlaceOrderScreen from "./components/checkoutpathway/placeorderscreen/placeorderscreen.component";
 import OrderScreen from "./components/checkoutpathway/orderscreen/orderscreen.component";
 import "./sass/App.scss";
 import useViewport from "./utils/useViewport";
@@ -18,6 +16,9 @@ import Privacy from "./components/promotional/Privacy";
 import Terms from "./components/promotional/Terms";
 import RegisterScreen from "./components/user/RegisterScreen";
 import ShippingScreen from "./components/checkoutpathway/ShippingScreen";
+import PlaceOrder from "./components/checkoutpathway/PlaceOrder";
+
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -44,8 +45,7 @@ const App = () => {
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/profile" element={<ProfileScreen />} />
       <Route path="/shipping" element={<ShippingScreen />} />
-      <Route path="/payment" element={<PaymentScreen />} />
-      <Route path="/placeorder" element={<PlaceOrderScreen />} />
+      <Route path="/placeorder" element={<PlaceOrder />} />
       <Route path="/order/:id" element={<OrderScreen />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart/:id" element={<CartScreen />} />

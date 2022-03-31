@@ -64,31 +64,44 @@ export const ProductDetailsImages = ({ mainImages, variants, currVariant }) => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center self-center  mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
+    <div className="flex flex-col overflow-scroll h-full mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
       <h2 className="sr-only">Images</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
+      <div className="grid grid-cols-3 relative gap-1">
         <img
           src={selectedImage?.image}
           alt={selectedImage?.description}
-          className="lg:col-span-2 lg:row-span-2 rounded-lg w-full h-40 lg:h-72 object-contain"
+          className="lg:mb-10 col-span-3 row-span-3 self-center rounded-lg w-full h-96 object-contain"
         />
-      </div>
-      {images.length > 1 && (
-        <>
-          <div className="italic mx-auto flex gap-3 py-4 text-sm">
-            <i className="text-gray-300 text-xs fa-solid fa-quote-left"></i>
-            <span>{selectedImage.description}</span>
-            <i className="text-gray-300 text-xs fa-solid fa-quote-right"></i>
-          </div>
+        {images.map((image, index) => {
+          if (index != selectedImage.index && index <10) {
+            return(
+              <>
+                <span className="sr-only">{image.description}</span>
+                <span className="hidden lg:block inset-0 bg-gray-200 h-12 lg:h-24 rounded-md overflow-hidden">
+                  <img
+                  key={index}
+                  value={index}
+                    src={image.image}
+                    alt={image.description}
+                    className="w-full h-full object-center object-contain"
+                  />
+                </span>
+              </>
+            )
+          }
+        })}
+        
 
-          <div className="flex mt-auto items-center rounded-md py-1 justify-center gap-16 px-20 text-blue-300">
+{images.length > 1 && (
+        <>
+          <div className="absolute top-1/2 w-full flex mt-auto items-center rounded-md py-1 justify-between px-6  text-blue-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               onClick={onImageLeftClick}
-              className="h-6 w-6 cursor-pointer"
+              className="h-8 w-8 cursor-pointer"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              stroke="gray"
               strokeWidth={2}>
               <path
                 strokeLinecap="round"
@@ -100,10 +113,10 @@ export const ProductDetailsImages = ({ mainImages, variants, currVariant }) => {
             <svg
               onClick={onImageRightClick}
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 cursor-pointer"
+              className="h-8 w-8 cursor-pointer"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              stroke='gray'
               strokeWidth="2">
               <path
                 strokeLinecap="round"
@@ -114,6 +127,9 @@ export const ProductDetailsImages = ({ mainImages, variants, currVariant }) => {
           </div>
         </>
       )}
+      </div>
+
+
     </div>
   );
 };

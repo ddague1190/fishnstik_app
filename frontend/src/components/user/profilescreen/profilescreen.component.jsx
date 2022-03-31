@@ -42,7 +42,7 @@ const ProfileScreen = () => {
     }
     if (!user || !user.username || success) {
       dispatch({ type: USER_UPDATE_PROFILE_RESET });
-      dispatch(getUserDetails("profile"));
+      dispatch(getUserDetails());
       dispatch(listMyOrders());
       setPassword("");
       setPassword2("");

@@ -121,7 +121,7 @@ export const getSavedAddressesReducer = (state = [], action) => {
         addresses: parseAddress(action.payload),
       };
     case GET_USER_ADDRESSES_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, success: false, error: action.payload };
     default:
       return state;
   }

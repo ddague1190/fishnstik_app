@@ -103,7 +103,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return serializer.data
 
     def get_variants(self, obj):
-        qs = obj.variants.all().order_by('-countInStock')
+        qs = obj.variants.all()
         serializer = VariantSerializer(qs, many=True)
         return serializer.data
 

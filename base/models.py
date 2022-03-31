@@ -346,14 +346,18 @@ class ShippingAddress(models.Model):
         Order, on_delete=models.CASCADE, null=True, blank=True, related_name='shippingAddress')
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=200, null=True, blank=True)
-    address = models.CharField(max_length=200, null=True, blank=True)
+    firstName = models.CharField(max_length=200, null=True, blank=True)
+    lastName = models.CharField(max_length=200, null=True, blank=True)
+    company = models.CharField(max_length=200, null=True, blank=True)
+    streetAddress = models.CharField(max_length=200, null=True, blank=True)
     apartment = models.CharField(max_length=200, null=True, blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
     postalCode = models.CharField(max_length=200, null=True, blank=True)
     state = models.CharField(max_length=200, null=True, blank=True)
     _id = models.AutoField(primary_key=True, editable=False),
     phone = models.CharField(max_length=200, null=True, blank=True)
+    email=models.EmailField(null=True, blank=True)
 
     def __str__(self):
         return str(self.address)
+

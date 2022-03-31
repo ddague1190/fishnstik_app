@@ -53,12 +53,12 @@ export const ProductDetailsDropdowns = ({
         pack: currVariant.pack,
         material: currVariant.material,
         price: currVariant.price,
+        price: currVariant.discountPrice,
         countInStock: currVariant.countInStock,
-        leadTime: product.leadTime
+        leadTime: product.leadTime,
       })
     );
-    navigate('/cart')
-
+    navigate("/cart");
   };
 
   useEffect(() => {
@@ -257,6 +257,7 @@ export const ProductDetailsDropdowns = ({
                 <>
                   <span>Select Type</span>
                   <Select
+                    isSearchable={false}
                     styles={customStyles}
                     autoFocus
                     value={type}
@@ -272,6 +273,7 @@ export const ProductDetailsDropdowns = ({
                 <>
                   <span>Type</span>
                   <Select
+                    isSearchable={false}
                     styles={customStyles}
                     autoFocus
                     placeholder="Select type ..."
@@ -285,6 +287,7 @@ export const ProductDetailsDropdowns = ({
                   />
                   <span>Pack size</span>
                   <Select
+                    isSearchable={false}
                     styles={customStyles}
                     value={packSize}
                     placeholder={
@@ -315,6 +318,7 @@ export const ProductDetailsDropdowns = ({
                 <>
                   <span>Type</span>
                   <Select
+                    isSearchable={false}
                     styles={customStyles}
                     autoFocus
                     value={type}
@@ -323,6 +327,7 @@ export const ProductDetailsDropdowns = ({
                   />
                   <span>Material size</span>
                   <Select
+                    isSearchable={false}
                     styles={customStyles}
                     value={material}
                     onChange={(option) => {
@@ -334,6 +339,7 @@ export const ProductDetailsDropdowns = ({
                   />
                   <span>Pack size</span>
                   <Select
+                    isSearchable={false}
                     styles={customStyles}
                     value={packSize}
                     onChange={(option) => {
@@ -377,8 +383,14 @@ export const ProductDetailsDropdowns = ({
           disabled={!currVariant}
           type="submit"
           className="disabled:opacity-50 mt-8 w-full bg-[#FF5656] text-white border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium hover:bg-[#FF6767] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
-          
-        {!currVariant ? 'Select options' : <><i className="fas fa-shopping-cart mr-5"></i><span className="track-widest">ADD TO CART</span> </>}
+          {!currVariant ? (
+            "Please select an option"
+          ) : (
+            <>
+              <i className="fas fa-shopping-cart mr-5"></i>
+              <span className="track-widest">ADD TO CART</span>{" "}
+            </>
+          )}
         </button>
       </form>
 

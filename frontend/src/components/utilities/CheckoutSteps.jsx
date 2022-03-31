@@ -1,7 +1,6 @@
 import React from 'react'
 import { CheckIcon } from '@heroicons/react/solid'
-
-
+import { Link } from "react-router-dom"
 
 
 function classNames(...classes) {
@@ -11,17 +10,16 @@ function classNames(...classes) {
 export default function CheckoutSteps({step1=false, step2=false, step3=false, step4=false }) {
 
     const steps = [
-        { name: 'Login', status: step1 },
-        { name: 'Shipping', status: step2 },
-        { name: 'Options', status: step3 },
-        { name: 'Place Order', status: step4 },
+        { name: 'Cart', to: '/cart', status: step1 },
+        { name: 'Shipping', to: '/shipping', status: step2 },
+        { name: 'Checkout', to: '/placeorder', status: step3 },
       ]
 
   return (
     <nav aria-label="Progress mx-auto">
       <ol role="list" className="flex items-center justify-center">
         {steps.map((step, stepIdx) => (
-          <li key={step.name} className={classNames(stepIdx !== steps.length - 1 ? 'pr-12 xs:pr-20' : '', 'relative')}>
+          <li key={step.name} className={classNames(stepIdx !== steps.length - 1 ? 'pr-12 xs:pr-32' : '', 'relative')}>
             {step.status === 'complete' ? (
               <>
                 <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -30,8 +28,8 @@ export default function CheckoutSteps({step1=false, step2=false, step3=false, st
                 <div
                   className="relative w-8 h-8 flex items-center justify-center bg-blue-600 rounded-full"
                 >
-                  <CheckIcon className="w-5 h-5 text-white" aria-hidden="true" />
-                  <span className="text-blue-600 translate-y-6">{step.name}</span>
+                  <CheckIcon className="w-10 h-5 text-white" aria-hidden="true" />
+                  <Link to={step.to} className="text-blue-600 translate-y-6">{step.name}</Link>
                 </div>
               </>
             ) : step.status === 'current' ? (

@@ -112,9 +112,19 @@ export default function ProductDetails() {
                       ${product.price}
                     </p>
                   ) : (
-                    <p className="text-xl font-medium text-gray-900">
-                      {currVariant && `$${currVariant.price}`}
-                    </p>
+                    <div>
+                      <p className={`${userInfo ? 'line-through text-sm' : 'text-xl'} font-medium text-gray-900`}>
+                        {currVariant && `$${currVariant.price}`}
+                      </p>
+
+                      <p className="text-gray-900">
+                        {currVariant && 
+                          userInfo ? <span className='text-xl-font-medium'>{currVariant.discountPrice}</span> : <Link className={`${!currVariant ? 'hidden' : 'block'} font-xs w-24 leading-none text-blue-600`} to='/login'>Login to see your price</Link>
+                        }
+                      </p>
+               
+                    </div>
+
                   )}
                 </div>
               </div>
@@ -130,8 +140,6 @@ export default function ProductDetails() {
                 currVariant={currVariant}
                 setCurrVariant={setCurrentVariant}
               />
-              
-  
             </div>
           </div>
         </div>

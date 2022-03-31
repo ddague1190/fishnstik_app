@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Link,
-  useParams,
-  useNavigate,
-  useLocation,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../utilities/loader/loader.component";
 import Message from "../utilities/message/message.component";
@@ -52,13 +46,16 @@ export default function CartScreen() {
     navigate("/login?redirect=/shipping");
   };
 
-
   const subtotal = cartItems
     .reduce((acc, item) => acc + item.qty * item.price, 0)
-    .toFixed(2)
-  const shippingprice = Number(5.00)
-  const taxprice = Number(subtotal*.07).toFixed(2)
-  const grandtotal=(Number(subtotal)+Number(taxprice)+Number(shippingprice)).toFixed(2)
+    .toFixed(2);
+  const shippingprice = subtotal > 100 ? Number(10.0) : 0;
+  const taxprice = Number(subtotal * 0.07).toFixed(2);
+  const grandtotal = (
+    Number(subtotal) +
+    Number(taxprice) +
+    Number(shippingprice)
+  ).toFixed(2);
 
   return (
     <div className="bg-white">
@@ -127,7 +124,7 @@ export default function CartScreen() {
                           </p>
                         </div>
 
-                        <div className="mt-4 sm:mt-0 flex items-center gap-5 rounded-md bg-slate-100 max-w-fit py-1 px-2" >
+                        <div className="mt-4 sm:mt-0 flex items-center gap-5 rounded-md bg-slate-100 max-w-fit py-1 px-2">
                           <div className="text-lg bg-white border-2 max-w-fit px-3 text-center">
                             {product.qty}
                           </div>
@@ -177,7 +174,7 @@ export default function CartScreen() {
                       </div>
 
                       <p className="mt-4 flex text-sm text-gray-700 space-x-2">
-                        {product.countInStock > 0 ? (
+                        {product.countInStock >= product.qty ? (
                           <CheckIcon
                             className="flex-shrink-0 h-5 w-5 text-green-500"
                             aria-hidden="true"
@@ -190,7 +187,7 @@ export default function CartScreen() {
                         )}
 
                         <span>
-                          {product.countInStock > 0
+                          {product.countInStock >= product.qty
                             ? "In stock"
                             : `Ships in ${product.leadTime} week${
                                 product.leadTime > 0 ? "s" : ""
@@ -216,7 +213,9 @@ export default function CartScreen() {
               <dl className="mt-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <dt className="text-sm text-gray-600">Subtotal</dt>
-                  <dd className="text-sm font-medium text-gray-900">{subtotal}</dd>
+                  <dd className="text-sm font-medium text-gray-900">
+                    {subtotal}
+                  </dd>
                 </div>
                 <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                   <dt className="flex items-center text-sm text-gray-600">
@@ -250,15 +249,16 @@ export default function CartScreen() {
                       />
                     </a>
                   </dt>
-                  <dd className="text-sm font-medium text-gray-900">${taxprice}</dd>
+                  <dd className="text-sm font-medium text-gray-900">
+                    ${taxprice}
+                  </dd>
                 </div>
                 <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                   <dt className="text-base font-medium text-gray-900">
                     Order total
                   </dt>
                   <dd className="text-base font-medium text-gray-900">
-                    $
-                    {grandtotal}
+                    ${grandtotal}
                   </dd>
                 </div>
               </dl>

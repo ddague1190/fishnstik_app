@@ -13,7 +13,7 @@ export default function Hero() {
         <div className="relative max-w-3xl mx-auto flex flex-col items-center text-center">
           <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Your source for Terminal Tackle </h2>
           <p className="mt-3 text-xl text-white">
-            We're committed to giving you the best big game fishing experience possible. We manufacture our own own products in-house. We have a USA-first and customer-first mindset. Our small-scale approach allows us to
+            We're committed to helping you attain the ultimate big game fishing experience. We manufacture our own own products in-house. We have a USA-first and customer-first mindset. Our small-scale approach allows us to
             focus on quality and finding custom solutions to your problems. And on top of that, you won't find better pricing on the products we offer. 
           </p>
           <Link
