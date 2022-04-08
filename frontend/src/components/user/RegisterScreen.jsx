@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/message/message.component";
+import Message from "../utilities/Message";
 import { register, sendOTP } from "../../redux/actions/userActions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "../../utils/useForm";
@@ -67,8 +67,8 @@ export default function RegisterScreen() {
               Create an account
             </h2>
           </div>
-          {error && <Message variant="danger">{error}</Message>}
-          {message && <Message variant="danger">{message}</Message>}
+          {error && <Message>{error}</Message>}
+          {message && <Message>{message}</Message>}
           {loading && <Loader />}
           {!OTPready ? (
             <form className="mt-8 space-y-6" onSubmit={submitHandler}>

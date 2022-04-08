@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+from datetime import timedelta
 import os
 from pathlib import Path
 
@@ -16,8 +17,6 @@ if not os.environ.get("PRODUCTION"):
     from dotenv import load_dotenv
 
     load_dotenv()
-
-
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,8 +33,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    #  'b4fb-2601-587-400-a400-7dd5-45b3-7a78-f3d2.ngrok.io',
-    # 'https://b4fb-2601-587-400-a400-7dd5-45b3-7a78-f3d2.ngrok.io',
+    'https://6110-2601-587-400-a400-f874-ab07-982a-621.ngrok.io',
+    '6110-2601-587-400-a400-f874-ab07-982a-621.ngrok.io',
     '127.0.0.1',
     'http://127.0.0.1',
     'localhost',
@@ -45,8 +44,8 @@ ALLOWED_HOSTS = [
 
 
 # Application definition
-#Removed from apps and from admin panel
-    # 'rest_framework_simplejwt.token_blacklist',
+# Removed from apps and from admin panel
+# 'rest_framework_simplejwt.token_blacklist',
 
 
 INSTALLED_APPS = [
@@ -71,12 +70,11 @@ REST_FRAMEWORK = {
     )
 }
 
-from datetime import timedelta
 
 SIMPLE_JWT = {
-    #5
+    # 5
     'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
-    #30
+    # 30
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -127,7 +125,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'frontend/build/'),
-            ],
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,7 +150,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES = {  
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'fishnstik1',
@@ -160,7 +158,7 @@ DATABASES = {
         'PASSWORD': os.getenv('POSTGRES_PASS'),
         'HOST': os.getenv('DATABASE_ENDPOINT'),
         'PORT': '5432'
-    }   
+    }
 }
 
 
@@ -214,6 +212,7 @@ MEDIA_ROOT = BASE_DIR / 'static/media'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 CORS_ALLOWED_ORIGINS = [
+    'https://6110-2601-587-400-a400-f874-ab07-982a-621.ngrok.io',
     'https://www.fishnstik.herokuapp.com',
     'https://fishnstik.herokuapp.com',
     'http://127.0.0.1',
@@ -234,14 +233,13 @@ PAYPAL_WEBHOOK_ID = os.getenv("PAYPAL_WEBHOOK_ID")
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_QUERYSTRING_AUTH=False
+AWS_QUERYSTRING_AUTH = False
 
-AWS_STORAGE_BUCKET_NAME='fishnwirepictures'
+AWS_STORAGE_BUCKET_NAME = 'fishnwirepictures'
 
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-
 
 
 if os.getcwd() == '/app':

@@ -6,7 +6,7 @@ export default function FeaturedProduct() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:static">
             <div className="sm:max-w-lg">
               <h1 className="text-4xl font font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-                Clickity, clackity
+                Clickity, clack
               </h1>
               <p className="mt-4 text-xl text-gray-500">
                 Introducing our Big Game 10" swim bait lures
@@ -41,7 +41,7 @@ export default function FeaturedProduct() {
                       <div className="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8">
                         <div className="w-44 h-64 rounded-lg overflow-hidden">
                           <img
-                            src="https://fishnwirepictures.s3.amazonaws.com/Asset_6.png"
+                            src="https://fishnwirepictures.s3.amazonaws.com/Asset_4.png"
                             alt=""
                             className="w-full h-full object-center object-contain"
                           />

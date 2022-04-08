@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/message/message.component";
+import Message from "../utilities/Message";
 import { login, loginWithOTP } from "../../redux/actions/userActions";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -49,7 +49,7 @@ export default function LoginScreen() {
   };
   return (
     <>
-      {error && <Message variant="danger">{error}</Message>}
+      {error && <Message>{error}</Message>}
 
       {loading && <Loader />}
 

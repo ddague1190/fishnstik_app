@@ -13,7 +13,6 @@ from base.models import Product, Order, OrderItem, ShippingAddress, Variant
 @method_decorator(csrf_exempt, name="dispatch")
 class ProcessWebhookView(View):
     def post(self, request):
-
         if "HTTP_PAYPAL_TRANSMISSION_ID" not in request.META:
             return HttpResponseBadRequest()
 
@@ -40,6 +39,7 @@ class ProcessWebhookView(View):
             return HttpResponseBadRequest()
 
         webhook_event = json.loads(event_body)
+        pprint(webhook_event)
         amountPaid = float(webhook_event["resource"]["purchase_units"][0]["amount"]['value'])
         order_number = webhook_event["resource"]["purchase_units"][0]["custom_id"]
         payPal_id = webhook_event["resource"]["id"]

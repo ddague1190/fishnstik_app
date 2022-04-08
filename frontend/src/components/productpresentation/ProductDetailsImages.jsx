@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Fragment } from "react";
 
 export const ProductDetailsImages = ({ mainImages, variants, currVariant }) => {
   const [images, setImages] = useState([]);
@@ -75,7 +76,7 @@ export const ProductDetailsImages = ({ mainImages, variants, currVariant }) => {
         {images.map((image, index) => {
           if (index != selectedImage.index && index <10) {
             return(
-              <>
+              <Fragment key={index}>
                 <span className="sr-only">{image.description}</span>
                 <span className="hidden lg:block inset-0 bg-gray-200 h-12 lg:h-24 rounded-md overflow-hidden">
                   <img
@@ -86,7 +87,7 @@ export const ProductDetailsImages = ({ mainImages, variants, currVariant }) => {
                     className="w-full h-full object-center object-contain"
                   />
                 </span>
-              </>
+              </Fragment>
             )
           }
         })}

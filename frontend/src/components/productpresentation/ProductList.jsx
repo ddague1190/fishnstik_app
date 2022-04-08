@@ -7,7 +7,7 @@ import {
   listProductsByBrand,
 } from "../../redux/actions/productActions";
 import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/message/message.component";
+import Message from "../utilities/Message";
 import Paginate from "../utilities/paginate/paginate.component";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import NoProductsFound from "./NoProductsFound";
@@ -38,7 +38,7 @@ export default function ProductList({ target, ...otherProps }) {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message>{error}</Message>
       ) : products && products.length > 0 ? (
         <div className="max-w-7xl mx-auto overflow-hidden sm:px-6 lg:px-8">
           <h2 className="sr-only">Products</h2>

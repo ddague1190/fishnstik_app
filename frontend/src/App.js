@@ -4,8 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import ProductList from "./components/productpresentation/ProductList";
 import ProductDetails from "./components/productpresentation/ProductDetails";
 import CartScreen from "./components/checkoutpathway/CartScreen";
-import ProfileScreen from "./components/user/profilescreen/profilescreen.component";
-import OrderScreen from "./components/checkoutpathway/orderscreen/orderscreen.component";
+import { OrderScreen } from "./components/checkoutpathway/OrderScreen";
 import "./sass/App.scss";
 import useViewport from "./utils/useViewport";
 import { getCategories } from "./redux/actions/productActions";
@@ -17,6 +16,7 @@ import Terms from "./components/promotional/Terms";
 import RegisterScreen from "./components/user/RegisterScreen";
 import ShippingScreen from "./components/checkoutpathway/ShippingScreen";
 import PlaceOrder from "./components/checkoutpathway/PlaceOrder";
+import ProfileScreen from "./components/user/profile/ProfileScreen";
 
 
 const App = () => {

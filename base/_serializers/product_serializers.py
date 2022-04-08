@@ -54,7 +54,6 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate_comment(self, value):
-        print('herefromvalidatecomment')
         if len(value) > 100:
             raise serializers.ValidationError(
                 "Comment must have fewer than 199 characters")

@@ -130,10 +130,10 @@ def getUserProfile(request):
 @permission_classes([IsAuthenticated])
 def getShippingAddress(request):
     user = request.user
-    qs = ShippingAddress.objects.filter(user=user).distinct('address')
+    qs = ShippingAddress.objects.filter(user=user).distinct('streetAddress')
     if len(qs) == 0:
         return Response({'detail': 'No addresses on file'}, status=status.HTTP_400_BAD_REQUEST)
-    data = serializers.serialize('json', qs, fields=('name', 'address','apartment', 'city', 'postalCode', 'state', 'phone'))
+    data = serializers.serialize('json', qs, fields=('firstName', 'lastName', 'streetAddress','apartment', 'city', 'postalCode', 'state', 'phone'))
     return Response(data)
 
 class ChangePasswordView(generics.UpdateAPIView):

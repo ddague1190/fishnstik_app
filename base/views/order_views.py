@@ -24,10 +24,12 @@ class OrderItemView(generics.CreateAPIView):
             order_serializer = order_serializers.OrderSerializer(instance)
             return Response(order_serializer.data, status=status.HTTP_201_CREATED)
         if(start := str(serializer.errors).find('ErrorNoStock')):
+
             end = str(serializer.errors).find('EndMessage')
             x = slice(start, end)
             message = str(serializer.errors)[x]
             return Response({'detail': message}, status=status.HTTP_400_BAD_REQUEST)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_create(self, serializer):
@@ -47,7 +49,6 @@ def getMyOrders(request):
 @permission_classes([IsAuthenticated])
 def getOrderById(request, pk):
     user = request.user
-    print(request.user)
 
     try: 
         order = Order.objects.get(_id=pk)

@@ -6,18 +6,23 @@ import {
   saveShippingAddress,
   savePaymentMethod,
 } from "../../redux/actions/cartActions";
-import { getSavedAddresses, getUserDetails} from "../../redux/actions/userActions";
+import {
+  getSavedAddresses,
+  getUserDetails,
+} from "../../redux/actions/userActions";
 import AddressBox from "../utilities/addressbox/addressbox.component";
 import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/message/message.component";
+import Message from "../utilities/Message";
 import { useForm } from "../../utils/useForm";
 import AddressForm from "./AddressForm";
+import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ShippingScreen() {
+  const [addEmailPhone, setAddEmailPhone] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData, setFormData2] = useForm({
@@ -38,7 +43,7 @@ export default function ShippingScreen() {
   );
   const [addNewAddress, setAddNewAddress] = useState(false);
   const { addresses } = useSelector((state) => state.savedAddresses);
-  const {user} = useSelector(state=>state.userDetails)
+  const { user } = useSelector((state) => state.userDetails);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -47,7 +52,12 @@ export default function ShippingScreen() {
   }, []);
 
   const selectedAddress = (selected, index) => {
-    setFormData(selected);
+    const tempFormData = formData;
+    setFormData2({
+      ...selected,
+      email: formData.email || "",
+      phone: formData.phone || "",
+    });
     setWhichHighlighted(
       whichHighlighted.map((el, id) => (id === index ? true : false))
     );
@@ -97,6 +107,7 @@ export default function ShippingScreen() {
 
   const oldAddresses = addresses?.map((el, index) => (
     <AddressBox
+      className="cursor-pointer bg-green-50 w-max px-2 rounded-md py-3"
       key={index}
       index={index}
       input={el}
@@ -106,77 +117,93 @@ export default function ShippingScreen() {
 
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-xl pt-10 pb-24 px-4 lg:max-w-7xl lg:px-8">
-        {message && <Message variant="danger">{message}</Message>}
+      <div className="mx-auto max-w-xl pt-10 pb-24 px-4 lg:px-8">
+        {message && <Message>{message}</Message>}
         <CheckoutSteps step1="complete" step2="current" />
-
+        <h1 className="text-3xl mt-16 mb-10 font-extrabold w-full tracking-tight text-gray-900 sm:text-4xl">
+          Shipping
+        </h1>
         <div className="">
-          <h1 className="text-3xl mt-16 mb-10 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            Shipping
-          </h1>
-          <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+          <div className="lg:grid  lg:gap-x-12 xl:gap-x-16">
             <div>
               <div>
-                <h2 className="text-lg font-medium text-gray-900 mb-4">
-                  Contact information
+                <div className="flex flex-row items-center gap-3">
+                <h2 className="text-lg font-medium text-gray-900">
+                  Add contact information
                 </h2>
-
-                <div className="mt-4">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700">
-                    Add an additional email to recieve updates (optional):
-                  </label>
-                  <span className="text-xs block p-2 bg-green -50 w-max rounded-md">(We already have your primary email: {user?.email})</span>
-                  <div className="mt-1">
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      autoComplete="email"
-                      value={formData.email}
-                      onChange={setFormData}
-                      className="block w-full bg-blue-50 border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
-                    />
-                  </div>
+                <button
+                  type="button"
+                  onClick={()=>setAddEmailPhone(!addEmailPhone)}
+                  className="inline-flex font-semibold items-center p-1.5 border border-transparent rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  <PlusSmIconSolid className="h-3 w-3" aria-hidden="true" />
+                </button>
                 </div>
+                <span className="text-xs block p-2 mt-2 bg-green-50 w-max rounded-md">
+                  (We already have your primary email: {user?.email})
+                </span>
 
-                <div className="mt-4">
-                  <label
-                    htmlFor="email-address"
-                    className="block text-sm font-medium text-gray-700">
-                    Add a phone number (optional):
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="phone"
-                      id="phone"
-                      name="phone"
-                      autoComplete="email"
-                      value={formData.phone}
-                      onChange={setFormData}
-                      className="block w-full border-gray-300 bg-blue-50 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
-                    />
-                  </div>
-                </div>
+                {addEmailPhone && (
+                  <>
+                    <div className="mt-4">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700">
+                        Add an additional email to recieve updates (optional):
+                      </label>
+
+                      <div className="mt-1">
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          autoComplete="email"
+                          value={formData.email}
+                          onChange={setFormData}
+                          className="block w-full p-1 bg-blue-50 border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-md"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-4">
+                      <label
+                        htmlFor="email-address"
+                        className="block text-sm font-medium text-gray-700">
+                        Add a phone number (optional):
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="phone"
+                          id="phone"
+                          name="phone"
+                          autoComplete="email"
+                          value={formData.phone}
+                          onChange={setFormData}
+                          className="block w-full p-1 border-gray-300 bg-blue-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-md"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="mt-10 border-t border-gray-200 pt-10">
-                <h2 className="text-lg font-medium text-gray-900">
+                <h2 className="my-3 text-lg font-medium text-gray-900">
                   Shipping information
                 </h2>
 
                 {addresses ? (
                   !addNewAddress ? (
                     <div className="">
-                      <p>Select from previously saved addresses:</p>
+                      <p className="font-semibold text-medium text-gray-500 mb-8">
+                        Select from previously saved addresses:
+                      </p>
 
                       <div className="">{oldAddresses}</div>
-                      <div className="flex gap-5 w-96 items-center">
+                      <div className="mt-8 flex flex-row gap-5 w-96 items-center">
                         <button
                           onClick={submitHandlerForPreSavedAddresses}
                           type="submit"
-                          className=" bg-black text-white border border-transparent rounded-md shadow-sm py-2 px-5 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
+                          className=" bg-black text-white border border-transparent rounded-md shadow-sm py-2 px-5 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500">
                           Continue
                         </button>
 

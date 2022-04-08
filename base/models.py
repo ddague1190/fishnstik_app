@@ -1,3 +1,4 @@
+from tkinter import TRUE
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
@@ -57,7 +58,7 @@ class Category(MPTTModel):
         ('brand', 'Brand'),
         ('collection', 'Collection')
     )
-    
+
     parent = TreeForeignKey('self', blank=True, null=True,
                             related_name='children', on_delete=models.CASCADE)
     type = models.CharField(
@@ -66,7 +67,6 @@ class Category(MPTTModel):
     slug = models.SlugField()
     description = models.TextField(max_length=255, blank=True, null=True)
     image = models.ImageField(blank=True, upload_to='images/')
-
 
     class MPTTMeta:
         order_insertion_by = ['name']
@@ -150,11 +150,11 @@ class Product(models.Model):
         self.slug = slug
         super(Product, self).save(*args, **kwargs)
 
+
 class ProductDetailsList(models.Model):
     detail = models.CharField(max_length=200)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='details')
-
 
 
 class Pictures(models.Model):
@@ -199,7 +199,7 @@ class Variant(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='variants')
-    _id = models.AutoField(primary_key=True, editable=False)
+    _id = models.AutoField(primary_key=True, editable=False, unique=True)
     image = models.ImageField(null=True, blank=True)
     _type = models.ForeignKey(
         Type, on_delete=models.CASCADE, blank=True, null=True)
@@ -208,8 +208,6 @@ class Variant(models.Model):
     material = models.ForeignKey(
         Material, on_delete=models.CASCADE, blank=True, null=True)
     description = models.CharField(max_length=200, null=True, blank=True)
-    # relatedProductLink = models.ForeignKey(
-    #     Product, on_delete=models.SET_NULL, null=True, blank=True)
     price = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     discountPrice = models.DecimalField(
@@ -254,6 +252,28 @@ class OrderManager(models.Manager):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    _id = models.AutoField(primary_key=True, editable=False)
+    instructions = models.TextField(max_length=200, null=True, blank=True)
+    objects = OrderManager()
+
+    def __str__(self):
+        return str(self._id)
+
+    def save(self, *args, **kwargs):
+        super(Order, self).save(*args, **kwargs)
+
+class Shipment(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='shipments')
+    shippingService = models.CharField(
+        max_length=200, null=True, blank=True, default='UPS')
+
+    trackingNumber = models.CharField(max_length=200, null=True, blank=True)
+    paymentVerified = models.BooleanField(default=False)
+    paidAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+
+
+class Payment(models.Model):
     paymentMethod = models.CharField(max_length=200, null=True, blank=True)
     itemsPrice = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
@@ -266,70 +286,42 @@ class Order(models.Model):
     amountPaid = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     paymentID = models.CharField(max_length=200, null=True, blank=True)
-    shippingService = models.CharField(
-        max_length=200, null=True, blank=True, default='UPS')
-    trackingNumber = models.CharField(max_length=200, null=True, blank=True)
-    isPaid = models.BooleanField(default=False)
-    paymentVerified = models.BooleanField(default=False)
-    paidAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
-    isDelivered = models.BooleanField(default=False)
-    deliveredAt = models.DateTimeField(
-        auto_now_add=False, null=True, blank=True)
-    createdAt = models.DateTimeField(auto_now_add=True)
-    _id = models.AutoField(primary_key=True, editable=False)
-    instructions = models.TextField(max_length=200, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='payments')
     addressPayPal = models.TextField(max_length=200, null=True, blank=True)
 
-    objects = OrderManager()
-
-    def __str__(self):
-        return str(self._id)
-
-    def save(self, *args, **kwargs):
-        super(Order, self).save(*args, **kwargs)
-        if self.paymentVerified:
-            sendOrderEmail(self.user.email, os.getenv('MAIN_EMAIL'), self._id)
-
-
 class OrderItem(models.Model):
+    payment = models.ForeignKey(
+        Payment, on_delete=models.CASCADE, blank=True, null=True)
+    shipment = models.ForeignKey(
+        Shipment, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, blank=True, null=True)
     variant = models.ForeignKey(
         Variant, on_delete=models.CASCADE, blank=True, null=True)
     productId = models.IntegerField(null=True, blank=True)
     variantId = models.IntegerField(null=True, blank=True)
-    image = models.CharField(max_length=200, null=True, blank=True)
     order = models.ForeignKey(
         Order, on_delete=models.CASCADE, null=True, related_name='orderItems')
-    name = models.CharField(max_length=200, null=True, blank=True)
-    variantDescription = models.CharField(
-        max_length=200, null=True, blank=True)
     qty = models.IntegerField(null=True, blank=True, default=0)
-    price = models.DecimalField(
-        max_digits=7, decimal_places=2)
     subTotal = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     _id = models.AutoField(primary_key=True, editable=False)
-
-    def __str__(self):
-        return str(self.name)
+    readyToShip = models.BooleanField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
 
-        # 1. Import poduct attributes
+        # 1. Import poduct
         self.product = Product.objects.get(_id=self.productId)
-        self.name = self.product.name
 
         # 2. Import variant attributes
 
         self.variant = Variant.objects.get(_id=self.variantId)
-        self.image = self.variant.image
+        # self.image = self.variant.image
         self.variantDescription = self.variant.description
-        self.price = self.variant.price
-        self.subTotal = int(self.price) * int(self.qty)
+        self.subTotal = int(self.variant.discountPrice) * int(self.qty)
 
-        # 3. Drawdown
-
+        # 4. Drawdown
+        self.readyToShip = True if self.variant.countInStock > self.qty else False
         self.variant.countInStock -= self.qty
         self.variant.save()
         super(OrderItem, self).save(*args, **kwargs)
@@ -356,8 +348,7 @@ class ShippingAddress(models.Model):
     state = models.CharField(max_length=200, null=True, blank=True)
     _id = models.AutoField(primary_key=True, editable=False),
     phone = models.CharField(max_length=200, null=True, blank=True)
-    email=models.EmailField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.address)
-
+        return str(self.streetAddress)

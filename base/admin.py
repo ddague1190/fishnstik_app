@@ -101,6 +101,17 @@ class CategoryAdmin(DraggableMPTTAdmin):
     related_products_cumulative_count.short_description = 'Related products (in tree)'
 
 
+class ShipmentsInline(admin.TabularInline):
+    model = Shipment
+    fk_name = 'order'
+    extra = 0
+
+class PaymentsInline(admin.TabularInline):
+    model = Payment
+    fk_name = 'order'
+    extra = 0
+
+
 class ShippingAddressInline(admin.TabularInline):
     model = ShippingAddress
     fk_name = 'order'
@@ -117,7 +128,9 @@ class OrderItemsInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     inlines = [
         OrderItemsInline,
-        ShippingAddressInline
+        ShippingAddressInline,
+        ShipmentsInline,
+        PaymentsInline
     ]
 
 
@@ -136,7 +149,6 @@ admin.site.register(Packsize)
 admin.site.register(Variations, VariationsAdmin)
 admin.site.register(Material)
 admin.site.register(Type)
-admin.site.register(ShippingAddress)
 
 
 class ExtraUserInfo(admin.StackedInline):

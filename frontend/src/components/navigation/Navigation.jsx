@@ -297,7 +297,7 @@ export default function Navigation() {
                                           aria-hidden="true"
                                         />
 
-                                        <div className="relative bg-blue-50">
+                                        <div className="relative bg-blue-500">
                                           <div className="max-w-7xl mx-auto px-8">
                                             <div className="grid grid-cols-2 items-start gap-y-10 gap-x-8 pt-10 pb-12">
                                               <div className="grid grid-cols-2 gap-y-10 gap-x-8">
@@ -326,7 +326,7 @@ export default function Navigation() {
                                                                   setOpen(false)
                                                                 }
                                                                 to={`/featured/${category.slug}/${item.slug}`}
-                                                                className="hover:text-gray-800">
+                                                                className="hover:text-gray-800 text-white">
                                                                 {item.name}
                                                               </Link>
                                                             </li>
@@ -358,7 +358,7 @@ export default function Navigation() {
                                                               className="flex">
                                                               <Link
                                                                 to={`/products/${category.slug}/${item.slug}`}
-                                                                className="hover:text-gray-800">
+                                                                className="hover:text-gray-800 text-white">
                                                                 {item.name}
                                                               </Link>
                                                             </li>
@@ -395,7 +395,7 @@ export default function Navigation() {
                                                                   setOpen(false)
                                                                 }
                                                                 to={`/products/${category.slug}/${item.slug}`}
-                                                                className="hover:text-gray-800">
+                                                                className="hover:text-gray-800 text-white">
                                                                 {item.name}
                                                               </Link>
                                                             </li>
@@ -430,7 +430,7 @@ export default function Navigation() {
                                                                   setOpen(false)
                                                                 }
                                                                 to={`/brands/${category.slug}/${item.slug}`}
-                                                                className="hover:text-gray-800">
+                                                                className="hover:text-gray-800 text-white">
                                                                 {item.name}
                                                               </Link>
                                                             </li>

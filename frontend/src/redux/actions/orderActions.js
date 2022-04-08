@@ -26,8 +26,10 @@ export const createOrder = (order) => async (dispatch, getState) => {
       type: ORDER_CREATE_REQUEST,
     });
 
+
     const { data } = await axiosInstance.post(`/api/orders/add/`, order);
 
+    console.log(data)
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,
@@ -57,7 +59,6 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
     });
 
     const { data } = await axiosInstance.get(`/api/orders/${id}/`);
-
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
       payload: data,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../loader/loader.component";
-import Message from "../message/message.component";
+import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../../../redux/constants/productConstants";
 import { createProductReview } from "../../../redux/actions/productActions";
@@ -41,8 +41,8 @@ const WriteReview = ({ setReviewJustAdded, setWriteReview }) => {
   return (
     <>
       {loading && <Loader />}
-      {success && <Message variant='success'>Review Submitted</Message>}
-      {error && <Message variant='danger'>{error}</Message>}
+      {success && <Message>Review Submitted</Message>}
+      {error && <Message>{error}</Message>}
 
       <form className='writereview' onSubmit={submitHandler}>
         <span className='u-font-weight-light'>Select a rating</span>

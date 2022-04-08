@@ -95,7 +95,7 @@ useEffect(()=>{
             name="firstName"
             value={formData.firstName}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>
@@ -113,7 +113,7 @@ useEffect(()=>{
             name="lastName"
             value={formData.lastName}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>
@@ -131,7 +131,7 @@ useEffect(()=>{
             id="company"
             value={formData.company}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>
@@ -149,7 +149,7 @@ useEffect(()=>{
             id="streetAddress"
             value={formData.streetAddress}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>
@@ -167,7 +167,7 @@ useEffect(()=>{
             id="apartment"
             value={formData.apartment}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>
@@ -185,7 +185,7 @@ useEffect(()=>{
             id="city"
             value={formData.city}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>
@@ -202,7 +202,7 @@ useEffect(()=>{
             name="country"
             value={formData.country}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
             <option>United States</option>
           </select>
         </div>
@@ -221,7 +221,7 @@ useEffect(()=>{
             id="state"
             value={formData.state}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>
@@ -239,7 +239,7 @@ useEffect(()=>{
             id="postalCode"
             value={formData.postalCode}
             onChange={setFormData}
-            className="block w-full bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-1 bg-blue-50 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>

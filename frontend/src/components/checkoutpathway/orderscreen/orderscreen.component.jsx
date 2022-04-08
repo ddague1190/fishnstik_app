@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../../utilities/message/message.component";
+import Message from "../../utilities/Message";
 import Loader from "../../utilities/loader/loader.component";
 import { useNavigate, useParams } from "react-router-dom";
 import { getOrderDetails, payOrder } from "../../../redux/actions/orderActions";
@@ -8,6 +8,7 @@ import { PayPalButton } from "react-paypal-button-v2";
 import { ORDER_PAY_RESET } from "../../../redux/constants/orderConstants";
 import AddressBox from "../../utilities/addressbox/addressbox.component";
 import "./orderscreen.styles.scss";
+
 
 const OrderScreen = () => {
   const orderId = useParams().id;
@@ -63,7 +64,7 @@ const OrderScreen = () => {
   return loading ? (
     <Loader />
   ) : error ? (
-    <Message variant='danger'>{error}</Message>
+    <Message>{error}</Message>
   ) : (
     <div className='orderscreen'>
       <div className='orderscreen__params'>

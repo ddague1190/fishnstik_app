@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Loader from "../utilities/loader/loader.component";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../utilities/message/message.component";
 import { logout } from "../../redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../redux/actions/orderActions";
@@ -16,6 +16,7 @@ import {
 import Toggle from "../utilities/Toggle";
 
 const PlaceOrder = () => {
+  const [showLoading, setShowLoading] = useState(false)
   const [shipTogether, setShipTogether] = useState(true);
   const [instructions, setInstructions] = useState("");
   const [GroupedCartItems, setGroupedCartItems] = useState({
@@ -30,6 +31,7 @@ const PlaceOrder = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(cart)
     setGroupedCartItems({
       notInStock: cart.cartItems.filter((el) => el.countInStock < el.qty),
       inStock: cart.cartItems.filter((el) => el.countInStock >= el.qty),
@@ -65,9 +67,11 @@ const PlaceOrder = () => {
       dispatch(logout());
       navigate("/login/");
     }
+    return (()=>setShowLoading(false))
   }, [error, success, dispatch, navigate, cart]);
 
   const submitHandler = () => {
+    setShowLoading(true)
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
@@ -78,15 +82,16 @@ const PlaceOrder = () => {
     );
   };
 
-  console.log(cart.shippingAddress);
 
   return (
     <div className="bg-white mt-6">
+      {showLoading && <Loader/>}
       <CheckoutSteps step1="complete" step2="complete" step3="current" />
       <div className="max-w-4xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
           Checkout
         </h1>
+        {GroupedCartItems["inStock"].length > 0 && (
 
         <div className="mt-12">
           <h2 className="sr-only">Items in your shopping cart</h2>
@@ -125,9 +130,7 @@ const PlaceOrder = () => {
                             {product.name}
                           </Link>
                         </h3>
-                        <p className="mt-1 text-sm text-gray-500">
-                          {product.color}
-                        </p>
+
                         {product.variantTitle ? (
                           <p className="mt-1 text-sm text-gray-500">
                             {product.variantTitle}
@@ -192,6 +195,8 @@ const PlaceOrder = () => {
             ))}
           </ul>
         </div>
+        )
+        }
 
         {GroupedCartItems["notInStock"].length > 0 && (
           <>
@@ -231,9 +236,7 @@ const PlaceOrder = () => {
                                 {product.name}
                               </Link>
                             </h3>
-                            <p className="mt-1 text-sm text-gray-500">
-                              {product.color}
-                            </p>
+  
                             {product.variantTitle ? (
                               <p className="mt-1 text-sm text-gray-500">
                                 {product.variantTitle}
@@ -277,7 +280,7 @@ const PlaceOrder = () => {
                               <span className="text-xs">
                                 Qty in our stock:{" "}
                               </span>
-                              {product.countInStock}
+                              {Math.max(product.countInStock, 0)}
                             </p>
                           </div>
                         </div>
@@ -317,14 +320,14 @@ const PlaceOrder = () => {
           className="block text-sm font-medium text-gray-700">
           Add any instructions for this order?
         </label>
-        <div className="mt-1 border-b border-gray-300 focus-within:border-indigo-600">
+        <div className="mt-1 border-b border-gray-300 focus-within:border-blue-600">
           <textarea
             type="text"
             name="name"
             id="name"
             value={instructions}
             onChange={(e)=>setInstructions(e.target.value)}
-            className="block w-full h-20 border-0 border-b border-transparent bg-gray-50 focus:border-indigo-600 focus:ring-0 sm:text-sm"
+            className="p-2 block w-full h-20 border-0 border-b border-transparent bg-gray-50 focus:border-blue-600 focus:ring-0 sm:text-sm"
             placeholder="Please send a sample pack of your swivels!"
           />
         </div>
@@ -339,8 +342,13 @@ const PlaceOrder = () => {
 
         <dl className="mt-6 space-y-4">
           <div className="border-t border-gray-200 pt-4 flex flex-col justify-between">
-            <dt className="flex items-center text-sm text-gray-600">
+            <dt className="flex w-full  flex-row justify-between items-center text-sm text-gray-600">
               <span>Address</span>
+              <Link
+                  to="/shipping"
+                  className=" text-sm text-blue-800">
+                  Edit address
+                </Link>
             </dt>
             <dd className="ml-6 m-6 bg-green-50 w-max rounded-md p-5 text-gray-900">
               <AddressBox className="text-sm" input={cart.shippingAddress} />
@@ -351,8 +359,8 @@ const PlaceOrder = () => {
             </dt>
             <dd className="ml-6 m-6 bg-green-50 w-max rounded-md p-5 text-gray-900">
               <div className="flex flex-col text-sm">
-                <span>Email: {cart.shippingAddress.email}</span>
-                <span>Phone: {cart.shippingAddress.phone}</span>
+                <span><p className='text-gray-500 text-sm inline mr-4'>Email:</p> {cart.shippingAddress.email || 'Default'}</span>
+                <span><p className='text-gray-500 text-sm inline  mr-4'>Phone:</p> {cart.shippingAddress.phone || 'Default'}</span>
               </div>
             </dd>
           </div>
@@ -409,7 +417,7 @@ const PlaceOrder = () => {
         <div className="mt-6">
           <button
             onClick={submitHandler}
-            className="w-full bg-blue-800 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-800">
+            className="w-full bg-blue-800 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-800">
             Place Order
           </button>
         </div>

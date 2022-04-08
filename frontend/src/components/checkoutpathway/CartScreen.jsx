@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/message/message.component";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import Message from "../utilities/Message";
 import {
   MenuIcon,
   SearchIcon,
@@ -62,8 +62,11 @@ export default function CartScreen() {
       {loading ? (
         <Loader />
       ) : cartItems.length === 0 ? (
-        <Message variant="info">
-          Your cart is empty <Link to="/">Go Back</Link>
+        <Message>
+          Your cart is empty{" "}
+          <Link className="underline" to="/">
+            Go Back
+          </Link>
         </Message>
       ) : (
         <main className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">

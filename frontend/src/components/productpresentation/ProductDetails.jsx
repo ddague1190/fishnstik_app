@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Rating from "../utilities/rating/rating.component";
 import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/message/message.component";
+import Message from "../utilities/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../redux/actions/productActions";
 import WriteReview from "../utilities/writereview/writereview.component";
@@ -44,7 +44,7 @@ export default function ProductDetails() {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message>{error}</Message>
       ) : (
         <div className="pt-6 pb-16 sm:pb-24">
           <nav
@@ -113,18 +113,29 @@ export default function ProductDetails() {
                     </p>
                   ) : (
                     <div>
-                      <p className={`${userInfo ? 'line-through text-sm' : 'text-xl'} font-medium text-gray-900`}>
+                      <p
+                        className={`${
+                          userInfo ? "line-through text-sm" : "text-xl"
+                        } font-medium text-gray-900`}>
                         {currVariant && `$${currVariant.price}`}
                       </p>
 
                       <p className="text-gray-900">
-                        {currVariant && 
-                          userInfo ? <span className='text-xl-font-medium'>{currVariant.discountPrice}</span> : <Link className={`${!currVariant ? 'hidden' : 'block'} font-xs w-24 leading-none text-blue-600`} to='/login'>Login to see your price</Link>
-                        }
+                        {currVariant && userInfo ? (
+                          <span className="text-xl-font-medium">
+                            {currVariant.discountPrice}
+                          </span>
+                        ) : (
+                          <Link
+                            className={`${
+                              !currVariant ? "hidden" : "block"
+                            } font-xs w-24 leading-none text-blue-600`}
+                            to="/login">
+                            Login to see your price
+                          </Link>
+                        )}
                       </p>
-               
                     </div>
-
                   )}
                 </div>
               </div>
