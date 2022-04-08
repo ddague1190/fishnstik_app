@@ -10,10 +10,10 @@ import { ORDER_PAY_RESET } from "../../redux/constants/orderConstants";
 import AddressBox from "../utilities/addressbox/addressbox.component";
 import { motion } from "framer-motion";
 import {
-    CheckIcon,
-    ClockIcon,
-    QuestionMarkCircleIcon,
-  } from "@heroicons/react/solid";
+  CheckIcon,
+  ClockIcon,
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/solid";
 
 export const OrderScreen = () => {
   const [errorPayPal, setErrorPayPal] = useState("");
@@ -253,7 +253,7 @@ export const OrderScreen = () => {
                         </a>
                       </dt>
                       <dd className="text-sm font-medium text-gray-900">
-                        ${(order.totalPrice*.07).toFixed(2)}
+                        ${(order.totalPrice * 0.07).toFixed(2)}
                       </dd>
                     </div>
                     <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
@@ -261,11 +261,13 @@ export const OrderScreen = () => {
                         Order total
                       </dt>
                       <dd className="text-base font-medium text-gray-900">
-                        ${Number(order.totalPrice) + Number((order.totalPrice*.07).toFixed(2)) + Number(order.totalPrice > 100 ? 0 : 10)}
+                        $
+                        {Number(order.totalPrice) +
+                          Number((order.totalPrice * 0.07).toFixed(2)) +
+                          Number(order.totalPrice > 100 ? 0 : 10)}
                       </dd>
                     </div>
                   </dl>
-
                 </section>
                 <div className="w-3/4 md:w-full ">
                   {!order.isPaid && (
@@ -293,7 +295,9 @@ export const OrderScreen = () => {
                                   custom_id: orderId,
                                   shipping: {
                                     name: {
-                                      full_name: order.shippingAddress.firstName + order.shippingAddress.lastName
+                                      full_name:
+                                        order.shippingAddress.firstName +
+                                        order.shippingAddress.lastName,
                                     },
                                     address: {
                                       address_line_1:
