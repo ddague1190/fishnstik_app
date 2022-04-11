@@ -263,17 +263,19 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         super(Order, self).save(*args, **kwargs)
 
+
 class Shipment(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='shipments')
+    createdAt = models.DateTimeField(null=True, blank=True)
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name='shipments')
     shippingService = models.CharField(
         max_length=200, null=True, blank=True, default='UPS')
-
     trackingNumber = models.CharField(max_length=200, null=True, blank=True)
-    paymentVerified = models.BooleanField(default=False)
-    paidAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    isDelivered = models.BooleanField(default=False)
 
 
 class Payment(models.Model):
+    createdAt = models.DateTimeField(null=True, blank=True)
     paymentMethod = models.CharField(max_length=200, null=True, blank=True)
     itemsPrice = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
@@ -286,14 +288,15 @@ class Payment(models.Model):
     amountPaid = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     paymentID = models.CharField(max_length=200, null=True, blank=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='payments')
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name='payments', null=True,  blank=True)
     addressPayPal = models.TextField(max_length=200, null=True, blank=True)
+    shipment = models.ForeignKey(Shipment, on_delete=models.SET_NULL, blank=True, null=True)
+
 
 class OrderItem(models.Model):
     payment = models.ForeignKey(
-        Payment, on_delete=models.CASCADE, blank=True, null=True)
-    shipment = models.ForeignKey(
-        Shipment, on_delete=models.CASCADE, blank=True, null=True)
+        Payment, on_delete=models.SET_NULL, blank=True, null=True, related_name='paidItems')
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, blank=True, null=True)
     variant = models.ForeignKey(
@@ -307,6 +310,7 @@ class OrderItem(models.Model):
         max_digits=7, decimal_places=2, null=True, blank=True)
     _id = models.AutoField(primary_key=True, editable=False)
     readyToShip = models.BooleanField(null=True, blank=True)
+    UNVERIFIED_PAID = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
 

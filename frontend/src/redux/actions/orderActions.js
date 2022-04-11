@@ -14,11 +14,14 @@ import {
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
   ORDER_LIST_MY_RESET,
+  RETRIEVE_PAYMENTS_FAIL,
+  RETRIEVE_PAYMENTS_SUCCESS,
 } from "../constants/orderConstants";
 
 import axiosInstance from "../axiosInstance";
 
 import { CART_CLEAR_ITEMS } from "../constants/cartConstants";
+import { bindActionCreators } from "redux";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
@@ -26,10 +29,9 @@ export const createOrder = (order) => async (dispatch, getState) => {
       type: ORDER_CREATE_REQUEST,
     });
 
-
     const { data } = await axiosInstance.post(`/api/orders/add/`, order);
 
-    console.log(data)
+    console.log(data);
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,
@@ -121,6 +123,22 @@ export const listMyOrders = () => async (dispatch, getState) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
+    });
+  }
+};
+
+export const getPayments = (id) => async (dispatch, getState) => {
+  try {
+    const { data } = await axiosInstance.get(`/api/orders/${id}/payments/`);
+
+    dispatch({
+      type: RETRIEVE_PAYMENTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: RETRIEVE_PAYMENTS_FAIL,
+      payload: "No new payments",
     });
   }
 };

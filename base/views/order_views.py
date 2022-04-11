@@ -11,7 +11,7 @@ import json
 from rest_framework import generics
 from rest_framework.views import APIView
 from pprint import pprint
- 
+
 
 class OrderItemView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -36,6 +36,7 @@ class OrderItemView(generics.CreateAPIView):
         order = serializer.save()
         return order
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getMyOrders(request):
@@ -50,27 +51,49 @@ def getMyOrders(request):
 def getOrderById(request, pk):
     user = request.user
 
-    try: 
+    try:
         order = Order.objects.get(_id=pk)
 
         if order.user == user:
             serializer = order_serializers.OrderSerializer(order, many=False)
             return Response(serializer.data)
-        
+
         else:
             return Response({'detail': 'Not authorized to view this order'}, status=status.HTTP_401_UNAUTHORIZED)
-        
+
     except:
         return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def updateOrderToPaid(request, pk):
-    user=request.user
+def preWebHookOrderItemsPaymentUpdate(request, pk):
+    user = request.user
     order = Order.objects.get(_id=pk)
     if(order.user != user):
         return Response("You are not authorized")
-    order.isPaid = True
-    order.paidAt = datetime.now()
-    order.save()
+    items = order.orderItems.all()
+    for item in items:
+        if item.readyToShip:
+            item.UNVERIFIED_PAID = True
+            item.save()
     return Response('Order was paid')
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getPayments(request, pk):
+    user = request.user
+
+    try:
+        order = Order.objects.get(_id=pk)
+
+        if order.user == user:
+            serializer = order_serializers.OrderSerializer(order, many=False)
+            return Response(len(serializer.data['payments']))
+
+        else:
+            return Response({'detail': 'Not authorized to view this order'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    except:
+        return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)

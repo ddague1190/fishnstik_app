@@ -15,6 +15,8 @@ import {
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
   ORDER_LIST_MY_RESET,
+  RETRIEVE_PAYMENTS_FAIL,
+  RETRIEVE_PAYMENTS_SUCCESS,
 } from "../constants/orderConstants";
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -120,5 +122,21 @@ export const orderListyMyReducer = (state = { orders: [] }, action) => {
       };
     default:
       return state;
+  }
+};
+
+export const getPaymentsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case RETRIEVE_PAYMENTS_SUCCESS:
+      return {
+        numPayments: action.payload,
+      };
+    case RETRIEVE_PAYMENTS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    default: 
+    return state;
   }
 };

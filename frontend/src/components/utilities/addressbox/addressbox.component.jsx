@@ -7,6 +7,7 @@ const AddressBox = ({
   highlighted,
   selectedAddress,
   className,
+  disabled
 }) => {
   if (!input) return "";
 
@@ -17,7 +18,7 @@ const AddressBox = ({
       className={`${className} ${
         highlighted ? "addressbox--highlighted" : ""
       } addressbox`}
-      onClick={() => selectedAddress(input, index)}>
+      onClick={!disabled ? () => selectedAddress(input, index) : null}>
       <li>{firstName} {lastName}</li>
       <li>{company}</li>
       <li>{streetAddress}</li>

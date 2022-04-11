@@ -148,6 +148,11 @@ admin.site.register(Brand)
 admin.site.register(Packsize)
 admin.site.register(Variations, VariationsAdmin)
 admin.site.register(Material)
+admin.site.register(Shipment)
+admin.site.register(OrderItem)
+
+admin.site.register(Payment)
+
 admin.site.register(Type)
 
 

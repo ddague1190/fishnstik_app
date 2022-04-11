@@ -3,7 +3,7 @@ import Loader from "../utilities/loader/loader.component";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
-import { createOrder } from "../../redux/actions/orderActions";
+import { createOrder, payOrder } from "../../redux/actions/orderActions";
 import { ORDER_CREATE_RESET } from "../../redux/constants/orderConstants";
 import CheckoutSteps from "../utilities/CheckoutSteps";
 import { Link } from "react-router-dom";
@@ -351,7 +351,7 @@ const PlaceOrder = () => {
                 </Link>
             </dt>
             <dd className="ml-6 m-6 bg-green-50 w-max rounded-md p-5 text-gray-900">
-              <AddressBox className="text-sm" input={cart.shippingAddress} />
+              <AddressBox className="text-sm" input={cart.shippingAddress} disabled />
             </dd>
 
             <dt className="flex items-center text-sm text-gray-600">

@@ -20,6 +20,7 @@ import {
   orderDetailsReducer,
   orderPayReducer,
   orderListyMyReducer,
+  getPaymentsReducer
 } from "./reducers/orderReducers";
 import { routeReducer } from "./reducers/routeReducer";
 import { responsiveReducer } from "./reducers/responsiveReducers";
@@ -44,6 +45,7 @@ const reducer = combineReducers({
   savedAddresses: getSavedAddressesReducer,
   dimensions: responsiveReducer,
   fishFact: fishFactReducer,
+  numPayments: getPaymentsReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

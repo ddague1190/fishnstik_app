@@ -35,21 +35,39 @@ class OrderItemSerializer(serializers.ModelSerializer):
         serializer = product_serializers.BasicProductInfoSerializer(product)
         return serializer.data
 
-
 class ShipmentsSerializer(serializers.ModelSerializer):
+    createdAt = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Shipment
         fields = '__all__'
 
+    def get_createdAt(self, obj):
+        time = obj.createdAt
+        return time.strftime("%m-%d-%Y (%H:%M)")
 
 class PaymentsSerializer(serializers.ModelSerializer):
+    paidItems = serializers.SerializerMethodField(read_only=True)
+    createdAt = serializers.SerializerMethodField(read_only=True)
+    shipment = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Payment
         fields = '__all__'
 
+    def get_paidItems(self, obj):
+        items = obj.paidItems.all()
+        serializer = OrderItemSerializer(items, many=True)
+        return serializer.data
 
+    def get_createdAt(self, obj):
+        time = obj.createdAt
+        return time.strftime("%m-%d-%Y (%H:%M)")
+
+    def shipment(self, obj):
+        serializer = ShipmentsSerializer(obj.shipment, many=False)
+        return serializer.data
+    
 class OrderSerializer(serializers.ModelSerializer):
     orderItems = serializers.SerializerMethodField(read_only=True)
     shippingAddress = serializers.SerializerMethodField(read_only=True)
@@ -58,6 +76,7 @@ class OrderSerializer(serializers.ModelSerializer):
     shipments = serializers.SerializerMethodField(read_only=True)
     createdAt = serializers.SerializerMethodField(read_only=True)
     totalPrice = serializers.SerializerMethodField(read_only=True)
+    finalPrice = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Order
@@ -70,6 +89,17 @@ class OrderSerializer(serializers.ModelSerializer):
             if item.readyToShip:
                 totalPrice += item.subTotal
         return totalPrice
+
+    def get_finalPrice(self,obj):
+        items = obj.orderItems.all()
+        finalPrice = 0
+        for item in items:
+            if item.readyToShip:
+                finalPrice += item.subTotal
+        temp = finalPrice
+        finalPrice = round(float(finalPrice)*1.07, 2)
+        finalPrice += 10 if temp <= 100 else 0
+        return finalPrice
 
     def get_createdAt(self, obj):
         time = obj.createdAt

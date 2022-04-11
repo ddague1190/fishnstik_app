@@ -6,7 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from pprint import pprint
 from paypalrestsdk import notifications
-from base.models import Product, Order, OrderItem, ShippingAddress, Variant
+from base.models import *
+import datetime
 
 
 
@@ -39,15 +40,36 @@ class ProcessWebhookView(View):
             return HttpResponseBadRequest()
 
         webhook_event = json.loads(event_body)
-        pprint(webhook_event)
-        amountPaid = float(webhook_event["resource"]["purchase_units"][0]["amount"]['value'])
-        order_number = webhook_event["resource"]["purchase_units"][0]["custom_id"]
-        payPal_id = webhook_event["resource"]["id"]
-        order = Order.objects.get(pk=order_number)
-        order.paymentVerified=True
-        order.amountPaid=amountPaid
-        order.paymentID = payPal_id
-        order.addressPayPal = json.dumps(webhook_event["resource"]["purchase_units"][0]["shipping"])
-        order.save()
-        return HttpResponse()
         
+        if webhook_event['event_type'] == 'CHECKOUT.ORDER.APPROVED':
+            amountPaid = float(webhook_event["resource"]["purchase_units"][0]["amount"]['value'])
+            order_number = webhook_event["resource"]["purchase_units"][0]["custom_id"]
+            payPal_id = webhook_event["resource"]["id"]
+            order = Order.objects.get(pk=order_number)
+            payment = Payment.objects.create()
+            orderItems = order.orderItems.all()
+            ship_ready_orderItems = []
+            itemsPrice = 0 
+            for item in orderItems:
+                if item.readyToShip:
+                    ship_ready_orderItems.append(item)
+                    item.payment = payment
+                    itemsPrice += item.subTotal
+                    item.save()
+            taxPrice = round(float(itemsPrice) * .07, 2)
+            shippingPrice = 10 if itemsPrice < 100 else 0
+            totalPrice = float(itemsPrice) + float(taxPrice) + float(shippingPrice)
+            print(order, 'here is order')
+            payment.createdAt = datetime.datetime.now()
+            payment.order = order
+            payment.itemsPrice = itemsPrice
+            payment.shippingPrice = shippingPrice
+            payment.taxPrice = taxPrice
+            payment.totalPrice = totalPrice
+            payment.amountPaid=amountPaid
+            payment.paymentID = payPal_id
+            payment.addressPayPal = json.dumps(webhook_event["resource"]["purchase_units"][0]["shipping"])
+            payment.save()
+            return HttpResponse()
+
+        return HttpResponse('Event type not of interest currently')
