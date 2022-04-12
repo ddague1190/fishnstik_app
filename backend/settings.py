@@ -33,7 +33,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'ecd2-2601-587-400-a400-4c0f-a281-d0bb-74e6.ngrok.io',
     '127.0.0.1',
     'http://127.0.0.1',
     'localhost',
@@ -211,7 +210,6 @@ MEDIA_ROOT = BASE_DIR / 'static/media'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 CORS_ALLOWED_ORIGINS = [
-    'https://6110-2601-587-400-a400-f874-ab07-982a-621.ngrok.io',
     'https://www.fishnstik.herokuapp.com',
     'https://fishnstik.herokuapp.com',
     'http://127.0.0.1',
