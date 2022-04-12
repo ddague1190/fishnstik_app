@@ -1,4 +1,5 @@
 .addressbox {
+    font-style: normal;
     list-style-type: none;
     @include flexCenter(column);
     align-items: flex-start;

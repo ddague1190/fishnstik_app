@@ -35,6 +35,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         serializer = product_serializers.BasicProductInfoSerializer(product)
         return serializer.data
 
+
 class ShipmentsSerializer(serializers.ModelSerializer):
     createdAt = serializers.SerializerMethodField(read_only=True)
 
@@ -45,6 +46,7 @@ class ShipmentsSerializer(serializers.ModelSerializer):
     def get_createdAt(self, obj):
         time = obj.createdAt
         return time.strftime("%m-%d-%Y (%H:%M)")
+
 
 class PaymentsSerializer(serializers.ModelSerializer):
     paidItems = serializers.SerializerMethodField(read_only=True)
@@ -64,16 +66,18 @@ class PaymentsSerializer(serializers.ModelSerializer):
         time = obj.createdAt
         return time.strftime("%m-%d-%Y (%H:%M)")
 
-    def shipment(self, obj):
+    def get_shipment(self, obj):
+        if not obj.shipment:
+            return False
         serializer = ShipmentsSerializer(obj.shipment, many=False)
         return serializer.data
-    
+
+
 class OrderSerializer(serializers.ModelSerializer):
     orderItems = serializers.SerializerMethodField(read_only=True)
     shippingAddress = serializers.SerializerMethodField(read_only=True)
     user = serializers.SerializerMethodField(read_only=True)
     payments = serializers.SerializerMethodField(read_only=True)
-    shipments = serializers.SerializerMethodField(read_only=True)
     createdAt = serializers.SerializerMethodField(read_only=True)
     totalPrice = serializers.SerializerMethodField(read_only=True)
     finalPrice = serializers.SerializerMethodField(read_only=True)
@@ -90,7 +94,7 @@ class OrderSerializer(serializers.ModelSerializer):
                 totalPrice += item.subTotal
         return totalPrice
 
-    def get_finalPrice(self,obj):
+    def get_finalPrice(self, obj):
         items = obj.orderItems.all()
         finalPrice = 0
         for item in items:
@@ -107,11 +111,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def get_payments(self, obj):
         items = obj.payments.all()
-        serializer = PaymentsSerializer(items, many=True)
-        return serializer.data
-
-    def get_shipments(self, obj):
-        items = obj.shipments.all()
         serializer = PaymentsSerializer(items, many=True)
         return serializer.data
 
@@ -140,19 +139,11 @@ class OrderItemsCreateSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = ('productId', 'variantId', 'qty', )
 
-    # def validate(self, data):
-    #     variant = Variant.objects.get(_id=int(data['variantId']))
-    #     if(variant.countInStock < int(data['qty'])):
-    #         # Search for this error code in View to send instructions for reseting cart (fringe case -> drawdown occured while item was in someones cart)
-    #         raise serializers.ValidationError(
-    #             f'ErrorNoStock -> Product:{variant.product} Variant:{variant.description} is out of stock. Please delete from cart and then try to add it to cart again.EndMessage')
-    #     return data
-
 
 class ShippingAddressCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShippingAddress
-        fields = '__all__'
+        fields = ('_id,')
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
@@ -179,15 +170,6 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             new_orderItem = OrderItem.objects.create(
                 order=new_order, **temp_orderItem)
 
-        # Calculate pricing
-        # new_order.itemsPrice = new_order.orderItems.all().aggregate(Sum('subTotal'))[
-        #     'subTotal__sum']
-        # new_order.taxPrice = int(new_order.itemsPrice) * 0.06
-        # if user.extra.taxExempt:
-        #     new_order.taxPrice = 0
-        # new_order.shippingPrice = 0 if new_order.itemsPrice > 100 else 10
-        # new_order.totalPrice = float(
-        #     new_order.itemsPrice) + float(new_order.taxPrice) + float(new_order.shippingPrice)
         new_order.save()
 
         # Create shipping address
@@ -195,3 +177,47 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             order=new_order, user=user, **temp_shippingAddress)
 
         return new_order
+
+
+class BasicOrderInformationSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField(read_only=True)
+    readyAndNotReadyTotalPrice = serializers.SerializerMethodField(
+        read_only=True)
+    createdAt = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ('_id', 'status', 'readyAndNotReadyTotalPrice', 'createdAt',)
+
+    def get_createdAt(self, obj):
+        time = obj.createdAt
+        return time.strftime("%m-%d-%Y (%H:%M)")
+
+    def get_readyAndNotReadyTotalPrice(self, obj):
+        items = obj.orderItems.all()
+        output = 0
+        for item in items:
+            output += item.subTotal
+        return output
+
+    def get_status(self, obj):
+        items = obj.orderItems.all()
+        dict = {'payNow': False,
+                'gettingReady': 0,
+                'shipped': 0,
+                'delivered': 0,
+                'waitingOnItem': 0, 
+                }
+        for item in items:
+            if not item.readyToShip:
+                dict['waitingOnItem'] += 1
+            if item.readyToShip and not item.UNVERIFIED_PAID:
+                dict['payNow'] = True
+            if item.payment:
+                if not item.payment.shipment:
+                    dict['gettingReady'] += 1
+                if item.payment.shipment:
+                    dict['shipped'] += 1
+                    if item.payment.shipment.isDelivered:
+                        dict['delivered'] += 1            
+        return dict

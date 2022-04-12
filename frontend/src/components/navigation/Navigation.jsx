@@ -3,14 +3,12 @@ import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import Snap from "../promotional/snap/snap.component";
 import {
   MenuIcon,
-  SearchIcon,
   ShoppingCartIcon,
   UserIcon,
   XIcon,
 } from "@heroicons/react/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { logout } from "../../redux/actions/userActions";
 
 function classNames(...classes) {
@@ -29,7 +27,7 @@ const navigation = {
 export default function Navigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const { loading, categories } = useSelector((state) => state.categories);
   const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
@@ -213,7 +211,6 @@ export default function Navigation() {
               {/* Top navigation */}
               <div className="bg-blue-800">
                 <div className="max-w-7xl mx-auto h-10 px-4 flex items-center justify-between sm:px-6 lg:px-8">
-                  
                   <p className="hidden xs:block flex-1 text-center text-sm font-medium text-white lg:flex-none">
                     Get free delivery on orders over $100
                   </p>
@@ -321,14 +318,12 @@ export default function Navigation() {
                                                             <li
                                                               key={item.name}
                                                               className="flex">
-                                                              <Link
-                                                                onClick={() =>
-                                                                  setOpen(false)
-                                                                }
+                                                              <Popover.Button
+                                                                as={Link}
                                                                 to={`/featured/${category.slug}/${item.slug}`}
                                                                 className="hover:text-gray-800 text-white">
                                                                 {item.name}
-                                                              </Link>
+                                                              </Popover.Button>
                                                             </li>
                                                           );
                                                         }
@@ -356,11 +351,12 @@ export default function Navigation() {
                                                             <li
                                                               key={item.name}
                                                               className="flex">
-                                                              <Link
+                                                              <Popover.Button
+                                                                as={Link}
                                                                 to={`/products/${category.slug}/${item.slug}`}
                                                                 className="hover:text-gray-800 text-white">
                                                                 {item.name}
-                                                              </Link>
+                                                              </Popover.Button>
                                                             </li>
                                                           );
                                                         }
@@ -390,14 +386,12 @@ export default function Navigation() {
                                                             <li
                                                               key={item.name}
                                                               className="flex">
-                                                              <Link
-                                                                onClick={() =>
-                                                                  setOpen(false)
-                                                                }
+                                                              <Popover.Button
+                                                                as={Link}
                                                                 to={`/products/${category.slug}/${item.slug}`}
                                                                 className="hover:text-gray-800 text-white">
                                                                 {item.name}
-                                                              </Link>
+                                                              </Popover.Button>
                                                             </li>
                                                           );
                                                         }
@@ -425,14 +419,12 @@ export default function Navigation() {
                                                             <li
                                                               key={item.name}
                                                               className="flex">
-                                                              <Link
-                                                                onClick={() =>
-                                                                  setOpen(false)
-                                                                }
+                                                              <Popover.Button
+                                                                as={Link}
                                                                 to={`/brands/${category.slug}/${item.slug}`}
                                                                 className="hover:text-gray-800 text-white">
                                                                 {item.name}
-                                                              </Link>
+                                                              </Popover.Button>
                                                             </li>
                                                           );
                                                         }

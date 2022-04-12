@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./addressbox.styles.scss";
 
 const AddressBox = ({
@@ -7,29 +7,42 @@ const AddressBox = ({
   highlighted,
   selectedAddress,
   className,
-  disabled
+  disabled,
 }) => {
   if (!input) return "";
 
-  const { firstName, lastName, company, streetAddress, apartment, city, state, postalCode, phone, email } = input;
+  const {
+    firstName,
+    lastName,
+    company,
+    streetAddress,
+    apartment,
+    city,
+    state,
+    postalCode,
+    phone,
+    email,
+  } = input;
 
   return (
-    <ul
-      className={`${className} ${
-        highlighted ? "addressbox--highlighted" : ""
-      } addressbox`}
-      onClick={!disabled ? () => selectedAddress(input, index) : null}>
-      <li>{firstName} {lastName}</li>
-      <li>{company}</li>
-      <li>{streetAddress}</li>
-      {apartment && <li>{apartment}</li>}
-      <li>
-        {city}, {state} {postalCode}
-      </li>
-      <li>USA</li>
-
-
-    </ul>
+    <address>
+      <ul
+        className={`${className} ${
+          highlighted ? "addressbox--highlighted" : ""
+        } addressbox`}
+        onClick={!disabled ? () => selectedAddress(input, index) : null}>
+        <li>
+          {firstName} {lastName}
+        </li>
+        <li>{company}</li>
+        <li>{streetAddress}</li>
+        {apartment && <li>{apartment}</li>}
+        <li>
+          {city}, {state} {postalCode}
+        </li>
+        <li>USA</li>
+      </ul>
+    </address>
   );
 };
 

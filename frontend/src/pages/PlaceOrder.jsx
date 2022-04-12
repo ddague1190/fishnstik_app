@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Loader from "../utilities/loader/loader.component";
+import Loader from "../components/utilities/loader/loader.component";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/actions/userActions";
+import { logout } from "../redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
-import { createOrder, payOrder } from "../../redux/actions/orderActions";
-import { ORDER_CREATE_RESET } from "../../redux/constants/orderConstants";
-import CheckoutSteps from "../utilities/CheckoutSteps";
+import { createOrder } from "../redux/actions/orderActions";
+import { ORDER_CREATE_RESET } from "../redux/constants/orderConstants";
+import CheckoutSteps from "../components/utilities/CheckoutSteps";
 import { Link } from "react-router-dom";
-import AddressBox from "../utilities/addressbox/addressbox.component";
+import AddressBox from "../components/utilities/addressbox/addressbox.component";
 import {
   CheckIcon,
   ClockIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/solid";
-import Toggle from "../utilities/Toggle";
+import Toggle from "../components/utilities/Toggle";
 
 const PlaceOrder = () => {
   const [showLoading, setShowLoading] = useState(false)

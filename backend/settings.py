@@ -33,7 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'befb-2601-587-400-a400-a8a5-727e-cf9c-202d.ngrok.io',
+    'ecd2-2601-587-400-a400-4c0f-a281-d0bb-74e6.ngrok.io',
     '127.0.0.1',
     'http://127.0.0.1',
     'localhost',

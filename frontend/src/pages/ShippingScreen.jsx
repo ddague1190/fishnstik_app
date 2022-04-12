@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CheckoutSteps from "../utilities/CheckoutSteps";
+import CheckoutSteps from "../components/utilities/CheckoutSteps";
 import { useNavigate } from "react-router-dom";
 import {
   saveShippingAddress,
   savePaymentMethod,
-} from "../../redux/actions/cartActions";
+} from "../redux/actions/cartActions";
 import {
   getSavedAddresses,
   getUserDetails,
-} from "../../redux/actions/userActions";
-import AddressBox from "../utilities/addressbox/addressbox.component";
-import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/Message";
-import { useForm } from "../../utils/useForm";
-import AddressForm from "./AddressForm";
+} from "../redux/actions/userActions";
+import AddressBox from "../components/utilities/addressbox/addressbox.component";
+import Message from "../components/utilities/Message";
+import { useForm } from "../utils/useForm";
+import AddressForm from "../components/checkoutpathway/AddressForm";
 import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
 
 function classNames(...classes) {
@@ -128,15 +127,15 @@ export default function ShippingScreen() {
             <div>
               <div>
                 <div className="flex flex-row items-center gap-3">
-                <h2 className="text-lg font-medium text-gray-900">
-                  Add contact information
-                </h2>
-                <button
-                  type="button"
-                  onClick={()=>setAddEmailPhone(!addEmailPhone)}
-                  className="inline-flex font-semibold items-center p-1.5 border border-transparent rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                  <PlusSmIconSolid className="h-3 w-3" aria-hidden="true" />
-                </button>
+                  <h2 className="text-lg font-medium text-gray-900">
+                    Add contact information
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={() => setAddEmailPhone(!addEmailPhone)}
+                    className="inline-flex font-semibold items-center p-1.5 border border-transparent rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <PlusSmIconSolid className="h-3 w-3" aria-hidden="true" />
+                  </button>
                 </div>
                 <span className="text-xs block p-2 mt-2 bg-green-50 w-max rounded-md">
                   (We already have your primary email: {user?.email})

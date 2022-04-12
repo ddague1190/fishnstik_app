@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Select from "react-select";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { addToCart } from "../../redux/actions/cartActions";
 import { ClockIcon } from "@heroicons/react/solid";

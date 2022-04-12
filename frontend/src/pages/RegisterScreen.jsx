@@ -1,13 +1,11 @@
-import { LockClosedIcon } from "@heroicons/react/solid";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/Message";
-import { register, sendOTP } from "../../redux/actions/userActions";
+import Loader from "../components/utilities/loader/loader.component";
+import Message from "../components/utilities/Message";
+import { register, sendOTP } from "../redux/actions/userActions";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useForm } from "../../utils/useForm";
-import { motion } from "framer-motion";
+import { useForm } from "../utils/useForm";
 
 export default function RegisterScreen() {
   const [formData, setFormData] = useForm({

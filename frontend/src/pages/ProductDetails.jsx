@@ -1,17 +1,12 @@
-import { StarIcon } from "@heroicons/react/solid";
-import { RadioGroup } from "@headlessui/react";
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import Rating from "../utilities/rating/rating.component";
-import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/Message";
+import Loader from "../components/utilities/loader/loader.component";
+import Message from "../components/utilities/Message";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductDetails } from "../../redux/actions/productActions";
-import WriteReview from "../utilities/writereview/writereview.component";
-import { useScreenOrientation } from "../../utils/useOrientationChange";
-import { ProductDetailsImages } from "./ProductDetailsImages";
-import { ProductDetailsDropdowns } from "./ProductDetailsDropdowns";
+import { listProductDetails } from "../redux/actions/productActions";
+import { useScreenOrientation } from "../utils/useOrientationChange";
+import { ProductDetailsImages } from "../components/productpresentation/ProductDetailsImages";
+import { ProductDetailsDropdowns } from "../components/productpresentation/ProductDetailsDropdowns";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,16 +15,12 @@ function classNames(...classes) {
 export default function ProductDetails() {
   const [currVariant, setCurrentVariant] = useState();
 
-  const orientation = useScreenOrientation();
-  const [whichContent, setWhichContent] = useState("overview");
-  const [writeReview, setWriteReview] = useState(false);
   const [reviewJustAdded, setReviewJustAdded] = useState(false);
   const dispatch = useDispatch();
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
-  const { width, height } = useSelector((state) => state.dimensions);
-  const breakpoint = 900;
+
   const { userInfo } = useSelector((state) => state.userLogin);
 
   const productId = useParams();
@@ -111,19 +102,19 @@ export default function ProductDetails() {
                     <p className="text-xl font-medium text-gray-900">
                       ${product.price}
                     </p>
-                  ) : (
-                    <div>
+                  ) : (currVariant &&
+                    <div className="flex flex-col items-center bg-blue-50 p-5 rounded-md">
                       <p
                         className={`${
                           userInfo ? "line-through text-sm" : "text-xl"
-                        } font-medium text-gray-900`}>
-                        {currVariant && `$${currVariant.price}`}
+                        } font-medium text-grey-500`}>
+                        ${currVariant.price}
                       </p>
 
-                      <p className="text-gray-900">
-                        {currVariant && userInfo ? (
-                          <span className="text-xl-font-medium">
-                            {currVariant.discountPrice}
+                      <p className="">
+                        {userInfo ? (
+                          <span className="text-xl font-medium text-grey-800">
+                            ${currVariant.discountPrice}
                           </span>
                         ) : (
                           <Link

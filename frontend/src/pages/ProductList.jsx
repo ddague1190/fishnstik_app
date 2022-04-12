@@ -1,18 +1,15 @@
-import { StarIcon } from "@heroicons/react/solid";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listProducts,
   listCategorizedProducts,
   listProductsByBrand,
-} from "../../redux/actions/productActions";
-import Loader from "../utilities/loader/loader.component";
-import Message from "../utilities/Message";
-import Paginate from "../utilities/paginate/paginate.component";
+} from "../redux/actions/productActions";
+import Loader from "../components/utilities/loader/loader.component";
+import Message from "../components/utilities/Message";
+import Paginate from "../components/utilities/paginate/paginate.component";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import NoProductsFound from "./NoProductsFound";
-
-
+import NoProductsFound from "../components/productpresentation/NoProductsFound";
 
 export default function ProductList({ target, ...otherProps }) {
   const navigate = useNavigate();
@@ -47,8 +44,7 @@ export default function ProductList({ target, ...otherProps }) {
             {products.map((product, index) => (
               <div
                 key={index}
-                onClick={()=>navigate(`/product/${product.slug}`)
-            }
+                onClick={() => navigate(`/product/${product.slug}`)}
                 className="group relative p-4 border-r border-b border-gray-200 sm:p-6 cursor-pointer">
                 <div className="rounded-lg overflow-hidden bg-gray-200 aspect-w-1 aspect-h-1 group-hover:opacity-75">
                   <img
@@ -59,13 +55,11 @@ export default function ProductList({ target, ...otherProps }) {
                 </div>
                 <div className="pt-10 pb-4 text-center">
                   <h3 className="text-sm font-medium text-gray-900">
-                    <a href={product.href}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {product.name}
-                    </a>
                   </h3>
-                  <p className="mt-4 text-base font-medium text-gray-900">
-                    {product.price}
+                  <p className="mt-4 text-base text-xs text-blue-800 tracking-widest">
+                    {product.variantFacts.numVariants} variants from ${product.variantFacts.bottomPrice}
                   </p>
                 </div>
               </div>

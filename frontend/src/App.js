@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
-import ProductList from "./components/productpresentation/ProductList";
-import ProductDetails from "./components/productpresentation/ProductDetails";
-import CartScreen from "./components/checkoutpathway/CartScreen";
-import { OrderScreen } from "./components/checkoutpathway/OrderScreen";
+import ProductList from "./pages/ProductList";
+import ProductDetails from "./pages/ProductDetails";
+import CartScreen from "./pages/CartScreen";
 import "./sass/App.scss";
 import useViewport from "./utils/useViewport";
 import { getCategories } from "./redux/actions/productActions";
-import LoginScreen from "./components/user/LoginScreen";
-import { HomeScreen } from "./components/promotional/HomeScreen";
-import AboutUsScreen from "./components/promotional/AboutUs";
-import Privacy from "./components/promotional/Privacy";
-import Terms from "./components/promotional/Terms";
-import RegisterScreen from "./components/user/RegisterScreen";
-import ShippingScreen from "./components/checkoutpathway/ShippingScreen";
-import PlaceOrder from "./components/checkoutpathway/PlaceOrder";
-import ProfileScreen from "./components/user/profile/ProfileScreen";
+import LoginScreen from "./pages/LoginScreen";
+import { HomeScreen } from "./pages/HomeScreen";
+import AboutUsScreen from "./pages/AboutUs";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import ShippingScreen from "./pages/ShippingScreen";
+import PlaceOrder from "./pages/PlaceOrder";
+import OrderScreen from "./pages/OrderScreen";
+import RegisterScreen from "./pages/RegisterScreen";
+import ProfileScreen from "./pages/profile/ProfileScreen";
 
 
 const App = () => {

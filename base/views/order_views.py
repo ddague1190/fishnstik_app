@@ -42,7 +42,8 @@ class OrderItemView(generics.CreateAPIView):
 def getMyOrders(request):
     user = request.user
     orders = user.order_set.all()
-    serializer = order_serializers.OrderSerializer(orders, many=True)
+    serializer = order_serializers.BasicOrderInformationSerializer(
+        orders, many=True)
     return Response(serializer.data)
 
 

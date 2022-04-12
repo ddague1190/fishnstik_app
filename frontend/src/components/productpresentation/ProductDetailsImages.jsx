@@ -63,7 +63,7 @@ export const ProductDetailsImages = ({ mainImages, variants, currVariant }) => {
     setImages(images);
     setSelectedImage(images[0]);
   }, []);
-
+ 
   return (
     <div className="flex flex-col overflow-scroll h-full mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
       <h2 className="sr-only">Images</h2>
@@ -71,7 +71,7 @@ export const ProductDetailsImages = ({ mainImages, variants, currVariant }) => {
         <img
           src={selectedImage?.image}
           alt={selectedImage?.description}
-          className="lg:mb-10 col-span-3 row-span-3 self-center rounded-lg w-full h-96 object-contain"
+          className="lg:mb-10 col-span-3 row-span-3 self-center rounded-lg mx-auto md:w-full h-96 object-contain"
         />
         {images.map((image, index) => {
           if (index != selectedImage.index && index <10) {

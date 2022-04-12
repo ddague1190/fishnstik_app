@@ -1,28 +1,16 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../../utilities/loader/loader.component";
-import Message from "../../utilities/Message";
-import { getUserDetails } from "../../../redux/actions/userActions";
+import { getUserDetails } from "../../redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
 import {
   USER_LOGOUT,
   USER_UPDATE_PROFILE_RESET,
-} from "../../../redux/constants/userConstants";
+} from "../../redux/constants/userConstants";
 import { ProfileOrders } from "./ProfileOrders";
 import { ProfileUserInfo } from "./ProfileUserInfo";
 import { ResetPassword } from "./ResetPassword";
 import { ProfileMessages } from "./ProfileMessages";
-import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  MenuIcon,
-  UsersIcon,
-  XIcon,
-} from "@heroicons/react/outline";
+import { HomeIcon, InboxIcon, UsersIcon } from "@heroicons/react/outline";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -57,7 +45,7 @@ export default function ProfileScreen() {
 
   return (
     <div className="">
-      <nav className="mt-5 space-y-1 bg-blue-50 items-center col-span-3 flex flex-row flex-wrap justify-center gap-2 border-b-2 p-3 border-gray sm:mx-8">
+      <nav className="mt-5 space-y-1 bg-blue-800 rounded-sm items-center col-span-3 flex flex-row flex-wrap justify-center gap-2 border-b-2 p-3 border-gray sm:mx-8">
         {navigation.map((item) => (
           <div
             key={item.value}

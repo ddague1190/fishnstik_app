@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./loader.styles.scss";
 import { css } from "@emotion/react";

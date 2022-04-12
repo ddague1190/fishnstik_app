@@ -129,8 +129,8 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [
         OrderItemsInline,
         ShippingAddressInline,
-        ShipmentsInline,
-        PaymentsInline
+        PaymentsInline,
+        ShipmentsInline
     ]
 
 

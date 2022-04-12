@@ -291,7 +291,8 @@ class Payment(models.Model):
     order = models.ForeignKey(
         Order, on_delete=models.CASCADE, related_name='payments', null=True,  blank=True)
     addressPayPal = models.TextField(max_length=200, null=True, blank=True)
-    shipment = models.ForeignKey(Shipment, on_delete=models.SET_NULL, blank=True, null=True)
+    shipment = models.ForeignKey(
+        Shipment, on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class OrderItem(models.Model):

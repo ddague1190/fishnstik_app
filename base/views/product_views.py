@@ -44,7 +44,6 @@ def getProducts(request, category='', subcategory=''):
     products = Product.objects.filter(name__icontains=query)
     if category:
         category_object = Category.objects.filter(slug=category).first()
-        print(category_object)
         products = Product.objects.filter(
             category=category_object)
         if category == 'all':
@@ -52,7 +51,6 @@ def getProducts(request, category='', subcategory=''):
 
     if subcategory:
         category_object = Category.objects.filter(slug=subcategory).first()
-        print(category_object)
         products = Product.objects.filter(
             subcategory=category_object)
 

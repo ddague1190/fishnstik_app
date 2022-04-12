@@ -1,4 +1,5 @@
 from asyncore import read
+from json.encoder import INFINITY
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import Product, Order, OrderItem, ShippingAddress, Review, Variant, Pictures, Category, ProductDetailsList
@@ -59,10 +60,10 @@ class ReviewSerializer(serializers.ModelSerializer):
                 "Comment must have fewer than 199 characters")
         return value
 
-    # def validate(self, value):
-    #     if len(value)>100:
-    #         raise serializers.ValidationError({'detail': "Comment must be less than 100 characters."})
-    #     return value
+    def validate(self, value):
+        if len(value)>100:
+            raise serializers.ValidationError({'detail': "Comment must be less than 100 characters."})
+        return value
 
 
 class PicturesSerializer(serializers.ModelSerializer):
@@ -119,10 +120,21 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class BasicProductInfoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField(read_only=True)
+    variantFacts = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ('name', 'slug', 'image', 'variantFacts')
+
+    def get_variantFacts(self,obj):
+        numVariants = obj.variants.all().count()
+        bottomPrice = INFINITY
+        for item in obj.variants.all():
+            bottomPrice = min(item.price, bottomPrice)
+        return {'numVariants': numVariants, 'bottomPrice': bottomPrice}
+
+    
+    
 
     def get_image(self, obj):
         qs = obj.images.first()

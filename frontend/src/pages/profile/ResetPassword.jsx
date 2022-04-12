@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../../utilities/loader/loader.component";
-import Message from "../../utilities/Message";
-import { updateUserProfile } from "../../../redux/actions/userActions";
-import { motion } from "framer-motion";
-import { USER_LOGOUT, USER_UPDATE_PROFILE_RESET } from "../../../redux/constants/userConstants";
+import Loader from "../../components/utilities/loader/loader.component";
+import Message from "../../components/utilities/Message";
+import { updateUserProfile } from "../../redux/actions/userActions";
+import { USER_LOGOUT, USER_UPDATE_PROFILE_RESET } from "../../redux/constants/userConstants";
 
 export const ResetPassword = ({ setOpen }) => {
   const [showResetPassword, setShowResetPassword] = useState(false);

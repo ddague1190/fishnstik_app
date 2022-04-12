@@ -31,18 +31,21 @@ const AddressForm = ({
     email: "",
   });
 
-useEffect(()=>{
-  setFormData2({...formData, phone: formDataPreSaved.phone, email: formDataPreSaved.email})
-}, [formDataPreSaved])
+  useEffect(() => {
+    setFormData2({
+      ...formData,
+      phone: formDataPreSaved.phone,
+      email: formDataPreSaved.email,
+    });
+  }, [formDataPreSaved]);
 
-
-  const { shippingAddress} = useSelector(state=>state.cart)
-  useEffect(()=>{
-    if(fillWithPreSavedAddress && shippingAddress) {
-      setFormData2(shippingAddress)
-      setFormData2PreSaved(shippingAddress)
+  const { shippingAddress } = useSelector((state) => state.cart);
+  useEffect(() => {
+    if (fillWithPreSavedAddress && shippingAddress) {
+      setFormData2(shippingAddress);
+      setFormData2PreSaved(shippingAddress);
     }
-  }, [])
+  }, []);
   const submitHandler = (e) => {
     e.preventDefault();
     const missingEntries = [];
