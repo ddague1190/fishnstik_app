@@ -114,8 +114,17 @@ class Variations(MPTTModel):
         return ' / '.join(full_path[::-1])
 
 
+class SizeChart(models.Model):
+    size = models.IntegerField(null=True, blank=True)
+    gap = models.IntegerField(null=True, blank=True)
+    length_inch = models.IntegerField(null=True, blank=True)
+    length_metric = models.IntegerField(null=True, blank=True)
+
+
 class Product(models.Model):
     variations = TreeManyToManyField(Variations, default='None')
+    sizechart = models.ForeignKey(
+        SizeChart, on_delete=models.CASCADE, blank=True, null=True)
     brand = models.ForeignKey(
         Brand, related_name='productsbybrand', on_delete=models.CASCADE)
     category = models.ForeignKey(

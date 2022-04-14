@@ -19,29 +19,20 @@ const AddressBox = ({
     apartment,
     city,
     state,
-    postalCode,
-    phone,
-    email,
+    postalCode
   } = input;
 
   return (
-    <address>
-      <ul
-        className={`${className} ${
-          highlighted ? "addressbox--highlighted" : ""
-        } addressbox`}
-        onClick={!disabled ? () => selectedAddress(input, index) : null}>
-        <li>
-          {firstName} {lastName}
-        </li>
-        <li>{company}</li>
-        <li>{streetAddress}</li>
-        {apartment && <li>{apartment}</li>}
-        <li>
-          {city}, {state} {postalCode}
-        </li>
-        <li>USA</li>
-      </ul>
+    <address className={`${className} ${
+      highlighted ? "addressbox--highlighted" : ""
+    } addressbox`}
+    onClick={!disabled ? () => selectedAddress(input, index) : null}>
+          {firstName} {lastName} <br/>
+        {company && <>{company}<br/></>}
+        {streetAddress}<br/>
+        {apartment && <>{apartment}<br/></>}
+          {city}, {state} {postalCode}<br/>
+        USA<br/>
     </address>
   );
 };
