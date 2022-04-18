@@ -88,13 +88,14 @@ class Category(MPTTModel):
 class Brand(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
+    slug = models.SlugField(blank=True, null=True)
 
     class Meta:
         ordering = ['-name']
 
     def __str__(self):
         return self.name
-
+    
 
 class Variations(MPTTModel):
     parent = TreeForeignKey('self', blank=True, null=True,
@@ -115,16 +116,17 @@ class Variations(MPTTModel):
 
 
 class SizeChart(models.Model):
-    size = models.IntegerField(null=True, blank=True)
-    gap = models.IntegerField(null=True, blank=True)
-    length_inch = models.IntegerField(null=True, blank=True)
-    length_metric = models.IntegerField(null=True, blank=True)
+    
+    gap = models.FloatField(null=True, blank=True)
+    length_inch = models.FloatField(null=True, blank=True)
+    length_metric = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.gap, self.length_inch, self.length_metric}'
 
 
 class Product(models.Model):
     variations = TreeManyToManyField(Variations, default='None')
-    sizechart = models.ForeignKey(
-        SizeChart, on_delete=models.CASCADE, blank=True, null=True)
     brand = models.ForeignKey(
         Brand, related_name='productsbybrand', on_delete=models.CASCADE)
     category = models.ForeignKey(
@@ -147,6 +149,7 @@ class Product(models.Model):
     discountPrice = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     leadTime = models.IntegerField(null=True, blank=True)
+    
 
     def __str__(self):
         return self.name
@@ -221,6 +224,8 @@ class Variant(models.Model):
     discountPrice = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     countInStock = models.IntegerField(null=True, blank=True, default=0)
+    sizechart = models.ForeignKey(
+        SizeChart, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return str(self.description)

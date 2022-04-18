@@ -20,7 +20,7 @@ import { resetKeyword } from "./routeActions";
 
 export const getCategories = () => async (dispatch) => {
   try {
-    dispatch({type: CATEGORIES_REQUEST})
+    dispatch({ type: CATEGORIES_REQUEST });
     const { data } = await axios.get("/api/categories/");
     dispatch({
       type: CATEGORIES_SUCCESS,
@@ -40,6 +40,7 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
       const { data } = await axios.get(`/api/products/${keyword}`);
+
       dispatch({
         type: PRODUCT_LIST_SUCCESS,
         payload: data,

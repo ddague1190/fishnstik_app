@@ -35,7 +35,8 @@ export default function CartScreen() {
   const subtotal = cartItems
     .reduce((acc, item) => acc + item.qty * item.price, 0)
     .toFixed(2);
-  const shippingprice = subtotal > 100 ? Number(10.0) : 0;
+
+  const shippingprice = subtotal < 100 ? Number(10.0) : 0;
   const taxprice = Number(subtotal * 0.07).toFixed(2);
   const grandtotal = (
     Number(subtotal) +
@@ -69,8 +70,8 @@ export default function CartScreen() {
               <ul
                 role="list"
                 className="border-t border-b border-gray-200 divide-y divide-gray-200">
-                {cartItems.map((product, productIdx) => (
-                  <CartItemElement product={product} productIdx={productIdx} />
+                {cartItems.map((product, index) => (
+                  <CartItemElement product={product} key={index} />
                 ))}
               </ul>
             </section>
@@ -96,7 +97,9 @@ export default function CartScreen() {
                   <dt className="flex items-center text-sm text-gray-600">
                     <span>Shipping estimate</span>
                   </dt>
-                  <dd className="text-sm font-medium text-gray-900">$5.00</dd>
+                  <dd className="text-sm font-medium text-gray-900">
+                    ${shippingprice}
+                  </dd>
                 </div>
                 <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                   <dt className="flex text-sm text-gray-600">

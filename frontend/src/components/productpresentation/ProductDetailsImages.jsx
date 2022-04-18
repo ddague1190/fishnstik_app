@@ -21,11 +21,6 @@ export const ProductDetailsImages = ({
     }
   };
 
-  const onImageItselfClick = () => {
-    
-  }
-
-
   const onImageRightClick = () => {
     let { index } = selectedImage;
 
@@ -90,13 +85,13 @@ export const ProductDetailsImages = ({
   }, [mainImages, variants]);
 
   return (
-    <section className="flex flex-col overflow-scroll h-full mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
+    <>
       <h2 className="sr-only">Images</h2>
       <div className="grid grid-cols-3 relative gap-1">
         <img
           src={selectedImage?.image}
           alt={selectedImage?.description}
-          className="lg:mb-10 col-span-3 row-span-3 self-center rounded-lg mx-auto md:w-full h-96 object-contain"
+          className="lg:mb-10 col-span-3 row-span-3 self-center rounded-lg mx-auto md:w-full h-48 md:h-72 object-contain"
         />
         {images.map((image, index) => {
           return (
@@ -153,6 +148,6 @@ export const ProductDetailsImages = ({
           </>
         )}
       </div>
-    </section>
+    </>
   );
 };

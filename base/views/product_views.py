@@ -46,14 +46,20 @@ def getProducts(request, category='', subcategory=''):
         category_object = Category.objects.filter(slug=category).first()
         products = Product.objects.filter(
             category=category_object)
+        temp = products
         if category == 'all':
             products = Product.objects.all().order_by('-createdAt')
 
     if subcategory:
-        category_object = Category.objects.filter(slug=subcategory).first()
+        subcategory_object = Category.objects.filter(slug=subcategory).first()
         products = Product.objects.filter(
-            subcategory=category_object)
-
+            subcategory=subcategory_object)
+        if subcategory == 'all'+category or subcategory == 'all':
+            products = temp
+        if subcategory == 'closeout':
+            products = temp.filter(subcategory__slug=subcategory)
+    
+    
     page = request.query_params.get('page')
     paginator = Paginator(products, 10)
 
@@ -74,13 +80,13 @@ def getProducts(request, category='', subcategory=''):
     return Response({
         'products': serializer.data,
         'page': page,
-        'pages': paginator.num_pages
+        'pages': paginator.num_pages,
     })
 
 
 @api_view(['GET'])
 def getProductsByBrand(request, brand=''):
-    products = Product.objects.filter(brand__icontains=brand)
+    products = Product.objects.filter(brand__slug=brand)
     page = request.query_params.get('page')
     paginator = Paginator(products, 10)
 

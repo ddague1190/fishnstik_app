@@ -25,7 +25,6 @@ const PlaceOrder = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(cart);
     setGroupedCartItems({
       notInStock: cart.cartItems.filter((el) => el.countInStock < el.qty),
       inStock: cart.cartItems.filter((el) => el.countInStock >= el.qty),
@@ -62,7 +61,7 @@ const PlaceOrder = () => {
       navigate("/login/");
     }
     return () => setShowLoading(false);
-  }, [error, success, dispatch, navigate, cart, order._id]);
+  }, [error, success, dispatch, navigate, cart]);
 
   const submitHandler = () => {
     setShowLoading(true);

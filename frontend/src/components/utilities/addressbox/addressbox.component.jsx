@@ -32,7 +32,7 @@ const AddressBox = ({
         {streetAddress}<br/>
         {apartment && <>{apartment}<br/></>}
           {city}, {state} {postalCode}<br/>
-        USA<br/>
+        USA
     </address>
   );
 };

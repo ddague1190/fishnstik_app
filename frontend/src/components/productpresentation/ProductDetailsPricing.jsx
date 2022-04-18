@@ -13,9 +13,17 @@ const ProductDetailsPricing = ({ currVariant, name }) => {
   return (
     <section className="lg:col-start-8 lg:col-span-5">
       <div className="flex justify-between">
-        <h1 className="text-xl font-medium text-gray-900">{name}</h1>
+        <div className="flex flex-col gap-3">
+          <h1 className="text-xl lg:text-2xl font-medium text-gray-900">{name}</h1>
+          {currVariant && (
+            <dl className="flex flex-row items-center gap-2  ">
+              <dt className="text-xs text-gray-500">ID:</dt>
+              <dd className="text-sm font-semibold ">{currVariant.identifier}</dd>
+            </dl>
+          )}
+        </div>
         {currVariant && (
-          <div className="flex flex-col items-center bg-blue-50 p-5 rounded-md">
+          <div className="flex flex-col items-center bg-blue-50 p-2 rounded-md">
             <p
               className={`${
                 userInfo ? "line-through text-sm" : "text-xl"

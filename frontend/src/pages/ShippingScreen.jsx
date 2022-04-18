@@ -106,7 +106,7 @@ export default function ShippingScreen() {
 
   const oldAddresses = addresses?.map((el, index) => (
     <AddressBox
-      className="cursor-pointer bg-green-50 w-max px-2 rounded-md py-3"
+      className="col-span-1 cursor-pointer bg-green-50 w-max px-2 rounded-md py-3"
       key={index}
       index={index}
       input={el}
@@ -193,11 +193,11 @@ export default function ShippingScreen() {
                 {addresses ? (
                   !addNewAddress ? (
                     <div className="">
-                      <p className="font-semibold text-medium text-gray-500 mb-8">
+                      <p className="font-light text-medium text-gray-500 mb-8">
                         Select from previously saved addresses:
                       </p>
 
-                      <div className="">{oldAddresses}</div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 w-full">{oldAddresses}</div>
                       <div className="mt-8 flex flex-row gap-5 w-96 items-center">
                         <button
                           onClick={submitHandlerForPreSavedAddresses}

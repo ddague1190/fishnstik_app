@@ -59,7 +59,7 @@ export default function ProductList({ target, ...otherProps }) {
                       {product.name}
                   </h3>
                   <p className="mt-4 text-base text-xs text-blue-800 tracking-widest">
-                    {product.variantFacts.numVariants} variants from ${product.variantFacts.bottomPrice}
+                    {product.variantFacts.numVariants} options from ${product.variantFacts.bottomPrice}
                   </p>
                 </div>
               </div>

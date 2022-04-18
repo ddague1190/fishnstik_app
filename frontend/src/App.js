@@ -17,19 +17,16 @@ import PlaceOrder from "./pages/PlaceOrder";
 import OrderScreen from "./pages/OrderScreen";
 import RegisterScreen from "./pages/RegisterScreen";
 import ProfileScreen from "./pages/profile/ProfileScreen";
-
-
+import NotFound from "./pages/404";
+import Brands from "./pages/Brands";
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
-  useViewport();
+  // useViewport();
   const location = useLocation();
-  const Page404 = () => {
-    return <h3>404 - Not found</h3>;
-  };
 
   return (
     <Routes key={location.pathname}>
@@ -38,6 +35,9 @@ const App = () => {
       <Route path="/products/:url_cat/" element={<ProductList />} />
       <Route path="/products/" element={<ProductList />} />
       <Route path="/brands/:url_brand/" element={<ProductList />} />
+      <Route path="/brands/" element={<Brands />} />
+
+      <Route path="/featured/:url_cat/:url_subcat/" element={<ProductList />} />
       <Route path="/about" element={<AboutUsScreen />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
@@ -50,7 +50,7 @@ const App = () => {
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart/:id" element={<CartScreen />} />
       <Route path="/cart/" element={<CartScreen />} />
-      <Route path='/' element={<Page404 />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

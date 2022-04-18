@@ -134,7 +134,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderItemsCreateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = OrderItem
         fields = ('productId', 'variantId', 'qty', )
@@ -143,7 +142,7 @@ class OrderItemsCreateSerializer(serializers.ModelSerializer):
 class ShippingAddressCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShippingAddress
-        fields = ('_id,')
+        fields = '__all__'
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
@@ -152,7 +151,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('orderItems', 'shippingAddress', 'instructions')
+        fields = ('orderItems', 'shippingAddress', 'instructions',)
 
     def create(self, validated_data):
         user = self.context['request'].user

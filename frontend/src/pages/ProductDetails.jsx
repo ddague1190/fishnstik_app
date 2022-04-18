@@ -11,7 +11,6 @@ export default function ProductDetails() {
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
-
   const productId = useParams();
 
   useEffect(() => {
@@ -30,7 +29,7 @@ export default function ProductDetails() {
           <nav
             aria-label="Breadcrumb"
             className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ol className="flex items-center space-x-4">
+            <ol className="flex items-center space-x-2">
               <li key={product.category?.slug}>
                 <div className="flex items-center">
                   <Link
@@ -71,11 +70,8 @@ export default function ProductDetails() {
               </li>
 
               <li className="text-sm">
-                <div
-                  to={product.slug}
-                  aria-current="page"
-                  className="font-medium text-gray-500 hover:text-gray-600">
-                  {product.name}
+                <div aria-current="page" className="font-medium text-gray-300">
+                  You are here
                 </div>
               </li>
             </ol>

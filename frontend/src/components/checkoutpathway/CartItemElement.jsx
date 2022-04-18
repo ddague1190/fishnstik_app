@@ -8,10 +8,10 @@ import {
 } from "@heroicons/react/solid";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 
-const CartItemElement = ({ productIdx, product }) => {
+const CartItemElement = ({ product }) => {
   const dispatch = useDispatch();
   return (
-    <li key={productIdx} className="flex py-6 sm:py-10">
+    <li className="flex py-6 sm:py-10">
       <div className="flex-shrink-0">
         <img
           src={product.image}
@@ -32,36 +32,36 @@ const CartItemElement = ({ productIdx, product }) => {
                 </Link>
               </h3>
             </div>
-            <dt className="mt-1 flex text-sm">
+            <dt className="mt-1 flex flex-col gap-1 pl-2 text-sm">
               {product.type && (
-                <div>
-                  <dt className="ml-4 pl-4 text-xs border-l border-gray-200 text-gray-500">
-                    Type:
-                  </dt>
-                  <dd>{product.type}</dd>
+                <div className="flex flex-row gap-2">
+                  <dt className="text-xs text-gray-500">Type:</dt>
+                  <dd className="text-xs">{product.type}</dd>
                 </div>
               )}
               {product.material && (
-                <p className="ml-4 pl-4 border-l text-xs border-gray-200 text-gray-500">
-                  Material: {product.material}
-                </p>
+                <div className="flex flex-row gap-2">
+                  <dt className="text-xs text-gray-500">Material:</dt>
+                  <dd className="text-xs">{product.material}</dd>
+                </div>
               )}
               {product.pack && (
-                <p className="ml-4 pl-4 text-xs border-l border-gray-200 text-gray-500">
-                  Pack: {product.pack}
-                </p>
+                <div className="flex flex-row gap-2">
+                  <dt className="text-xs text-gray-500">Pack:</dt>
+                  <dd className="text-xs">{product.pack}</dd>
+                </div>
               )}
             </dt>
-            <p className="mt-1 text-sm font-medium text-gray-900">
-              ${product.price}
+            <p className="pl-2 mt-2 text-sm font-medium text-gray-900">
+              ${product.price} each
             </p>
           </div>
 
-          <div className="mt-4 sm:mt-0 flex items-center gap-5 rounded-md bg-slate-100 max-w-fit py-1 px-2">
+          <div className="mt-4 sm:mt-0 flex items-center gap-5 rounded-md bg-slate-100 max-w-fit h-max p-1 px-2">
             <div className="text-lg bg-white border-2 max-w-fit px-3 text-center">
               {product.qty}
             </div>
-            <div className="flex gap-5 mt-2">
+            <div className="flex gap-5">
               <i
                 onClick={() => {
                   dispatch(
@@ -71,7 +71,7 @@ const CartItemElement = ({ productIdx, product }) => {
                     })
                   );
                 }}
-                className="font-bold fa-solid fa-plus"></i>
+                className="text-blue-800 font-bold fa-solid fa-plus"></i>
               <i
                 onClick={() => {
                   dispatch(
@@ -81,7 +81,8 @@ const CartItemElement = ({ productIdx, product }) => {
                     })
                   );
                 }}
-                className="fa-solid fa-minus"></i>
+                className=" text-blue-800 fa-solid fa-minus"></i>
+
             </div>
 
             <div className="absolute top-0 right-0">
@@ -90,7 +91,7 @@ const CartItemElement = ({ productIdx, product }) => {
                 onClick={() =>
                   dispatch(removeFromCart(product.productId, product.variantId))
                 }
-                className="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+                className="-m-2 p-2 inline-flex text-gray-300 font-light hover:text-gray-500">
                 <span className="sr-only">Remove</span>
                 <XIconSolid className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -106,12 +107,12 @@ const CartItemElement = ({ productIdx, product }) => {
             />
           ) : (
             <ClockIcon
-              className="flex-shrink-0 h-5 w-5 text-gray-300"
+              className="flex-shrink-0 h-5 w-5 text-red-500"
               aria-hidden="true"
             />
           )}
 
-          <span>
+          <span className="font-light">
             {product.countInStock >= product.qty
               ? "In stock"
               : `Ships in ${product.leadTime} week${

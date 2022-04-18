@@ -2,8 +2,9 @@ from asyncore import read
 from json.encoder import INFINITY
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from base.models import Product, Order, OrderItem, ShippingAddress, Review, Variant, Pictures, Category, ProductDetailsList
+from base.models import Product, Order, OrderItem, ShippingAddress, Review, Variant, Pictures, Category, ProductDetailsList, SizeChart
 from rest_framework.response import Response
+from pprint import pprint
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -18,10 +19,17 @@ class CategorySerializer(serializers.ModelSerializer):
         )
 
 
+class SizeChartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SizeChart
+        fields = '__all__'
+
+
 class VariantSerializer(serializers.ModelSerializer):
     pack = serializers.SerializerMethodField(read_only=True)
     material = serializers.SerializerMethodField(read_only=True)
     _type = serializers.SerializerMethodField(read_only=True)
+    sizechart = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Variant
@@ -48,6 +56,10 @@ class VariantSerializer(serializers.ModelSerializer):
             val = None
         return val
 
+    def get_sizechart(self, obj):
+        serializer = SizeChartSerializer(obj.sizechart, many=False)
+        return serializer.data
+
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -61,8 +73,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, value):
-        if len(value)>100:
-            raise serializers.ValidationError({'detail': "Comment must be less than 100 characters."})
+        if len(value) > 100:
+            raise serializers.ValidationError(
+                {'detail': "Comment must be less than 100 characters."})
         return value
 
 
@@ -80,16 +93,30 @@ class ProductDetailsSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     reviews = serializers.SerializerMethodField(read_only=True)
-    # variants = VariantSerializer(many=True)
     variants = serializers.SerializerMethodField(read_only=True)
     images = serializers.SerializerMethodField(read_only=True)
     category = serializers.SerializerMethodField(read_only=True)
     subcategory = serializers.SerializerMethodField(read_only=True)
     details = serializers.SerializerMethodField(read_only=True)
+    complete_size_chart = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Product
         fields = '__all__'
+
+    def get_complete_size_chart(self, obj):
+        output = []
+        touched = set()
+        if obj.category.slug == 'hooks':
+            for variant in obj.variants.all():
+                type = variant._type.name
+                if type not in touched:
+                    dict = {'size': type}
+                    serializer = SizeChartSerializer(variant.sizechart, many=False)
+                    dict.update(serializer.data)
+                    output.append(dict)
+                    touched.add(variant._type.name)
+        return output
 
     def get_subcategory(self, obj):
         return {'name': obj.subcategory.name, 'slug': obj.subcategory.slug}
@@ -126,15 +153,15 @@ class BasicProductInfoSerializer(serializers.ModelSerializer):
         model = Product
         fields = ('name', 'slug', 'image', 'variantFacts')
 
-    def get_variantFacts(self,obj):
+    def get_variantFacts(self, obj):
         numVariants = obj.variants.all().count()
-        bottomPrice = INFINITY
-        for item in obj.variants.all():
-            bottomPrice = min(item.price, bottomPrice)
+        try:
+            bottomPrice = INFINITY
+            for item in obj.variants.all():
+                bottomPrice = min(item.price, bottomPrice)
+        except:
+            bottomPrice = ''
         return {'numVariants': numVariants, 'bottomPrice': bottomPrice}
-
-    
-    
 
     def get_image(self, obj):
         qs = obj.images.first()

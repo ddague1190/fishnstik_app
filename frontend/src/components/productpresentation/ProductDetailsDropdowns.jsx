@@ -8,6 +8,7 @@ import { addToCart } from "../../redux/actions/cartActions";
 import { ClockIcon } from "@heroicons/react/solid";
 import { ProductDetailsImages } from "./ProductDetailsImages";
 import ProductDetailsPricing from "./ProductDetailsPricing";
+import SizeChart from "./SizeChart";
 
 export const ProductDetailsDropdowns = ({ product }) => {
   let packOptions = {};
@@ -48,19 +49,19 @@ export const ProductDetailsDropdowns = ({ product }) => {
     navigate("/cart");
   };
 
-  useEffect(()=>{
+  //Cross talk between image left and right and the type shown on dropdowns
+  useEffect(() => {
     if (typeOverride) {
       setType({
-        'value': typeOverride,
-        'label': typeOverride,
-        'color': redOrGreenDot("type", type)
-      })
+        value: typeOverride,
+        label: typeOverride,
+        color: redOrGreenDot("type", type),
+      });
 
-      setMaterial(null)
-      setPackSize(null)
+      setMaterial(null);
+      setPackSize(null);
     }
-  }, [typeOverride])
-
+  }, [typeOverride]);
 
   useEffect(() => {
     const updateFilters = {
@@ -191,8 +192,13 @@ export const ProductDetailsDropdowns = ({ product }) => {
           case "typepack":
             return type && type === el._type && pack === el.pack;
 
+          case "typematerial":
+            return type === el._type && material === el.material;
+
           case "typepackmaterial":
-            return type === el._type && pack && pack === el.pack;
+            return (
+              type === el._type && material === el.material && pack === el.pack
+            );
 
           default:
             return false;
@@ -235,12 +241,20 @@ export const ProductDetailsDropdowns = ({ product }) => {
     typeOptions = product.variants
       .map((p) => p._type)
       .filter((v, i, a) => a.indexOf(v) === i)
-      .map((type) => ({ label: type, value: type }));
+      .map((type) => ({
+        label: type,
+        value: type,
+        color: redOrGreenDot("type", type, null, null),
+      }));
     materialOptions = product.variants
-      .filter((p) => material && p.material === type.value)
+      .filter((p) => type && p._type === type.value)
       .map((p) => p.material)
       .filter((v, i, a) => a.indexOf(v) === i)
-      .map((material) => ({ label: material, value: material }));
+      .map((material) => ({
+        label: material,
+        value: material,
+        color: redOrGreenDot("typematerial", type.value, material, null),
+      }));
     packOptions = product.variants
       .filter(
         (p) =>
@@ -249,21 +263,34 @@ export const ProductDetailsDropdowns = ({ product }) => {
           material &&
           p.material === material.value
       )
-      .map((p) => p.material)
+      .map((p) => p.pack)
       .filter((v, i, a) => a.indexOf(v) === i)
-      .map((material) => ({ label: material, value: material }));
+      .map((pack) => ({
+        label: pack,
+        value: pack,
+        color: redOrGreenDot(
+          "typepackmaterial",
+          type.value,
+          material.value,
+          pack
+        ),
+      }));
   }
 
   return (
     <>
       <ProductDetailsPricing currVariant={currVariant} name={product.name} />
-
-      <ProductDetailsImages
-        mainImages={product.images}
-        variants={product.variants}
-        whichImage={whichImage}
-        setTypeOverride={setTypeOverride}
-      />
+      <section className="flex flex-col overflow-scroll h-full mt-8  lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
+        <ProductDetailsImages
+          mainImages={product.images}
+          variants={product.variants}
+          whichImage={whichImage}
+          setTypeOverride={setTypeOverride}
+        />
+        {product.complete_size_chart?.length > 0 && (
+          <SizeChart chart={product.complete_size_chart} />
+        )}
+      </section>
       <section className="mt-8 lg:col-span-5">
         <form>
           <div>
@@ -345,17 +372,32 @@ export const ProductDetailsDropdowns = ({ product }) => {
                       options={typeOptions}
                     />
                     <br />
-                    <p>Material size</p>
+                    <p>Material</p>
                     <Select
                       isSearchable={false}
                       styles={customStyles}
                       value={material}
                       onChange={(option) => {
                         setMaterial(option);
-                        setPackSize(null)
+                        setPackSize(null);
                       }}
                       options={materialOptions}
                       isDisabled={!type}
+                      placeholder={
+                        !type ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "1rem",
+                            }}>
+                            <i className="fas fa-hand-point-up"></i>
+                            <span>Please select type</span>
+                          </div>
+                        ) : (
+                          "Select material..."
+                        )
+                      }
                     />
                     <br />
                     <p>Pack size</p>
@@ -368,6 +410,21 @@ export const ProductDetailsDropdowns = ({ product }) => {
                       }}
                       options={packOptions}
                       isDisabled={!type}
+                      placeholder={
+                        !material ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "1rem",
+                            }}>
+                            <i className="fas fa-hand-point-up"></i>
+                            <span>Please select material</span>
+                          </div>
+                        ) : (
+                          "Select material..."
+                        )
+                      }
                     />
                   </>
                 ),
@@ -385,14 +442,14 @@ export const ProductDetailsDropdowns = ({ product }) => {
 
           {currVariant &&
             (currVariant.countInStock > 0 ? (
-              <p className="text-green-500 text-lg">In Stock </p>
+              <p className="text-green-500 text-lg font-semibold">In Stock </p>
             ) : (
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 mt-4 items-center">
                 <ClockIcon
-                  className="flex-shrink-0 h-5 w-5 text-grey-500"
+                  className="flex-shrink-0 h-5 w-5 text-red-500"
                   aria-hidden="true"
                 />
-                <p className="text-red-600">
+                <p className="text-red-500 ">
                   {`Special order item. Lead time is ${product.leadTime} weeks.`}
                 </p>
               </div>
@@ -415,19 +472,20 @@ export const ProductDetailsDropdowns = ({ product }) => {
         </form>
 
         {/* Product details */}
+
         <div className="mt-10">
-          <h2 className="text-sm font-medium text-gray-900">Description</h2>
+          <h2 className="text-md font-medium text-gray-900">Description</h2>
 
           <div
-            className="mt-4 prose prose-sm text-gray-500"
+            className="mt-4 prose prose-sm text-lg lg:text-xl text-gray-500"
             dangerouslySetInnerHTML={{ __html: product.description }}
           />
         </div>
 
-        <div className="mt-8 border-t border-gray-200 pt-8">
-          <h2 className="text-sm font-medium text-gray-900">Features</h2>
+        <div className="mt-8 border-t text-lg  border-gray-200 pt-8">
+          <h2 className="text-md font-medium text-gray-900">Features</h2>
 
-          <div className="mt-4 ml-10 prose prose-sm text-gray-500">
+          <div className="mt-4 ml-10 p text-xl rose prose-sm text-gray-500">
             <ul>
               {product?.details?.map(({ detail }, index) => (
                 <li className="list-disc" key={index}>

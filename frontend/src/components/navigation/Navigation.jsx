@@ -10,6 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/userActions";
+import { useEffect } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -18,8 +19,33 @@ function classNames(...classes) {
 const navigation = {
   pages: [
     {
-      name: "Company",
+      name: "Contact",
       to: "about",
+    },
+  ],
+  brands: [
+    {
+      image:
+        "https://fishnwirepictures.s3.amazonaws.com/logos/Aftco_2048x.webp",
+      alt: "Aftco logo",
+      to: "brands/aftco",
+    },
+    {
+      image:
+        "https://fishnwirepictures.s3.amazonaws.com/logos/Rosco-White-Large.png",
+      alt: "Rosco logo",
+      to: "brands/rosco",
+    },
+    {
+      image: "https://fishnwirepictures.s3.amazonaws.com/logos/sampo.jpeg",
+      alt: "Sampo logo",
+      to: "brands/sampo",
+    },
+    {
+      image:
+        "https://fishnwirepictures.s3.amazonaws.com/logos/tournamentproducts.jpeg",
+      alt: "Tournament Products logo",
+      to: "brands/tournamentproducts",
     },
   ],
 };
@@ -27,7 +53,7 @@ const navigation = {
 export default function Navigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const { loading, categories } = useSelector((state) => state.categories);
   const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
@@ -36,6 +62,11 @@ export default function Navigation() {
     dispatch(logout());
     navigate("/");
   };
+  useEffect(() => {
+    return () => {
+      setOpen(false);
+    };
+  }, []);
 
   return (
     <div className="">
@@ -66,7 +97,7 @@ export default function Navigation() {
                 leave="transition ease-in-out duration-300 transform"
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full">
-                <div className="relative max-w-md w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
+                <div className="relative max-w-md w-full bg-white shadow-xl pb-12 flex flex-col  overflow-y-auto">
                   <div className="px-4 pt-5 pb-2 flex">
                     <button
                       type="button"
@@ -78,9 +109,9 @@ export default function Navigation() {
                   </div>
 
                   {/* Links */}
-                  <Tab.Group as="div" className="mt-2">
+                  <Tab.Group as="div" className="mb-auto mt-2">
                     <div className="border-b border-gray-200">
-                      <Tab.List className="-mb-px flex flex-wrap px-4 space-x-8">
+                      <Tab.List className="-mb-px flex flex-wrap px-4">
                         {categories.map((category) => (
                           <Tab
                             key={category.name}
@@ -89,7 +120,7 @@ export default function Navigation() {
                                 selected
                                   ? "text-indigo-600 border-indigo-600"
                                   : "text-gray-900 border-transparent",
-                                "flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium hover:font-bold"
+                                "flex-1 whitespace-nowrap py-2 px-1 border-b-2 text-base font-medium hover:font-bold"
                               )
                             }>
                             {category.name}
@@ -103,32 +134,7 @@ export default function Navigation() {
                           key={category.name}
                           className="px-4 pt-10 pb-6 space-y-12">
                           <div className="grid grid-cols-1 items-start gap-y-10 gap-x-6">
-                            <div className="grid grid-cols-1 gap-y-10 gap-x-6">
-                              {/* <div>
-                                <p
-                                  id={`mobile-featured-heading-${categoryIdx}`}
-                                  className="font-medium text-gray-900">
-                                  Featured
-                                </p>
-                                <ul
-                                  role="list"
-                                  aria-labelledby={`mobile-featured-heading-${categoryIdx}`}
-                                  className="mt-6 space-y-6">
-                                  {category.children.map((item) => {
-                                    if (item.type === "featured") {
-                                      return (
-                                        <li key={item.name} className="flex">
-                                          <Link
-                                            to={`/featured/${category.slug}/${item.slug}`}
-                                            className="hover:text-gray-800">
-                                            {item.name}
-                                          </Link>
-                                        </li>
-                                      );
-                                    }
-                                  })}
-                                </ul>
-                              </div> */}
+
                               <div>
                                 <p
                                   id="mobile-categories-heading"
@@ -155,18 +161,18 @@ export default function Navigation() {
                                   })}
                                 </ul>
                               </div>
-                            </div>
                           </div>
                         </Tab.Panel>
                       ))}
                     </Tab.Panels>
                   </Tab.Group>
 
-                  <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                  <div className="border-t border-gray-200 py-2 px-4 space-y-6">
                     {navigation.pages.map((page) => (
                       <div key={page.name} className="flow-root">
                         <Link
                           to={`/${page.to}`}
+                          onClick={() => setOpen(false)}
                           className="-m-2 p-2 block font-medium text-gray-900">
                           {page.name}
                         </Link>
@@ -174,28 +180,30 @@ export default function Navigation() {
                     ))}
                   </div>
                   {!userInfo ? (
-                    <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                    <div className="border-t border-gray-200 py-2 px-4 space-y-6">
                       <div className="flow-root">
                         <Link
                           to="/register"
-                          className="-m-2 p-2 block font-medium text-gray-900">
+                          onClick={() => setOpen(false)}
+                          className=" block font-medium text-gray-900">
                           Create an account
                         </Link>
                       </div>
                       <div className="flow-root">
                         <Link
                           to="/login"
+                          onClick={() => setOpen(false)}
                           className="-m-2 p-2 block font-medium text-gray-900">
                           Sign in
                         </Link>
                       </div>
                     </div>
                   ) : (
-                    <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                    <div className="border-t border-gray-200 py-2 px-4 space-y-6">
                       <div className="flow-root">
                         <div
                           onClick={onLogoutClick}
-                          className="-m-2 p-2 block font-medium text-gray-900 cursor-pointer">
+                          className="block font-medium text-gray-900 cursor-pointer">
                           Sign out
                         </div>
                       </div>
@@ -321,7 +329,7 @@ export default function Navigation() {
                                                               <Popover.Button
                                                                 as={Link}
                                                                 to={`/featured/${category.slug}/${item.slug}`}
-                                                                className="hover:text-gray-800 text-white">
+                                                                className="hover:text-gray-800 text-white font-semibold">
                                                                 {item.name}
                                                               </Popover.Button>
                                                             </li>
@@ -354,7 +362,7 @@ export default function Navigation() {
                                                               <Popover.Button
                                                                 as={Link}
                                                                 to={`/products/${category.slug}/${item.slug}`}
-                                                                className="hover:text-gray-800 text-white">
+                                                                className="hover:text-gray-800 text-white font-semibold">
                                                                 {item.name}
                                                               </Popover.Button>
                                                             </li>
@@ -389,7 +397,7 @@ export default function Navigation() {
                                                               <Popover.Button
                                                                 as={Link}
                                                                 to={`/products/${category.slug}/${item.slug}`}
-                                                                className="hover:text-gray-800 text-white">
+                                                                className="hover:text-gray-800 text-white font-semibold">
                                                                 {item.name}
                                                               </Popover.Button>
                                                             </li>
@@ -400,7 +408,7 @@ export default function Navigation() {
                                                   </ul>
                                                 </div>
 
-                                                <div>
+                                                {/* <div>
                                                   <p
                                                     id="desktop-brand-heading"
                                                     className="font-medium text-gray-900">
@@ -409,29 +417,23 @@ export default function Navigation() {
                                                   <ul
                                                     role="list"
                                                     aria-labelledby="desktop-brand-heading"
-                                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                                    {category.children.map(
-                                                      (item) => {
-                                                        if (
-                                                          item.type === "brand"
-                                                        ) {
-                                                          return (
-                                                            <li
-                                                              key={item.name}
-                                                              className="flex">
-                                                              <Popover.Button
-                                                                as={Link}
-                                                                to={`/brands/${category.slug}/${item.slug}`}
-                                                                className="hover:text-gray-800 text-white">
-                                                                {item.name}
-                                                              </Popover.Button>
-                                                            </li>
-                                                          );
-                                                        }
+                                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4 grid grid-cols-2 items-center bg-white">
+                                                    {navigation.brands.map(
+                                                      (item, index) => {
+                                                        return (
+                                                          <Link
+                                                            key={index}
+                                                            to={item.to}>
+                                                            <img
+                                                              src={item.image}
+                                                              
+                                                              className="flex h-20 object-contain"></img>
+                                                          </Link>
+                                                        );
                                                       }
                                                     )}
                                                   </ul>
-                                                </div>
+                                                </div> */}
                                               </div>
                                             </div>
                                           </div>
