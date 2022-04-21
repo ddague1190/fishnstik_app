@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
-import Snap from "../promotional/snap/snap.component";
+import Snap from "../promotional/Snap";
 import {
   MenuIcon,
   ShoppingCartIcon,
@@ -259,7 +259,7 @@ export default function Navigation() {
                       {/* Logo (lg+) */}
                       <div className="hidden lg:flex p-5 ml-0 mt-4  items-center text-lg text-blue-800">
                         <Link to="/">
-                          <span className="text-xl tracking-wide font-bold">
+                          <span className="text-2xl tracking-tighter font-bold">
                             Fish n Stik
                           </span>
                           <Snap />
@@ -477,9 +477,9 @@ export default function Navigation() {
                       </div>
 
                       {/* Logo (lg-) */}
-                      <div className="lg:hidden flex ml-0   mt-4  items-center text-lg text-blue-800">
+                      <div className="lg:hidden flex mt-4  items-center text-lg text-blue-800">
                         <Link to="/">
-                          <span className="text-xl tracking-wide font-bold text-blue-800">
+                          <span className="text-2xl tracking-tighter font-bold text-blue-800">
                             Fish n Stik
                           </span>
                           <Snap />

@@ -1,7 +1,8 @@
 .addressbox {
     font-style: normal;
     font-weight: 300;
-    @include flexCenter(column);
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
     margin: 0 auto;
     cursor: pointer;
@@ -10,7 +11,7 @@
  
 
     &--highlighted {
-        border: 4px solid $color5;
+        border: 4px solid blue;
         border-radius: 4px;
     }
 }

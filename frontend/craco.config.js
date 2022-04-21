@@ -1,4 +1,5 @@
 module.exports = {
+  // eslint: null,
   webpack: {
     configure: (webpackConfig) => {
       webpackConfig.externals = {
@@ -14,14 +15,14 @@ module.exports = {
         require('autoprefixer'),
       ],
     },
-    sass: {
-      loaderOptions: {
-        additionalData: `
-            @import "src/sass/_variables.scss";
-            @import "src/sass/_base.scss";
-            @import "src/sass/_mixins.scss";
-          `,
-      },
-    },
+    // sass: {
+    //   loaderOptions: {
+    //     additionalData: `
+    //         @import "src/sass/_variables.scss";
+    //         @import "src/sass/_base.scss";
+    //         @import "src/sass/_mixins.scss";
+    //       `,
+    //   },
+    // },
   },
 };

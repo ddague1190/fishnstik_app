@@ -4,8 +4,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import CartScreen from "./pages/CartScreen";
-import "./sass/App.scss";
-import useViewport from "./utils/useViewport";
 import { getCategories } from "./redux/actions/productActions";
 import LoginScreen from "./pages/LoginScreen";
 import { HomeScreen } from "./pages/HomeScreen";

@@ -13,23 +13,24 @@ export const SpecViewer = () => {
     const dispatch = useDispatch()
     const { product: { specWidth: width, specImage: image, slug } } = useSelector(state => state.productDetails)
     const navigate = useNavigate()
-
     useEffect(() => {
         if (!image) {
             dispatch(listProductDetails(id));
         }
         window.scrollTo(0, 0)
 
-    }, [])
+    }, [dispatch, id, image])
 
 
     return (
         <>
             {!image ? (<Loader />) : (
-                <div className='overflow-scrollw-full'>
-                    <h1 className="text-center text-blue-800">Note: The products are actual-size in this image.</h1>
+                <div className='overflow-scroll w-full'>
+                    <article className="text-center text-blue-800 font-xl font-semibold pt-4">Actual size of product</article>
+                    <span className="block text-center text-blue-800 font-light font-sm">(Image might overflow on small screens)</span>
+
                     <button className='text-gray-500 font-semibold p-4 cursor-pointer' onClick={() => navigate(`/product/${slug}`)}>Go back</button>
-                    <img className='mx-auto' src={image} width={815} ref={ref} styles={{ width: '815px' }} />
+                    <img alt={`Product with id ${slug}`} className={`mx-auto min-w-fit`} src={image} width={width} ref={ref} />
                 </div>
             )}
         </>

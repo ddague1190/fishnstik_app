@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import "./snap.styles.scss";
 
 const Snap = ({ className }) => {
   const [angle, setAngle] = useState(-8);
@@ -48,7 +47,7 @@ const Snap = ({ className }) => {
 
   return (
       <svg
-        className='snap1'
+        className="stroke-blue-800 z-50 w-20 stroke-[28px] h-5 fill-transparent translate-x-[20%] -translate-y-[10%] -rotate-[5deg]"
         xmlns='http://www.w3.org/2000/svg'
         viewBox='250 230 500 500'>
         <path

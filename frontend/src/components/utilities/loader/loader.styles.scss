@@ -1,5 +1,8 @@
 .loader {
-    @include flexCenter(column);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     width: 100vw;
     max-width: 50rem;
@@ -16,8 +19,6 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-family: $font-family-title;
-        color: $color1;
         z-index: 10;
     }
 }
