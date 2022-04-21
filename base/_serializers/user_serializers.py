@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from base.models import Product, Order, OrderItem, ShippingAddress, Review, Variant
+from base.models import Product, Order, OrderItem, ShippingAddress, Comment, Variant
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework.validators import UniqueValidator

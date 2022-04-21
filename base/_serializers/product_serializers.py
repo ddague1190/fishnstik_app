@@ -2,7 +2,7 @@ from asyncore import read
 from json.encoder import INFINITY
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from base.models import Product, Order, OrderItem, ShippingAddress, Review, Variant, Pictures, Category, ProductDetailsList, SizeChart
+from base.models import Product, Order, OrderItem, ShippingAddress, Comment, Variant, Pictures, Category, ProductDetailsList, SizeChart
 from rest_framework.response import Response
 from pprint import pprint
 
@@ -61,10 +61,44 @@ class VariantSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
-class ReviewSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
+    avatarUrl = serializers.SerializerMethodField(read_only=True)
+    replies = serializers.SerializerMethodField(read_only=True)
+    fullName = serializers.SerializerMethodField(read_only=True)
+    comId = serializers.SerializerMethodField(read_only=True)
+    text = serializers.SerializerMethodField(read_only=True)
+    userId = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
-        model = Review
-        fields = '__all__'
+        model = Comment
+        fields = ('userId', 'text', 'comId',
+                  'fullName', 'replies', 'avatarUrl')
+
+    def get_replies(self, obj):
+        qs = obj.children.all()
+        serializer = CommentSerializer(qs, many=True)
+        return serializer.data
+
+    def get_text(self, obj):
+        return obj.comment
+
+    def get_comId(self, obj):
+        return obj._id
+
+    def get_userId(self, obj):
+        return obj.user.id
+
+    def get_avatarUrl(self, obj):
+        res = ''
+        try:
+            if obj.user.extra.avatarUrl:
+                res = obj.user.extra.avatarUrl
+        except:
+            res = ''
+        return res
+
+    def get_fullName(self, obj):
+        return obj.user.username
 
     def validate_comment(self, value):
         if len(value) > 100:
@@ -92,7 +126,7 @@ class ProductDetailsSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    reviews = serializers.SerializerMethodField(read_only=True)
+    comments = serializers.SerializerMethodField(read_only=True)
     variants = serializers.SerializerMethodField(read_only=True)
     images = serializers.SerializerMethodField(read_only=True)
     category = serializers.SerializerMethodField(read_only=True)
@@ -112,7 +146,8 @@ class ProductSerializer(serializers.ModelSerializer):
                 type = variant._type.name
                 if type not in touched:
                     dict = {'size': type}
-                    serializer = SizeChartSerializer(variant.sizechart, many=False)
+                    serializer = SizeChartSerializer(
+                        variant.sizechart, many=False)
                     dict.update(serializer.data)
                     output.append(dict)
                     touched.add(variant._type.name)
@@ -124,9 +159,9 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_category(self, obj):
         return {'name': obj.category.name, 'slug': obj.category.slug}
 
-    def get_reviews(self, obj):
-        qs = obj.reviews.all().order_by('createdAt')[:10]
-        serializer = ReviewSerializer(qs, many=True)
+    def get_comments(self, obj):
+        qs = obj.comments.all()
+        serializer = CommentSerializer(qs, many=True)
         return serializer.data
 
     def get_variants(self, obj):

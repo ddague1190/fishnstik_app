@@ -41,7 +41,7 @@ const ProductDetailsPricing = ({ currVariant, name }) => {
                   onClick={loginAndComeBack}
                   className={`${
                     !currVariant ? "hidden" : "block"
-                  } font-xs w-24 leading-none text-blue-600 text-xs`}>
+                  } font-xs w-24 leading-none text-blue-600 text-xs cursor-pointer`}>
                   Login to see your price
                 </span>
               )}

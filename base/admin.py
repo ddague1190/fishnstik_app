@@ -19,9 +19,16 @@ class filterCategories(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(filterCategories, self).__init__(*args, **kwargs)
-        self.fields['variations'].queryset = Variations.objects.filter(
-            children=None)
+        # self.fields['variations'].queryset = Variations.objects.filter(
+        #     children=None)
 
+class filterComments(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(filterComments, self).__init__(*args, **kwargs)
 
 class AdminImageWidget(AdminFileWidget):
     def render(self, name, value, attrs=None, renderer=None):
@@ -65,6 +72,12 @@ class ProductAdmin(admin.ModelAdmin):
         PicturesInline,
         ProductDetailsInline
     ]
+
+
+class CommentAdmin(DraggableMPTTAdmin):
+    mptt_indent_field = "parent"
+    list_display = ('tree_actions', 'indented_title')
+    list_display_links = ('indented_title',)
 
 
 class CategoryAdmin(DraggableMPTTAdmin):
@@ -134,26 +147,24 @@ class OrderAdmin(admin.ModelAdmin):
     ]
 
 
-class VariationsAdmin(DraggableMPTTAdmin):
-    mptt_indent_field = "name"
-    list_display = ('tree_actions', 'indented_title')
-    list_display_links = ('indented_title',)
+# class VariationsAdmin(DraggableMPTTAdmin):
+#     mptt_indent_field = "name"
+#     list_display = ('tree_actions', 'indented_title')
+#     list_display_links = ('indented_title',)
 
 
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Review)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Brand)
 admin.site.register(Packsize)
-admin.site.register(Variations, VariationsAdmin)
 admin.site.register(Material)
 admin.site.register(Shipment)
 admin.site.register(OrderItem)
 admin.site.register(SizeChart)
 admin.site.register(Payment)
 admin.site.register(Type)
-
+admin.site.register(Comment, CommentAdmin)
 
 class ExtraUserInfo(admin.StackedInline):
     model = ExtraUserInfo

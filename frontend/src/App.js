@@ -19,6 +19,7 @@ import RegisterScreen from "./pages/RegisterScreen";
 import ProfileScreen from "./pages/profile/ProfileScreen";
 import NotFound from "./pages/404";
 import Brands from "./pages/Brands";
+import { SpecViewer } from "./pages/SpecViewer";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -36,7 +37,7 @@ const App = () => {
       <Route path="/products/" element={<ProductList />} />
       <Route path="/brands/:url_brand/" element={<ProductList />} />
       <Route path="/brands/" element={<Brands />} />
-
+      {/* <Route path="/specification/" element={<SpecViewer />} /> */}
       <Route path="/featured/:url_cat/:url_subcat/" element={<ProductList />} />
       <Route path="/about" element={<AboutUsScreen />} />
       <Route path="/terms" element={<Terms />} />
@@ -47,6 +48,7 @@ const App = () => {
       <Route path="/shipping" element={<ShippingScreen />} />
       <Route path="/placeorder" element={<PlaceOrder />} />
       <Route path="/order/:id" element={<OrderScreen />} />
+      <Route path="/product/:id/spec" element={<SpecViewer />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart/:id" element={<CartScreen />} />
       <Route path="/cart/" element={<CartScreen />} />

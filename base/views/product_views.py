@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
-from base.models import Product, Review, OrderItem, Category
+from base.models import Product, Comment, OrderItem, Category
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework import generics
@@ -118,37 +118,37 @@ def getProduct(request, slug):
     return Response(serializer.data)
 
 
-class ReviewView(generics.CreateAPIView):
+class CommentView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = product_serializers.ReviewSerializer
+    serializer_class = product_serializers.CommentSerializer
 
-    def verified_buyer(self, user, product):
-        return OrderItem.objects.filter(product=product, order__user=user)
+    # def verified_buyer(self, user, product):
+    #     return OrderItem.objects.filter(product=product, order__user=user)
 
-    def already_exists(self, user, product):
-        return product.reviews.filter(user=user).exists()
+    # def already_exists(self, user, product):
+    #     return product.reviews.filter(user=user).exists()
 
     def create(self, request, pk, *args, **kwargs):
         user = request.user
         product = Product.objects.get(_id=pk)
 
-        if not self.verified_buyer(user, product):
-            raise serializers.ValidationError(
-                {'detail': "You must be a verfied buyer to leave a review."})
-        if self.already_exists(user, product):
-            raise serializers.ValidationError(
-                {"detail": "Product already reviewed."})
+        # if not self.verified_buyer(user, product):
+        #     raise serializers.ValidationError(
+        #         {'detail': "You must be a verfied buyer to leave a review."})
+        # if self.already_exists(user, product):
+        #     raise serializers.ValidationError(
+        #         {"detail": "Product already reviewed."})
 
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid()
 
-        if serializer.errors:
-            if serializer.errors['comment'][0]:
-                raise serializers.ValidationError(
-                    {'detail': serializer.errors['comment'][0].title()})
-        if serializer.validated_data['rating'] == 0:
-            raise serializers.ValidationError(
-                {'detail': "Review cannot be 0."})
+        # if serializer.errors:
+        #     if serializer.errors['comment'][0]:
+        #         raise serializers.ValidationError(
+        #             {'detail': serializer.errors['comment'][0].title()})
+        # if serializer.validated_data['rating'] == 0:
+        #     raise serializers.ValidationError(
+        #         {'detail': "Review cannot be 0."})
         serializer.save(user=request.user, product=Product.objects.get(_id=pk))
 
         return Response(status=status.HTTP_201_CREATED)

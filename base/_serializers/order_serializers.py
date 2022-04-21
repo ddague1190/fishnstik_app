@@ -2,7 +2,7 @@ from itertools import product
 import datetime
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from base.models import Product, Order, OrderItem, ShippingAddress, Review, Variant, Shipment, Payment
+from base.models import Product, Order, OrderItem, ShippingAddress, Variant, Shipment, Payment
 from rest_framework.response import Response
 from collections import OrderedDict
 from django.db.models.fields import PositiveIntegerField

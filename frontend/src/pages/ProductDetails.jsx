@@ -7,6 +7,7 @@ import { listProductDetails } from "../redux/actions/productActions";
 import { ProductDetailsDropdowns } from "../components/productpresentation/ProductDetailsDropdowns";
 
 export default function ProductDetails() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
@@ -15,7 +16,9 @@ export default function ProductDetails() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if(productId.id !== product.slug) {
     dispatch(listProductDetails(productId.id));
+    }
   }, [dispatch, productId.id]);
 
   return (

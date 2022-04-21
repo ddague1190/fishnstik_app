@@ -1,33 +1,56 @@
-export default function SizeChart({ chart }) {
+import { Tooltip } from "../utilities/Tooltip";
+import { useEffect } from "react";
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+export default function SizeChart({ chart, largeScreenVersion, open, setOpen }) {
+  useEffect(() => {
+    if (open) {
+      window.addEventListener('resize', setOpen.bind(null, false))
+    }
+    return (() => {
+      if (open) {
+        window.removeEventListener('resize', setOpen.bind(null, false))
+      }
+    })
+  }, [])
 
   return (
-    <div className="hidden lg:block">
+    <article className={` ring-1 ring-gray-400 ${classNames(largeScreenVersion ? 'hidden lg:block mt-5' : open ? 'block mt-10' : 'hidden')}`}>
+      {largeScreenVersion ? <h2 className="text-md ml-6 mb-6 font-medium text-gray-900">Size chart</h2>
+        : <button
+          onClick={() => setOpen(!open)}
+          type="button"
+          className="inline-flex items-center px-2.5 py-1.5 mb-5 border border-gray-300 shadow-sm text-xs font-medium  text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Close size chart
+        </button>}
 
-
-        
-      <h1 className="text-md text-blue-800 py-2 ">Size chart</h1>
       <div className="flex flex-col">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-md">
+            <div className="overflow-hidden shadow ring-opacity-5 ">
               <table className="min-w-full divide-y divide-blue-800">
-                <thead className="bg-gray-50">
+                <thead className="">
                   <tr>
                     <th
                       scope="col"
                       className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                      Hook size
+                      <span>Hook Size</span>
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 ">
+                      <span>Hook Gap</span>
+                      <Tooltip text='Hook gap refers to the distance between the point and the shank of the hook.' image={{ src: 'https://amateuranglers.files.wordpress.com/2015/09/parts-of-a-hook.jpg', alt: 'Image showing the different parts of a hook' }} />
                     </th>
                     <th
                       scope="col"
                       className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Hook gap
-                    </th>
-                    <th
-                      scope="col"
-                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Length
+                      <span>Length</span>
+                      <Tooltip text='The total length of hook' image={{ src: 'https://amateuranglers.files.wordpress.com/2015/09/parts-of-a-hook.jpg', alt: 'Image showing the different parts of a hook' }} />
                     </th>
                   </tr>
                 </thead>
@@ -51,6 +74,6 @@ export default function SizeChart({ chart }) {
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

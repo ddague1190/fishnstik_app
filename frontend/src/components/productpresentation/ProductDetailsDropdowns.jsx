@@ -9,11 +9,18 @@ import { ClockIcon } from "@heroicons/react/solid";
 import { ProductDetailsImages } from "./ProductDetailsImages";
 import ProductDetailsPricing from "./ProductDetailsPricing";
 import SizeChart from "./SizeChart";
+import { CommentSection } from "../utilities/comments/CommentSection";
+import { useSelector } from "react-redux";
+import useViewport from "../../utils/useViewport";
 
 export const ProductDetailsDropdowns = ({ product }) => {
+
+  const mediumWidthBreakpoint = 768
+  const largeWidthBreakpoint = 1024
   let packOptions = {};
   let typeOptions = {};
   let materialOptions = {};
+  const [openChart, setOpenChart] = useState(false)
   const [typeOverride, setTypeOverride] = useState();
   const [currVariant, setCurrVariant] = useState();
   const [whichImage, setWhichImage] = useState();
@@ -24,6 +31,10 @@ export const ProductDetailsDropdowns = ({ product }) => {
   const [type, setType] = useState();
   const [material, setMaterial] = useState();
   const [packSize, setPackSize] = useState();
+  const [comment, setComment] = useState();
+  const { width } = useSelector(state => state.dimensions)
+  const { userInfo } = useSelector((state) => state.userLogin);
+  useViewport()
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const typeRef = useRef();
@@ -133,13 +144,11 @@ export const ProductDetailsDropdowns = ({ product }) => {
     let hasPackOptions = false;
     let hasTypeOptions = false;
     let hasMaterialOptions = false;
-
     product.variants.forEach((variant, index) => {
       hasTypeOptions = hasTypeOptions || variant._type != null;
       hasPackOptions = hasPackOptions || variant.pack != null;
       hasMaterialOptions = hasMaterialOptions || variant.material != null;
     });
-
     if (hasTypeOptions) setWhichType("justType");
     if (hasPackOptions) setWhichType("typeAndPack");
     if (hasMaterialOptions) setWhichType("typePackMaterial");
@@ -277,19 +286,49 @@ export const ProductDetailsDropdowns = ({ product }) => {
       }));
   }
 
+
   return (
     <>
       <ProductDetailsPricing currVariant={currVariant} name={product.name} />
-      <section className="flex flex-col overflow-scroll h-full mt-8  lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
+      <section className="flex flex-col h-full mt-8 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
         <ProductDetailsImages
           mainImages={product.images}
           variants={product.variants}
           whichImage={whichImage}
           setTypeOverride={setTypeOverride}
         />
-        {product.complete_size_chart?.length > 0 && (
-          <SizeChart chart={product.complete_size_chart} />
-        )}
+        {width > largeWidthBreakpoint &&
+          <>
+            {product.complete_size_chart?.length > 0 && openChart ? (
+              <SizeChart open={openChart} setOpen={setOpenChart} chart={product.complete_size_chart} />
+            ) : (
+              <span className=" relative z-0 inline-flex mt-8 shadow-sm rounded-md">
+                <button
+                  onClick={setOpenChart.bind(null, true)}
+
+                  type="button"
+                  className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  See size chart
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate(`/product/${product.slug}/spec`)}
+                  className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  See specification
+                </button>
+              </span>)
+            }
+            <CommentSection currentUser={userInfo && { name: userInfo.name }} commentsArray={product.comments}
+              setComment={setComment} />
+          </>
+        }
+
+
+
+
+
       </section>
       <section className="mt-8 lg:col-span-5">
         <form>
@@ -459,7 +498,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
             onClick={onAddToCartClick}
             disabled={!currVariant}
             type="submit"
-            className="disabled:opacity-50 mt-8 w-full bg-[#FF5656] text-white border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium hover:bg-[#FF6767] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
+            className="disabled:opacity-50 mt-8 w-full bg-[#FF5656] text-white border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium hover:bg-[#FF6767] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ">
             {!currVariant ? (
               "Please select an option"
             ) : (
@@ -471,13 +510,41 @@ export const ProductDetailsDropdowns = ({ product }) => {
           </button>
         </form>
 
+        {width < largeWidthBreakpoint &&
+          <>
+            {product.complete_size_chart?.length > 0 ? openChart ? (
+              <SizeChart open={openChart} setOpen={setOpenChart} chart={product.complete_size_chart} />
+            ) :
+              <span className="relative z-0 inline-flex mt-8 shadow-sm rounded-md">
+                <button
+                  onClick={setOpenChart.bind(null, true)}
+
+                  type="button"
+                  className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  See size chart
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate(`/product/${product.slug}/spec`)}
+                  className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  See specification
+                </button>
+              </span>
+              : ""
+
+            }
+
+          </>
+        }
         {/* Product details */}
 
         <div className="mt-10">
           <h2 className="text-md font-medium text-gray-900">Description</h2>
 
           <div
-            className="mt-4 prose prose-sm text-lg lg:text-xl text-gray-500"
+            className="mt-4 prose prose-sm text-lg lg:text-lg xl:text-xl text-gray-500"
             dangerouslySetInnerHTML={{ __html: product.description }}
           />
         </div>
@@ -485,7 +552,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
         <div className="mt-8 border-t text-lg  border-gray-200 pt-8">
           <h2 className="text-md font-medium text-gray-900">Features</h2>
 
-          <div className="mt-4 ml-10 p text-xl rose prose-sm text-gray-500">
+          <div className="mt-4 ml-10 p text-lg rose prose-sm text-gray-500">
             <ul>
               {product?.details?.map(({ detail }, index) => (
                 <li className="list-disc" key={index}>
@@ -495,6 +562,11 @@ export const ProductDetailsDropdowns = ({ product }) => {
             </ul>
           </div>
         </div>
+
+        {width < largeWidthBreakpoint &&
+          <CommentSection currentUser={userInfo && { name: userInfo.name }} commentsArray={product.comments}
+            setComment={setComment} />}
+
       </section>
     </>
   );

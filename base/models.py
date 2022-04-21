@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.db.models.signals import post_save, pre_delete
+from django.forms import ImageField
 from django.utils.text import slugify
 from django.dispatch import receiver
 from base.utils.sendOrderEmail import sendOrderEmail
@@ -23,6 +24,7 @@ DISCOUNT_TIERS = (
 
 
 class ExtraUserInfo(models.Model):
+
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='extra')
     discountTier = models.CharField(
@@ -32,6 +34,7 @@ class ExtraUserInfo(models.Model):
     OTP_createdAt = models.DateTimeField(
         auto_now_add=False, null=True, blank=True)
     taxExempt = models.BooleanField(default=False)
+    avatarUrl = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -46,6 +49,27 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.extra.save()
+
+class MessagingSystem(MPTTModel):
+    user = models.ForeignKey(
+        ExtraUserInfo, on_delete=models.CASCADE, blank=True, null=True, related_name='messages')
+    parent = TreeForeignKey('self', blank=True, null=True,
+                            related_name='children', on_delete=models.CASCADE)
+    comment = models.TextField(max_length=200, null=True, blank=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    _id = models.AutoField(primary_key=True, editable=False)
+
+    def __str__(self):
+        if self.product:
+            return self.user.user.username
+        else:
+            parent = self.parent
+            i = 0
+            while parent:
+                i += 1
+                tmp = parent
+                parent = parent.parent
+            return f'Reply {self._id} to {tmp.user.user.username} (level {i})'
 
 
 class Category(MPTTModel):
@@ -65,7 +89,7 @@ class Category(MPTTModel):
     name = models.CharField(max_length=200)
     slug = models.SlugField()
     description = models.TextField(max_length=255, blank=True, null=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(blank=True, null=True)
 
     class MPTTMeta:
         order_insertion_by = ['name']
@@ -75,8 +99,7 @@ class Category(MPTTModel):
         self.slug = slug
         super(Category, self).save(*args, **kwargs)
 
-    def __str__(self):                           # __str__ method elaborated later in
-        # post.  use __unicode__ in place of
+    def __str__(self):
         full_path = [self.name]
         k = self.parent
         while k is not None:
@@ -95,28 +118,9 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
-    
-
-class Variations(MPTTModel):
-    parent = TreeForeignKey('self', blank=True, null=True,
-                            related_name='children', on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-
-    class MPTTMeta:
-        order_insertion_by = ['name']
-
-    def __str__(self):                           # __str__ method elaborated later in
-        # post.  use __unicode__ in place of
-        full_path = [self.name]
-        k = self.parent
-        while k is not None:
-            full_path.append(k.name)
-            k = k.parent
-        return ' / '.join(full_path[::-1])
 
 
 class SizeChart(models.Model):
-    
     gap = models.FloatField(null=True, blank=True)
     length_inch = models.FloatField(null=True, blank=True)
     length_metric = models.FloatField(null=True, blank=True)
@@ -126,7 +130,6 @@ class SizeChart(models.Model):
 
 
 class Product(models.Model):
-    variations = TreeManyToManyField(Variations, default='None')
     brand = models.ForeignKey(
         Brand, related_name='productsbybrand', on_delete=models.CASCADE)
     category = models.ForeignKey(
@@ -138,7 +141,6 @@ class Product(models.Model):
     description = RichTextField()
     rating = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
-    numReviews = models.IntegerField(null=True, blank=True, default=0)
     pulltest = models.IntegerField(null=True, blank=True, default=0)
     numVariants = models.IntegerField(null=True, blank=True, default=0)
     createdAt = models.DateTimeField(auto_now_add=True)
@@ -149,7 +151,9 @@ class Product(models.Model):
     discountPrice = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
     leadTime = models.IntegerField(null=True, blank=True)
-    
+    specImage = models.ImageField(null=True, blank=True)
+    specWidth = models.IntegerField(null=True, blank=True)
+    specHeight = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -160,6 +164,29 @@ class Product(models.Model):
         slug = ''.join(self.name.lower().split(' '))
         self.slug = slug
         super(Product, self).save(*args, **kwargs)
+
+
+class Comment(MPTTModel):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, blank=True, null=True, related_name='comments')
+    parent = TreeForeignKey('self', blank=True, null=True,
+                            related_name='children', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    comment = models.TextField(max_length=200, null=True, blank=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    _id = models.AutoField(primary_key=True, editable=False)
+
+    def __str__(self):
+        if self.product:
+            return self.product.name
+        else:
+            parent = self.parent
+            i = 0
+            while parent:
+                i += 1
+                tmp = parent
+                parent = parent.parent
+            return f'Reply {self._id} to {tmp.product.name} (level {i})'
 
 
 class ProductDetailsList(models.Model):
@@ -234,27 +261,6 @@ class Variant(models.Model):
         super(Variant, self).save(*args, **kwargs)
         product = Product.objects.get(pk=self.product.pk)
         product.numVariants = product.variants.all().count()
-        product.save()
-
-
-class Review(models.Model):
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, null=True, related_name='reviews')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    rating = models.IntegerField(null=True, blank=True, default=0)
-    comment = models.TextField(max_length=200, null=True, blank=True)
-    createdAt = models.DateTimeField(auto_now_add=True)
-    _id = models.AutoField(primary_key=True, editable=False)
-
-    def __str__(self):
-        return str(self.rating)
-
-    def save(self, *args, **kwargs):
-        super(Review, self).save(*args, **kwargs)
-        product = Product.objects.get(pk=self.product.pk)
-        product.rating = product.reviews.all().aggregate(Avg('rating'))[
-            'rating__avg']
-        product.numReviews = product.reviews.count()
         product.save()
 
 

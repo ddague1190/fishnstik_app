@@ -9,6 +9,11 @@ export const ProductDetailsImages = ({
 }) => {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState();
+
+  const onImageClick = (index) => {
+    console.log(index)
+    setSelectedImage(images[index])
+  }
   const onImageLeftClick = () => {
     let { index } = selectedImage;
 
@@ -87,17 +92,18 @@ export const ProductDetailsImages = ({
   return (
     <>
       <h2 className="sr-only">Images</h2>
-      <div className="grid grid-cols-3 relative gap-1">
+      <div className="grid grid-cols-3 relative gap-1 ">
         <img
           src={selectedImage?.image}
           alt={selectedImage?.description}
-          className="lg:mb-10 col-span-3 row-span-3 self-center rounded-lg mx-auto md:w-full h-48 md:h-72 object-contain"
+          className="lg:mb-10 col-span-3 row-span-3 self-center rounded-lg mx-auto md:w-full h-48 md:h-72 lg:h-96 object-contain"
         />
         {images.map((image, index) => {
           return (
-            <Fragment key={index}>
+            <Fragment key={index} >
               <span className="sr-only">{image.description}</span>
-              <span className="hidden lg:block inset-0 bg-gray-200 h-12 lg:h-24 rounded-md overflow-hidden">
+              <span onClick={onImageClick.bind(null, index)}
+                className="cursor-pointer hidden lg:block inset-0 bg-gray-200 h-12 lg:h-20 rounded-md overflow-hidden hover:scale-[1.05] transition-all">
                 <img
                   key={index}
                   value={index}
@@ -112,7 +118,7 @@ export const ProductDetailsImages = ({
 
         {images.length > 1 && (
           <>
-            <div className="absolute top-1/2 w-full flex mt-auto items-center rounded-md py-1 justify-between px-6  text-blue-300">
+            <div className="lg:hidden absolute top-1/2 w-full flex mt-auto items-center rounded-md py-1 justify-between px-6  text-blue-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 onClick={onImageLeftClick}

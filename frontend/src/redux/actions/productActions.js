@@ -36,77 +36,76 @@ export const getCategories = () => async (dispatch) => {
 
 export const listProducts =
   (keyword = "") =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: PRODUCT_LIST_REQUEST });
-      const { data } = await axios.get(`/api/products/${keyword}`);
+    async (dispatch) => {
+      try {
+        dispatch({ type: PRODUCT_LIST_REQUEST });
+        const { data } = await axios.get(`/api/products/${keyword}`);
 
-      dispatch({
-        type: PRODUCT_LIST_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: PRODUCT_LIST_FAIL,
-        payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
-      });
-    }
-  };
+        dispatch({
+          type: PRODUCT_LIST_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: PRODUCT_LIST_FAIL,
+          payload:
+            error.response && error.response.data.detail
+              ? error.response.data.detail
+              : error.message,
+        });
+      }
+    };
 
 export const listCategorizedProducts =
   (category, subcategory = "", keyword = "") =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: PRODUCT_LIST_REQUEST });
-      const { data } = await axios.get(
-        `/api/products/${category}/${subcategory}${
-          subcategory && "/"
-        }${keyword}`
-      );
+    async (dispatch) => {
+      try {
+        dispatch({ type: PRODUCT_LIST_REQUEST });
+        const { data } = await axios.get(
+          `/api/products/${category}/${subcategory}${subcategory && "/"
+          }${keyword}`
+        );
 
-      dispatch(resetKeyword());
+        dispatch(resetKeyword());
 
-      dispatch({
-        type: PRODUCT_LIST_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: PRODUCT_LIST_FAIL,
-        payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
-      });
-    }
-  };
+        dispatch({
+          type: PRODUCT_LIST_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: PRODUCT_LIST_FAIL,
+          payload:
+            error.response && error.response.data.detail
+              ? error.response.data.detail
+              : error.message,
+        });
+      }
+    };
 
 export const listProductsByBrand =
   (brand, search = "") =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: PRODUCT_LIST_REQUEST });
-      const { data } = await axios.get(`/api/brands/${brand}/${search}`);
+    async (dispatch) => {
+      try {
+        dispatch({ type: PRODUCT_LIST_REQUEST });
+        const { data } = await axios.get(`/api/brands/${brand}/${search}`);
 
-      dispatch(resetKeyword());
+        dispatch(resetKeyword());
 
-      dispatch({
-        type: PRODUCT_LIST_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: PRODUCT_LIST_FAIL,
-        payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
-      });
-    }
-  };
+        dispatch({
+          type: PRODUCT_LIST_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: PRODUCT_LIST_FAIL,
+          payload:
+            error.response && error.response.data.detail
+              ? error.response.data.detail
+              : error.message,
+        });
+      }
+    };
 
 export const listProductDetails = (slug) => async (dispatch) => {
   try {

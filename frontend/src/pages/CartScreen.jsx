@@ -51,9 +51,10 @@ export default function CartScreen() {
       ) : cartItems.length === 0 ? (
         <Message>
           Your cart is empty{" "}
-          <Link className="underline" to="/">
+          <button className="underline outline-none bg-transparent font-normal" onClick={() => navigate(-1)}
+          >
             Go Back
-          </Link>
+          </button>
         </Message>
       ) : (
         <main className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">

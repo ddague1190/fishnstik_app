@@ -27,7 +27,7 @@ export const categoriesReducer = (state = { loading: true }, action) => {
       return state;
   }
 };
-export const productListReducer = (state = {products: [] }, action) => {
+export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
@@ -62,6 +62,7 @@ export const productDetailsReducer = (
         return image.image;
       });
       product = { ...product, images: imageList };
+
       return { loading: false, product: product };
 
     case PRODUCT_DETAILS_FAIL:

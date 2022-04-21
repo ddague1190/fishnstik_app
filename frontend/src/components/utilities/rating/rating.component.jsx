@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Rating( {value, text, color} ) {
+function Rating( {value, text, color='red'} ) {
     return (
         <div className="rating" style={{'fontSize': '1.6rem', 'display': 'flex', 'justifyContent': 'center'}}>
             <span>
