@@ -5,21 +5,30 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { listProductDetails } from "../redux/actions/productActions";
+import useViewport from "../utils/useViewport";
 
 
 export const SpecViewer = () => {
+    useViewport()
     const ref = useRef()
     const { id } = useParams()
     const dispatch = useDispatch()
     const { product: { specWidth: width, specImage: image, slug } } = useSelector(state => state.productDetails)
+    const {height} = useSelector(state=>state.dimensions)
     const navigate = useNavigate()
     useEffect(() => {
+        console.log(window.devicePixelRatio)
+
+        const ratio = (window.innerWidth / window.outerWidth)
+        if(image) {
+        ref.current.style.zoom = ratio
+        }
         if (!image) {
             dispatch(listProductDetails(id));
         }
         window.scrollTo(0, 0)
 
-    }, [dispatch, id, image])
+    }, [dispatch, id, image, height])
 
 
     return (
