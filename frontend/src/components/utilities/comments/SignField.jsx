@@ -17,7 +17,7 @@ const SignField = () => {
   };
 
   return (
-    <div className=" bg-transparent flex justify-between">
+    <div className="bg-gray-50 h-20 flex items-center justify-center">
       <div className="mt-1 text-gray-500 text-sm">
 
         <button className="px-1 font-semibold outline-none border-transparent" onClick={loginAndComeBack}>

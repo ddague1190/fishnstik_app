@@ -1,8 +1,5 @@
 import React, { useContext } from 'react'
-import styles from './Style.scss'
 import Popup from 'reactjs-popup'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faReply, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import {
   modal,
   modalClose,
@@ -35,7 +32,7 @@ const CommentStructure = ({ i, reply, parentId, index }) => {
         className="flex flex-col mt-4"
         style={reply && { marginLeft: 15, marginTop: '6px' }}
       >
-        <div classname=''>{i.text}</div>
+        <div className=''>{i.text}</div>
         <div className="flex items-center gap-2 mt-2 ">
           <div>
             {i.avatarUrl ? 
@@ -64,10 +61,9 @@ const CommentStructure = ({ i, reply, parentId, index }) => {
       <div className="mt-5">
         {actions.userId === i.userId && actions.user && (
           <Popup
-            role='tooltip'
+            role='tooltip' 
             trigger={
               <button className="bg-transparent border-none px-2 py-3 rounded-full cursor-pointer hover:outline-none hover:bg-white focus:outline-0">
-                {/* <FontAwesomeIcon icon={faEllipsisV} size='1x' color='#b9b9b9' /> */}
               </button>
             }
             position='right center'

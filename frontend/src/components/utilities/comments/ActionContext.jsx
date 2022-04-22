@@ -7,8 +7,6 @@ export const ActionProvider = ({
   currentUser,
   setComment,
   comments,
-  signinUrl,
-  signupUrl,
   customInput
 }) => {
   const [replies, setReplies] = useState([])
@@ -136,8 +134,6 @@ export const ActionProvider = ({
         editArr: editArr,
         onEdit: editText,
         onDelete: deleteText,
-        signinUrl: signinUrl,
-        signupUrl: signupUrl,
         user: user,
         customInput: customInput,
         submit: submit

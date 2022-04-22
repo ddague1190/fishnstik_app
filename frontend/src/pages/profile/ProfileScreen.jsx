@@ -44,30 +44,39 @@ export default function ProfileScreen() {
   }, [navigate, userInfo, dispatch, user, error]);
 
   return (
-    <div className="">
-      <nav className="mt-5 space-y-1 bg-blue-800 rounded-sm items-center col-span-3 flex flex-row flex-wrap justify-center gap-2 border-b-2 p-3 border-gray sm:mx-8">
-        {navigation.map((item) => (
-          <div
-            key={item.value}
-            onClick={() => setCurrentTab(item.value)}
-            className={classNames(
-              item.value === currentTab
-                ? "bg-gray-900 text-white"
-                : "text-gray-600 hover:bg-gray-700 hover:text-white bg-white",
-              "group flex text-sm items-center px-2 py-1 text-base font-medium rounded-md cursor-pointer"
-            )}>
-            <item.icon
-              className={classNames(
-                item.value === currentTab
-                  ? "text-gray-300"
-                  : "text-gray-400 group-hover:text-gray-300",
-                "mr-4 flex-shrink-0 h-6 w-6"
-              )}
-              aria-hidden="true"
-            />
-            {item.name}
+    <div className="p-2 rounded-lg">
+
+      <nav className="mt-5 p-2 rounded-sm items-center flex flex-row-reverse flex-wrap gap-2 border-b-2 border-gray sm:mx-8">
+        <>
+          <div className="ml-auto flex flex-row gap-1">
+            {navigation.map((item) => (
+              <div
+                key={item.value}
+                onClick={() => setCurrentTab(item.value)}
+                className={classNames(
+                  item.value === currentTab
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-600 hover:bg-gray-700 hover:text-white bg-white",
+                  "group flex text-sm items-center px-2 py-1 font-medium rounded-sm cursor-pointer"
+                )}>
+                <item.icon
+                  className={classNames(
+                    item.value === currentTab
+                      ? "text-gray-300"
+                      : "text-gray-400 group-hover:text-gray-300",
+                    "mr-4 flex-shrink-0 h-6 w-6"
+                  )}
+                  aria-hidden="true"
+                />
+                {item.name}
+              </div>
+            ))}
           </div>
-        ))}
+          <div className=' flex flex-row items-center gap-4'>
+            <span className='text-xl font-semibold'>Welcome!</span>
+            <img src={user.avatarUrl} className='border-full aspect-square rounded-full object-cover w-10 h-10' />
+          </div>
+        </>
       </nav>
 
       {
@@ -78,6 +87,10 @@ export default function ProfileScreen() {
           resetpassword: <ResetPassword />,
         }[currentTab]
       }
+
+
     </div>
+
+
   );
 }

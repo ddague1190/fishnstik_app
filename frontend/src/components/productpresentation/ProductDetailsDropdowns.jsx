@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 import useViewport from "../../utils/useViewport";
 
 export const ProductDetailsDropdowns = ({ product }) => {
-
   const mediumWidthBreakpoint = 768
   const largeWidthBreakpoint = 1024
   let packOptions = {};
@@ -38,6 +37,8 @@ export const ProductDetailsDropdowns = ({ product }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const typeRef = useRef();
+  console.log(comment)
+
   const onAddToCartClick = () => {
     dispatch(
       addToCart({
@@ -320,7 +321,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
                 </button>
               </span>)
             }
-            <CommentSection currentUser={userInfo && { name: userInfo.name }} commentsArray={product.comments}
+            <CommentSection currentUser={userInfo ? { name: userInfo.name, avatarUrl: userInfo.avatarUrl}: false} commentsArray={product.comments}
               setComment={setComment} />
           </>
         }
@@ -564,7 +565,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
         </div>
 
         {width < largeWidthBreakpoint &&
-          <CommentSection currentUser={userInfo && { name: userInfo.name }} commentsArray={product.comments}
+          <CommentSection currentUser={userInfo && { name: userInfo.name, avatarUrl: userInfo.avatarUrl }} commentsArray={product.comments}
             setComment={setComment} />}
 
       </section>

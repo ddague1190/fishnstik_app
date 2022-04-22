@@ -31,22 +31,39 @@ class MyTokenObtainSerializer(TokenObtainPairSerializer):
         self.user.extra.OTP = OTP
         self.user.save()
 
+    def get_avatarURL(self):
+        try:
+            if self.user.extra.avatarUrl:
+                res = self.user.extra.avatarUrl
+                return f'https://fishnwirepictures.s3.amazonaws.com/{str(res)}'
+        except:
+            return None
+
+
     def validate(self, attrs):
+        
         data = super().validate(attrs)
+        data['avatarUrl'] = self.get_avatarURL()
         # refresh = self.get_token(self.user)
         if not self.user.extra.isAuthenticated:
-            print(data)
-            print('notok')
             self.email_validation()
             raise serializers.ValidationError({'detail': 'We were not able to verify your email. We sent another OTP to your email, please enter it below...'})
         return data
 
 
 class UserSerializer(serializers.ModelSerializer):
+    avatarUrl = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'avatarUrl')
     
+    def get_avatarUrl(self, obj):
+        try:
+            if obj.extra.avatarUrl:
+                res = obj.extra.avatarUrl
+                return f'https://fishnwirepictures.s3.amazonaws.com/{str(res)}'
+        except:
+            return None
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(

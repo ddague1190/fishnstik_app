@@ -89,13 +89,12 @@ class CommentSerializer(serializers.ModelSerializer):
         return obj.user.id
 
     def get_avatarUrl(self, obj):
-        res = ''
         try:
             if obj.user.extra.avatarUrl:
                 res = obj.user.extra.avatarUrl
+                return f'https://fishnwirepictures.s3.amazonaws.com/{str(res)}'
         except:
-            res = ''
-        return res
+            return None
 
     def get_fullName(self, obj):
         return obj.user.username

@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/userActions";
 import { useEffect } from "react";
+import { getCategories } from "../../redux/actions/productActions";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -63,6 +64,13 @@ export default function Navigation() {
     navigate("/");
   };
   useEffect(() => {
+
+    if (!categories) {
+      dispatch(getCategories());
+    }
+
+
+
     return () => {
       setOpen(false);
     };
@@ -135,32 +143,32 @@ export default function Navigation() {
                           className="px-4 pt-10 pb-6 space-y-12">
                           <div className="grid grid-cols-1 items-start gap-y-10 gap-x-6">
 
-                              <div>
-                                <p
-                                  id="mobile-categories-heading"
-                                  className="font-medium text-gray-900">
-                                  Categories
-                                </p>
-                                <ul
-                                  role="list"
-                                  aria-labelledby="mobile-categories-heading"
-                                  className="mt-6 ml-5 space-y-2">
-                                  {category.children.map((item) => {
-                                    if (item.type === "product") {
-                                      return (
-                                        <li key={item.name} className="flex">
-                                          <Link
-                                            onClick={() => setOpen(false)}
-                                            to={`/products/${category.slug}/${item.slug}`}
-                                            className="hover:text-gray-800 hover:font-bold">
-                                            {item.name}
-                                          </Link>
-                                        </li>
-                                      );
-                                    }
-                                  })}
-                                </ul>
-                              </div>
+                            <div>
+                              <p
+                                id="mobile-categories-heading"
+                                className="font-medium text-gray-900">
+                                Categories
+                              </p>
+                              <ul
+                                role="list"
+                                aria-labelledby="mobile-categories-heading"
+                                className="mt-6 ml-5 space-y-2">
+                                {category.children.map((item) => {
+                                  if (item.type === "product") {
+                                    return (
+                                      <li key={item.name} className="flex">
+                                        <Link
+                                          onClick={() => setOpen(false)}
+                                          to={`/products/${category.slug}/${item.slug}`}
+                                          className="hover:text-gray-800 hover:font-bold">
+                                          {item.name}
+                                        </Link>
+                                      </li>
+                                    );
+                                  }
+                                })}
+                              </ul>
+                            </div>
                           </div>
                         </Tab.Panel>
                       ))}
@@ -223,10 +231,10 @@ export default function Navigation() {
                     Get free delivery on orders over $100
                   </p>
                   {!userInfo ? (
-                    <div className="hidden lg:block lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <div className="lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                       <Link
                         to="/register"
-                        className="text-sm font-medium text-white hover:text-gray-100">
+                        className="hidden lg:block text-sm font-medium text-white hover:text-gray-100">
                         Create an account
                       </Link>
                       <span
@@ -505,10 +513,15 @@ export default function Navigation() {
                                   to="/profile"
                                   className="-m-2 p-2 text-gray-400 hover:text-gray-500">
                                   <span className="sr-only">Account</span>
+                                  {userInfo.avatarUrl ?
+                                  
+                                  <img src={userInfo.avatarUrl} alt='Profile picture' className='w-8 h-8 object-cover rounded-full border-2' />
+                                    :
                                   <UserIcon
                                     className="w-6 h-6"
                                     aria-hidden="true"
                                   />
+                              }
                                 </Link>
                               </div>
                             )}

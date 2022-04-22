@@ -22,8 +22,17 @@ export const SpecViewer = () => {
     const [debouncedWidth, setDebouncedWidth] = useState(width)
     const { height } = useSelector(state => state.dimensions)
     const navigate = useNavigate()
+
+
+
     useEffect(() => {
-        console.log(window.devicePixelRatio)
+     window.addEventListener('dblclick', ()=>{
+       console.log('hi')
+        if (!document.fullscreenElement) {document.getElementById('spec').requestFullscreen()}
+        else document.exitFullscreen()
+      })
+    
+        // console.log(window.devicePixelRatio)
 
         const ratio = (window.innerWidth / window.outerWidth)
         if (image) {
@@ -35,13 +44,13 @@ export const SpecViewer = () => {
         window.scrollTo(0, 0)
         setDebouncedWidth(values[0] / 100 * width)
 
-    }, [dispatch, id, image, height, values])
+    }, [dispatch, id, image, height, values, width])
 
 
     return (
         <>
             {!image ? (<Loader />) : (
-                <div className='overflow-scroll w-full'>
+                <div id='spec' className='overflow-scroll w-full'>
                     <div className='flex items-center  bg-gray-50 h-max p-4'>
                         <div className='ml-auto flex flex-row-reverse justify-center items-center py-2 gap-2'>
                             <span className="relative z-0 inline-flex shadow-sm rounded-md">
