@@ -213,7 +213,11 @@ CORS_ALLOWED_ORIGINS = [
     'https://www.fishnstik.herokuapp.com',
     'https://fishnstik.herokuapp.com',
     'http://127.0.0.1',
+    'http://localhost',
+    'http://localhost:3000'
 ]
+
+# CORS_ALLOW_CREDENTIALS = True
 
 
 CACHES = {

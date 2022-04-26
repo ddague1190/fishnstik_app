@@ -9,12 +9,10 @@ import { ClockIcon } from "@heroicons/react/solid";
 import { ProductDetailsImages } from "./ProductDetailsImages";
 import ProductDetailsPricing from "./ProductDetailsPricing";
 import SizeChart from "./SizeChart";
-import { CommentSection } from "../utilities/comments/CommentSection";
 import { useSelector } from "react-redux";
 import useViewport from "../../utils/useViewport";
 
 export const ProductDetailsDropdowns = ({ product }) => {
-  const mediumWidthBreakpoint = 768
   const largeWidthBreakpoint = 1024
   let packOptions = {};
   let typeOptions = {};
@@ -30,14 +28,15 @@ export const ProductDetailsDropdowns = ({ product }) => {
   const [type, setType] = useState();
   const [material, setMaterial] = useState();
   const [packSize, setPackSize] = useState();
-  const [comment, setComment] = useState();
+
+
+
   const { width } = useSelector(state => state.dimensions)
-  const { userInfo } = useSelector((state) => state.userLogin);
   useViewport()
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const typeRef = useRef();
-  console.log(comment)
+
 
   const onAddToCartClick = () => {
     dispatch(
@@ -287,7 +286,6 @@ export const ProductDetailsDropdowns = ({ product }) => {
       }));
   }
 
-
   return (
     <>
       <ProductDetailsPricing currVariant={currVariant} name={product.name} />
@@ -300,10 +298,10 @@ export const ProductDetailsDropdowns = ({ product }) => {
         />
         {width > largeWidthBreakpoint &&
           <>
-            {product.complete_size_chart?.length > 0 && openChart ? (
-              <SizeChart open={openChart} setOpen={setOpenChart} chart={product.complete_size_chart} />
+            {product.complete_size_chart?.length > 0 ? (openChart ? (
+              <SizeChart largeScreenVersion open={openChart} setOpen={setOpenChart} chart={product.complete_size_chart} />
             ) : (
-              <span className=" relative z-0 inline-flex mt-8 shadow-sm rounded-md">
+              <span className=" relative z-0 inline-flex mt-8  rounded-md">
                 <button
                   onClick={setOpenChart.bind(null, true)}
 
@@ -317,12 +315,21 @@ export const ProductDetailsDropdowns = ({ product }) => {
                   onClick={() => navigate(`/product/${product.slug}/spec`)}
                   className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  See specification
+                  Specification (actual scale)
                 </button>
-              </span>)
+              </span>))
+
+              : product.specImage ? <button
+                type="button"
+                onClick={() => navigate(`/product/${product.slug}/spec`)}
+                className="inline-flex w-max mt-8 items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                See spec
+              </button> : ''
+
+
             }
-            <CommentSection currentUser={userInfo ? { name: userInfo.name, avatarUrl: userInfo.avatarUrl}: false} commentsArray={product.comments}
-              setComment={setComment} />
+
           </>
         }
 
@@ -338,7 +345,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
               {
                 justType: (
                   <>
-                    <p>Select Type</p>
+                    <p className='font-light ml-4 pb-1'>Type</p>
                     <Select
                       isSearchable={false}
                       styles={customStyles}
@@ -353,7 +360,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
                 ),
                 typeAndPack: (
                   <>
-                    <p>Type</p>
+                    <p className='font-light ml-4 pb-1'>Type</p>
                     <Select
                       isSearchable={false}
                       styles={customStyles}
@@ -368,7 +375,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
                       options={typeOptions}
                     />
                     <br />
-                    <p>Pack size</p>
+                    <p className='font-light ml-4 pb-1'>Pack size</p>
                     <Select
                       isSearchable={false}
                       styles={customStyles}
@@ -398,7 +405,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
                 ),
                 typePackMaterial: (
                   <>
-                    <p>Type</p>
+                    <p className='font-light ml-4 pb-1'>Type</p>
                     <Select
                       isSearchable={false}
                       styles={customStyles}
@@ -412,7 +419,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
                       options={typeOptions}
                     />
                     <br />
-                    <p>Material</p>
+                    <p className='font-light ml-4 pb-1'>Material</p>
                     <Select
                       isSearchable={false}
                       styles={customStyles}
@@ -440,7 +447,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
                       }
                     />
                     <br />
-                    <p>Pack size</p>
+                    <p className='font-light ml-4 pb-1' >Pack size</p>
                     <Select
                       isSearchable={false}
                       styles={customStyles}
@@ -513,7 +520,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
 
         {width < largeWidthBreakpoint &&
           <>
-            {product.complete_size_chart?.length > 0 ? openChart ? (
+            {product.complete_size_chart?.length > 0 ? (openChart ? (
               <SizeChart open={openChart} setOpen={setOpenChart} chart={product.complete_size_chart} />
             ) :
               <span className="relative z-0 inline-flex mt-8 shadow-sm rounded-md">
@@ -533,8 +540,10 @@ export const ProductDetailsDropdowns = ({ product }) => {
                   See specification
                 </button>
               </span>
-              : ""
+              : ""):
 
+            ''
+              
             }
 
           </>
@@ -564,9 +573,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
           </div>
         </div>
 
-        {width < largeWidthBreakpoint &&
-          <CommentSection currentUser={userInfo && { name: userInfo.name, avatarUrl: userInfo.avatarUrl }} commentsArray={product.comments}
-            setComment={setComment} />}
+
 
       </section>
     </>

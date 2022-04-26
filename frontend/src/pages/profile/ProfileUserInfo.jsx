@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserDetails } from "../../redux/actions/userActions";
 import { ResetPassword } from "./ResetPassword";
 
 export const ProfileUserInfo = () => {
   const { error, loading, user } = useSelector((state) => state.userDetails);
   const [showResetPassword, setShowResetPassword] = useState(false);
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    if(!user.username) {
+      dispatch(getUserDetails())
+    }
+  }, [])
   return (
     <>
       <div className="flex flex-col gap-2 xs:flex-row justify-between flex-wrap mt-8 xs:mx-8 ">

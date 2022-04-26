@@ -41,15 +41,16 @@ def getFishWatchAPI(request, id):
             selected_fish = result.json()[int(id)+1]
 
         for field in FIELDS:
-            response[field] = cleanhtml(str(selected_fish[field]))
+            if field== 'Species Name':
+                response['Biology'] = cleanhtml(str(selected_fish[field]))
 
-        response['images'] = [selected_fish['Species Illustration Photo']['src']]
+        response['images'] = selected_fish['Species Illustration Photo']['src']
 
-        for image in selected_fish['Image Gallery']:
-            if not image['src']:
-                continue
-            else:
-                response['images'].append(image['src'])
+        # for image in selected_fish['Image Gallery']:
+        #     if not image['src']:
+        #         continue
+        #     else:
+        #         response['images'].append(image['src'])
     except:
         response = default_fish
     

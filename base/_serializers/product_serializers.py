@@ -60,30 +60,58 @@ class VariantSerializer(serializers.ModelSerializer):
         serializer = SizeChartSerializer(obj.sizechart, many=False)
         return serializer.data
 
+class CreateCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+    def validate(self, data):
+        print(data)
+        return data
+    
+    # def to_internal_value(self, data):
+  
+    #     return super().to_internal_value(data)
+
+    # def validate_userId(self,value):
+    #     print(value)
+    #     return value
+    # def validate_user(self, value):
+    #     print(value, 'validate_user')
+    #     return value
+    
+
+    # def validate_parentId(self, value):
+    #     print(value, 'validate_parentId')
+    #     return value
+    
+    # def create(self, validated_data):
+    #     # if self.context['request'].user != validated_data['userId']:
+    #     #     raise serializers.ValidationError(
+    #     #         "Not authorized to post on behalf on another user")
+
+    #     print(validated_data,'validateddata')
+    #     return super().create(validated_data)
+    
 
 class CommentSerializer(serializers.ModelSerializer):
     avatarUrl = serializers.SerializerMethodField(read_only=True)
     replies = serializers.SerializerMethodField(read_only=True)
-    fullName = serializers.SerializerMethodField(read_only=True)
-    comId = serializers.SerializerMethodField(read_only=True)
-    text = serializers.SerializerMethodField(read_only=True)
     userId = serializers.SerializerMethodField(read_only=True)
+    fullName = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ('userId', 'text', 'comId',
-                  'fullName', 'replies', 'avatarUrl')
+        fields = ('userId', 'text', 'comId', 'replies', 'avatarUrl', 'fullName')
+
+    def get_fullName(self, obj):
+        return obj.user.username
+
 
     def get_replies(self, obj):
         qs = obj.children.all()
         serializer = CommentSerializer(qs, many=True)
         return serializer.data
-
-    def get_text(self, obj):
-        return obj.comment
-
-    def get_comId(self, obj):
-        return obj._id
 
     def get_userId(self, obj):
         return obj.user.id
@@ -95,22 +123,6 @@ class CommentSerializer(serializers.ModelSerializer):
                 return f'https://fishnwirepictures.s3.amazonaws.com/{str(res)}'
         except:
             return None
-
-    def get_fullName(self, obj):
-        return obj.user.username
-
-    def validate_comment(self, value):
-        if len(value) > 100:
-            raise serializers.ValidationError(
-                "Comment must have fewer than 199 characters")
-        return value
-
-    def validate(self, value):
-        if len(value) > 100:
-            raise serializers.ValidationError(
-                {'detail': "Comment must be less than 100 characters."})
-        return value
-
 
 class PicturesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -132,10 +144,16 @@ class ProductSerializer(serializers.ModelSerializer):
     subcategory = serializers.SerializerMethodField(read_only=True)
     details = serializers.SerializerMethodField(read_only=True)
     complete_size_chart = serializers.SerializerMethodField(read_only=True)
+    specWidth = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Product
         fields = '__all__'
+
+    def get_specWidth(self, obj):
+        if not obj.specImage:
+            return 'no_spec'
+        return obj.specWidth
 
     def get_complete_size_chart(self, obj):
         output = []

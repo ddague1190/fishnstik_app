@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Loader from "../components/utilities/loader/loader.component";
 import Message from "../components/utilities/Message";
 import CartItemElement from "../components/checkoutpathway/CartItemElement";
@@ -14,7 +14,6 @@ export default function CartScreen() {
   const productId = useParams().id;
   let navigate = useNavigate();
 
-  const dispatch = useDispatch();
 
   const { cartItems } = useSelector((state) => state.cart);
 

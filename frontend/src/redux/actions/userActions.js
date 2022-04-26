@@ -27,7 +27,6 @@ import {
   ORDER_CREATE_RESET,
 } from "../constants/orderConstants";
 
-import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 
 import axiosInstance from "../axiosInstance";
 
@@ -73,7 +72,6 @@ export const logout = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
-  dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
   dispatch({ type: ORDER_DETAILS_RESET });
   dispatch({ type: ORDER_CREATE_RESET });
 };

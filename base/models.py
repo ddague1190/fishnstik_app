@@ -12,6 +12,8 @@ import datetime
 from django.urls import reverse
 import os
 from djrichtextfield.models import RichTextField
+import uuid
+
 
 if not os.environ.get("PRODUCTION"):
     load_dotenv()
@@ -172,21 +174,21 @@ class Comment(MPTTModel):
     parent = TreeForeignKey('self', blank=True, null=True,
                             related_name='children', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    comment = models.TextField(max_length=200, null=True, blank=True)
+    text = models.TextField(max_length=200, null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
-    _id = models.AutoField(primary_key=True, editable=False)
+    comId = models.AutoField(primary_key=True, editable=False)
 
-    def __str__(self):
-        if self.product:
-            return self.product.name
-        else:
-            parent = self.parent
-            i = 0
-            while parent:
-                i += 1
-                tmp = parent
-                parent = parent.parent
-            return f'Reply {self._id} to {tmp.product.name} (level {i})'
+    # def __str__(self):
+    #     if self.product:
+    #         return self.product.name
+    #     else:
+    #         parent = self.parent
+    #         i = 0
+    #         while parent:
+    #             i += 1
+    #             tmp = parent
+    #             parent = parent.parent
+    #         return f'Reply {self._id} to {tmp.product.name} (level {i})'
 
 
 class ProductDetailsList(models.Model):

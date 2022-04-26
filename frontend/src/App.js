@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
@@ -20,11 +20,7 @@ import Brands from "./pages/Brands";
 import { SpecViewer } from "./pages/SpecViewer";
 const App = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
-  // useViewport();
+  const { loading, categories } = useSelector((state) => state.categories);
   const location = useLocation();
 
   return (

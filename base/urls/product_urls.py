@@ -6,6 +6,6 @@ urlpatterns = [
     path('', views.getProducts, name='products'),
     path('<category>/', views.getProducts, name='products'),
     path('<category>/<subcategory>/', views.getProducts, name='products'),
-    path('<str:pk>/comments', views.CommentView.as_view(), name='addcomment'),
+    path('<str:slug>/comments', views.CommentView.as_view(), name='addcomment'),
     path('<str:slug>', views.getProduct, name='product'),
 ]

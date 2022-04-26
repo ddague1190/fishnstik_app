@@ -11,7 +11,9 @@ export const ProfileOrders = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
+    if(!orders) {
     dispatch(listMyOrders());
+    }
   }, []);
   return (
     <>

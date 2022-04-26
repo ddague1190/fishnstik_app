@@ -18,9 +18,11 @@ export const ResetPassword = ({ setOpen }) => {
     success,
     error: errorUpdatePassword,
   } = useSelector((state) => state.userUpdateProfile);
-
+  
   useEffect(() => {
     if (success) {
+      setMessage('Password successfully reset')
+      setShowResetPassword(false)
       setPassword("");
       setPassword2("");
       setOldPassword("");
@@ -29,8 +31,8 @@ export const ResetPassword = ({ setOpen }) => {
       dispatch({ type: USER_LOGOUT });
     }
     return () => {
-      setMessage("");
-      dispatch({type: USER_UPDATE_PROFILE_RESET})
+      // setMessage("");
+      // dispatch({type: USER_UPDATE_PROFILE_RESET})
     }
   }, [errorUpdatePassword, success, dispatch]);
 
@@ -51,7 +53,6 @@ export const ResetPassword = ({ setOpen }) => {
   };
   return (
     <div className="mx-auto max-w-xs mt-8">
-      {success && <Message variant="success">Password updated</Message>}
 
       {loading && <Loader />}
 

@@ -16,17 +16,8 @@ const DisplayComments = ({ comments }) => {
       {comments.map((i, index) => (
         <div key={i.comId}>
           {actions.editArr.filter((id) => id === i.comId).length !== 0 ? (
-            actions.customInput ? (
-              actions.customInput({
-                cancellor: i.comId,
-                value: i.text,
-                handleCancel: actions.handleCancel,
-                submit: actions.submit,
-                edit: true
-              })
-            ) : (
               <InputField cancellor={i.comId} value={i.text} edit />
-            )
+            
           ) : (
             <CommentStructure i={i} index={index} handleEdit={() => actions.handleAction} />
           )}

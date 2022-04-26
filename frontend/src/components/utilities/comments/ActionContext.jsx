@@ -1,14 +1,30 @@
 import React, { createContext, useEffect, useState } from 'react'
 import uuid from 'react-uuid'
+import { useDispatch, useSelector } from "react-redux"
+import { getUserDetails } from "../../../redux/actions/userActions"
+import axiosInstance from "../../../redux/axiosInstance"
+import { addComment, editComment, deleteComment } from "../../../redux/actions/commentsActions"
+import { useParams } from "react-router"
 
 export const ActionContext = createContext()
 export const ActionProvider = ({
   children,
   currentUser,
-  setComment,
   comments,
-  customInput
 }) => {
+
+
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const { user: { username='' } } = useSelector(state => state.userDetails);
+
+  // useEffect(() => {
+  //   if (!username) {
+  //     // dispatch(getUserDetails())
+  //   }
+  // }, [])
+
+
   const [replies, setReplies] = useState([])
   const [user, setUser] = useState()
   const [editArr, setEdit] = useState([])
@@ -39,27 +55,22 @@ export const ActionProvider = ({
   const onSubmit = (text, parentId, child) => {
     if (text.length > 0) {
       if (!parentId && !child) {
-        setComment([
-          ...comments,
-          {
-            userId: currentUser.userId,
-            comId: uuid(),
-            avatarUrl: currentUser.avatarUrl,
-            fullName: currentUser.name,
-            text: text
-          }
-        ])
+        const newComment = {
+          userId: username,
+          text: text
+        }
+
+        dispatch(addComment(id, { ...newComment, parent: parentId }));
       } else if (parentId && child) {
         const newList = [...comments]
         const index = newList.findIndex((x) => x.comId === parentId)
-        newList[index].replies.push({
-          userId: currentUser.userId,
-          comId: uuid(),
-          avatarUrl: currentUser.avatarUrl,
-          fullName: currentUser.name,
-          text: text
-        })
-        setComment(newList)
+        const newComment = {
+
+          userId: username,
+          text: text,
+        }
+        newList[index].replies.push(newComment)
+        dispatch(addComment(id, { ...newComment, parent: parentId }))
       } else if (parentId && !child) {
         const newList = [...comments]
         const index = newList.findIndex((x) => x.comId === parentId)
@@ -67,15 +78,13 @@ export const ActionProvider = ({
           newList[index].replies === undefined
             ? []
             : [...newList[index].replies]
-        newReplies.push({
-          userId: currentUser.userId,
-          comId: uuid(),
-          avatarUrl: currentUser.avatarUrl,
-          fullName: currentUser.name,
+        const newComment = {
+          userId: username,
           text: text
-        })
+        }
+        newReplies.push(newComment)
         newList[index].replies = newReplies
-        setComment(newList)
+        dispatch(addComment(id, { ...newComment, parent: parentId }))
       }
     }
   }
@@ -85,31 +94,31 @@ export const ActionProvider = ({
       const newList = [...comments]
       const index = newList.findIndex((x) => x.comId === id)
       newList[index].text = text
-      setComment(newList)
     } else if (parentId !== undefined) {
       const newList = [...comments]
       const index = newList.findIndex((x) => x.comId === parentId)
       const replyIndex = newList[index].replies.findIndex((i) => i.comId === id)
       newList[index].replies[replyIndex].text = text
-      setComment(newList)
     }
+    dispatch(editComment({ id, text }))
   }
 
   const deleteText = (id, parentId) => {
     if (parentId === undefined) {
       const newList = [...comments]
       const filter = newList.filter((x) => x.comId !== id)
-      setComment(filter)
+
     } else if (parentId !== undefined) {
       const newList = [...comments]
       const index = newList.findIndex((x) => x.comId === parentId)
       const filter = newList[index].replies.filter((x) => x.comId !== id)
       newList[index].replies = filter
-      setComment(newList)
     }
+    dispatch(deleteComment(id))
   }
 
   const submit = (cancellor, text, parentId, edit, setText, child) => {
+
     if (edit) {
       editText(cancellor, text, parentId)
       handleCancel(cancellor, edit)
@@ -126,7 +135,7 @@ export const ActionProvider = ({
       value={{
         onSubmit: onSubmit,
         userImg: currentUser && currentUser.avatarUrl,
-        userId: currentUser && currentUser.userId,
+        userId: currentUser && username,
         handleAction: handleAction,
         handleCancel: handleCancel,
         replies: replies,
@@ -135,7 +144,6 @@ export const ActionProvider = ({
         onEdit: editText,
         onDelete: deleteText,
         user: user,
-        customInput: customInput,
         submit: submit
       }}
     >

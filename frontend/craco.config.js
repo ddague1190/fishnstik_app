@@ -1,5 +1,5 @@
 module.exports = {
-  // eslint: null,
+  eslint: null,
   webpack: {
     configure: (webpackConfig) => {
       webpackConfig.externals = {

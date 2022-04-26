@@ -24,7 +24,7 @@ export const CommentSection = ({
       customInput={customInput}
     >
       <div className="py-4 ring-1 ring-gray-400 mt-8 flex flex-col w-full">
-        <h2 className="text-md ml-6 mb-6 font-medium text-gray-900">Product discussion board</h2>
+        <h2 className="text-md ml-6 mb-6 font-bold text-gray-900">Q&A board</h2>
         <div className="w-full">
           {!currentUser ? <SignField /> : <Input />}
         </div>

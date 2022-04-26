@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/userActions";
 import { useEffect } from "react";
 import { getCategories } from "../../redux/actions/productActions";
+import TinyFishFact from "./TinyFishFact";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -52,6 +53,7 @@ const navigation = {
 };
 
 export default function Navigation() {
+  const fish = useState(1)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -59,21 +61,26 @@ export default function Navigation() {
   const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
 
+
+
+
   const onLogoutClick = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  useEffect(() => {
+    return () => {
+      setOpen(false);
+    };
+  }, [])
+
   useEffect(() => {
 
     if (!categories) {
       dispatch(getCategories());
     }
 
-
-
-    return () => {
-      setOpen(false);
-    };
   }, []);
 
   return (
@@ -282,7 +289,7 @@ export default function Navigation() {
                               <Popover key={category.name} className="flex">
                                 {({ open }) => (
                                   <>
-                                    <div className="relative flex">
+                                    <div className="relative flex h-full">
                                       <Popover.Button
                                         className={classNames(
                                           open
@@ -311,8 +318,8 @@ export default function Navigation() {
                                         />
 
                                         <div className="relative bg-blue-500">
-                                          <div className="max-w-7xl mx-auto px-8">
-                                            <div className="grid grid-cols-2 items-start gap-y-10 gap-x-8 pt-10 pb-12">
+                                          <div className=" max-w-7xl mx-auto px-8">
+                                            <div className="grid grid-cols-2  items-start gap-y-10 gap-x-8 pt-10 pb-12">
                                               <div className="grid grid-cols-2 gap-y-10 gap-x-8">
                                                 <div>
                                                   <p
@@ -414,7 +421,9 @@ export default function Navigation() {
                                                       }
                                                     )}
                                                   </ul>
+
                                                 </div>
+                                                <TinyFishFact fish={fish} />
 
                                                 {/* <div>
                                                   <p
@@ -443,8 +452,12 @@ export default function Navigation() {
                                                   </ul>
                                                 </div> */}
                                               </div>
+
                                             </div>
+
                                           </div>
+
+
                                         </div>
                                       </Popover.Panel>
                                     </Transition>
@@ -514,14 +527,14 @@ export default function Navigation() {
                                   className="-m-2 p-2 text-gray-400 hover:text-gray-500">
                                   <span className="sr-only">Account</span>
                                   {userInfo.avatarUrl ?
-                                  
-                                  <img src={userInfo.avatarUrl} alt='Profile picture' className='w-8 h-8 object-cover rounded-full border-2' />
+
+                                    <img src={userInfo.avatarUrl} alt='Profile picture' className='w-8 h-8 object-cover rounded-full border-2' />
                                     :
-                                  <UserIcon
-                                    className="w-6 h-6"
-                                    aria-hidden="true"
-                                  />
-                              }
+                                    <UserIcon
+                                      className="w-6 h-6"
+                                      aria-hidden="true"
+                                    />
+                                  }
                                 </Link>
                               </div>
                             )}

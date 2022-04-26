@@ -2,16 +2,11 @@ import React, { useContext, useState, useEffect } from 'react'
 import styles from './Style.scss'
 import { ActionContext } from './ActionContext'
 
-const InputField = ({ cancellor, parentId, child, value, edit, main }) => {
+const InputField = ({ cancellor, parentId, child, value, edit, main, placeholder }) => {
   const [text, setText] = useState('')
 
-  const handleChange = (e) => {
-    setText(e.target.value)
-  }
 
-  useEffect(() => {
-    setText(value)
-  }, [value])
+
 
   const actions = useContext(ActionContext)
   return (
@@ -20,7 +15,7 @@ const InputField = ({ cancellor, parentId, child, value, edit, main }) => {
       style={
         !child && !edit && main === undefined
           ? { marginLeft: 36 }
-          : { marginLeft: 0 }
+          : { marginLeft: 8 }
       }
     >
       <div className="flex w-[10%] p-2 justify-center align-middle">
@@ -36,20 +31,20 @@ const InputField = ({ cancellor, parentId, child, value, edit, main }) => {
       <input
         className="w-[80%] border-none border-b-[1] bg-transparent ml-1 focus:outline-none focus:border-b-2 focus:border-b-black"
         type='text'
-        placeholder='A place for questions, comments, reviews.'
+        placeholder={placeholder}
         component='input'
         value={text}
-        onChange={handleChange}
+        onChange={(e) => setText(e.target.value)}
       />
       <div className="flex justify-end mt-5 ml-3 gap-2">
         <button
           className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          onClick={() =>
-            edit === true
-              ? actions.submit(cancellor, text, parentId, true, setText)
-              : actions.submit(cancellor, text, parentId, false, setText)
+          onClick={(e) => {
+            if (edit === true) { actions.submit(cancellor, text, parentId, true, setText) }
+            else actions.submit(cancellor, text, parentId, false, setText)
           }
-          type='button'
+          }
+          type='button' 
           disabled={!text}
           style={
             !text
@@ -61,11 +56,12 @@ const InputField = ({ cancellor, parentId, child, value, edit, main }) => {
         </button>
         {(text || parentId) && (
           <button
+          type="button"
             className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={() =>
-              edit
-                ? actions.handleCancel(cancellor, edit)
-                : actions.handleCancel(cancellor)
+            onClick={(e) => {
+              if (edit === true) { actions.submit(cancellor, text, parentId, true, setText) }
+              else actions.submit(cancellor, text, parentId, false, setText)
+            }
             }
           >
             Cancel

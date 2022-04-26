@@ -205,7 +205,7 @@ class BasicOrderInformationSerializer(serializers.ModelSerializer):
                 'gettingReady': 0,
                 'shipped': 0,
                 'delivered': 0,
-                'waitingOnItem': 0, 
+                'waitingOnItem': 0,
                 }
         for item in items:
             if not item.readyToShip:
@@ -218,5 +218,5 @@ class BasicOrderInformationSerializer(serializers.ModelSerializer):
                 if item.payment.shipment:
                     dict['shipped'] += 1
                     if item.payment.shipment.isDelivered:
-                        dict['delivered'] += 1            
+                        dict['delivered'] += 1
         return dict

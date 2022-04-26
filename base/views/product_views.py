@@ -1,6 +1,6 @@
 from http.client import REQUEST_TIMEOUT
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
@@ -12,6 +12,9 @@ from django.contrib.auth.models import User
 from base._serializers import product_serializers
 from rest_framework import serializers
 from pprint import pprint
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 class CategoryTreeView(generics.GenericAPIView):
@@ -58,8 +61,7 @@ def getProducts(request, category='', subcategory=''):
             products = temp
         if subcategory == 'closeout':
             products = temp.filter(subcategory__slug=subcategory)
-    
-    
+
     page = request.query_params.get('page')
     paginator = Paginator(products, 10)
 
@@ -120,35 +122,51 @@ def getProduct(request, slug):
 
 class CommentView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = product_serializers.CommentSerializer
+    serializer_class = product_serializers.CreateCommentSerializer
 
-    # def verified_buyer(self, user, product):
-    #     return OrderItem.objects.filter(product=product, order__user=user)
+    def get_serializer(self, *args, **kwargs):
+        if (userId := self.request.data.get("userId")):
+            try:
+                postAuthor = User.objects.get(username=userId)
+            except:
+                return serializers.ValidationError({'detail': "This post author does not exist"})
+            if not postAuthor or postAuthor != self.request.user:
+                return serializers.ValidationError({'detail': "Post author is not the current logged in user"})
 
-    # def already_exists(self, user, product):
-    #     return product.reviews.filter(user=user).exists()
+            # Copy and manipulate the request
+            draft_request_data = self.request.data.copy()
+            if (parentId := self.request.data.get("parentId")):
+                draft_request_data["parent"] = parentId
+            kwargs["data"] = draft_request_data
 
-    def create(self, request, pk, *args, **kwargs):
+        return super().get_serializer(*args, **kwargs)
+
+    def create(self, request, slug, *args, **kwargs):
         user = request.user
-        product = Product.objects.get(_id=pk)
-
-        # if not self.verified_buyer(user, product):
-        #     raise serializers.ValidationError(
-        #         {'detail': "You must be a verfied buyer to leave a review."})
-        # if self.already_exists(user, product):
-        #     raise serializers.ValidationError(
-        #         {"detail": "Product already reviewed."})
+        product = Product.objects.get(slug=slug)
 
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid()
+        if type(serializer) != product_serializers.CreateCommentSerializer:
+            return Response({'detail': 'Not authorized for this post'}, status=status.HTTP_401_UNAUTHORIZED)
+        if not serializer.is_valid():
+            return Response({'detail': 'Not authorized for this post'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # if serializer.errors:
-        #     if serializer.errors['comment'][0]:
-        #         raise serializers.ValidationError(
-        #             {'detail': serializer.errors['comment'][0].title()})
-        # if serializer.validated_data['rating'] == 0:
-        #     raise serializers.ValidationError(
-        #         {'detail': "Review cannot be 0."})
-        serializer.save(user=request.user, product=Product.objects.get(_id=pk))
+        serializer.save(user=request.user,
+                        product=Product.objects.get(slug=slug))
 
         return Response(status=status.HTTP_201_CREATED)
+
+class EditCommentView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = product_serializers.CreateCommentSerializer
+    lookup_field = 'comId'
+    lookup_url_kwarg = 'comId'
+
+    def get_object(self):
+        postAuthor = Comment.objects.get(pk=self.kwargs['comId']).user
+        if postAuthor != self.request.user:
+            raise serializers.ValidationError({'detail': "Not authorized"})
+        return super().get_object()
+
+

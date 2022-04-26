@@ -9,10 +9,6 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
-  PRODUCT_CREATE_REVIEW_REQUEST,
-  PRODUCT_CREATE_REVIEW_SUCCESS,
-  PRODUCT_CREATE_REVIEW_FAIL,
-  PRODUCT_CREATE_REVIEW_RESET,
 } from "../constants/productConstants";
 
 import axiosInstance from "../axiosInstance";
@@ -127,27 +123,3 @@ export const listProductDetails = (slug) => async (dispatch) => {
   }
 };
 
-export const createProductReview =
-  (productId, review) => async (dispatch, getState) => {
-    try {
-      dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
-
-      const { data } = await axiosInstance.post(
-        `/api/products/${productId}/reviews`,
-        review
-      );
-
-      dispatch({
-        type: PRODUCT_CREATE_REVIEW_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: PRODUCT_CREATE_REVIEW_FAIL,
-        payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
-      });
-    }
-  };

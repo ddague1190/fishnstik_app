@@ -34,7 +34,7 @@ export default function ProfileScreen() {
     if (!userInfo) {
       navigate("/login");
     }
-    if (!user || !user.username) {
+    if (!user && !user.username) {
       dispatch({ type: USER_UPDATE_PROFILE_RESET });
       dispatch(getUserDetails());
     }

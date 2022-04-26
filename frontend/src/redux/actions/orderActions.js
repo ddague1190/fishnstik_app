@@ -21,7 +21,6 @@ import {
 import axiosInstance from "../axiosInstance";
 
 import { CART_CLEAR_ITEMS } from "../constants/cartConstants";
-import { bindActionCreators } from "redux";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
@@ -31,7 +30,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
 
     const { data } = await axiosInstance.post(`/api/orders/add/`, order);
 
-    console.log(data);
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,

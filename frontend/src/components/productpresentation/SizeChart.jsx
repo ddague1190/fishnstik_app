@@ -19,7 +19,7 @@ export default function SizeChart({ chart, largeScreenVersion, open, setOpen }) 
 
   return (
     <article className={` ring-1 ring-gray-400 ${classNames(largeScreenVersion ? 'hidden lg:block mt-5' : open ? 'block mt-10' : 'hidden')}`}>
-      {largeScreenVersion ? <h2 className="text-md ml-6 mb-6 font-medium text-gray-900">Size chart</h2>
+      {largeScreenVersion ? <h2 className="pt-4 text-md ml-6 mb-6 text-gray-900 font-bold">Size chart</h2>
         : <button
           onClick={() => setOpen(!open)}
           type="button"
@@ -29,7 +29,7 @@ export default function SizeChart({ chart, largeScreenVersion, open, setOpen }) 
         </button>}
 
       <div className="flex flex-col">
-        <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className="px-4 md:px-0 -my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-opacity-5 ">
               <table className="min-w-full divide-y divide-blue-800">
@@ -37,18 +37,18 @@ export default function SizeChart({ chart, largeScreenVersion, open, setOpen }) 
                   <tr>
                     <th
                       scope="col"
-                      className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                      className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-light text-gray-900 sm:pl-6">
                       <span>Hook Size</span>
                     </th>
                     <th
                       scope="col"
-                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 ">
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-light text-gray-900 ">
                       <span>Hook Gap</span>
                       <Tooltip text='Hook gap refers to the distance between the point and the shank of the hook.' image={{ src: 'https://amateuranglers.files.wordpress.com/2015/09/parts-of-a-hook.jpg', alt: 'Image showing the different parts of a hook' }} />
                     </th>
                     <th
                       scope="col"
-                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-light text-gray-900">
                       <span>Length</span>
                       <Tooltip text='The total length of hook' image={{ src: 'https://amateuranglers.files.wordpress.com/2015/09/parts-of-a-hook.jpg', alt: 'Image showing the different parts of a hook' }} />
                     </th>

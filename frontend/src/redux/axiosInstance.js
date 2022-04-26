@@ -4,14 +4,15 @@ import dayjs from "dayjs";
 
 let baseURL = process.env.REACT_APP_BASE_URL;
 
-baseURL = "http://127.0.0.1:3000/"
+// baseURL = "http://127.0.0.1:3000/"
 
 const axiosInstance = axios.create({
   baseURL,
   headers: {
-    "Content-type": "application/json",
+    "Content-type": "application/json"
   },
 });
+
 
 axiosInstance.interceptors.request.use(async (req) => {
   let userInfo = localStorage.getItem("userInfo")
