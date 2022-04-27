@@ -1,30 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import Loader from "../components/utilities/loader/loader.component";
 import Message from "../components/utilities/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../redux/actions/productActions";
 import { ProductDetailsDropdowns } from "../components/productpresentation/ProductDetailsDropdowns";
 import QASection from "../components/productpresentation/QASection";
-import { CommentSection } from "../components/utilities/comments/CommentSection";
 
 export default function ProductDetails() {
-  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
-  const [comment, setComment] = useState()
   const productId = useParams();
-  const { userInfo } = useSelector((state) => state.userLogin);
-
+  const {user} = useSelector((state) => state.userDetails);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     if (productId.id !== product.slug) {
       dispatch(listProductDetails(productId.id));
     }
-  }, [dispatch, productId.id]);
+  }, [dispatch, productId.id, product.slug]);
 
   return (
     <div className="bg-white">
@@ -98,8 +94,8 @@ export default function ProductDetails() {
             </div>
           </div>
 
-          {/* <QASection currentUser={userInfo && { name: userInfo.name, avatarUrl: userInfo.avatarUrl }} commentsArray={product.comments}
-          /> */}
+          <QASection currentUser={user && { name: user.username, avatarUrl: user.avatarUrl }} commentsArray={product.comments}
+          />
         </div>
       )}
     </div>

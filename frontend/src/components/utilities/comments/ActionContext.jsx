@@ -10,21 +10,17 @@ export const ActionContext = createContext()
 export const ActionProvider = ({
   children,
   currentUser,
-  comments,
+  _comments,
 }) => {
+
 
 
   const { id } = useParams()
   const dispatch = useDispatch()
-  const { user: { username='' } } = useSelector(state => state.userDetails);
-
-  // useEffect(() => {
-  //   if (!username) {
-  //     // dispatch(getUserDetails())
-  //   }
-  // }, [])
 
 
+
+  const [comments, setComments] = useState(_comments)
   const [replies, setReplies] = useState([])
   const [user, setUser] = useState()
   const [editArr, setEdit] = useState([])
@@ -36,6 +32,12 @@ export const ActionProvider = ({
       setUser(false)
     }
   })
+  if (!comments) return ''
+
+
+  const findIndexOfComId = (arr, comId) => {
+
+  }
 
   const handleAction = (id, edit) => {
     edit ? setEdit([...editArr, id]) : setReplies([...replies, id])
@@ -56,7 +58,7 @@ export const ActionProvider = ({
     if (text.length > 0) {
       if (!parentId && !child) {
         const newComment = {
-          userId: username,
+          userId: currentUser.name,
           text: text
         }
 
@@ -66,7 +68,7 @@ export const ActionProvider = ({
         const index = newList.findIndex((x) => x.comId === parentId)
         const newComment = {
 
-          userId: username,
+          userId: currentUser.name,
           text: text,
         }
         newList[index].replies.push(newComment)
@@ -79,7 +81,7 @@ export const ActionProvider = ({
             ? []
             : [...newList[index].replies]
         const newComment = {
-          userId: username,
+          userId: currentUser.name,
           text: text
         }
         newReplies.push(newComment)
@@ -92,13 +94,16 @@ export const ActionProvider = ({
   const editText = (id, text, parentId) => {
     if (parentId === undefined) {
       const newList = [...comments]
-      const index = newList.findIndex((x) => x.comId === id)
+      const index = newList.findIndex((el) => el.comId === id)
+      console.log(newList, index, parentId, 'here', id)
       newList[index].text = text
+      setComments(newList)
     } else if (parentId !== undefined) {
       const newList = [...comments]
-      const index = newList.findIndex((x) => x.comId === parentId)
-      const replyIndex = newList[index].replies.findIndex((i) => i.comId === id)
+      const index = newList.findIndex((el) => el.comId === parentId)
+      const replyIndex = newList[index].replies.findIndex((el) => el.comId === id)
       newList[index].replies[replyIndex].text = text
+      setComments(newList)
     }
     dispatch(editComment({ id, text }))
   }
@@ -107,12 +112,13 @@ export const ActionProvider = ({
     if (parentId === undefined) {
       const newList = [...comments]
       const filter = newList.filter((x) => x.comId !== id)
-
+      setComments(filter)
     } else if (parentId !== undefined) {
       const newList = [...comments]
       const index = newList.findIndex((x) => x.comId === parentId)
       const filter = newList[index].replies.filter((x) => x.comId !== id)
       newList[index].replies = filter
+      setComments(newList)
     }
     dispatch(deleteComment(id))
   }
@@ -135,7 +141,7 @@ export const ActionProvider = ({
       value={{
         onSubmit: onSubmit,
         userImg: currentUser && currentUser.avatarUrl,
-        userId: currentUser && username,
+        userId: currentUser && currentUser.name,
         handleAction: handleAction,
         handleCancel: handleCancel,
         replies: replies,

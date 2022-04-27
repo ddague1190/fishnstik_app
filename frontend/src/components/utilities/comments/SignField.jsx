@@ -4,7 +4,7 @@ import { ActionContext } from './ActionContext'
 import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router"
 
-const SignField = () => {
+const SignField = ({ placeholder }) => {
   const actions = useContext(ActionContext)
   const navigate = useNavigate()
   const productId = useParams();
@@ -17,19 +17,13 @@ const SignField = () => {
   };
 
   return (
-    <div className="bg-gray-50 h-20 flex items-center justify-center">
-      <div className="mt-1 text-gray-500 text-sm">
+    <div className="align-middle mx-auto rounded-lg w-max">
+      <div className="mt-1 text-gray-500 text-md">
 
-        <button className="px-1 font-semibold outline-none border-transparent" onClick={loginAndComeBack}>
-        Log in
+        <button className="px-2 font-extrabold outline-none border-transparent" onClick={loginAndComeBack}>
+          Log in
         </button>
-        
-        or 
-        
-        <button className="px-1 font-semibold outline-none border-transparent" onClick={registerAndComeBack}>
-        Register
-        </button>
-        to join discussion
+        {placeholder}
 
       </div>
 

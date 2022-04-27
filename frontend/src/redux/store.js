@@ -24,7 +24,7 @@ import {
 import { routeReducer } from "./reducers/routeReducer";
 import { responsiveReducer } from "./reducers/responsiveReducers";
 import { fishFactReducer } from "./reducers/promoReducers";
-import { whichLoader } from "./reducers/promoReducers";
+
 
 const reducer = combineReducers({
   categories: categoriesReducer,
@@ -53,6 +53,8 @@ const cartItemsFromStorage = localStorage.getItem("cartItems")
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
+
+
 
 const initialState = {
   cart: { cartItems: cartItemsFromStorage },

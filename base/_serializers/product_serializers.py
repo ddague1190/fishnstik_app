@@ -99,14 +99,18 @@ class CommentSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField(read_only=True)
     userId = serializers.SerializerMethodField(read_only=True)
     fullName = serializers.SerializerMethodField(read_only=True)
-
+    createdAt = serializers.SerializerMethodField(read_only=True)
+    
     class Meta:
         model = Comment
-        fields = ('userId', 'text', 'comId', 'replies', 'avatarUrl', 'fullName')
+        fields = ('userId', 'text', 'comId', 'replies', 'avatarUrl', 'fullName', 'createdAt')
 
     def get_fullName(self, obj):
         return obj.user.username
 
+    def get_createdAt(self, obj):
+        time = obj.createdAt
+        return time.strftime("%m-%d-%Y (%H:%M)")
 
     def get_replies(self, obj):
         qs = obj.children.all()

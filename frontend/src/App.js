@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import CartScreen from "./pages/CartScreen";
-import { getCategories } from "./redux/actions/productActions";
 import LoginScreen from "./pages/LoginScreen";
 import { HomeScreen } from "./pages/HomeScreen";
 import AboutUsScreen from "./pages/AboutUs";
@@ -18,11 +17,13 @@ import ProfileScreen from "./pages/profile/ProfileScreen";
 import NotFound from "./pages/404";
 import Brands from "./pages/Brands";
 import { SpecViewer } from "./pages/SpecViewer";
+import { getUserDetails } from "./redux/actions/userActions";
 const App = () => {
   const dispatch = useDispatch();
-  const { loading, categories } = useSelector((state) => state.categories);
   const location = useLocation();
-
+  useEffect(()=>{
+    dispatch(getUserDetails())
+  },[])
   return (
     <Routes key={location.pathname}>
       <Route exact path="/" element={<HomeScreen />} />

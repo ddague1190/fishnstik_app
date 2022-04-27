@@ -11,7 +11,6 @@ export const ProductDetailsImages = ({
   const [selectedImage, setSelectedImage] = useState();
 
   const onImageClick = (index) => {
-    console.log(index)
     setSelectedImage(images[index])
   }
   const onImageLeftClick = () => {
