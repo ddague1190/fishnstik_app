@@ -9,9 +9,10 @@ import {
     modalActionBtn,
     modalDelBtn
 } from './ModalStyles'
-import { ActionContext } from './ActionContext'
+import { ActionContext } from './QASectionActionContext.jsx'
 import InputField from "./InputField"
 import Answers from "./Answers"
+import { useEffect } from "react"
 
 const Question = ({ question, index }) => {
     const [open, setOpen] = useState(false)
@@ -28,10 +29,6 @@ const Question = ({ question, index }) => {
     const color = colors[index % 5]
 
 
-    const onEditClick = () => {
-        setEdit(true)
-        // actions.handleAction(question.comId, true)
-    }
 
     // console.log(actions, 'actions')
     // console.log(question, 'question')
@@ -40,14 +37,14 @@ const Question = ({ question, index }) => {
         <>
             <div className="flex w-full">
                 <div
-                    className="flex flex-row justify-center items-center w-full"
+                    className="py-4 flex flex-row justify-center items-center w-full"
                 >
-                    <p className="text-2xl w-20 text-blue-500 font-extrabold">Q:</p>
+                    <p className="text-2xl w-20 ml-2 text-blue-500 font-extrabold">Q:</p>
                     {!edit ?
                         <>
-                            <div
+                            <div className="cursor-pointer w-full"
                                 onClick={() => setOpen(!open)}>
-                                <div className="">
+                                <div >
                                     <p className="w-full text-blue-500">{question.text}</p>
                                     <div className="flex items-center gap-2 -mt-1">
                                         <span className="text-xs">posted by</span>
@@ -88,7 +85,7 @@ const Question = ({ question, index }) => {
                                             <div>
                                                 <button
                                                     className="bg-transparent outline-none border-none cursor-pointer"
-                                                    onClick={onEditClick}
+                                                    onClick={()=>setEdit(true)}
                                                 >
                                                     {' '}
                                                     Edit
@@ -130,9 +127,10 @@ const Question = ({ question, index }) => {
                                                                     Delete
                                                                 </button>
                                                                 <button
-                                                                    className='button'
+                                                                    className='bg-red-500 button'
                                                                     style={modalDelBtn}
                                                                     onClick={() => {
+                                                                        console.log('canceledit')
                                                                         close()
                                                                     }}
                                                                 >
@@ -149,8 +147,9 @@ const Question = ({ question, index }) => {
                             </div>
                         </>
                         :
-                        <InputField
+                        <InputField                                        
                             cancellor={question.comId}
+                            parentId={question.comId}
                             value={question.text}
                             edit
                             setEdit={setEdit}
@@ -161,8 +160,8 @@ const Question = ({ question, index }) => {
                 </div>
             </div>
             {open &&
-                <dd static as="div" className="bg-white rounded-md ">
-                    <Answers parent={question.comId} answers={question.replies} />
+                <dd as="div" className="bg-white rounded-md">
+                    <Answers parentId={question.comId} answers={question.replies} />
                 </dd>
 
             }

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import styles from './Style.scss'
-import { ActionContext } from './ActionContext'
+import { ActionContext } from './QASectionActionContext.jsx'
 import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router"
 

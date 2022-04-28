@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../redux/actions/productActions";
 import { ProductDetailsDropdowns } from "../components/productpresentation/ProductDetailsDropdowns";
 import QASection from "../components/productpresentation/QASection";
-
+import { QASectionActionProvider } from "../components/utilities/comments/QASectionActionContext.jsx";
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { loading, error, product } = useSelector(
@@ -94,7 +94,7 @@ export default function ProductDetails() {
             </div>
           </div>
 
-          <QASection currentUser={user && { name: user.username, avatarUrl: user.avatarUrl }} commentsArray={product.comments}
+          <QASectionActionProvider currentUser={user && { name: user.username, avatarUrl: user.avatarUrl }} _comments={product.comments}
           />
         </div>
       )}

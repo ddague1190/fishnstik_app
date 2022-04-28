@@ -181,7 +181,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return {'name': obj.category.name, 'slug': obj.category.slug}
 
     def get_comments(self, obj):
-        qs = obj.comments.all()
+        qs = obj.comments.all().filter(parent=None)
         serializer = CommentSerializer(qs, many=True)
         return serializer.data
 

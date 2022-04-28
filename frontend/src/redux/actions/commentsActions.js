@@ -17,11 +17,11 @@ export const addComment =
     };
 
 export const editComment =
-    (comment) => async (dispatch, getState) => {
+    (id, text) => async (dispatch, getState) => {
         try {
             const { data } = await axiosInstance.put(
-                `/api/users/${comment.id}/editcomment/`,
-                {text: comment.text}
+                `/api/users/${id}/editcomment/`,
+                {text}
             );
 
         } catch (error) {
