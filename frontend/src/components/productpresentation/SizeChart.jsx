@@ -19,14 +19,17 @@ export default function SizeChart({ chart, largeScreenVersion, open, setOpen }) 
 
   return (
     <article className={` ring-1 ring-gray-400 ${classNames(largeScreenVersion ? 'hidden lg:block mt-5' : open ? 'block mt-10' : 'hidden')}`}>
-      {largeScreenVersion ? <h2 className="pt-4 text-md ml-6 mb-6 text-gray-900 font-bold">Size chart</h2>
-        : <button
+      
+      {/* <h2 className="pt-4 text-md ml-6 mb-6 text-gray-900 font-bold">Size chart</h2> */}
+        
+      
+      <button
           onClick={() => setOpen(!open)}
           type="button"
           className="inline-flex items-center px-2.5 py-1.5 mb-5 border border-gray-300 shadow-sm text-xs font-medium  text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Close size chart
-        </button>}
+        </button>
 
       <div className="flex flex-col">
         <div className="px-4 md:px-0 -my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">

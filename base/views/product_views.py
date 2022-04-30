@@ -124,27 +124,28 @@ class CommentView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = product_serializers.CreateCommentSerializer
 
-    def get_serializer(self, *args, **kwargs):
-        if (userId := self.request.data.get("userId")):
-            try:
-                postAuthor = User.objects.get(username=userId)
-            except:
-                return serializers.ValidationError({'detail': "This post author does not exist"})
-            if not postAuthor or postAuthor != self.request.user:
-                return serializers.ValidationError({'detail': "Post author is not the current logged in user"})
+    # def get_serializer(self, *args, **kwargs):
+    #     if (comId := ):
+    #         draft_request_data = self.request.data.copy()
+    #         draft_request_data["comId"] = comId
+    #         kwargs["data"] = draft_request_data
 
-            # Copy and manipulate the request
-            draft_request_data = self.request.data.copy()
-            if (parentId := self.request.data.get("parentId")):
-                draft_request_data["parent"] = parentId
-            kwargs["data"] = draft_request_data
+    #     return super().get_serializer(*args, **kwargs)
 
-        return super().get_serializer(*args, **kwargs)
+    def validateUUID(self,uuid):
+        try:
+            int(''.join((uuid.split('-'))),16)
+        except:
+            raise serializers.ValidationError({'detail': "Not authorized"})
+        return 
 
     def create(self, request, slug, *args, **kwargs):
         user = request.user
         product = Product.objects.get(slug=slug)
-
+        try:
+            comId = int(request.data['comId'])
+        except:
+            return Response({'detail': 'Invalid comment identifier'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = self.get_serializer(data=request.data)
         if type(serializer) != product_serializers.CreateCommentSerializer:
             return Response({'detail': 'Not authorized for this post'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -152,7 +153,7 @@ class CommentView(generics.CreateAPIView):
             return Response({'detail': 'Not authorized for this post'}, status=status.HTTP_401_UNAUTHORIZED)
 
         serializer.save(user=request.user,
-                        product=Product.objects.get(slug=slug))
+                        product=Product.objects.get(slug=slug), comId=comId)
 
         return Response(status=status.HTTP_201_CREATED)
 

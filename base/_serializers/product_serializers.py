@@ -149,10 +149,19 @@ class ProductSerializer(serializers.ModelSerializer):
     details = serializers.SerializerMethodField(read_only=True)
     complete_size_chart = serializers.SerializerMethodField(read_only=True)
     specWidth = serializers.SerializerMethodField(read_only=True)
+    related_products = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Product
         fields = '__all__'
+
+    def get_related_products(self, obj):
+        qs = obj.related_products.all()
+        data = []
+        for q in qs:
+            serializer = BasicProductInfoSerializer(q.product, many=False)
+            data.append(serializer.data)
+        return data
 
     def get_specWidth(self, obj):
         if not obj.specImage:

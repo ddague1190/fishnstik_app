@@ -22,6 +22,7 @@ class filterCategories(forms.ModelForm):
         # self.fields['variations'].queryset = Variations.objects.filter(
         #     children=None)
 
+
 class filterComments(forms.ModelForm):
     class Meta:
         model = Product
@@ -29,6 +30,7 @@ class filterComments(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(filterComments, self).__init__(*args, **kwargs)
+
 
 class AdminImageWidget(AdminFileWidget):
     def render(self, name, value, attrs=None, renderer=None):
@@ -62,6 +64,13 @@ class PicturesInline(admin.TabularInline):
     formfield_overrides = {models.ImageField: {'widget': AdminImageWidget}}
 
 
+class RelatedProductsInline(admin.TabularInline):
+    model = RelatedProduct
+    fk_name = 'parent'
+    extra = 1
+
+
+
 class ProductAdmin(admin.ModelAdmin):
     form = filterCategories
     formfield_overrides = {
@@ -70,7 +79,8 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [
         VariantsInline,
         PicturesInline,
-        ProductDetailsInline
+        ProductDetailsInline,
+        RelatedProductsInline
     ]
 
 
@@ -114,10 +124,13 @@ class CategoryAdmin(DraggableMPTTAdmin):
     related_products_cumulative_count.short_description = 'Related products (in tree)'
 
 
+
+
 class ShipmentsInline(admin.TabularInline):
     model = Shipment
     fk_name = 'order'
     extra = 0
+
 
 class PaymentsInline(admin.TabularInline):
     model = Payment
@@ -165,6 +178,7 @@ admin.site.register(SizeChart)
 admin.site.register(Payment)
 admin.site.register(Type)
 admin.site.register(Comment, CommentAdmin)
+
 
 class ExtraUserInfo(admin.StackedInline):
     model = ExtraUserInfo

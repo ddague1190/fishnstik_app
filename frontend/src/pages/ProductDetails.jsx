@@ -5,8 +5,10 @@ import Message from "../components/utilities/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../redux/actions/productActions";
 import { ProductDetailsDropdowns } from "../components/productpresentation/ProductDetailsDropdowns";
-import QASection from "../components/productpresentation/QASection";
 import { QASectionActionProvider } from "../components/utilities/comments/QASectionActionContext.jsx";
+import RelatedProducts from "../components/productpresentation/RelatedProducts";
+import FeaturesStrip from "../components/productpresentation/FeaturesStrip";
+
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { loading, error, product } = useSelector(
@@ -29,7 +31,8 @@ export default function ProductDetails() {
       ) : error ? (
         <Message>{error}</Message>
       ) : (
-        <div className="pt-6 pb-16 sm:pb-24">
+        <>
+        <div className="pt-6 ">
           <nav
             aria-label="Breadcrumb"
             className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,10 +96,15 @@ export default function ProductDetails() {
               <ProductDetailsDropdowns product={product} />
             </div>
           </div>
+          <FeaturesStrip details={product.details} />
 
           <QASectionActionProvider currentUser={user && { name: user.username, avatarUrl: user.avatarUrl }} _comments={product.comments}
           />
+          {product.related_products && 
+          <RelatedProducts products={product.related_products}/>}
         </div>
+        
+        </>
       )}
     </div>
   );

@@ -12,7 +12,6 @@ import datetime
 from django.urls import reverse
 import os
 from djrichtextfield.models import RichTextField
-import uuid
 
 
 if not os.environ.get("PRODUCTION"):
@@ -51,6 +50,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.extra.save()
+
 
 class MessagingSystem(MPTTModel):
     user = models.ForeignKey(
@@ -167,6 +167,27 @@ class Product(models.Model):
         self.slug = slug
         super(Product, self).save(*args, **kwargs)
 
+    def copy(self):
+        tmp = Product.objects.create()
+        tmp.brand = Brand.objects.get(pk=self.brand)
+        tmp.category = Category.objects.get(pk=self.category)
+        tmp.subcategory = Category.objects.get(pk=self.subcategory)
+        tmp.name = str(datetime.datetime.now())
+        tmp.description = self.description
+        tmp.pulltest = self.pulltest
+        tmp.price = self.price
+        tmp.discountPrice = self.discountPrice
+        tmp.leadTime = self.leadTime
+        tmp.specImage = self.specImage
+        tmp.specHeight = self.specHeight
+        tmp.save()
+
+
+class RelatedProduct(models.Model):
+    parent = models.ForeignKey(
+        Product, related_name='related_products', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
 
 class Comment(MPTTModel):
     product = models.ForeignKey(
@@ -174,10 +195,9 @@ class Comment(MPTTModel):
     parent = TreeForeignKey('self', blank=True, null=True,
                             related_name='children', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    text = models.TextField(max_length=200, null=True, blank=True)
+    text = models.TextField(max_length=400, null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
-    comId = models.AutoField(primary_key=True, editable=False)
-
+    comId = models.IntegerField(primary_key=True, editable=False)
     # def __str__(self):
     #     if self.product:
     #         return self.product.name
@@ -192,6 +212,7 @@ class Comment(MPTTModel):
 
 
 class ProductDetailsList(models.Model):
+    image= models.ImageField(null=True, blank=True)
     detail = models.CharField(max_length=200)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='details')

@@ -559,19 +559,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
           />
         </div>
 
-        <div className="mt-8 border-t text-lg  border-gray-200 pt-8">
-          <h2 className="text-md font-medium text-gray-900">Features</h2>
 
-          <div className="mt-4 ml-10 p text-lg rose prose-sm text-gray-500">
-            <ul>
-              {product?.details?.map(({ detail }, index) => (
-                <li className="list-disc" key={index}>
-                  {detail}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
 
 
 

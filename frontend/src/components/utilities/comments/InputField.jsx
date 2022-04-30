@@ -1,27 +1,38 @@
 import React, { useContext, useState, useReducer } from 'react'
 import styles from './Style.scss'
-import { ActionContext } from './QASectionActionContext.jsx'
+import { ActionContext } from "./QASectionActionContext.jsx"
+import { useDispatch } from "react-redux"
+import { addComment, editComment, deleteComment } from "../../../redux/actions/commentsActions"
+import { useParams } from "react-router"
 
 const InputField = ({ cancellor, parentId, child, value, edit, main, placeholder, setEdit }) => {
-  const actions = useContext(ActionContext)
   const [text, setText] = useState('')
+  const actions = useContext(ActionContext)
+  const dispatch = useDispatch()
+  const { id } = useParams()
 
   const onPostClick = () => {
+    setText('')
     if (setEdit) { setEdit(false) }
     if (edit) {
       if (parentId && !child) {
-        actions.dispatch({ type: 'EDIT_QUESTION', id: parentId, text:text  })
+        actions.dispatch({ type: 'EDIT_QUESTION', id: parentId, text: text })
+        dispatch(editComment(parentId, text));
       }
       else if (parentId && child) {
-        actions.dispatch({ type: 'EDIT_ANSWER' })
+        actions.dispatch({ type: 'EDIT_ANSWER', id: child, parentId: parentId, text: text })
+        dispatch(editComment(child, text));
       }
     }
     else {
-      if (parentId && !child) {
-        actions.dispatch({ type: 'POST_QUESTION' })
+      let newComId = Math.floor(Math.random() * 10000000)
+      if (!parentId) {
+        actions.dispatch({ type: 'POST_QUESTION', text: text, avatarUrl:actions.userImg, fullName: actions.username, comId: newComId })
+        dispatch(addComment(id, { text: text, comId: newComId }))
       }
-      else if (parentId && child) {
-        actions.dispatch({ type: 'POST_ANSWER' })
+      else if (parentId) {
+        actions.dispatch({ type: 'POST_ANSWER', text: text, id: parentId, avatarUrl:actions.userImg, fullName: actions.username, comId: newComId })
+        dispatch(addComment(id, { text: text, parent: parentId, comId: newComId   }))
       }
     }
   }
@@ -50,7 +61,7 @@ const InputField = ({ cancellor, parentId, child, value, edit, main, placeholder
         }
       </figure>
       <input
-        maxLength={100}
+        maxLength={400}
         className="w-full h-10 border-none border-b-[1] bg-transparent ml-1 focus:outline-none focus:border-b-2 focus:border-b-black"
         type='text'
         placeholder={placeholder}
@@ -72,16 +83,13 @@ const InputField = ({ cancellor, parentId, child, value, edit, main, placeholder
         >
           Post
         </button>
-        {(parentId) && (
+        {(parentId) && setEdit && (
           <button
             type="button"
             className="inline-flexitems-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={(e) => {
-              console.log('tryingtocancel')
-              setEdit(false)
+              if (setEdit) setEdit(false)
 
-              // if (edit === true) { actions.submit(cancellor, text, parentId, true, setText) }
-              // else actions.submit(cancellor, text, parentId, false, setText)
             }
             }
           >

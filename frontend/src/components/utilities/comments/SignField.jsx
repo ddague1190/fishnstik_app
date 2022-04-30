@@ -1,11 +1,9 @@
 import React, { useContext } from 'react'
 import styles from './Style.scss'
-import { ActionContext } from './QASectionActionContext.jsx'
 import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router"
 
 const SignField = ({ placeholder }) => {
-  const actions = useContext(ActionContext)
   const navigate = useNavigate()
   const productId = useParams();
 
