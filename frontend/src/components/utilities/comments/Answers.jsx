@@ -4,15 +4,6 @@ import Input from "./Input";
 import SignField from "./SignField";
 import Popup from "./Popup";
 import { motion } from "framer-motion"
-import {
-    modal,
-    modalClose,
-    modalHeader,
-    modalContent,
-    modalActions,
-    modalActionBtn,
-    modalDelBtn
-} from './ModalStyles'
 import { ActionContext } from "./QASectionActionContext.jsx";
 
 const Answer = ({ answer, parentId, index }) => {
@@ -58,7 +49,7 @@ const Answer = ({ answer, parentId, index }) => {
                 </div>
 
                 <div className=" ml-auto">
-                    {actions.username == answer.fullName &&
+                    {actions.username === answer.fullName &&
 
                         <Popup answerId={answer.comId} questionId={parentId} setEdit={setEdit} />
                     }
@@ -119,7 +110,7 @@ const Answers = ({ answers, parentId }) => {
                         })}
 
                     </>
-                    : answers.length > 1 ? <div className="cursor-pointer font-extrabold text-gray-300 text-center w-full block p-2 text-lg tracking-tighter hover:scale-[1.01]" onClick={() => setOpen(true)}>SEE MORE</div> 
+                    : answers.length > 1 ? <div className="-translate-x-10 cursor-pointer font-extrabold text-gray-300 text-center w-full block p-2 text-lg tracking-tighter hover:scale-[1.01]" onClick={() => setOpen(true)}>SEE MORE</div> 
                     : 
                     showInput ?
 

@@ -306,16 +306,16 @@ export const ProductDetailsDropdowns = ({ product }) => {
                   onClick={setOpenChart.bind(null, true)}
 
                   type="button"
-                  className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="-ml-px w-40 justify-center relative inline-flex items-center px-4 py-2 rounded-r-md border  border-gray-300 bg-white font-bold tracking-tight text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   See size chart
                 </button>
                 <button
                   type="button"
                   onClick={() => navigate(`/product/${product.slug}/spec`)}
-                  className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="-ml-px w-40 justify-center relative inline-flex items-center px-4 py-2 rounded-r-md border  border-gray-300 bg-white font-bold tracking-tight text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  Specification (actual scale)
+                  Specification 
                 </button>
               </span>))
 
@@ -523,19 +523,19 @@ export const ProductDetailsDropdowns = ({ product }) => {
             {product.complete_size_chart?.length > 0 ? (openChart ? (
               <SizeChart open={openChart} setOpen={setOpenChart} chart={product.complete_size_chart} />
             ) :
-              <span className="relative z-0 inline-flex mt-8 shadow-sm rounded-md">
+              <span className="relative z-0 inline-flex mt-8 shadow-sm rounded-md flex-wrap">
                 <button
                   onClick={setOpenChart.bind(null, true)}
 
                   type="button"
-                  className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="-ml-px w-40 text-sm sm:text-base  justify-center relative inline-flex items-center px-4 py-2 rounded-r-md border  border-gray-300 bg-white font-bold tracking-tighter text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   See size chart
                 </button>
                 <button
                   type="button"
                   onClick={() => navigate(`/product/${product.slug}/spec`)}
-                  className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="-ml-px w-40 text-sm sm:text-base justify-center relative inline-flex items-center px-4 py-2 rounded-r-md border  border-gray-300 bg-white font-bold tracking-tighter text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   See specification
                 </button>

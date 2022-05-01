@@ -137,7 +137,7 @@ class PicturesSerializer(serializers.ModelSerializer):
 class ProductDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductDetailsList
-        fields = ('detail',)
+        fields ='__all__'
 
 
 class ProductSerializer(serializers.ModelSerializer):

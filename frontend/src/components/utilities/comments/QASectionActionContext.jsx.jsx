@@ -63,7 +63,6 @@ export const QASectionActionProvider = ({ currentUser, _comments }) => {
 
   const [comments, dispatchQASectionActions] = useReducer(reducer, _comments)
 
-  console.log(comments)
 
   return (
     <ActionContext.Provider
@@ -74,7 +73,7 @@ export const QASectionActionProvider = ({ currentUser, _comments }) => {
         dispatch: dispatchQASectionActions
       }}
     >
-      <QASection comments={comments} />
+      <QASection />
     </ActionContext.Provider>
   )
 }
