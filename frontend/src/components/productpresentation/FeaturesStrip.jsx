@@ -37,7 +37,7 @@ const FeaturesStrip = ({ details }) => {
         <>
             {details &&
 
-                <section className="mt-8 py-12 px-4 sm:py-16 sm:px-6 lg:px-8 max-w-7xl  border-t text-lg  border-gray-200 bg-[#FF5656]">
+                <section className="mt-8 py-12 px-4 sm:py-16 sm:px-6 lg:px-8  border-t text-lg  border-gray-200 bg-[#FF5656]">
                     <div className="max-w-3xl mx-auto divide-y-2 divide-gray-200 divide-opacity-40">
                         <h1 className="p-2 text-white text-2xl font-extrabold ">Features...</h1>
                         <div className="p-6  p text-lg rose prose-sm text-white">

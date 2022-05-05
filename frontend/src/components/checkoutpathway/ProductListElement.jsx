@@ -6,7 +6,7 @@ const ProductListElement = ({ product, index }) => {
     <li key={index} className="flex py-6 sm:py-2 rounded-md">
       <div className="flex-shrink-0">
         <img
-          src={product.variantInfo.image}
+          src={product.variantInfo.image || product.productInfo.image.image}
           alt={product.productInfo.name}
           className="w-24 h-24 rounded-lg object-center object-contain sm:w-20 sm:h-12"
         />

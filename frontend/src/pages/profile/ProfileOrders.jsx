@@ -10,11 +10,12 @@ export const ProfileOrders = () => {
   const { loading, error, orders } = useSelector((state) => state.orderListMy);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(orders)
   useEffect(() => {
-    if(!orders) {
+    if(!orders || orders.length==0) {
     dispatch(listMyOrders());
     }
-  }, []);
+  }, [])
   return (
     <>
       {error && <Message>{error}</Message>}

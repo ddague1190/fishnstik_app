@@ -47,8 +47,8 @@ export const ProductDetailsDropdowns = ({ product }) => {
         name: product.name,
         slug: product.slug,
         variantIdentifier: currVariant.identifier,
-        variantTitle: currVariant.title,
-        image: currVariant.image,
+        variantTitle: currVariant.title || currVariant.identifier,
+        image: currVariant.image || product.images[0],
         type: currVariant._type,
         pack: currVariant.pack,
         material: currVariant.material,
@@ -105,10 +105,9 @@ export const ProductDetailsDropdowns = ({ product }) => {
     };
     if (whichType) {
       setCurrVariant(() => {
-        const item = product.variants
-          .filter(updateFilters[whichType])
-          .filter((v, i, a) => a.indexOf(v) === i)[0];
-        return item;
+        return product.variants
+          .filter(updateFilters[whichType])[0]
+          // .filter((v, i, a) => a.indexOf(v) === i)[0];
       });
 
       if (whichType === "justType" || whichType === "typeAndPack") {
@@ -152,9 +151,9 @@ export const ProductDetailsDropdowns = ({ product }) => {
     if (hasTypeOptions) setWhichType("justType");
     if (hasPackOptions) setWhichType("typeAndPack");
     if (hasMaterialOptions) setWhichType("typePackMaterial");
-    setHasPackOptions(hasPackOptions);
-    setHasTypeOptions(hasTypeOptions);
-    setHasMaterialOptions(hasMaterialOptions);
+    setHasPackOptions(true);
+    setHasTypeOptions(true);
+    setHasMaterialOptions(true);
   }, [product.variants]);
 
   const dot = (color = "transparent") => ({
@@ -306,7 +305,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
                   onClick={setOpenChart.bind(null, true)}
 
                   type="button"
-                  className="-ml-px w-40 justify-center relative inline-flex items-center px-4 py-2 rounded-r-md border  border-gray-300 bg-white font-bold tracking-tight text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="-ml-px w-40 justify-center relative inline-flex items-center px-4 py-2 rounded-l-md border  border-gray-300 bg-white font-bold tracking-tight text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   See size chart
                 </button>
@@ -528,7 +527,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
                   onClick={setOpenChart.bind(null, true)}
 
                   type="button"
-                  className="-ml-px w-40 text-sm sm:text-base  justify-center relative inline-flex items-center px-4 py-2 rounded-r-md border  border-gray-300 bg-white font-bold tracking-tighter text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="-ml-px w-40 text-sm sm:text-base  justify-center relative inline-flex items-center px-4 py-2 rounded-l-md border  border-gray-300 bg-white font-bold tracking-tighter text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   See size chart
                 </button>

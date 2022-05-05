@@ -42,6 +42,7 @@ const OrderScreen = () => {
     error: errorPay,
   } = useSelector((state) => state.orderPay);
 
+  console.log(order)
   useEffect(() => {
     if (numPayments > prevNumPayments) {
       dispatch(getOrderDetails(orderId));
@@ -161,7 +162,7 @@ const OrderScreen = () => {
         </dl>
 
         <section className="my-10 relative w-full  border-2 p-2 border-dashed rounded-md">
-          <h1 className="absolute top-1/2 -z-1 text-center text-5xl font-semibold  text-gray-100">
+          <h1 className="absolute top-1/2 -translate-y-1/2 -z-1 text-center text-5xl font-semibold  text-gray-100">
             Payments
           </h1>
           {count.get() > 0 && (
@@ -201,13 +202,13 @@ const OrderScreen = () => {
                 role="list"
                 className="relative border-t border-b border-gray-200 divide-y divide-gray-200 bg-green-50">
                 {orderItems["ready"].map((product, index) => (
-                  <ProductListElement product={product} index={index} />
+                  <ProductListElement key={index} product={product} index={index} />
                 ))}
               </ul>
               {!openPay ? (
                 <button
                   onClick={setOpenPay.bind(null, true)}
-                  className="w-full my-3 bg-blue-800 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-800">
+                  className="w-full my-3 bg-[#FF5656] border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-[#FF8989] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-800">
                   Pay to ship{" "}
                   <i
                     className="fa fa-asterisk -translate-y-1.5 text-xs"
@@ -366,7 +367,7 @@ const OrderScreen = () => {
               role="list"
               className="relative border-t border-b border-gray-200 divide-y divide-gray-200 bg-red-50">
               {orderItems["notReady"].map((product, index) => (
-                <ProductListElement product={product} index={index} />
+                <ProductListElement product={product} index={index} key={index} />
               ))}
             </ul>
           </section>
