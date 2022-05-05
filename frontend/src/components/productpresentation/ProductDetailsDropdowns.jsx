@@ -151,9 +151,9 @@ export const ProductDetailsDropdowns = ({ product }) => {
     if (hasTypeOptions) setWhichType("justType");
     if (hasPackOptions) setWhichType("typeAndPack");
     if (hasMaterialOptions) setWhichType("typePackMaterial");
-    setHasPackOptions(true);
-    setHasTypeOptions(true);
-    setHasMaterialOptions(true);
+    setHasPackOptions(hasPackOptions);
+    setHasTypeOptions(hasTypeOptions);
+    setHasMaterialOptions(hasMaterialOptions);
   }, [product.variants]);
 
   const dot = (color = "transparent") => ({
@@ -227,6 +227,7 @@ export const ProductDetailsDropdowns = ({ product }) => {
       }));
   }
   if (hasTypeOptions && !hasMaterialOptions) {
+    console.log('inhere')
     typeOptions = product.variants
       .map((p) => p._type)
       .filter((v, i, a) => a.indexOf(v) === i)
@@ -284,6 +285,8 @@ export const ProductDetailsDropdowns = ({ product }) => {
         ),
       }));
   }
+
+  console.log(hasMaterialOptions, whichType, hasPackOptions)
 
   return (
     <>
