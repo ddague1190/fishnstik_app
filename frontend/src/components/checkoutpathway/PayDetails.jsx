@@ -72,7 +72,7 @@ const PayDetails = ({ order, index }) => {
         <h1 className="text-xl font-semibold  text-blue-50">Items paid for</h1>
         <ul className="my-8 bg-white rounded-md">
           {payment.paidItems.map((product, index) => (
-            <ProductListElement product={product} index={index} />
+            <ProductListElement product={product} key={index} index={index} />
           ))}
         </ul>
       </div>

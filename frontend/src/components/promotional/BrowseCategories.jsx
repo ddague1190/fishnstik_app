@@ -15,11 +15,7 @@ export const BrowseCategories = () => {
           className="text-2xl font-extrabold tracking-tight text-gray-900">
           Shop by Category
         </h2>
-        <a
-          href="#"
-          className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
-          Browse all categories<span aria-hidden="true"> &rarr;</span>
-        </a>
+
       </div>
 
       <div className="mt-4 flow-root">
@@ -53,13 +49,7 @@ export const BrowseCategories = () => {
         </div>
       </div>
 
-      <div className="mt-6 px-4 sm:hidden">
-        <a
-          href="#"
-          className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-          Browse all categories<span aria-hidden="true"> &rarr;</span>
-        </a>
-      </div>
+
     </section>
   );
 };

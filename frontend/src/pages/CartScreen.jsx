@@ -61,7 +61,7 @@ export default function CartScreen() {
             Shopping Cart
           </h1>
 
-          <form className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
+          <form onSubmit={(e)=>e.preventDefault()} className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
             <section aria-labelledby="cart-heading" className="lg:col-span-7">
               <h2 id="cart-heading" className="sr-only">
                 Items in your shopping cart

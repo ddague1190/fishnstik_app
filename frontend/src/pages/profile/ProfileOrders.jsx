@@ -10,9 +10,9 @@ export const ProfileOrders = () => {
   const { loading, error, orders } = useSelector((state) => state.orderListMy);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(orders)
+
   useEffect(() => {
-    if(!orders || orders.length==0) {
+    if(!orders || orders.length===0) {
     dispatch(listMyOrders());
     }
   }, [])
@@ -49,8 +49,8 @@ export const ProfileOrders = () => {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {orders?.map((order, index) => (
-              <tr className="cursor-pointer hover:bg-blue-100" key={index} onClick={()=>navigate(`/order/${order._id}`)}>
-                <td className="hidden sm:block whitespace-nowrap text-center py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+              <tr className="cursor-pointer  hover:bg-blue-100" key={index} onClick={()=>navigate(`/order/${order._id}`)}>
+                <td className="hidden sm:block whitespace-nowrap text-center py-4 mt-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                   {order._id}
                 </td>
                 <td className=" whitespace-nowrap  text-center px-3 py-4 text-sm text-gray-500 sm:table-cell">

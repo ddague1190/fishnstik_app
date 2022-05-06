@@ -227,7 +227,6 @@ export const ProductDetailsDropdowns = ({ product }) => {
       }));
   }
   if (hasTypeOptions && !hasMaterialOptions) {
-    console.log('inhere')
     typeOptions = product.variants
       .map((p) => p._type)
       .filter((v, i, a) => a.indexOf(v) === i)
@@ -286,7 +285,6 @@ export const ProductDetailsDropdowns = ({ product }) => {
       }));
   }
 
-  console.log(hasMaterialOptions, whichType, hasPackOptions)
 
   return (
     <>

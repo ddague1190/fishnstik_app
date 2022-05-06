@@ -42,7 +42,6 @@ const OrderScreen = () => {
     error: errorPay,
   } = useSelector((state) => state.orderPay);
 
-  console.log(order)
   useEffect(() => {
     if (numPayments > prevNumPayments) {
       dispatch(getOrderDetails(orderId));

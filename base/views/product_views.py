@@ -124,14 +124,6 @@ class CommentView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = product_serializers.CreateCommentSerializer
 
-    # def get_serializer(self, *args, **kwargs):
-    #     if (comId := ):
-    #         draft_request_data = self.request.data.copy()
-    #         draft_request_data["comId"] = comId
-    #         kwargs["data"] = draft_request_data
-
-    #     return super().get_serializer(*args, **kwargs)
-
     def validateUUID(self,uuid):
         try:
             int(''.join((uuid.split('-'))),16)
