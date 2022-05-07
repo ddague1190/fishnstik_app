@@ -10,7 +10,6 @@ from django.urls import re_path
 
 urlpatterns = [
 
-    path('fns192837465/', admin.site.urls),
     path('api/info/', include('base.urls.info_urls')),
     path('api/categories/', include('base.urls.categories_urls')),
     path('api/brands/', include('base.urls.brand_urls')),
